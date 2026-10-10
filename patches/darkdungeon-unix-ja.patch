@@ -1,0 +1,3369 @@
+diff --git a/src/cmd.c b/src/cmd.c
+index 7879f21..b62b8b9 100644
+--- a/src/cmd.c
++++ b/src/cmd.c
+@@ -1,3 +1,4 @@
++/* Modified for DarkDungeon on 2026-10-08. See dat/license. */
+ /* Japanese translation port for DarkDungeon, modified 2026-10-08. See dat/license. */
+ /* NetHack 5.0	cmd.c	$NHDT-Date: 1781973043 2026/06/20 16:30:43 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.772 $ */
+ /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
+@@ -10,6 +11,7 @@
+ /* JNetHack may be freely redistributed.  See license for details. */
+ 
+ #include "hack.h"
++#include "context_action.h"
+ #include "func_tab.h"
+ 
+ #ifdef UNIX
+@@ -1926,6 +1928,13 @@ struct ext_func_tab extcmdlist[] = {
+     { M('C'), "conduct", "どういう行動をとったか見る",
+ #endif
+               doconduct, IFBURIED | AUTOCOMPLETE | GENERALCMD, NULL },
++    { ' ', "contextaction",
++#ifdef DARKDUNGEON_JAPANESE
++      "状況に応じた基本動作",
++#else
++      "perform the basic action for this location",
++#endif
++      darkdungeon_basic_action, IFBURIED | AUTOCOMPLETE, NULL },
+     { '\0',   "debugfuzzer", "start the fuzz tester",
+               wiz_fuzzer, IFBURIED | WIZMODECMD | NOFUZZERCMD, NULL },
+ #if 0 /*JP:T*/
+@@ -2098,8 +2107,24 @@ struct ext_func_tab extcmdlist[] = {
+ #endif
+               dolookaround, IFBURIED | GENERALCMD, NULL },
+ #if 0 /*JP:T*/
++    { '\0', "lookcontainer",
++#ifdef DARKDUNGEON_JAPANESE
++      "足元の容器の中身を見る",
++#else
++      "look inside a container at your feet",
++#endif
++      darkdungeon_look_here, AUTOCOMPLETE, NULL },
++    { '\0', "containermove", NULL, darkdungeon_container_move, INTERNALCMD, NULL },
+     { M('l'), "loot", "loot a box on the floor",
+ #else
++    { '\0', "lookcontainer",
++#ifdef DARKDUNGEON_JAPANESE
++      "足元の容器の中身を見る",
++#else
++      "look inside a container at your feet",
++#endif
++      darkdungeon_look_here, AUTOCOMPLETE, NULL },
++    { '\0', "containermove", NULL, darkdungeon_container_move, INTERNALCMD, NULL },
+     { M('l'), "loot", "床の上の箱を開ける",
+ #endif
+               doloot, AUTOCOMPLETE | CMD_M_PREFIX, NULL },
+@@ -3488,8 +3513,6 @@ keylist_putcmds(winid datawin, boolean docount,
+         keys_already_used[i] = keys_used[i];
+         if (keys_used[i])
+             continue;
+-        if (key == ' ' && !flags.rest_on_space)
+-            continue;
+         bind = cmdbind_get(key);
+         if (bind && bind->cmd != (struct ext_func_tab *) 0) {
+             if ((incl_flags && !(bind->cmd->flags & incl_flags))
+@@ -4191,8 +4214,8 @@ update_rest_on_space(void)
+        description get shown by help menu's "Info on what a given key does"
+        (which runs the '&' command) and "Full list of keyboard commands" */
+     static const struct ext_func_tab restonspace = {
+-        ' ', "wait", "rest one move via 'rest_on_space' option",
+-        donull, (IFBURIED | CMD_M_PREFIX), "waiting"
++        ' ', "contextaction", "状況に応じた基本動作",
++        darkdungeon_basic_action, IFBURIED, NULL
+     };
+     static const struct ext_func_tab *unrestonspace = 0;
+     struct Cmd_bind *bind = cmdbind_get(' ');
+@@ -6494,3 +6517,90 @@ dummyfunction(void)
+ }
+ 
+ /*cmd.c*/
++
++/* DarkDungeon additions, 2026-10-08. Included by NetHack cmd.c.
++ * See NetHack dat/license. Existing commands retain their rule checks. */
++int
++darkdungeon_action_type(int *dx, int *dy)
++{
++    stairway *stairs;
++    int x, y, doors = 0;
++
++    *dx = *dy = 0;
++    if (u.uswallow || u.uburied)
++        return DD_ACTION_WAIT;
++    if (container_at(u.ux, u.uy, TRUE))
++        return DD_ACTION_LOOK;
++    if (svl.level.objects[u.ux][u.uy])
++        return DD_ACTION_PICKUP;
++    if ((stairs = stairway_at(u.ux, u.uy)) != 0)
++        return stairs->up ? DD_ACTION_UP : DD_ACTION_DOWN;
++    for (x = -1; x <= 1; ++x)
++        for (y = -1; y <= 1; ++y) {
++            coordxy tx = u.ux + x, ty = u.uy + y;
++            int glyph, symbol;
++            if (!(x || y) || !isok(tx, ty))
++                continue;
++            glyph = levl[tx][ty].glyph; /* What the hero thinks is there. */
++            if (!glyph_is_cmap(glyph))
++                continue;
++            symbol = glyph_to_cmap(glyph);
++            if (symbol == S_vcdoor || symbol == S_hcdoor) {
++                ++doors;
++                *dx = x;
++                *dy = y;
++            }
++        }
++    if (doors) {
++        if (doors > 1)
++            *dx = *dy = 0; /* Let doopen ask for a direction. */
++        return DD_ACTION_OPEN;
++    }
++    return DD_ACTION_WAIT;
++}
++
++int
++darkdungeon_basic_action(void)
++{
++    int dx, dy;
++    darkdungeon_trace("Space command reached engine");
++    /* Re-evaluate the location; old direction/item answers belong to the
++     * previous action. do_repeat restores its saved queue after we return. */
++    if (gi.in_doagain)
++        cmdq_clear(CQ_REPEAT);
++    switch (darkdungeon_action_type(&dx, &dy)) {
++    case DD_ACTION_LOOK:
++        return darkdungeon_look_here();
++    case DD_ACTION_PICKUP:
++        return dopickup();
++    case DD_ACTION_UP:
++        return doup();
++    case DD_ACTION_DOWN:
++        return dodown();
++    case DD_ACTION_OPEN:
++        {
++            boolean repeating = gi.in_doagain;
++            int result;
++            if ((dx || dy) && !nohands(gy.youmonst.data))
++                cmdq_add_dir(repeating ? CQ_REPEAT : CQ_CANNED,
++                             (schar) dx, (schar) dy, 0);
++            /* Multiple remembered doors need a fresh, visible prompt. */
++            if (repeating && !dx && !dy)
++                gi.in_doagain = FALSE;
++            result = doopen();
++            gi.in_doagain = repeating;
++            return result;
++        }
++    default:
++        {
++            boolean previous = iflags.menu_requested;
++            int result;
++            /* Space explicitly requests one turn, including near enemies.
++             * Use NetHack's existing force-wait path without changing options. */
++            iflags.menu_requested = TRUE;
++            result = donull();
++            iflags.menu_requested = previous;
++            return result;
++        }
++    }
++}
+diff --git a/src/files.c b/src/files.c
+index 9096f12..5a1e321 100644
+--- a/src/files.c
++++ b/src/files.c
+@@ -1,3 +1,4 @@
++/* Modified for DarkDungeon on 2026-10-08. See dat/license. */
+ /* Japanese translation port for DarkDungeon, modified 2026-10-08. See dat/license. */
+ /* NetHack 5.0	files.c	$NHDT-Date: 1781973049 2026/06/20 16:30:49 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.448 $ */
+ /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
+@@ -275,7 +276,7 @@ fname_encode(
+             return callerbuf;
+ 
+         if (*sp == quotechar) {
+-            (void) sprintf(op, "%c%02X", quotechar, *sp);
++            (void) sprintf(op, "%c%02X", quotechar, (unsigned char) *sp);
+             op += 3;
+             cnt += 3;
+         } else if ((strchr(legal, *sp) != 0)
+@@ -284,7 +285,7 @@ fname_encode(
+             *op = '\0';
+             cnt++;
+         } else {
+-            (void) sprintf(op, "%c%02X", quotechar, *sp);
++            (void) sprintf(op, "%c%02X", quotechar, (unsigned char) *sp);
+             op += 3;
+             cnt += 3;
+         }
+diff --git a/src/mhitm.c b/src/mhitm.c
+index 28887d3..909f5bb 100644
+--- a/src/mhitm.c
++++ b/src/mhitm.c
+@@ -1,3 +1,4 @@
++/* Modified for DarkDungeon on 2026-10-08. See dat/license. */
+ /* Japanese translation port for DarkDungeon, modified 2026-10-08. See dat/license. */
+ /* NetHack 5.0	mhitm.c	$NHDT-Date: 1781973054 2026/06/20 16:30:54 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.269 $ */
+ /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
+@@ -353,6 +354,7 @@ mattackm(
+         && magr->my != mdef->my)
+         return M_ATTK_MISS;
+ 
++    { extern void darkdungeon_note_attack(unsigned, int, int); darkdungeon_note_attack(magr->m_id, mdef->mx - magr->mx, mdef->my - magr->my); }
+     /* Calculate the armour class differential. */
+     tmp = find_mac(mdef) + magr->m_lev;
+     if (mdef->mconf || helpless(mdef)) {
+diff --git a/src/mhitu.c b/src/mhitu.c
+index bacb78d..583ca04 100644
+--- a/src/mhitu.c
++++ b/src/mhitu.c
+@@ -1,3 +1,4 @@
++/* Modified for DarkDungeon on 2026-10-08. See dat/license. */
+ /* Japanese translation port for DarkDungeon, modified 2026-10-08. See dat/license. */
+ /* NetHack 5.0	mhitu.c	$NHDT-Date: 1781973054 2026/06/20 16:30:54 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.347 $ */
+ /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
+@@ -671,6 +672,7 @@ mattacku(struct monst *mtmp)
+             skipnonmagc = FALSE;
+ 
+     calc_mattacku_vars(mtmp, &ranged, &range2, &foundyou, &youseeit);
++    { extern void darkdungeon_note_attack(unsigned, int, int); darkdungeon_note_attack(mtmp->m_id, u.ux - mtmp->mx, u.uy - mtmp->my); }
+ 
+     if (!ranged)
+         nomul(0);
+@@ -1013,6 +1015,7 @@ mattacku(struct monst *mtmp)
+                accidentally knocked you to where it thought you were
+                [not sure whether that's actually possible] */
+             calc_mattacku_vars(mtmp, &ranged, &range2, &foundyou, &youseeit);
++    { extern void darkdungeon_note_attack(unsigned, int, int); darkdungeon_note_attack(mtmp->m_id, u.ux - mtmp->mx, u.uy - mtmp->my); }
+             /* if hero was found but isn't anymore, avoid wildmiss now */
+             if (firstfoundyou && !foundyou)
+                 continue; /* set sum[i] to 'miss' but skip other actions */
+diff --git a/src/pickup.c b/src/pickup.c
+index f3cd192..e7edbf6 100644
+--- a/src/pickup.c
++++ b/src/pickup.c
+@@ -1,3 +1,4 @@
++/* Modified for DarkDungeon on 2026-10-08. See dat/license. */
+ /* Japanese translation port for DarkDungeon, modified 2026-10-08. See dat/license. */
+ /* NetHack 5.0	pickup.c	$NHDT-Date: 1781973061 2026/06/20 16:31:01 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.397 $ */
+ /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
+@@ -14,6 +15,8 @@
+  */
+ 
+ #include "hack.h"
++#include "context_action.h"
++static boolean darkdungeon_looking_here = FALSE;
+ 
+ #define CONTAINED_SYM '>' /* from invent.c */
+ 
+@@ -2615,6 +2618,7 @@ doloot_core(void)
+      * 3.3.1 introduced directional looting for some things.
+      */
+  lootmon:
++    if (darkdungeon_looking_here) return timepassed ? ECMD_TIME : ECMD_OK;
+     if (c != 'y' && (mon_beside(u.ux, u.uy) || iflags.menu_requested)) {
+         boolean looted_mon = FALSE;
+ /*JP
+@@ -3561,6 +3565,20 @@ use_container(
+      * or
+      * <The/Your/Shk's container> is empty.  Do what with it? [:irs nq or ?]
+      */
++    /* The Qt inventory window shows the contents for drag and drop. */
++    if (darkdungeon_container_window(gc.current_container)) {
++        if (!gc.current_container->cknown)
++            used = ECMD_TIME;
++        gc.current_container->cknown = 1;
++        ga.abort_looting = TRUE;
++        goto containerdone;
++    }
++    if (darkdungeon_looking_here) {
++        if (!gc.current_container->cknown)
++            used = ECMD_TIME;
++        container_contents(gc.current_container, FALSE, FALSE, TRUE);
++        goto containerdone;
++    }
+     for (;;) { /* repeats iff '?' or ':' gets chosen */
+         outmaybe = (outokay || !gc.current_container->cknown);
+         if (!outmaybe)
+@@ -4754,3 +4772,52 @@ tipcontainer_checks(
+ }
+ 
+ /*pickup.c*/
++
++int darkdungeon_look_here(void) {
++    boolean previous = darkdungeon_looking_here;
++    boolean previous_menu = iflags.menu_requested;
++    int result;
++    if (!container_at(u.ux, u.uy, TRUE)) {
++#ifdef DARKDUNGEON_JAPANESE
++        pline("足元に容器はありません。");
++#else
++        pline("There is no container at your feet.");
++#endif
++        return ECMD_OK;
++    }
++    darkdungeon_looking_here = TRUE;
++    iflags.menu_requested = FALSE;
++    result = doloot();
++    iflags.menu_requested = previous_menu;
++    darkdungeon_looking_here = previous;
++    return result;
++}
++
++/* One drag in the Qt container window: move one inventory stack into, or one
++   stack out of, the container that window shows. The normal in_container()
++   and out_container() rules (curses, shops, weight, bags of holding) apply. */
++unsigned darkdungeon_move_container = 0, darkdungeon_move_object = 0;
++int darkdungeon_move_into = 0;
++int darkdungeon_container_move(void) {
++    struct obj *box = 0, *otmp, *obj = 0;
++    int result;
++    for (otmp = svl.level.objects[u.ux][u.uy]; otmp && !box; otmp = otmp->nexthere)
++        if (otmp->o_id == darkdungeon_move_container) box = otmp;
++    for (otmp = gi.invent; otmp && !box; otmp = otmp->nobj)
++        if (otmp->o_id == darkdungeon_move_container) box = otmp;
++    if (!box || !Is_container(box) || box->olocked || !u_handsy())
++        return ECMD_OK;
++    for (otmp = darkdungeon_move_into ? gi.invent : box->cobj; otmp; otmp = otmp->nobj)
++        if (otmp->o_id == darkdungeon_move_object) obj = otmp;
++    if (!obj || obj == box)
++        return ECMD_OK;
++    gc.current_container = box;
++    gs.sellobj_first = TRUE; /* in_container() should call sellobj_state() */
++    result = darkdungeon_move_into ? in_container(obj) : out_container(obj);
++    sellobj_state(SELL_NORMAL);
++    if (gc.current_container)
++        gc.current_container->cknown = 1;
++    gc.current_container = 0;
++    update_inventory();
++    return result ? ECMD_TIME : ECMD_OK;
++}
+\ No newline at end of file
+diff --git a/src/restore.c b/src/restore.c
+index 9cf3499..caf0938 100644
+--- a/src/restore.c
++++ b/src/restore.c
+@@ -1,3 +1,4 @@
++/* Modified for DarkDungeon on 2026-10-08. See dat/license. */
+ /* Japanese translation port for DarkDungeon, modified 2026-10-08. See dat/license. */
+ /* NetHack 5.0	restore.c	$NHDT-Date: 1781973064 2026/06/20 16:31:04 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.265 $ */
+ /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
+@@ -829,7 +830,7 @@ dorecover(NHFILE *nhfp)
+     program_state.restoring = REST_GSTATE;
+ 
+     get_plname_from_file(nhfp, plname, TRUE);
+-    Snprintf(svp.plname, sizeof(svp.plname), "%s", plname);
++    Snprintf(svp.plname, sizeof(svp.plname), "%s", plname); gp.plnamelen = (int) strlen(svp.plname);
+     /*
+      * The position in the save file is now here:
+      *
+@@ -930,7 +931,7 @@ dorecover(NHFILE *nhfp)
+     rewind_nhfile(nhfp);        /* return to beginning of file */
+     (void) validate(nhfp, (char *) 0, FALSE, 0);
+     get_plname_from_file(nhfp, plname, TRUE);
+-    Snprintf(svp.plname, sizeof(svp.plname), "%s", plname);
++    Snprintf(svp.plname, sizeof(svp.plname), "%s", plname); gp.plnamelen = (int) strlen(svp.plname);
+ 
+     /* not 0 nor REST_GSTATE nor REST_LEVELS */
+     program_state.restoring = REST_CURRENT_LEVEL;
+diff --git a/src/role.c b/src/role.c
+index 0bbcd4c..58409ee 100644
+--- a/src/role.c
++++ b/src/role.c
+@@ -1,3 +1,4 @@
++/* Modified for DarkDungeon on 2026-10-08. See dat/license. */
+ /* Japanese translation port for DarkDungeon, modified 2026-10-08. See dat/license. */
+ /* NetHack 5.0	role.c	$NHDT-Date: 1781973065 2026/06/20 16:31:05 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.111 $ */
+ /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985-1999. */
+@@ -2123,9 +2124,10 @@ plnamesuffix(void)
+ 
+     do {
+         if (!svp.plname[0]) {
++            gp.plnamelen = 0;
+             askname(); /* fill svp.plname[] if necessary, or set
+                         * defer_plname */
+-            gp.plnamelen = 0; /* plname[] might have -role-race-&c attached */
++            /* askname may have supplied a literal name length. */
+         }
+ 
+         /* Look for tokens delimited by '-' */
+diff --git a/src/uhitm.c b/src/uhitm.c
+index bafd161..58c179f 100644
+--- a/src/uhitm.c
++++ b/src/uhitm.c
+@@ -1,3 +1,4 @@
++/* Modified for DarkDungeon on 2026-10-08. See dat/license. */
+ /* Japanese translation port for DarkDungeon, modified 2026-10-08. See dat/license. */
+ /* NetHack 5.0	uhitm.c	$NHDT-Date: 1781973071 2026/06/20 16:31:11 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.503 $ */
+ /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
+@@ -625,6 +626,7 @@ do_attack(struct monst *mtmp)
+         return FALSE;
+     }
+ 
++    { extern void darkdungeon_note_attack(unsigned, int, int); darkdungeon_note_attack(0, mtmp->mx - u.ux, mtmp->my - u.uy); }
+     if (Upolyd)
+         (void) hmonas(mtmp);
+     else
+diff --git a/include/fnamesiz.h b/include/fnamesiz.h
+index c35c51a..7d2eafc 100644
+--- a/include/fnamesiz.h
++++ b/include/fnamesiz.h
+@@ -1,3 +1,4 @@
++/* Modified for DarkDungeon on 2026-10-08. See dat/license. */
+ /* NetHack 5.0	fnamesiz.h	$NHDT-Date: 1781973080 2026/06/20 16:31:20 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.5 $ */
+ /*-Copyright (c) Michael Allison, 2020. */
+ /* NetHack may be freely redistributed.  See license for details. */
+@@ -30,7 +31,7 @@
+ #define BONESSIZE sizeof(BONESINIT)
+ #endif
+ #if defined(WIN32)
+-#define LOCKNAMESIZE (PL_NSIZ + 25) /* long enough for username+-+name+.99 */
++#define LOCKNAMESIZE (3 * PL_NSIZ + 25) /* long enough for username+-+name+.99 */
+ #define LOCKNAMEINIT ""
+ #define BONESINIT "bonesnn.xxx.le"
+ #define BONESSIZE sizeof(BONESINIT)
+@@ -79,7 +80,11 @@
+ #endif
+ 
+ #ifndef MICRO
++#ifdef WIN32
++#define SAVESIZE (3 * PL_NSIZ + sizeof(SAVEX) + sizeof(SAVE_EXTENSION) + INDSIZE)
++#else
+ #define SAVESIZE (PL_NSIZ + sizeof(SAVEX) + sizeof(SAVE_EXTENSION) + INDSIZE)
++#endif
+ #else
+ #define SAVESIZE FILENAME
+ #endif
+diff --git a/win/Qt/qt_bind.cpp b/win/Qt/qt_bind.cpp
+index feb716a..e9b5502 100644
+--- a/win/Qt/qt_bind.cpp
++++ b/win/Qt/qt_bind.cpp
+@@ -1,3 +1,6 @@
++/* Modified for DarkDungeon on 2026-10-08. See dat/license. */
++/* Japanese Qt text, modified for DarkDungeon 2026-10-08. See dat/license. */
++/* Modified for DarkDungeon on 2026-10-08. See dat/license. */
+ // Copyright (c) Warwick Allison, 1999.
+ // Qt4 conversion copyright (c) Ray Chason, 2012-2014.
+ // NetHack may be freely redistributed.  See license for details.
+@@ -23,6 +26,7 @@ extern "C" {
+ #include <QSoundEffect>
+ #endif  /* QT_VERSION */
+ #endif /* USER_SOUNDS && !QT_NO_SOUND */
++#include <QtWidgets/QtWidgets>
+ #include "qt_post.h"
+ #include "qt_bind.h"
+ #include "qt_click.h"
+@@ -41,13 +45,14 @@ extern "C" {
+ #include "qt_streq.h"
+ #include "qt_yndlg.h"
+ #include "qt_str.h"
++#include "qt_darkdungeon.h"
+ 
+ extern "C" {
+ #include "dlb.h"
+ }
+ 
+ // temporary
+-extern int qt_compact_mode;
++extern "C" int qt_compact_mode;
+ // end temporary
+ 
+ namespace nethack_qt_ {
+@@ -95,13 +100,13 @@ NetHackQtBind::NetHackQtBind(int& argc, char** argv) :
+ 
+     // these used to be in MainWindow but we want them before QtSettings
+     // which we want before MainWindow...
+-    QCoreApplication::setOrganizationName("The NetHack DevTeam");
++    QCoreApplication::setOrganizationName("DarkDungeon");
+     QCoreApplication::setOrganizationDomain("nethack.org");
+-    QCoreApplication::setApplicationName("NetHack-Qt"); // Qt NetHack
++    QCoreApplication::setApplicationName("DarkDungeon"); // Qt NetHack
+     {
+         char cvers[BUFSZ];
+         QString qvers = QString(::version_string(cvers, sizeof cvers));
+-        QCoreApplication::setApplicationVersion(qvers);
++        QCoreApplication::setApplicationVersion("0.1.0");
+     }
+ #ifdef MACOS
+     /* without this, neither control+x nor option+x do anything;
+@@ -109,9 +114,9 @@ NetHackQtBind::NetHackQtBind(int& argc, char** argv) :
+     QCoreApplication::setAttribute(Qt::AA_MacDontSwapCtrlAndMeta);
+ #endif
+ 
+-    qt_settings = new NetHackQtSettings(); /*(main->width(),main->height());*/
++    QDir::setCurrent(QCoreApplication::applicationDirPath()); darkdungeon_language_init(); darkdungeon_view_defaults(); darkdungeon_trace("画面設定"); qt_settings = new NetHackQtSettings(); /*(main->width(),main->height());*/
+ 
+-    main = new NetHackQtMainWindow(keybuffer);
++    darkdungeon_trace("Qt main window"); main = new NetHackQtMainWindow(keybuffer); darkdungeon_trace("Qt constructor ready");
+     connect(qApp, SIGNAL(lastWindowClosed()), qApp, SLOT(quit()));
+     msgs_strings = new QStringList();
+     msgs_initd = false;
+@@ -120,7 +125,7 @@ NetHackQtBind::NetHackQtBind(int& argc, char** argv) :
+ 
+ // before the game windows have been rendered, display a small, centered
+ // window showing a flying red dragon ridden by someone wielding a lance,
+-// with caption "Loading..."
++// with caption "読み込み中…"
+ void
+ NetHackQtBind::qt_Splash()
+ {
+@@ -136,7 +141,7 @@ NetHackQtBind::qt_Splash()
+         lsplash->setPixmap(pm);
+         lsplash->setFixedSize(pm.size());
+         //lsplash->setMask(pm.mask());
+-        QLabel *capt = new QLabel("Loading...", splash);
++        QLabel *capt = new QLabel("読み込み中…", splash);
+         vb->addWidget(capt);
+         capt->setAlignment(Qt::AlignCenter);
+ 
+@@ -199,7 +204,13 @@ void NetHackQtBind::qt_init_nhwindows(int *argc, char **argv)
+     seteuid(getuid());
+ #endif
+ 
++    if (!qEnvironmentVariable("DARKDUNGEON_SMOKE_OUTPUT").isEmpty()) {
++        QSettings::setDefaultFormat(QSettings::IniFormat);
++        QSettings::setPath(QSettings::IniFormat, QSettings::UserScope, qEnvironmentVariable("DARKDUNGEON_SMOKE_OUTPUT"));
++    }
+     instance=new NetHackQtBind(*argc,argv);
++    QDir::setCurrent(QCoreApplication::applicationDirPath());
++    darkdungeon_start_hooks();
+ 
+ #ifdef UNIX
+     seteuid(gamesuid);
+@@ -262,12 +273,23 @@ void NetHackQtBind::qt_askname()
+         NetHackQtSavedGameSelector sgsel((const char **) saved);
+         ch = sgsel.choose();
+         if (ch >= 0)
+-            str_copy(svp.plname, saved[ch], SIZE(svp.plname));
++            {
++            const char* chosen=saved[ch];
++            const char* suffix=chosen+strlen(chosen);
++            for(int field=0;field<4;++field) {
++                while(suffix>chosen && suffix[-1]!='-')--suffix;
++                if(suffix==chosen)break;
++                --suffix;
++            }
++            gp.plnamelen=int(suffix-chosen);
++            str_copy(svp.plname,chosen,SIZE(svp.plname));
++            ::plnamesuffix();
++        }
+         // caller needs new lock name even if plname[] hasn't changed
+         // because successful get_saved_games() clobbers gs.SAVEF[]
+         ::iflags.renameinprogress = TRUE;
+     }
+-    free_saved_games(saved);
++    free_saved_games(saved); if (ch < 0) str_copy(svp.plname, default_plname, PL_NSIZ);
+ #endif
+ 
+     switch (ch) {
+@@ -432,13 +454,13 @@ void NetHackQtBind::qt_curs(winid wid, int x, int y)
+ void NetHackQtBind::qt_putstr(winid wid, int attr, const char *text)
+ {
+     NetHackQtWindow* window=id_to_window[(int)wid];
+-    window->PutStr(attr,QString::fromLatin1(text));
++    window->PutStr(attr,QString::fromUtf8(text));
+ }
+ 
+ void NetHackQtBind::qt_putstr(winid wid, int attr, const std::string& text)
+ {
+     NetHackQtWindow* window=id_to_window[(int)wid];
+-    window->PutStr(attr,QString::fromLatin1(text.c_str(), text.size()));
++    window->PutStr(attr,QString::fromUtf8(text.c_str(), text.size()));
+ }
+ 
+ void NetHackQtBind::qt_putstr(winid wid, int attr, const QString& text)
+@@ -476,7 +498,7 @@ void NetHackQtBind::qt_display_file(const char *filename, boolean must_exist)
+ 
+     if (complain) {
+         QString message = nh_qsprintf("File not found: %s\n",filename);
+-        QMessageBox::warning(NULL, "File Error", message, QMessageBox::Ignore);
++        QMessageBox::warning(NULL, "ファイルエラー", message, QMessageBox::Ignore);
+     }
+ }
+ 
+@@ -492,7 +514,7 @@ void NetHackQtBind::qt_add_menu(winid wid, const glyph_info *glyphinfo,
+ {
+     NetHackQtWindow* window=id_to_window[(int)wid];
+     window->AddMenu(glyphinfo->glyph, identifier, ch, gch, attr, clr,
+-            QString::fromLatin1(str),
++            QString::fromUtf8(str),
+             itemflags);
+ }
+ 
+@@ -635,24 +657,25 @@ const QPen NetHackQtBind::nhcolor_to_pen(uint32_t c)
+ 
+ int NetHackQtBind::qt_nhgetch()
+ {
++    if (!qt_kbhit()) (void)darkdungeon_take_toolbar_command();
+     if (main)
+         main->fadeHighlighting(true);
+ 
+     // Process events until a key arrives.
+     //
+     while (keybuffer.Empty()) {
+-        int exc = qApp->exec();
++        int exc = qApp->exec(); darkdungeon_finish_smoke();
+         /*
+          * On OSX (possibly elsewhere), this prevents an infinite
+          * loop repeatedly issuing the complaint:
+ QCoreApplication::exec: The event loop is already running
+          * to stderr if you synchronously start nethack from a terminal
+          * then switch focus back to that terminal and type ^C.
+-         *  SIGINT -> done1() -> done2() -> yn_function("Really quit?")
++         *  SIGINT -> done1() -> done2() -> yn_function("本当に終了しますか？")
+          * in the core asks for another keystroke.
+          *
+          * However, it still issues one such complaint, and whatever
+-         * prompt wanted a response ("Really quit?") is shown in the
++         * prompt wanted a response ("本当に終了しますか？") is shown in the
+          * message window but is auto-answered with ESC.
+          */
+         if (exc == -1)
+@@ -671,7 +694,7 @@ void
+ NetHackQtBind::free_qt_input_timer(void)
+ {
+     if (qt_input_timer) {
+-        if (qt_input_timer->isActive())
++        if (qt_input_timer && qt_input_timer->isActive())
+             qt_input_timer->stop();
+         if (qt_input_timer)
+             delete qt_input_timer;
+@@ -691,7 +714,7 @@ qt_timer_fire(void)
+         save_currentstate();
+ #endif /* INSURANCE */
+     }
+-    if (qt_input_timer->isActive())
++    if (qt_input_timer && qt_input_timer->isActive())
+         qt_input_timer->stop();
+ }
+ 
+@@ -704,6 +727,7 @@ qt_timer_fire(void)
+ 
+ int NetHackQtBind::qt_nh_poskey(coordxy *x, coordxy *y, int *mod)
+ {
++    if (!qt_kbhit()) (void)darkdungeon_take_toolbar_command();
+     if (main)
+         main->fadeHighlighting(true);
+ 
+@@ -721,7 +745,7 @@ int NetHackQtBind::qt_nh_poskey(coordxy *x, coordxy *y, int *mod)
+     // Process events until a key or map-click arrives.
+     //
+     while (keybuffer.Empty() && clickbuffer.Empty()) {
+-        int exc = qApp->exec();
++        int exc = qApp->exec(); darkdungeon_finish_smoke();
+         // [see comment above in qt_nhgetch()]
+         if (exc == -1)
+             keybuffer.Put('\033');
+@@ -733,7 +757,7 @@ int NetHackQtBind::qt_nh_poskey(coordxy *x, coordxy *y, int *mod)
+ 
+     if (!keybuffer.Empty()) {
+ #ifdef IDLECHECKPOINT
+-        if (qt_input_timer->isActive())
++        if (qt_input_timer && qt_input_timer->isActive())
+             qt_input_timer->stop();
+ #endif
+         return keybuffer.GetAscii();
+@@ -743,7 +767,7 @@ int NetHackQtBind::qt_nh_poskey(coordxy *x, coordxy *y, int *mod)
+         *mod=clickbuffer.NextMod();
+         clickbuffer.Get();
+ #ifdef IDLECHECKPOINT
+-        if (qt_input_timer->isActive())
++        if (qt_input_timer && qt_input_timer->isActive())
+             qt_input_timer->stop();
+ #endif
+         return 0;
+@@ -840,7 +864,7 @@ char NetHackQtBind::qt_more()
+ char NetHackQtBind::qt_yn_function(const char *question_,
+                                    const char *choices, char def)
+ {
+-    QString question(QString::fromLatin1(question_));
++    QString question(QString::fromUtf8(question_));
+     QString message;
+     char yn_esc_map='\033';
+     int result = -1;
+@@ -963,27 +987,12 @@ void NetHackQtBind::qt_getlin(const char *prompt, char *line)
+         keybuffer.Drain();
+     }
+ 
+-    // add the prompt with appended response to the message window
+-    char buf[BUFSZ + 20], *q; /* +20: plenty of extra room for visctrl() */
+-    copynchars(buf, prompt, BUFSZ - 1);
+-    q = eos(buf);
+-    *q++ = ' '; /* guaranteed to fit; temporary lack of terminator is ok */
+-
+-    if (line[0] == '\033') {
+-        Strcpy(q, "ESC");
+-    } else if (line[0] == ' ' && !line[1]) {
+-        Strcpy(q, "SPC");
+-    } else {
+-        /* buf[] has more than enough room to hold one extra visctrl()
+-           in case q is at the last viable slot and *p yields "M-^c" */
+-        for (char *p = line; *p && q < &buf[BUFSZ - 1]; ++p, q = eos(q))
+-            Strcpy(q, visctrl(*p));
+-    }
+-    if (q > &buf[BUFSZ - 1])
+-        q = &buf[BUFSZ - 1];
+-    *q = '\0';
+-
+-    NetHackQtBind::qt_putstr(WIN_MESSAGE, ATR_BOLD, buf);
++    // Preserve complete UTF-8 input instead of displaying individual bytes.
++    QString response=QString::fromUtf8(line);
++    if(line[0]=='\033')response="Esc";
++    else if(line[0]==' ' && !line[1])response="Space";
++    const QByteArray echoed=(QString::fromUtf8(prompt)+" "+response).toUtf8();
++    NetHackQtBind::qt_putstr(WIN_MESSAGE, ATR_BOLD, echoed.constData());
+     // unhighlight the prompt; does not erase the multi-line message window
+     NetHackQtBind::qt_clear_nhwindow(WIN_MESSAGE);
+ }
+@@ -991,6 +1000,8 @@ void NetHackQtBind::qt_getlin(const char *prompt, char *line)
+ // User has typed '#' to begin entering an extended command; core calls us.
+ int NetHackQtBind::qt_get_ext_cmd()
+ {
++    const int toolbarCommand=darkdungeon_take_toolbar_command();
++    if(toolbarCommand>=0) { qt_clear_nhwindow(WIN_MESSAGE);return toolbarCommand; }
+     NetHackQtExtCmdRequestor *xcmd;
+     int result;
+     do {
+@@ -1088,7 +1099,7 @@ void NetHackQtBind::qt_putmsghistory(const char *msg, boolean is_restoring)
+ 
+     if (msg) {
+         //raw_printf("msg='%s'", msg);
+-        window->PutStr(ATR_NONE, QString::fromLatin1(msg));
++        window->PutStr(ATR_NONE, QString::fromUtf8(msg));
+ #ifdef DUMPLOG_CORE
+         dumplogmsg(msg);
+ #endif
+@@ -1098,7 +1109,7 @@ void NetHackQtBind::qt_putmsghistory(const char *msg, boolean is_restoring)
+             const QString &nxtmsg = msgs_strings->at(i);
+             window->PutStr(ATR_NONE, nxtmsg);
+ #ifdef DUMPLOG_CORE
+-            dumplogmsg(nxtmsg.toLatin1().constData());
++            dumplogmsg(nxtmsg.toUtf8().constData());
+ #endif
+         }
+         delete msgs_strings;
+@@ -1115,6 +1126,7 @@ bool NetHackQtBind::notify(QObject *receiver, QEvent *event)
+         && ((QKeyEvent *) event)->key() == Qt::Key_Alt)
+         return true;
+ 
++    if (darkdungeon_route_arrow(receiver, event)) return true;
+     bool result = QApplication::notify(receiver, event);
+     int evtyp = event->type();
+ 
+@@ -1228,7 +1240,7 @@ void NetHackQtBind::qtsound_play_usersound(char *filename, int32_t volume, int32
+ 
+ } // namespace nethack_qt_
+ 
+-struct window_procs Qt_procs = {
++extern "C" struct window_procs Qt_procs = {
+     WPID(Qt),
+     (WC_COLOR | WC_HILITE_PET
+      | WC_ASCII_MAP | WC_TILED_MAP
+diff --git a/win/Qt/qt_bind.h b/win/Qt/qt_bind.h
+index 17dad75..9771eb5 100644
+--- a/win/Qt/qt_bind.h
++++ b/win/Qt/qt_bind.h
+@@ -1,3 +1,4 @@
++/* Japanese Qt text, modified for DarkDungeon 2026-10-08. See dat/license. */
+ // Copyright (c) Warwick Allison, 1999.
+ // Qt4 conversion copyright (c) Ray Chason, 2012-2014.
+ // NetHack may be freely redistributed.  See license for details.
+diff --git a/win/Qt/qt_click.cpp b/win/Qt/qt_click.cpp
+index d8f5030..cc6a7c1 100644
+--- a/win/Qt/qt_click.cpp
++++ b/win/Qt/qt_click.cpp
+@@ -1,3 +1,4 @@
++/* Japanese Qt text, modified for DarkDungeon 2026-10-08. See dat/license. */
+ // Copyright (c) Warwick Allison, 1999.
+ // Qt4 conversion copyright (c) Ray Chason, 2012-2014.
+ // NetHack may be freely redistributed.  See license for details.
+diff --git a/win/Qt/qt_click.h b/win/Qt/qt_click.h
+index 325f455..8115f8c 100644
+--- a/win/Qt/qt_click.h
++++ b/win/Qt/qt_click.h
+@@ -1,3 +1,4 @@
++/* Japanese Qt text, modified for DarkDungeon 2026-10-08. See dat/license. */
+ // Copyright (c) Warwick Allison, 1999.
+ // Qt4 conversion copyright (c) Ray Chason, 2012-2014.
+ // NetHack may be freely redistributed.  See license for details.
+diff --git a/win/Qt/qt_clust.cpp b/win/Qt/qt_clust.cpp
+index d63d2d7..0292851 100644
+--- a/win/Qt/qt_clust.cpp
++++ b/win/Qt/qt_clust.cpp
+@@ -1,3 +1,4 @@
++/* Japanese Qt text, modified for DarkDungeon 2026-10-08. See dat/license. */
+ /*	SCCS Id: @(#)qt_clust.cpp	3.4	1999/11/19	*/
+ /* Copyright (c) Warwick Allison, 1999. */
+ /* NetHack may be freely redistributed.  See license for details. */
+diff --git a/win/Qt/qt_clust.h b/win/Qt/qt_clust.h
+index c7112ea..6c4de17 100644
+--- a/win/Qt/qt_clust.h
++++ b/win/Qt/qt_clust.h
+@@ -1,3 +1,4 @@
++/* Japanese Qt text, modified for DarkDungeon 2026-10-08. See dat/license. */
+ /*	SCCS Id: @(#)qt_clust.h	3.4	1999/11/19	*/
+ /* Copyright (c) Warwick Allison, 1999. */
+ /* NetHack may be freely redistributed.  See license for details. */
+diff --git a/win/Qt/qt_delay.cpp b/win/Qt/qt_delay.cpp
+index 0fa3003..c585570 100644
+--- a/win/Qt/qt_delay.cpp
++++ b/win/Qt/qt_delay.cpp
+@@ -1,3 +1,4 @@
++/* Japanese Qt text, modified for DarkDungeon 2026-10-08. See dat/license. */
+ // Copyright (c) Warwick Allison, 1999.
+ // Qt4 conversion copyright (c) Ray Chason, 2012-2014.
+ // NetHack may be freely redistributed.  See license for details.
+diff --git a/win/Qt/qt_delay.h b/win/Qt/qt_delay.h
+index 8c91885..576cc63 100644
+--- a/win/Qt/qt_delay.h
++++ b/win/Qt/qt_delay.h
+@@ -1,3 +1,4 @@
++/* Japanese Qt text, modified for DarkDungeon 2026-10-08. See dat/license. */
+ // Copyright (c) Warwick Allison, 1999.
+ // Qt4 conversion copyright (c) Ray Chason, 2012-2014.
+ // NetHack may be freely redistributed.  See license for details.
+diff --git a/win/Qt/qt_glyph.cpp b/win/Qt/qt_glyph.cpp
+index 9aa739f..7266f26 100644
+--- a/win/Qt/qt_glyph.cpp
++++ b/win/Qt/qt_glyph.cpp
+@@ -1,3 +1,6 @@
++/* Japanese Qt text, modified for DarkDungeon 2026-10-08. See dat/license. */
++/* Modified for DarkDungeon on 2026-10-08. See dat/license. */
++/* Modified for DarkDungeon on 2026-10-08. See dat/license. */
+ // Copyright (c) Warwick Allison, 1999.
+ // Qt4 conversion copyright (c) Ray Chason, 2012-2014.
+ // NetHack may be freely redistributed.  See license for details.
+@@ -30,6 +33,9 @@ static int tilefile_tile_W=16;
+ static int tilefile_tile_H=16;
+ 
+ // Debian uses a separate PIXMAPDIR
++#ifdef WIN32
++#define PIXMAPDIR "."
++#endif
+ #ifndef PIXMAPDIR
+ # ifdef HACKDIR
+ #  define PIXMAPDIR HACKDIR
+@@ -45,6 +51,7 @@ NetHackQtGlyphs::NetHackQtGlyphs()
+     const char *tile_file = NULL, *tile_list[2];
+ 
+     this->no_tiles = false;
++    builtin_tiles = !user_tiles;
+     tiles_per_row = TILES_PER_ROW;
+ 
+     if (user_tiles) {
+@@ -67,7 +74,7 @@ NetHackQtGlyphs::NetHackQtGlyphs()
+                                   user_tiles ? tile_list[0]
+                                     // mismatched quotes match format
+                                     : "nhtiles.bmp' or 'x11tiles");
+-        QMessageBox::warning(0, "IO Error", msg);
++        QMessageBox::warning(0, "入出力エラー", msg);
+     } else {
+         if (img.width() % tiles_per_row) {
+             tilesok = FALSE;
+@@ -276,3 +283,20 @@ void NetHackQtGlyphs::setSize(int w, int h)
+ }
+ 
+ } // namespace nethack_qt_
++
++namespace nethack_qt_ {
++void NetHackQtGlyphs::drawForegroundCell(QPainter& painter,int glyphIndex,int tileidx,int cellx,int celly) {
++    if(!foreground.contains(tileidx)) {
++        QImage tile=glyph(glyphIndex,tileidx).toImage().convertToFormat(QImage::Format_ARGB32);
++        // The '.' palette entry in the bundled monsters/objects tile sources
++        // is a reserved background. Preserve black outlines and user tile art.
++        if(builtin_tiles)for(int y=0;y<tile.height();++y) {
++            auto* row=reinterpret_cast<QRgb*>(tile.scanLine(y));
++            for(int x=0;x<tile.width();++x)
++                if((row[x]&0x00ffffff)==(qRgb(71,108,108)&0x00ffffff))row[x]=0;
++        }
++        foreground.insert(tileidx,tile);
++    }
++    painter.drawImage(QRect(cellx*width(),celly*height(),width(),height()),foreground[tileidx]);
++}
++}
+\ No newline at end of file
+diff --git a/win/Qt/qt_glyph.h b/win/Qt/qt_glyph.h
+index 8f5e9c6..5a05c81 100644
+--- a/win/Qt/qt_glyph.h
++++ b/win/Qt/qt_glyph.h
+@@ -1,3 +1,5 @@
++/* Japanese Qt text, modified for DarkDungeon 2026-10-08. See dat/license. */
++/* Modified for DarkDungeon on 2026-10-08. See dat/license. */
+ // Copyright (c) Warwick Allison, 1999.
+ // Qt4 conversion copyright (c) Ray Chason, 2012-2014.
+ // NetHack may be freely redistributed.  See license for details.
+@@ -33,11 +35,14 @@ public:
+         void drawBorderedCell(QPainter &, int glyph, int tileidx,
+                               int cellx, int celly, int bordercode,
+                               bool reversed);
++        void drawForegroundCell(QPainter&, int glyph, int tileidx, int cellx, int celly);
+         QPixmap glyph(int glyphindx, int tileidx);
+         QPixmap reversed_pixmap(int glyphindx, int tileidx);
+ 
+ private:
+ 	QImage img;
++        QMap<int,QImage> foreground;
++        bool builtin_tiles;
+ 	QPixmap pm,pm1, pm2;
+ 	QSize size;
+ 	int tiles_per_row;
+diff --git a/win/Qt/qt_icon.cpp b/win/Qt/qt_icon.cpp
+index 488584f..0f23f8b 100644
+--- a/win/Qt/qt_icon.cpp
++++ b/win/Qt/qt_icon.cpp
+@@ -1,3 +1,4 @@
++/* Japanese Qt text, modified for DarkDungeon 2026-10-08. See dat/license. */
+ // Copyright (c) Warwick Allison, 1999.
+ // Qt4 conversion copyright (c) Ray Chason, 2012-2014.
+ // NetHack may be freely redistributed.  See license for details.
+diff --git a/win/Qt/qt_icon.h b/win/Qt/qt_icon.h
+index dddcda7..0741451 100644
+--- a/win/Qt/qt_icon.h
++++ b/win/Qt/qt_icon.h
+@@ -1,3 +1,4 @@
++/* Japanese Qt text, modified for DarkDungeon 2026-10-08. See dat/license. */
+ // Copyright (c) Warwick Allison, 1999.
+ // Qt4 conversion copyright (c) Ray Chason, 2012-2014.
+ // NetHack may be freely redistributed.  See license for details.
+diff --git a/win/Qt/qt_inv.cpp b/win/Qt/qt_inv.cpp
+index 76bc06c..4c78d3e 100644
+--- a/win/Qt/qt_inv.cpp
++++ b/win/Qt/qt_inv.cpp
+@@ -1,3 +1,4 @@
++/* Japanese Qt text, modified for DarkDungeon 2026-10-08. See dat/license. */
+ // Copyright (c) Warwick Allison, 1999.
+ // Qt4 conversion copyright (c) Ray Chason, 2012-2014.
+ // NetHack may be freely redistributed.  See license for details.
+@@ -5,7 +6,7 @@
+ // qt_inv.cpp -- inventory subset of equipment in use,
+ //               displayed in a rectangular grid of object tiles
+ //
+-// Essentially a "paper doll" style display.  [grep fodder]
++// Essentially a "装備の表示" style display.  [grep fodder]
+ //
+ // This is at the top center of the main window, between messages and
+ // status.  Qt settings (non-OSX) or Preferences (OSX) has a checkbox to
+diff --git a/win/Qt/qt_inv.h b/win/Qt/qt_inv.h
+index 2c1c694..8c815b2 100644
+--- a/win/Qt/qt_inv.h
++++ b/win/Qt/qt_inv.h
+@@ -1,3 +1,4 @@
++/* Japanese Qt text, modified for DarkDungeon 2026-10-08. See dat/license. */
+ // Copyright (c) Warwick Allison, 1999.
+ // Qt4 conversion copyright (c) Ray Chason, 2012-2014.
+ // NetHack may be freely redistributed.  See license for details.
+diff --git a/win/Qt/qt_kde0.h b/win/Qt/qt_kde0.h
+index 8ac1f95..5bce1ba 100644
+--- a/win/Qt/qt_kde0.h
++++ b/win/Qt/qt_kde0.h
+@@ -1,3 +1,4 @@
++/* Japanese Qt text, modified for DarkDungeon 2026-10-08. See dat/license. */
+ /*	SCCS Id: @(#)qt_kde0.h	3.4	1999/11/19	*/
+ /* Copyright (c) Warwick Allison, 1999. */
+ /* NetHack may be freely redistributed.  See license for details. */
+diff --git a/win/Qt/qt_key.cpp b/win/Qt/qt_key.cpp
+index b598d6b..7bc34f9 100644
+--- a/win/Qt/qt_key.cpp
++++ b/win/Qt/qt_key.cpp
+@@ -1,3 +1,4 @@
++/* Japanese Qt text, modified for DarkDungeon 2026-10-08. See dat/license. */
+ // Copyright (c) Warwick Allison, 1999.
+ // Qt4 conversion copyright (c) Ray Chason, 2012-2014.
+ // NetHack may be freely redistributed.  See license for details.
+diff --git a/win/Qt/qt_key.h b/win/Qt/qt_key.h
+index f2e2c20..afb7341 100644
+--- a/win/Qt/qt_key.h
++++ b/win/Qt/qt_key.h
+@@ -1,3 +1,4 @@
++/* Japanese Qt text, modified for DarkDungeon 2026-10-08. See dat/license. */
+ // Copyright (c) Warwick Allison, 1999.
+ // Qt4 conversion copyright (c) Ray Chason, 2012-2014.
+ // NetHack may be freely redistributed.  See license for details.
+diff --git a/win/Qt/qt_line.cpp b/win/Qt/qt_line.cpp
+index 4821225..dcd6ba8 100644
+--- a/win/Qt/qt_line.cpp
++++ b/win/Qt/qt_line.cpp
+@@ -1,3 +1,4 @@
++/* Japanese Qt text, modified for DarkDungeon 2026-10-08. See dat/license. */
+ // Copyright (c) Warwick Allison, 1999.
+ // Qt4 conversion copyright (c) Ray Chason, 2012-2014.
+ // NetHack may be freely redistributed.  See license for details.
+diff --git a/win/Qt/qt_line.h b/win/Qt/qt_line.h
+index 4b3c10c..660a778 100644
+--- a/win/Qt/qt_line.h
++++ b/win/Qt/qt_line.h
+@@ -1,3 +1,4 @@
++/* Japanese Qt text, modified for DarkDungeon 2026-10-08. See dat/license. */
+ // Copyright (c) Warwick Allison, 1999.
+ // Qt4 conversion copyright (c) Ray Chason, 2012-2014.
+ // NetHack may be freely redistributed.  See license for details.
+diff --git a/win/Qt/qt_main.cpp b/win/Qt/qt_main.cpp
+index 14a4f51..51497a7 100644
+--- a/win/Qt/qt_main.cpp
++++ b/win/Qt/qt_main.cpp
+@@ -1,3 +1,6 @@
++/* Japanese Qt text, modified for DarkDungeon 2026-10-08. See dat/license. */
++/* Modified for DarkDungeon on 2026-10-08. See dat/license. */
++/* Modified for DarkDungeon on 2026-10-08. See dat/license. */
+ // Copyright (c) Warwick Allison, 1999.
+ // Qt4 conversion copyright (c) Ray Chason, 2012-2014.
+ // NetHack may be freely redistributed.  See license for details.
+@@ -6,6 +9,7 @@
+ 
+ extern "C" {
+ #include "hack.h"
++#include "context_action.h"
+ #define CTRL(c) (0x1f & (c)) // substitute for C() from global.h, for ^V hack
+ }
+ 
+@@ -32,6 +36,7 @@ extern "C" {
+ #include "qt_set.h"
+ #include "qt_stat.h"
+ #include "qt_str.h"
++#include "qt_darkdungeon.h"
+ 
+ #ifndef KDE
+ #include "qt_kde0.moc"
+@@ -40,7 +45,7 @@ extern "C" {
+ // temporary
+ extern char *qt_tilewidth;
+ extern char *qt_tileheight;
+-extern int qt_compact_mode;
++extern "C" int qt_compact_mode;
+ // end temporary
+ 
+ namespace nethack_qt_ {
+@@ -466,15 +471,15 @@ aboutMsg()
+     (void) strsubst(vbuf, " - ", "\n- ");
+     QString msg = nh_qsprintf(
+         // format
+-        "NetHack-Qt is a version of NetHack built using" // no newline
++        "DarkDungeonはNetHackを基にしたゲームです。使用しているのは" // no newline
+ #ifdef KDE
+         " KDE and"                                       // ditto
+ #endif
+-        " the Qt %d GUI toolkit.\n"                      // short Qt version
++        " Qt %dの画面ライブラリです。\n"                      // short Qt version
+         "\n"
+-        "This is %s%s and Lua %s.\n" // long nethack version, Qt & Lua versions
++        "%s%s、Lua %sを使用しています。\n" // long nethack version, Qt & Lua versions
+         "\n"
+-        "NetHack's Qt interface originally developed by Warwick Allison.\n"
++        "NetHackのQt画面はWarwick Allisonが開発しました。\n"
+         "\n"
+ #if 0
+         "Homepage:\n     http://trolls.troll.no/warwick/nethack/\n" //obsolete
+@@ -497,7 +502,7 @@ aboutMsg()
+ #endif
+         vbuf,           // nethack version
+ #ifdef QT_VERSION_STR
+-        " with Qt " QT_VERSION_STR,
++        "、Qt " QT_VERSION_STR,
+ #else
+         "",
+ #endif
+@@ -514,16 +519,16 @@ public:
+                     QWidget *parent) :
+ 	QToolButton(parent)
+     {
+-	setIcon(QIcon(pm));
++	setIcon(QIcon(pm)); setText(textLabel); setIconSize(QSize(24,24)); setToolButtonStyle(Qt::ToolButtonTextUnderIcon); setFocusPolicy(Qt::NoFocus);
+ 	setToolTip(textLabel);
+ 	setStatusTip(grouptext);
+-	connect(this, SIGNAL(clicked(bool)), receiver, slot);
++	if (receiver && slot) connect(this, SIGNAL(clicked(bool)), receiver, slot);
+     }
+ 
+     QSize sizeHint() const
+     {
+ 	// get just a couple more pixels for the map
+-	return QToolButton::sizeHint()-QSize(0,2);
++	return QToolButton::sizeHint().expandedTo(QSize(72,52));
+     }
+ };
+ 
+@@ -535,10 +540,10 @@ NetHackQtMainWindow::NetHackQtMainWindow(NetHackQtKeyBuffer& ks) :
+     QToolBar* toolbar = new QToolBar(this);
+     toolbar->setMovable(false);
+     toolbar->setFocusPolicy(Qt::NoFocus);
+-    addToolBar(toolbar);
++    addToolBar(Qt::BottomToolBarArea,toolbar);
+     menubar = menuBar();
+ 
+-    setWindowTitle("NetHack-Qt");
++    setWindowTitle("DarkDungeon");
+     setWindowIcon(QIcon(QPixmap(qt_compact_mode ? nh_icon_small : nh_icon)));
+ 
+ #ifdef MACOS
+@@ -549,8 +554,8 @@ NetHackQtMainWindow::NetHackQtMainWindow(NetHackQtKeyBuffer& ks) :
+      *  name (taken from Info.plist if present, otherwise the base name
+      *  of the running program).  After that, application-specific menus
+      *  (in our case "game",...,"help") follow.  Several menu entry
+-     *  names ("About", "Quit"/"Exit", "Preferences"/"Options"/
+-     *  "Settings"/"Setup"/"Config") get hijacked and placed in the
++     *  names ("このゲームについて", "終了"/"終了", "設定"/"ゲーム設定"/
++     *  "設定"/"設定"/"設定") get hijacked and placed in the
+      *  application menu (and renamed in the process) even if the code
+      *  here tries to put them in another menu.
+      *  See QtWidgets/doc/qmenubar.html for slightly more information.
+@@ -587,24 +592,24 @@ NetHackQtMainWindow::NetHackQtMainWindow(NetHackQtKeyBuffer& ks) :
+         int (*funct)(void);
+     } item[] = {
+         { game,    0, 3, (int (*)(void)) 0},
+-        { game,    "Extended-commands",  3, doextcmd },
++        { game,    "拡張コマンド",  3, doextcmd },
+         { game,    0, 3, (int (*)(void)) 0},
+-        { game,    "Version",            3, doversion},
+-        { game,    "Compilation",        3, doextversion},
+-        { game,    "History",            3, dohistory},
+-        { game,    "Redraw",             0, doredraw}, // useless
++        { game,    "バージョン",            3, doversion},
++        { game,    "ビルド情報",        3, doextversion},
++        { game,    "開発の歴史",            3, dohistory},
++        { game,    "再描画",             0, doredraw}, // useless
+         { game,
+ #ifdef MACOS
+-            /* Qt on OSX would rename "Options" to "Preferences..." and
++            /* Qt on OSX would rename "ゲーム設定" to "設定…" and
+                move it from intended destination to the application menu;
+                the ampersand produces &O which makes Alt+O into a keyboard
+                shortcut--except those are disabled by default by Qt on OSX */
+-                   "Run-time &" // rely on adjacent string concatenation
++                   "実行中の設定:" // rely on adjacent string concatenation
+ #endif
+-                   "Options",            3, doset},
+-        { game,    "Explore mode",       3, enter_explore_mode},
++                   "ゲーム設定",            3, doset},
++        { game,    "探索モード",       3, enter_explore_mode},
+         { game,    0, 3, (int (*)(void)) 0},
+-        { game,    "Save-and-exit",      3, dosave},
++        { game,    "保存して終了",      3, dosave},
+         { game,
+ #ifdef MACOS
+             /* need something to prevent matching leading "quit" so that it
+@@ -612,122 +617,122 @@ NetHackQtMainWindow::NetHackQtMainWindow(NetHackQtKeyBuffer& ks) :
+                make &Q be a keyboard shortcut (but see Options above) */
+                    "\177&"
+ #endif
+-                   "Quit-without-saving", 3, done2},
++                   "保存せず終了", 3, done2},
+ 
+-        { apparel, "Apparel off",        2, doddoremarm},
+-        { apparel, "Remove many",        1, doddoremarm},
++        { apparel, "装備を外す",        2, doddoremarm},
++        { apparel, "装備をまとめて外す",        1, doddoremarm},
+         { apparel, 0, 3, (int (*)(void)) 0},
+-        { apparel, "Wield weapon",       3, dowield},
+-        { apparel, "Exchange weapons",   3, doswapweapon},
+-        { apparel, "Two weapon combat",  3, dotwoweapon},
+-        { apparel, "Load quiver",        3, dowieldquiver},
++        { apparel, "武器を構える",       3, dowield},
++        { apparel, "武器を交換",   3, doswapweapon},
++        { apparel, "二刀流",  3, dotwoweapon},
++        { apparel, "矢筒に入れる",        3, dowieldquiver},
+         { apparel, 0, 3, (int (*)(void)) 0},
+-        { apparel, "Wear armor",         3, dowear},
+-        { apparel, "Take off armor",     3, dotakeoff},
++        { apparel, "防具を着る",         3, dowear},
++        { apparel, "防具を脱ぐ",     3, dotakeoff},
+         { apparel, 0, 3, (int (*)(void)) 0},
+-        { apparel, "Put on accessories", 3, doputon},
+-        { apparel, "Remove accessories", 3, doremring},
++        { apparel, "装飾品をつける", 3, doputon},
++        { apparel, "装飾品を外す", 3, doremring},
+ 
+-        /* { act1,      "Again\tCtrl+A",           "\001", 2},
++        /* { act1,      "繰り返す\tCtrl+A",           "\001", 2},
+         { act1, 0, 0, 3}, */
+-        { act1, "Apply",             3, doapply},
+-        { act1, "Chat",              3, dotalk},
+-        { act1, "Close door",        3, doclose},
+-        { act1, "Down",              3, dodown},
+-        { act1, "Drop many",         2, doddrop},
+-        { act1, "Drop",              2, dodrop},
+-        { act1, "Eat",               2, doeat},
+-        { act1, "Engrave",           3, doengrave},
+-        /* { act1,      "Fight\tShift+F",             "F", 3}, */
+-        { act1, "Fire from quiver",  2, dofire},
+-        { act1, "Force",             3, doforce},
+-        { act1, "Jump",              3, dojump},
+-        { act2, "Kick",              2, dokick},
+-        { act2, "Loot",              3, doloot},
+-        { act2, "Open door",         3, doopen},
+-        { act2, "Pay",               3, dopay},
+-        // calling this "Get" was confusing to experienced players
+-        { act1, "Pick up (was Get)", 3, dopickup},
+-        { act2, "Rest",              2, donull},
+-        { act2, "Ride",              3, doride},
+-        { act2, "Search",            3, dosearch},
+-        { act2, "Sit",               3, dosit},
+-        { act2, "Throw",             2, dothrow},
+-        { act2, "Untrap",            3, dountrap},
+-        { act2, "Up",                3, doup},
+-        { act2, "Wipe face",         3, dowipe},
+-
+-        { magic, "Quaff potion",     3, dodrink},
+-        { magic, "Read scroll/book", 3, doread},
+-        { magic, "Zap wand",         3, dozap},
+-        { magic, "Zap spell",        3, docast},
+-        { magic, "Dip",              3, dodip},
+-        { magic, "Rub",              3, dorub},
+-        { magic, "Invoke",           3, doinvoke},
++        { act1, "道具を使う",             3, doapply},
++        { act1, "話す",              3, dotalk},
++        { act1, "扉を閉める",        3, doclose},
++        { act1, "下りる",              3, dodown},
++        { act1, "まとめて置く",         2, doddrop},
++        { act1, "置く",              2, dodrop},
++        { act1, "食べる",               2, doeat},
++        { act1, "刻む",           3, doengrave},
++        /* { act1,      "攻撃\tShift+F",             "F", 3}, */
++        { act1, "矢筒から射撃",  2, dofire},
++        { act1, "こじ開ける",             3, doforce},
++        { act1, "跳ぶ",              3, dojump},
++        { act2, "蹴る",              2, dokick},
++        { act2, "容器を調べる",              3, doloot},
++        { act2, "扉を開ける",         3, doopen},
++        { act2, "支払う",               3, dopay},
++        // calling this "拾う" was confusing to experienced players
++        { act1, "拾う", 3, dopickup},
++        { act2, "休む",              2, donull},
++        { act2, "乗る",              3, doride},
++        { act2, "探す",            3, dosearch},
++        { act2, "座る",               3, dosit},
++        { act2, "投げる",             2, dothrow},
++        { act2, "罠を解除",            3, dountrap},
++        { act2, "上る",                3, doup},
++        { act2, "顔を拭く",         3, dowipe},
++
++        { magic, "薬を飲む",     3, dodrink},
++        { magic, "巻物・本を読む", 3, doread},
++        { magic, "杖を振る",         3, dozap},
++        { magic, "呪文を唱える",        3, docast},
++        { magic, "浸す",              3, dodip},
++        { magic, "こする",              3, dorub},
++        { magic, "力を呼び出す",           3, doinvoke},
+         { magic, 0, 3, (int (*)(void)) 0},
+-        { magic, "Offer",            3, dosacrifice},
+-        { magic, "Pray",             3, dopray},
++        { magic, "捧げる",            3, dosacrifice},
++        { magic, "祈る",             3, dopray},
+         { magic, 0, 3, (int (*)(void)) 0},
+-        { magic, "Teleport",         3, dotelecmd},
+-        { magic, "Monster action",   3, domonability},
+-        { magic, "Turn undead",      3, doturn},
++        { magic, "瞬間移動",         3, dotelecmd},
++        { magic, "変身能力を使う",   3, domonability},
++        { magic, "アンデッドを退ける",      3, doturn},
+ 
+-        { help,  "Help",             3, dohelp},
++        { help,  "ヘルプ",             3, dohelp},
+         { help,  0, 3, (int (*)(void)) 0},
+-        { help,  "What is here",     3, dolook},
+-        { help,  "What is there",    3, doquickwhatis},
+-        { help,  "What is...",       2, dowhatis},
++        { help,  "足元を調べる",     3, dolook},
++        { help,  "場所を調べる",    3, doquickwhatis},
++        { help,  "記号を調べる",       2, dowhatis},
+         { help,  0, 1, (int (*)(void)) 0},
+ 
+-        { info,  "Inventory",        3, ddoinv},
+-        { info,  "Attributes (extended status)", 3, doattributes },
+-        { info,  "Overview",         3, dooverview },
+-        { info,  "Conduct",          3, doconduct},
+-        { info,  "Discoveries",      3, dodiscovered},
+-        { info,  "List/reorder spells",  3, dovspell},
+-        { info,  "Adjust inventory letters", 3, doorganize },
++        { info,  "持ち物",        3, ddoinv},
++        { info,  "能力・詳しい状態", 3, doattributes },
++        { info,  "迷宮の概要",         3, dooverview },
++        { info,  "行動規範",          3, doconduct},
++        { info,  "発見済みの品",      3, dodiscovered},
++        { info,  "呪文の一覧・並べ替え",  3, dovspell},
++        { info,  "持ち物の文字を変更", 3, doorganize },
+         { info,  0, 3, (int (*)(void)) 0},
+-        { info,  "Name object or creature", 3, docallcmd},
+-        { info,  "Annotate level",   3, donamelevel },
++        { info,  "品物・生き物に名前をつける", 3, docallcmd},
++        { info,  "階にメモを書く",   3, donamelevel },
+         { info,  0, 3, (int (*)(void)) 0},
+-        { info,  "Skills",  3, enhance_weapon_skill},
++        { info,  "技能",  3, enhance_weapon_skill},
+ 
+ 	{ 0, 0, 0, (int (*)(void)) 0 }
+     };
+ 
+     QAction *actn;
+ #ifndef MACOS
+-    (void) game->addAction("Qt settings...", this, SLOT(doQtSettings(bool)));
++    (void) game->addAction("画面設定…", this, SLOT(doQtSettings(bool)));
+ #else
+     /* on OSX, put this in the application menu instead of the game menu;
+        Qt would change the action name behind our backs; do it explicitly */
+-    actn = game->addAction("Preferences...", this, SLOT(doQtSettings(bool)));
++    actn = game->addAction("設定…", this, SLOT(doQtSettings(bool)));
+     actn->setMenuRole(QWidgetAction::PreferencesRole);
+-    /* we also want a "Quit NetHack" entry in the application menu;
+-       when "_Quit-without-saving" was called "Quit" it got intercepted
++    /* we also want a "DarkDungeonを終了" entry in the application menu;
++       when "保存せず終了" was called "終了" it got intercepted
+        for that, but now this needs to be added separately; we'll use a
+        handy menu and let the interception put it in the intended place;
+        unlike About, it is not a duplicate; _Quit-without-saving runs
+        nethack's #quit command with "really quit?" prompt, this quit--with
+        Command+q as shortcut--pops up a dialog to choose between quit or
+        cancel-and-resume-playing */
+-    actn = game->addAction("Quit NetHack-Qt", this, SLOT(doQuit(bool)));
++    actn = game->addAction("DarkDungeonを終了", this, SLOT(doQuit(bool)));
+     actn->setMenuRole(QWidgetAction::QuitRole);
+ #endif
+ 
+-    actn = help->addAction("About NetHack-Qt", this, SLOT(doAbout(bool)));
++    actn = help->addAction("DarkDungeonについて", this, SLOT(doAbout(bool)));
+ #ifdef MACOS
+     actn->setMenuRole(QWidgetAction::AboutRole);
+-    /* for OSX, the preceding "About" went into the application menu;
++    /* for OSX, the preceding "このゲームについて" went into the application menu;
+        now add another duplicate one to the Help dropdown menu */
+-    actn = help->addAction("About NetHack-Qt", this, SLOT(doAbout(bool)));
++    actn = help->addAction("DarkDungeonについて", this, SLOT(doAbout(bool)));
+     actn->setMenuRole(QWidgetAction::NoRole);
+ #else
+     nhUse(actn);
+ #endif
+     help->addSeparator();
+ 
+-    //help->addAction("NetHack Guidebook", this, SLOT(doGuidebook(bool)));
++    //help->addAction("NetHackの説明書", this, SLOT(doGuidebook(bool)));
+     //help->addSeparator();
+ 
+     for (int i = 0; item[i].menu; ++i) {
+@@ -776,9 +781,9 @@ NetHackQtMainWindow::NetHackQtMainWindow(NetHackQtKeyBuffer& ks) :
+ 	}
+     }
+ 
+-    game->setTitle("Game");
++    game->setTitle("ゲーム");
+     menubar->addMenu(game);
+-    apparel->setTitle("Gear");
++    apparel->setTitle("装備");
+     menubar->addMenu(apparel);
+ 
+     if ( qt_compact_mode ) {
+@@ -786,31 +791,31 @@ NetHackQtMainWindow::NetHackQtMainWindow(NetHackQtKeyBuffer& ks) :
+ 	menubar->addMenu(act1);
+ 	act2->setTitle("K-Z");
+ 	menubar->addMenu(act2);
+-	magic->setTitle("Magic");
++	magic->setTitle("魔法");
+ 	menubar->addMenu(magic);
+ 	info->setIcon(QIcon(QPixmap(info_xpm)));
+-	info->setTitle("Info");
++	info->setTitle("情報");
+ 	menubar->addMenu(info);
+ 	//menubar->insertItem(QPixmap(map_xpm), this, SLOT(raiseMap()));
+ 	//menubar->insertItem(QPixmap(msg_xpm), this, SLOT(raiseMessages()));
+ 	//menubar->insertItem(QPixmap(stat_xpm), this, SLOT(raiseStatus()));
+ 	info->addSeparator();
+-	info->addAction("Map", this, SLOT(raiseMap()));
+-	info->addAction("Messages", this, SLOT(raiseMessages()));
+-	info->addAction("Status", this, SLOT(raiseStatus()));
++	info->addAction("マップ", this, SLOT(raiseMap()));
++	info->addAction("メッセージ", this, SLOT(raiseMessages()));
++	info->addAction("状態", this, SLOT(raiseStatus()));
+     } else {
+-	act1->setTitle("Action");
++	act1->setTitle("行動");
+ 	menubar->addMenu(act1);
+-	magic->setTitle("Magic");
++	magic->setTitle("魔法");
+ 	menubar->addMenu(magic);
+-	info->setTitle("Info");
++	info->setTitle("情報");
+ 	menubar->addMenu(info);
+ 	menubar->addSeparator();
+ #ifndef MACOS
+-	help->setTitle("Help");
++	help->setTitle("ヘルプ");
+ #else
+-        // On OSX, an entry in the menubar called "Help" will get an
+-        // extra action, "Search [______]", inserted as the first entry.
++        // On OSX, an entry in the menubar called "ヘルプ" will get an
++        // extra action, "検索 [______]", inserted as the first entry.
+         // We have no control over what it does and don't want it.
+         //
+         // Using actions() to fetch a list of all entries doesn't find it,
+@@ -818,13 +823,13 @@ NetHackQtMainWindow::NetHackQtMainWindow(NetHackQtKeyBuffer& ks) :
+         //
+         // Altering the name with an invisible character to inhibit
+         // string matching is ludicrous but keeps the unwanted action
+-        // from getting inserted into the "Help" menu behind our back.
++        // from getting inserted into the "ヘルプ" menu behind our back.
+         // Underscore works too and is more robust but unless we prepend
+-        // it to every entry, "_Help" would stand out as strange.
++        // it to every entry, "ヘルプ" would stand out as strange.
+ 	help->setTitle("\177Help");
+-        // (Renaming back to "Help" after the fact does reset the menu's
++        // (Renaming back to "ヘルプ" after the fact does reset the menu's
+         // name but it also results in the Search action being added.
+-        // Perhaps a custom context menu that changes its name to "Help"
++        // Perhaps a custom context menu that changes its name to "ヘルプ"
+         // as it is being shown--and possibly changes back afterward--
+         // would work but the name mangling hack is much simpler.)
+ #endif
+@@ -841,16 +846,29 @@ NetHackQtMainWindow::NetHackQtMainWindow(NetHackQtKeyBuffer& ks) :
+     connect(sm, SIGNAL(mapped(const QString&)),
+             this, SLOT(doKeys(const QString&)));
+ #endif
+-    AddToolButton(toolbar, sm, "Again", do_repeat, QPixmap(again_xpm));
+-    // this used to be called "Get" which is confusing to experienced players
+-    AddToolButton(toolbar, sm, "Pick up", dopickup, QPixmap(pickup_xpm));
+-    AddToolButton(toolbar, sm, "Drop", doddrop, QPixmap(drop_xpm));
+-    AddToolButton(toolbar, sm, "Kick", dokick, QPixmap(kick_xpm));
+-    AddToolButton(toolbar, sm, "Throw", dothrow, QPixmap(throw_xpm));
+-    AddToolButton(toolbar, sm, "Fire", dofire, QPixmap(fire_xpm));
+-    AddToolButton(toolbar, sm, "Eat", doeat, QPixmap(eat_xpm));
+-    AddToolButton(toolbar, sm, "Search", dosearch, QPixmap(search_xpm));
+-    AddToolButton(toolbar, sm, "Rest", donull, QPixmap(rest_xpm));
++    AddToolButton(toolbar, sm, "基本動作", darkdungeon_basic_action, QPixmap());
++    AddToolButton(toolbar, sm, "繰り返す", do_repeat, QPixmap(again_xpm));
++    // this used to be called "拾う" which is confusing to experienced players
++    AddToolButton(toolbar, sm, "拾う", dopickup, QPixmap(pickup_xpm));
++    AddToolButton(toolbar, sm, "置く", doddrop, QPixmap(drop_xpm));
++    AddToolButton(toolbar, sm, "蹴る", dokick, QPixmap(kick_xpm));
++    AddToolButton(toolbar, sm, "投げる", dothrow, QPixmap(throw_xpm));
++    AddToolButton(toolbar, sm, "射撃", dofire, QPixmap(fire_xpm));
++    AddToolButton(toolbar, sm, "食べる", doeat, QPixmap(eat_xpm));
++    AddToolButton(toolbar, sm, "探す", dosearch, QPixmap(search_xpm));
++    AddToolButton(toolbar, sm, "休む", donull, QPixmap(rest_xpm));
++    QToolBar* tools = new QToolBar(this);
++    tools->setObjectName("adventureToolsToolbar");
++    tools->setMovable(false);tools->setFocusPolicy(Qt::NoFocus);
++    addToolBarBreak(Qt::BottomToolBarArea);addToolBar(Qt::BottomToolBarArea,tools);
++    AddToolButton(tools, sm, "持ち物", ddoinv, QPixmap());
++    AddToolButton(tools, sm, "武器を構える", dowield, QPixmap());
++    AddToolButton(tools, sm, "道具を使う", doapply, QPixmap());
++    AddToolButton(tools, sm, "容器の中身", darkdungeon_look_here, QPixmap());
++    AddToolButton(tools, sm, "扉を開ける", doopen, QPixmap());
++    AddToolButton(tools, sm, "扉を閉める", doclose, QPixmap());
++    AddToolButton(tools, sm, "上る", doup, QPixmap());
++    AddToolButton(tools, sm, "下りる", dodown, QPixmap());
+ 
+     connect(game, SIGNAL(triggered(QAction *)),
+             this, SLOT(doMenuItem(QAction *)));
+@@ -886,8 +904,8 @@ NetHackQtMainWindow::NetHackQtMainWindow(NetHackQtKeyBuffer& ks) :
+     if (qt_settings != NULL) {
+         auto glyphs = &qt_settings->glyphs();
+         if (glyphs != NULL) {
+-            maxwn = glyphs->width() * (COLNO + 1);
+-            maxhn = glyphs->height() * ROWNO * 6/4 + glyphs->height() * 10;
++            maxwn = std::min(1400, glyphs->width() * (COLNO + 1));
++            maxhn = std::min(900, glyphs->height() * ROWNO * 6/4 + glyphs->height() * 10);
+         }
+     }
+ 
+@@ -909,10 +927,10 @@ NetHackQtMainWindow::NetHackQtMainWindow(NetHackQtKeyBuffer& ks) :
+     } else {
+ 	vsplitter = new QSplitter(Qt::Vertical);
+ 	setCentralWidget(vsplitter);
+-	hsplitter = new QSplitter(Qt::Horizontal);
++	hsplitter = new QSplitter(Qt::Horizontal); hsplitter->setObjectName("adventureUpperPanels"); vsplitter->setObjectName("adventurePanels"); vsplitter->setChildrenCollapsible(false);
+ 	invusage = new NetHackQtInvUsageWindow(hsplitter);
+ 	vsplitter->insertWidget(0, hsplitter);
+-	hsplitter->insertWidget(1, invusage);
++	hsplitter->insertWidget(0, invusage);
+     }
+ }
+ 
+@@ -931,20 +949,29 @@ void NetHackQtMainWindow::AddToolButton(QToolBar *toolbar, QSignalMapper *sm,
+                                         const char *name, int (*func)(void),
+                                         QPixmap xpm)
+ {
+-    char actchar[2];
+-    uchar key;
+-
+-    key = (uchar) cmd_from_func(func);
+-
+-    // if key is valid, add a button for it; otherwise omit the command
+-    // (won't work as intended if a different command is bound to same key)
+-    if (key) {
+-        QToolButton *tb = new SmallToolButton(xpm, QString(name), "Action",
+-                                              sm, SLOT(map()), toolbar);
+-        actchar[0] = '\0';
+-        sm->setMapping(tb, strkitten(actchar, (char) key));
+-        toolbar->addWidget(tb);
+-    }
++    Q_UNUSED(sm); Q_UNUSED(xpm);
++    char commandName[BUFSZ];
++    if (!cmdname_from_func(func,commandName,TRUE)) return;
++    QToolButton *tb = new SmallToolButton(darkdungeon_toolbar_icon(commandName).pixmap(QSize(24,24)),
++        QString::fromUtf8(name), "行動", nullptr, nullptr, toolbar);
++    tb->setIcon(darkdungeon_toolbar_icon(commandName));
++    tb->setProperty("commandName",QString::fromUtf8(commandName));
++    connect(tb,&QToolButton::clicked,this,[this,func] {
++        if (!ok_for_command() || NetHackQtBind::qt_kbhit()) return;
++        const uchar key = (uchar) cmd_from_func(func);
++        if (key && key < 128 && !strchr("hjklyubnHJKLYUBN",key)
++                && !(key < 32 && strchr("hjklyubn",(key | 0x60)))) {
++            char sequence[2] = { (char)key, '\0' };
++            doKeys(sequence);
++        } else {
++            const char extendedKey=cmd_from_func(doextcmd);
++            if (extendedKey && darkdungeon_request_toolbar_command(func)) {
++                char sequence[2] = { extendedKey, '\0' };
++                doKeys(sequence);
++            }
++        }
++    });
++    toolbar->addWidget(tb);
+ }
+ 
+ void NetHackQtMainWindow::zoomMap()
+@@ -1025,6 +1052,7 @@ bool NetHackQtMainWindow::ok_for_command()
+ 
+ void NetHackQtMainWindow::doMenuItem(QAction *action)
+ {
++    if (!action->data().isValid()) return;
+     if (!ok_for_command())
+         return;
+     /* this converts meta characters to '?'; menu processing has been
+@@ -1044,7 +1072,7 @@ void NetHackQtMainWindow::doQtSettings(bool)
+ 
+ void NetHackQtMainWindow::doAbout(bool)
+ {
+-    QMessageBox::about(this, "About NetHack-Qt", aboutMsg());
++    QMessageBox::about(this, "DarkDungeonについて", aboutMsg());
+ }
+ 
+ // on OSX, "quit nethack" has been selected in the application menu or
+@@ -1053,23 +1081,23 @@ void NetHackQtMainWindow::doAbout(bool)
+ void NetHackQtMainWindow::doQuit(bool)
+ {
+     // there is a separate Quit-without-saving menu entry in the game menu
+-    // that leads to nethack's "Really quit?" prompt; OSX players can use
++    // that leads to nethack's "本当に終了しますか？" prompt; OSX players can use
+     // either one, other implementations only have that other one (plus
+     // nethack's #quit command itself) but this routine is unconditional
+     // in case someone wants to change that
+ #ifdef MACOS
+-    QString info = nh_qsprintf("This will end your NetHack session.%s",
++    QString info = nh_qsprintf("現在の冒険を終了します。%s",
+                  !program_state.something_worth_saving ? ""
+-                 : "\n(Cancel quitting and use the Save command"
+-                   "\nto save your current game.)");
++                 : "\n（キャンセルして保存コマンドを使うと"
++                   "\n現在の冒険を保存できます。）");
+     /* this is similar to closeEvent but the details are different;
+        first choice (Cancel) is the default action for most arbitrary keys;
+        the second choice (Quit) is the action for <return> or <space>;
+        <escape> leaves the popup waiting for some other response;
+        the &<char> settings for Alt+<char> shortcuts don't work on OSX */
+     int act = QMessageBox::information(this, "NetHack", info,
+-                                       "&Cancel and return to game",
+-                                       "&Quit without saving",
++                                       "キャンセルして冒険に戻る(&C)",
++                                       "保存せず終了(&Q)",
+                                        0, 1);
+     switch (act) {
+     case 0:
+@@ -1111,7 +1139,7 @@ void NetHackQtMainWindow::doKeys(const QString& k)
+ {
+     /* [this should probably be using toLocal8Bit();
+        toAscii() is not offered as an alternative...] */
+-    doKeys(k.toLatin1().constData());
++    doKeys(k.toUtf8().constData());
+ }
+ 
+ // queue up the command name for a function, as if user had typed it
+@@ -1127,7 +1155,7 @@ void NetHackQtMainWindow::AddMessageWindow(NetHackQtMessageWindow* window)
+ {
+     message=window;
+     if (!qt_compact_mode)
+-        hsplitter->insertWidget(0, message->Widget());
++        { message->Widget()->setObjectName("adventureMessages"); message->Widget()->setAutoFillBackground(true); vsplitter->insertWidget(2, message->Widget()); vsplitter->setStretchFactor(2,0); }
+     ShowIfReady();
+ }
+ 
+@@ -1141,16 +1169,16 @@ void NetHackQtMainWindow::AddMapWindow(NetHackQtMapWindow2* window)
+ 
+     map=window;
+     if (!qt_compact_mode)
+-        vsplitter->insertWidget(1, map->Widget());
++        { vsplitter->insertWidget(1, map->Widget()); vsplitter->setStretchFactor(0,0); vsplitter->setStretchFactor(1,1); }
+     ShowIfReady();
+-    connect(map,SIGNAL(resized()),this,SLOT(layout()));
++    connect(map,SIGNAL(resized()),this,SLOT(layout())); connect(qt_settings,SIGNAL(fontChanged()),this,SLOT(layout()),Qt::QueuedConnection);
+ }
+ 
+ void NetHackQtMainWindow::AddStatusWindow(NetHackQtStatusWindow* window)
+ {
+     status=window;
+     if (!qt_compact_mode)
+-        hsplitter->insertWidget(2, status->Widget());
++        hsplitter->insertWidget(1, status->Widget());
+     ShowIfReady();
+ }
+ 
+@@ -1190,58 +1218,23 @@ void NetHackQtMainWindow::fadeHighlighting(bool before_key)
+ 
+ void NetHackQtMainWindow::layout()
+ {
+-#if 0
+-    if ( qt_compact_mode )
+-	return;
+-    if (message && map && status) {
+-	QSize maxs=map->Widget()->maximumSize();
+-	int maph=std::min(height()*2/3,maxs.height());
+-
+-	QWidget* c = centralWidget();
+-	int h=c->height();
+-	int toph=h-maph;
+-	int iuw=3*qt_settings->glyphs().width();
+-	int topw=(c->width()-iuw)/2;
+-
+-	message->Widget()->setGeometry(0,0,topw,toph);
+-	invusage->setGeometry(topw,0,iuw,toph);
+-	status->Widget()->setGeometry(topw+iuw,0,topw,toph);
+-	map->Widget()->setGeometry(std::max(0,(c->width()-maxs.width())/2),
+-				   toph,c->width(),maph);
+-    }
+-#endif
+-
+-    if (qt_settings && !qt_compact_mode
+-        && map && message && status && invusage) {
+-        // For the initial PaperDoll sizing, message window
+-        // and/or status window might still be empty;
+-        // widen them before changing PaperDoll to use saved settings.
+-        QList<int> splittersizes = hsplitter->sizes();
+-#define MIN_WIN_WIDTH 400
+-        if (splittersizes[0] < MIN_WIN_WIDTH
+-            || splittersizes[2] < MIN_WIN_WIDTH) {
+-            if (splittersizes[0] < MIN_WIN_WIDTH)
+-                splittersizes[0] = MIN_WIN_WIDTH;
+-#ifndef ENHANCED_PAPERDOLL
+-            if (splittersizes[1] < 6) // TILEWMIN
+-                splittersizes[1] = 16; // 16x16
+-#endif
+-            if (splittersizes[2] < MIN_WIN_WIDTH)
+-                splittersizes[2] = MIN_WIN_WIDTH;
+-            hsplitter->setSizes(splittersizes);
+-        }
++    darkdungeon_layout_toolbars(this);
++    if (!qt_settings || qt_compact_mode || !map || !message || !status || !invusage
++            || hsplitter->count()!=2 || vsplitter->count()!=3) return;
+ #ifdef ENHANCED_PAPERDOLL
+-        // call resizePaperDoll() indirectly...
+-        qt_settings->resizeDoll();
++    qt_settings->resizeDoll();
+ #endif
+-        // reset widths
+-        int w = width(); /* of main window */
+-        int d = invusage->width();
+-        splittersizes[2] = w / 2 - (d * 1 / 4); // status
+-        splittersizes[1] = d;                   // invusage
+-        splittersizes[0] = w / 2 - (d * 3 / 4); // messages
+-        hsplitter->setSizes(splittersizes);
+-    }
++    const bool dollShown=!invusage->isHidden();
++    const int dollWidth=dollShown ? invusage->sizeHint().width() : 0;
++    hsplitter->setSizes(QList<int>{dollWidth,std::max(1,centralWidget()->width()-dollWidth)});
++    const int topHeight=std::max(status->Widget()->minimumSizeHint().height(),
++        dollShown ? invusage->sizeHint().height() : 0)+8;
++    const int lineHeight=QFontMetrics(message->Widget()->font()).height();
++    message->Widget()->setMinimumHeight(lineHeight*2+8);
++    const int messageHeight=lineHeight*3+12;
++    const int handles=vsplitter->handleWidth()*2;
++    vsplitter->setSizes(QList<int>{topHeight,
++        std::max(1,centralWidget()->height()-topHeight-messageHeight-handles),messageHeight});
+ }
+ 
+ #ifdef DYNAMIC_STATUSLINES
+@@ -1255,7 +1248,7 @@ NetHackQtWindow *NetHackQtMainWindow::redoStatus()
+     this->status = new NetHackQtStatusWindow;
+ 
+     if (!qt_compact_mode)
+-        hsplitter->replaceWidget(2, this->status->Widget());
++        hsplitter->replaceWidget(1, this->status->Widget());
+ 
+     delete oldstatus;
+     ShowIfReady();
+@@ -1267,53 +1260,31 @@ NetHackQtWindow *NetHackQtMainWindow::redoStatus()
+ void NetHackQtMainWindow::resizePaperDoll(bool showdoll)
+ {
+ #ifdef ENHANCED_PAPERDOLL
+-    // this is absurd...
+-    NetHackQtInvUsageWindow *w = static_cast <NetHackQtMainWindow *>
+-                                 (NetHackQtBind::mainWidget())->invusage;
+-    QList<int> hsplittersizes = hsplitter->sizes(),
+-              vsplittersizes = vsplitter->sizes();
+-    w->resize(w->sizeHint());
+-
+-    int oldwidth = hsplittersizes[1],
+-        newwidth = w->width();
+-    if (newwidth != oldwidth) {
+-        if (oldwidth > newwidth)
+-            hsplittersizes[0] += (oldwidth - newwidth);
+-        else
+-            hsplittersizes[2] += (newwidth - oldwidth);
+-        hsplittersizes[1] = newwidth;
+-        hsplitter->setSizes(hsplittersizes);
+-    }
+-
+-    // Height limit is 48+2 pixels per doll cell plus 1 pixel margin at top;
+-    // values greater than 44+2 need taller window which pushes the map down
+-    // (when font size 'Large' is used for messages and status; threshold
+-    // may vary by 1 or 2 for other sizes).
+-    // FIXME: this doesn't shrink the window back if size is reduced from 45+
+-    int oldheight = vsplittersizes[0],
+-        newheight = w->height();
+-    if (newheight > oldheight && oldheight > 0 && vsplittersizes[1] > 0) {
+-        vsplittersizes[0] = newheight;
+-        vsplitter->setSizes(vsplittersizes);
++    if (qt_compact_mode || !invusage || !hsplitter || !vsplitter) return;
++    invusage->resize(invusage->sizeHint());
++    invusage->setVisible(showdoll);
++    if (showdoll) invusage->repaint();
++    if (hsplitter->count()==2) {
++        const int dollWidth=showdoll ? invusage->width() : 0;
++        hsplitter->setSizes(QList<int>{dollWidth,std::max(1,centralWidget()->width()-dollWidth)});
+     }
+-
+-    if (showdoll) {
+-        if (w->isHidden())
+-            w->show();
+-        else
+-            w->repaint();
+-    } else {
+-        if (w->isVisible())
+-            w->hide();
++    QList<int> sizes=vsplitter->sizes();
++    if (sizes.size()==3 && sizes[1]>0) {
++        const int topHeight=std::max(showdoll ? invusage->height() : 0,
++            status ? status->Widget()->minimumSizeHint().height() : 0)+8;
++        sizes[1]=std::max(1,sizes[1]+sizes[0]-topHeight);
++        sizes[0]=topHeight;
++        vsplitter->setSizes(sizes);
+     }
+ #else
+     nhUse(showdoll);
+-#endif /* ENHANCED_PAPERDOLL */
++#endif
+ }
+ 
+ void NetHackQtMainWindow::resizeEvent(QResizeEvent*)
+ {
+     layout();
++    QTimer::singleShot(0,this,[this]{if(map && u.ux && u.uy)map->centerOnCursor();});
+ #ifdef KDE
+     updateRects();
+ #endif
+@@ -1407,12 +1378,12 @@ void NetHackQtMainWindow::closeEvent(QCloseEvent *e UNUSED)
+ {
+     int ok = 0;
+     if ( program_state.something_worth_saving ) {
+-        /* this used to offer "Save" and "Cancel"
++        /* this used to offer "保存" and "キャンセル"
+            but cancel (ignoring the close attempt) won't work
+            if user has clicked on the window's Close button */
+ 	int act = QMessageBox::information(this, "NetHack",
+-                              "This will end your NetHack session.",
+-                              "&Save and exit", "&Quit without saving", 0, 1);
++                              "現在の冒険を終了します。",
++                              "保存して終了(&S)", "保存せず終了(&Q)", 0, 1);
+ 	switch (act) {
+         case 0:
+             // save portion of save-and-exit
+@@ -1444,7 +1415,7 @@ void NetHackQtMainWindow::ShowIfReady()
+                                       : static_cast<QWidget *>(hsplitter);
+         QWidget* vp = qt_compact_mode ? static_cast<QWidget *>(stack)
+                                       : static_cast<QWidget *>(vsplitter);
+-	message->Widget()->setParent(hp);
++	message->Widget()->setParent(vp);
+ 	map->Widget()->setParent(vp);
+ 	status->Widget()->setParent(hp);
+ 	if ( qt_compact_mode ) {
+diff --git a/win/Qt/qt_main.h b/win/Qt/qt_main.h
+index 3aa5de7..0906062 100644
+--- a/win/Qt/qt_main.h
++++ b/win/Qt/qt_main.h
+@@ -1,3 +1,4 @@
++/* Japanese Qt text, modified for DarkDungeon 2026-10-08. See dat/license. */
+ // Copyright (c) Warwick Allison, 1999.
+ // Qt4 conversion copyright (c) Ray Chason, 2012-2014.
+ // NetHack may be freely redistributed.  See license for details.
+diff --git a/win/Qt/qt_map.cpp b/win/Qt/qt_map.cpp
+index 85817da..9c1e427 100644
+--- a/win/Qt/qt_map.cpp
++++ b/win/Qt/qt_map.cpp
+@@ -1,3 +1,6 @@
++/* Japanese Qt text, modified for DarkDungeon 2026-10-08. See dat/license. */
++/* Modified for DarkDungeon on 2026-10-08. See dat/license. */
++/* Modified for DarkDungeon on 2026-10-08. See dat/license. */
+ // Copyright (c) Warwick Allison, 1999.
+ // Qt4 conversion copyright (c) Ray Chason, 2012-2014.
+ // NetHack may be freely redistributed.  See license for details.
+@@ -22,6 +25,7 @@ extern glyph_map glyphmap[MAX_GLYPH]; /* from tile.c */
+ #include "qt_glyph.h"
+ #include "qt_set.h"
+ #include "qt_str.h"
++#include "qt_darkdungeon.h"
+ 
+ // pet- and pile-mark xpm arrays moved out of qt_xpms.h so that we don't
+ // include it here anymore; including that header in two files resulted in
+@@ -72,7 +76,7 @@ static const char *pile_mark_xpm[] = {
+ };
+ 
+ // temporary
+-extern int qt_compact_mode;
++extern "C" int qt_compact_mode;
+ // end temporary
+ 
+ namespace nethack_qt_ {
+@@ -202,7 +206,7 @@ void NetHackQtMapViewport::paintEvent(QPaintEvent* event)
+ 
+                 special = Glyphflags(i, j);
+                 tileidx = Glyphtileidx(i, j);
+-                glyphs.drawCell(painter, g, tileidx, i, j);
++                darkdungeon_draw_map_cell(painter,g,tileidx,special,background[j][i],QRect(i*gW,j*gH,gW,gH));
+ 
+                 if ((special & MG_PET) != 0 && ::iflags.hilite_pet) {
+                     painter.drawPixmap(QPoint(i * gW, j * gH),
+@@ -487,6 +491,7 @@ void NetHackQtMapViewport::Clear()
+         // FIXME:  map column 0 should be suppressed from being displayed
+         //
+         Glyph(0, j) = GLYPH_NOTHING;
++        background[j][0] = GLYPH_UNEXPLORED;
+         Glyphttychar(0, j) = ' ';
+         Glyphcolor(0, j) = NO_COLOR;
+         GlyphFramecolor(0, j) = NO_COLOR;
+@@ -495,6 +500,7 @@ void NetHackQtMapViewport::Clear()
+ 
+         for (int i = 1; i < COLNO; ++i) {
+             Glyph(i, j) = GLYPH_UNEXPLORED;
++            background[j][i] = GLYPH_UNEXPLORED;
+             Glyphttychar(i, j) = ' ';
+             Glyphcolor(i, j) = NO_COLOR;
+             GlyphFramecolor(i, j) = NO_COLOR;
+@@ -520,7 +526,7 @@ void NetHackQtMapViewport::Display(bool block)
+     change.clear();
+ 
+     if (block) {
+-	yn_function("Press a key when done viewing", NULL, '\0', TRUE);
++	yn_function("表示を終えるにはキーを押してください", NULL, '\0', TRUE);
+     }
+ }
+ 
+@@ -537,6 +543,8 @@ void NetHackQtMapViewport::PrintGlyph(int x, int y,
+                                       const glyph_info *bkglyphinfo)
+ {
+     Glyph(x, y) = (unsigned short) glyphinfo->glyph;
++    const int terrain = darkdungeon_background_glyph(glyphinfo->glyph,x,y);
++    if (terrain != NO_GLYPH) background[y][x] = terrain;
+     Glyphttychar(x, y) = (char32_t) glyphinfo->ttychar;
+     Glyphcolor(x, y) = (uint32) glyphinfo->gm.sym.color;
+     GlyphFramecolor(x, y) = (uint32) bkglyphinfo->framecolor;
+@@ -787,6 +795,7 @@ void NetHackQtMapWindow::Clear()
+ {
+     for (int j = 0; j < ROWNO; ++j) {
+         Glyph(0, j) = GLYPH_NOTHING;
++        background[j][0] = GLYPH_UNEXPLORED;
+         Glyphcolor(0, j) = NO_COLOR;
+         GlyphFramecolor(0, j) = NO_COLOR;
+         Glyphttychar(0, j) = ' ';
+@@ -795,6 +804,7 @@ void NetHackQtMapWindow::Clear()
+ 
+         for (int i = 1; i < COLNO; ++i) {
+             Glyph(i, j) = GLYPH_UNEXPLORED;
++            background[j][i] = GLYPH_UNEXPLORED;
+             Glyphcolor(i, j) = NO_COLOR;
+             GlyphFramecolor(i, j) = NO_COLOR;
+             Glyphttychar(i, j) = ' ';
+@@ -1004,7 +1014,7 @@ void NetHackQtMapWindow::Display(bool block)
+     change.clear();
+ 
+     if (block) {
+-	yn_function("Press a key when done viewing",0,'\0');
++	yn_function("表示を終えるにはキーを押してください",0,'\0');
+     }
+ }
+ 
+@@ -1064,3 +1074,12 @@ void NetHackQtMapWindow::Changed(int x, int y)
+ #endif /* 0 //RLC */
+ 
+ } // namespace nethack_qt_
++
++namespace nethack_qt_ {
++void NetHackQtMapWindow2::centerOnCursor() {
++    const int tileWidth=qt_settings->glyphs().no_tiles ? qt_settings->glyphs().width() : qt_settings->tileWidth;
++    const int tileHeight=qt_settings->glyphs().no_tiles ? qt_settings->glyphs().height() : qt_settings->tileHeight;
++    horizontalScrollBar()->setValue(m_viewport->cursor.x()*tileWidth+tileWidth/2-viewport()->width()/2);
++    verticalScrollBar()->setValue(m_viewport->cursor.y()*tileHeight+tileHeight/2-viewport()->height()/2);
++}
++}
+\ No newline at end of file
+diff --git a/win/Qt/qt_map.h b/win/Qt/qt_map.h
+index 321db25..842bf21 100644
+--- a/win/Qt/qt_map.h
++++ b/win/Qt/qt_map.h
+@@ -1,3 +1,5 @@
++/* Japanese Qt text, modified for DarkDungeon 2026-10-08. See dat/license. */
++/* Modified for DarkDungeon on 2026-10-08. See dat/license. */
+ // Copyright (c) Warwick Allison, 1999.
+ // Qt4 conversion copyright (c) Ray Chason, 2012-2014.
+ // NetHack may be freely redistributed.  See license for details.
+@@ -31,6 +33,7 @@ protected:
+ private:
+         QFont *rogue_font;
+         unsigned short glyph[ROWNO][COLNO];
++        int background[ROWNO][COLNO];
+         unsigned short &Glyph(int x, int y) {
+             return glyph[y][x];
+         }
+@@ -80,7 +83,7 @@ public:
+ 	void clearMessages();
+ 	void putMessage(int attr, const QString& text);
+ 	void clickCursor();
+-	virtual QWidget *Widget();
++	void centerOnCursor(); virtual QWidget *Widget();
+ 
+ 	virtual void Clear();
+ 	virtual void Display(bool block);
+diff --git a/win/Qt/qt_menu.cpp b/win/Qt/qt_menu.cpp
+index f61833d..edf4188 100644
+--- a/win/Qt/qt_menu.cpp
++++ b/win/Qt/qt_menu.cpp
+@@ -1,3 +1,5 @@
++/* Japanese Qt text, modified for DarkDungeon 2026-10-08. See dat/license. */
++/* Modified for DarkDungeon on 2026-10-08. See dat/license. */
+ // Copyright (c) Warwick Allison, 1999.
+ // Qt4 conversion copyright (c) Ray Chason, 2012-2014.
+ // NetHack may be freely redistributed.  See license for details.
+@@ -60,7 +62,9 @@ QSize NetHackQtTextListBox::sizeHint() const
+ {
+     QScrollBar *hscroll = horizontalScrollBar();
+     int hsize = hscroll ? hscroll->height() : 0;
+-    return QSize(TotalWidth()+hsize, TotalHeight()+hsize);
++    int rowsHeight=2*frameWidth();
++    for(int row=0;row<count();++row)rowsHeight+=std::max(0,sizeHintForRow(row));
++    return QSize(TotalWidth()+hsize+2*frameWidth(),rowsHeight+hsize);
+ }
+ 
+ int NetHackQtMenuListBox::TotalWidth() const
+@@ -181,22 +185,22 @@ NetHackQtMenuWindow::NetHackQtMenuWindow(QWidget *parent) :
+     table->horizontalHeader()->hide();
+     table->verticalHeader()->hide();
+ 
+-    ok=new QPushButton("Ok");
++    ok=new QPushButton("決定");
+     connect(ok,SIGNAL(clicked()),this,SLOT(accept()));
+ 
+-    cancel=new QPushButton("Cancel");
++    cancel=new QPushButton("キャンセル");
+     connect(cancel,SIGNAL(clicked()),this,SLOT(reject()));
+ 
+-    all=new QPushButton("All");
++    all=new QPushButton("すべて");
+     connect(all,SIGNAL(clicked()),this,SLOT(All()));
+ 
+-    none=new QPushButton("None");
++    none=new QPushButton("選択解除");
+     connect(none,SIGNAL(clicked()),this,SLOT(ChooseNone()));
+ 
+-    invert=new QPushButton("Invert");
++    invert=new QPushButton("選択反転");
+     connect(invert,SIGNAL(clicked()),this,SLOT(Invert()));
+ 
+-    search=new QPushButton("Search");
++    search=new QPushButton("探す");
+     connect(search,SIGNAL(clicked()),this,SLOT(Search()));
+ 
+     QPoint pos(0,ok->height());
+@@ -648,7 +652,7 @@ void NetHackQtMenuWindow::InputCount(char key)
+ 	countstr += QChar(key);
+     }
+     if (counting)
+-	prompt.setText("Count: " + countstr);
++	prompt.setText("個数: " + countstr);
+ }
+ 
+ void NetHackQtMenuWindow::ClearCount(void)
+@@ -805,7 +809,7 @@ void NetHackQtMenuWindow::Search()
+         return;
+ 
+     searching = true;
+-    NetHackQtStringRequestor requestor(this, "Search for:");
++    NetHackQtStringRequestor requestor(this, "検索する文字:");
+     char line[BUFSZ];
+     line[0] = '\0'; /* for EDIT_GETLIN */
+     if (requestor.Get(line)) {
+@@ -931,8 +935,8 @@ NetHackQtTextWindow::NetHackQtTextWindow(QWidget *parent) :
+     use_rip(false),
+     str_fixed(false),
+     textsearching(false),
+-    ok("&Dismiss", this),
+-    search("&Search", this),
++    ok("閉じる(&D)", this),
++    search("検索(&S)", this),
+     lines(new NetHackQtTextListBox(this)),
+     target(""),
+     rip(this)
+@@ -1164,7 +1168,7 @@ void NetHackQtTextWindow::PutStr(int attr UNUSED, const QString& text)
+ void NetHackQtTextWindow::Search()
+ {
+     textsearching = true;
+-    NetHackQtStringRequestor requestor(this, "Search for:", "Done", "Find");
++    NetHackQtStringRequestor requestor(this, "検索する文字:", "Done", "検索");
+     requestor.SetDefault(target);
+     boolean get_a_line = requestor.Get(target, (int) sizeof target);
+ 
+@@ -1262,7 +1266,7 @@ QWidget* NetHackQtMenuOrTextWindow::Widget()
+ void NetHackQtMenuOrTextWindow::Clear()
+ {
+     if (!actual)
+-        MenuOrText_too_soon_warning("Clear");
++        MenuOrText_too_soon_warning("消去");
+     else
+         actual->Clear();
+ }
+diff --git a/win/Qt/qt_menu.h b/win/Qt/qt_menu.h
+index 844a470..b483168 100644
+--- a/win/Qt/qt_menu.h
++++ b/win/Qt/qt_menu.h
+@@ -1,3 +1,4 @@
++/* Japanese Qt text, modified for DarkDungeon 2026-10-08. See dat/license. */
+ // Copyright (c) Warwick Allison, 1999.
+ // Qt4 conversion copyright (c) Ray Chason, 2012-2014.
+ // NetHack may be freely redistributed.  See license for details.
+diff --git a/win/Qt/qt_msg.cpp b/win/Qt/qt_msg.cpp
+index f61549d..ca965d3 100644
+--- a/win/Qt/qt_msg.cpp
++++ b/win/Qt/qt_msg.cpp
+@@ -1,3 +1,5 @@
++/* Modified for DarkDungeon on 2026-10-08. See dat/license. */
++/* Japanese Qt text, modified for DarkDungeon 2026-10-08. See dat/license. */
+ // Copyright (c) Warwick Allison, 1999.
+ // Qt4 conversion copyright (c) Ray Chason, 2012-2014.
+ // NetHack may be freely redistributed.  See license for details.
+@@ -100,10 +102,8 @@ const char * NetHackQtMessageWindow::GetStr(bool init)
+     QListWidgetItem *item = list->item(currgetmsg++);
+     if (item) {
+         QString str = item->text();
+-	if (str.toLatin1().length() < (int) sizeof historybuf) {
+-            return strcpy(historybuf, str.toLatin1().constData());
+-            //raw_printf("getstr[%d]='%s'", currgetmsg, result);
+-	}
++        str_copy(historybuf, str.toUtf8().constData(), sizeof historybuf);
++        return historybuf;
+     }
+     return NULL;
+ }
+@@ -115,7 +115,7 @@ void NetHackQtMessageWindow::PutStr(int attr, const QString& text)
+     // If the line is output from the "/" command, map the first character
+     // as a symbol
+     QString text2;
+-    if (text.mid(1, 3) == "   ") {
++    if (!text.isEmpty() && text.at(0).unicode() < 256 && text.mid(1, 3) == "   ") {
+ 	text2 = QChar(cp437(text.at(0).unicode())) + text.mid(1);
+     } else {
+ 	text2 = text;
+diff --git a/win/Qt/qt_msg.h b/win/Qt/qt_msg.h
+index 9c5624d..a769e2b 100644
+--- a/win/Qt/qt_msg.h
++++ b/win/Qt/qt_msg.h
+@@ -1,3 +1,4 @@
++/* Japanese Qt text, modified for DarkDungeon 2026-10-08. See dat/license. */
+ // Copyright (c) Warwick Allison, 1999.
+ // Qt4 conversion copyright (c) Ray Chason, 2012-2014.
+ // NetHack may be freely redistributed.  See license for details.
+diff --git a/win/Qt/qt_plsel.cpp b/win/Qt/qt_plsel.cpp
+index b646d34..cc79bbc 100644
+--- a/win/Qt/qt_plsel.cpp
++++ b/win/Qt/qt_plsel.cpp
+@@ -1,3 +1,6 @@
++/* Modified for DarkDungeon on 2026-10-08. See dat/license. */
++/* Japanese Qt text, modified for DarkDungeon 2026-10-08. See dat/license. */
++/* Modified for DarkDungeon on 2026-10-08. See dat/license. */
+ // Copyright (c) Warwick Allison, 1999.
+ // Qt4 conversion copyright (c) Ray Chason, 2012-2014.
+ // NetHack may be freely redistributed.  See license for details.
+@@ -75,7 +78,7 @@ void centerOnMain( QWidget* w );
+ // hack: padded with blank lines by inserting breaks above and below in
+ // order to force window to be tall enough to show all the roles at once
+ static const char nh_attribution[] = "<br><center><big>NetHack %1</big>"
+-        "<br><small>by the NetHack DevTeam</small></center><br>";
++        "<br><small>NetHack開発チーム制作</small></center><br>";
+ 
+ //
+ // None of these extra classes seem to be used except for NhPSListView. [pr]
+@@ -197,9 +200,9 @@ NetHackQtPlayerSelector::NetHackQtPlayerSelector(
+     chosen_align(ROLE_NONE),
+     cleric_role_row(0),
+     human_race_row(0),
+-    rand_btn(new QPushButton("Random")),
+-    play_btn(new QPushButton("Play")),
+-    quit_btn(new QPushButton("Quit"))
++    rand_btn(new QPushButton("ランダム")),
++    play_btn(new QPushButton("開始")),
++    quit_btn(new QPushButton("終了"))
+ {
+     /*
+                0              1              2
+@@ -235,7 +238,7 @@ NetHackQtPlayerSelector::NetHackQtPlayerSelector(
+      *   if it is empty;
+      * [Quit] is selected by default when [Name] is empty;
+      * ...stretch... is "NetHack x.y.z" in large text over
+-     *   "by the NetHack DevTeam" is smaller text with blank space above
++     *   "NetHack開発チーム制作" is smaller text with blank space above
+      *   and below the two lines of text.
+      *
+      * If currently selected race isn't allowed to be some roles, they'll
+@@ -254,12 +257,12 @@ NetHackQtPlayerSelector::NetHackQtPlayerSelector(
+     l->setColumnStretch(2, 1);
+     sizePolicy().setHorizontalPolicy(QSizePolicy::Minimum);
+ 
+-    QGroupBox* namebox = new QGroupBox("Name", this);
++    QGroupBox* namebox = new QGroupBox("名前", this);
+     QVBoxLayout *namelayout = new QVBoxLayout(namebox);
+     QLineEdit* name = new QLineEdit(namebox);
+     namelayout->addWidget(name);
+-    name->setMaxLength(PL_NSIZ - 1);
+-    name->setPlaceholderText(QString("  (required)")); // grayed out
++    play_btn->setObjectName("startGame"); name->setMaxLength(PL_NSIZ - 1);
++    name->setPlaceholderText(QString("  （必須）")); // grayed out
+ 
+     // if plname[] contains a generic user name, clear it
+     if (generic_plname())
+@@ -337,12 +340,12 @@ NetHackQtPlayerSelector::NetHackQtPlayerSelector(
+ 
+     connect(role, SIGNAL(currentCellChanged(int, int, int, int)),
+             this, SLOT(selectRole(int, int, int, int)));
+-    role->setHorizontalHeaderLabels(QStringList("Role"));
++    role->setHorizontalHeaderLabels(QStringList("職業"));
+     role->resizeColumnToContents(0);
+ 
+     connect(race, SIGNAL(currentCellChanged(int, int, int, int)),
+             this, SLOT(selectRace(int, int, int, int)));
+-    race->setHorizontalHeaderLabels(QStringList("Race"));
++    race->setHorizontalHeaderLabels(QStringList("種族"));
+     race->resizeColumnToContents(0);
+ 
+     // TODO:
+@@ -350,7 +353,7 @@ NetHackQtPlayerSelector::NetHackQtPlayerSelector(
+     //  horizontal header labels for role and race.  (Getting the font from
+     //  race table above and setting it for labels below made no difference.)
+ 
+-    QLabel *gendlabel = new QLabel("Gender");
++    QLabel *gendlabel = new QLabel("性別");
+     genderbox->layout()->addWidget(gendlabel);
+     gender = new QRadioButton*[ROLE_GENDERS];
+     for (i=0; i<ROLE_GENDERS; i++) {
+@@ -366,7 +369,7 @@ NetHackQtPlayerSelector::NetHackQtPlayerSelector(
+             this, SLOT(selectGender(int)));
+ #endif
+ 
+-    QLabel *alignlabel = new QLabel("Alignment");
++    QLabel *alignlabel = new QLabel("属性");
+     alignbox->layout()->addWidget(alignlabel);
+     alignment = new QRadioButton*[ROLE_ALIGNS];
+     for (i=0; i<ROLE_ALIGNS; i++) {
+@@ -571,13 +574,17 @@ void NetHackQtPlayerSelector::selectName(const QString& n)
+ {
+     // the QByteArray has to outlive name_str; calling constData() on
+     // the temporary returned by toLatin1() leaves it dangling
+-    QByteArray name_bytes = n.toLatin1();
++    QByteArray name_bytes = n.toUtf8();
+     const char *name_str = name_bytes.constData();
+     // skip any leading spaces
+     // (it would be better to set up a validator that rejects leading spaces)
+     while (*name_str == ' ')
+         ++name_str;
+     str_copy(svp.plname, name_str, PL_NSIZ);
++    if (n.toUtf8().size() >= PL_NSIZ) {
++        auto* edit=qobject_cast<QLineEdit*>(sender());
++        if(edit){QSignalBlocker block(edit);edit->setText(QString::fromUtf8(svp.plname));}
++    } gp.plnamelen = int(strlen(svp.plname));
+     // possibly enable or disable the [Play] button
+     plnamePlayVsQuit();
+ }
+@@ -728,7 +735,7 @@ void NetHackQtPlayerSelector::Random()
+ 
+ bool NetHackQtPlayerSelector::Choose()
+ {
+-    if (fully_specified_role)
++    if (fully_specified_role && qEnvironmentVariable("DARKDUNGEON_SMOKE_OUTPUT").isEmpty())
+         return true;
+ 
+ #if defined(QWS) // probably safe with Qt 3, too (where show!=exec in QDialog).
+diff --git a/win/Qt/qt_plsel.h b/win/Qt/qt_plsel.h
+index a301337..113f289 100644
+--- a/win/Qt/qt_plsel.h
++++ b/win/Qt/qt_plsel.h
+@@ -1,3 +1,4 @@
++/* Japanese Qt text, modified for DarkDungeon 2026-10-08. See dat/license. */
+ // Copyright (c) Warwick Allison, 1999.
+ // Qt4 conversion copyright (c) Ray Chason, 2012-2014.
+ // NetHack may be freely redistributed.  See license for details.
+diff --git a/win/Qt/qt_post.h b/win/Qt/qt_post.h
+index a73f9f3..0fc8992 100644
+--- a/win/Qt/qt_post.h
++++ b/win/Qt/qt_post.h
+@@ -1,3 +1,4 @@
++/* Japanese Qt text, modified for DarkDungeon 2026-10-08. See dat/license. */
+ /* NetHack 5.0	qt_post.h	$NHDT-Date: 1781973096 2026/06/20 16:31:36 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.5 $ */
+ 
+ /*
+diff --git a/win/Qt/qt_pre.h b/win/Qt/qt_pre.h
+index dc5cdfb..eacb93e 100644
+--- a/win/Qt/qt_pre.h
++++ b/win/Qt/qt_pre.h
+@@ -1,3 +1,4 @@
++/* Japanese Qt text, modified for DarkDungeon 2026-10-08. See dat/license. */
+ /* NetHack 5.0	qt_pre.h	$NHDT-Date: 1781973096 2026/06/20 16:31:36 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.10 $ */
+ 
+ /*
+diff --git a/win/Qt/qt_rip.cpp b/win/Qt/qt_rip.cpp
+index cb2873d..46d2fac 100644
+--- a/win/Qt/qt_rip.cpp
++++ b/win/Qt/qt_rip.cpp
+@@ -1,3 +1,5 @@
++/* Japanese Qt text, modified for DarkDungeon 2026-10-08. See dat/license. */
++/* Modified for DarkDungeon on 2026-10-08. See dat/license. */
+ // Copyright (c) Warwick Allison, 1999.
+ // Qt4 conversion copyright (c) Ray Chason, 2012-2014.
+ // NetHack may be freely redistributed.  See license for details.
+@@ -23,6 +25,9 @@ namespace nethack_qt_ {
+ QPixmap* NetHackQtRIP::pixmap=0;
+ 
+ // Debian uses a separate PIXMAPDIR
++#ifdef WIN32
++#define PIXMAPDIR "."
++#endif
+ #ifndef PIXMAPDIR
+ # ifdef HACKDIR
+ #  define PIXMAPDIR HACKDIR
+@@ -37,7 +42,7 @@ tryload(QPixmap& pm, const char* fn)
+     if (!pm.load(fn)) {
+ 	QString msg;
+ 	msg = nh_qsprintf("Cannot load \"%s\"", fn);
+-	QMessageBox::warning(NetHackQtBind::mainWidget(), "IO Error", msg);
++	QMessageBox::warning(NetHackQtBind::mainWidget(), "入出力エラー", msg);
+     }
+ }
+ 
+diff --git a/win/Qt/qt_rip.h b/win/Qt/qt_rip.h
+index 97670f0..d937d1b 100644
+--- a/win/Qt/qt_rip.h
++++ b/win/Qt/qt_rip.h
+@@ -1,3 +1,4 @@
++/* Japanese Qt text, modified for DarkDungeon 2026-10-08. See dat/license. */
+ // Copyright (c) Warwick Allison, 1999.
+ // Qt4 conversion copyright (c) Ray Chason, 2012-2014.
+ // NetHack may be freely redistributed.  See license for details.
+diff --git a/win/Qt/qt_set.cpp b/win/Qt/qt_set.cpp
+index 2823e4d..8c710f8 100644
+--- a/win/Qt/qt_set.cpp
++++ b/win/Qt/qt_set.cpp
+@@ -1,3 +1,5 @@
++/* Japanese Qt text, modified for DarkDungeon 2026-10-08. See dat/license. */
++/* Modified for DarkDungeon on 2026-10-08. See dat/license. */
+ // Copyright (c) Warwick Allison, 1999.
+ // Qt4 conversion copyright (c) Ray Chason, 2012-2014.
+ // NetHack may be freely redistributed.  See license for details.
+@@ -23,17 +25,17 @@ extern "C" {
+ #include "qt_xcmd.h"
+ #include "qt_str.h"
+ 
+-// Dialog box accessed via "Qt Settings..." in the games menu (non-OSX)
+-// or via "Preferences..." in the application menu (OSX):
++// Dialog box accessed via "画面設定…" in the games menu (non-OSX)
++// or via "設定…" in the application menu (OSX):
+ //--
+-//      "Qt NetHack Settings"
+-//  "Map:"    [ ] Zoomed  -- check box
++//      "DarkDungeonの画面設定"
++//  "マップ:"    [ ] Zoomed  -- check box
+ //            tilewidth   -- number entry spinner
+ //            tileheight  -- ditto
+-//  "Invent:" [ ] Shown   -- check box
++//  "装備欄:" [ ] Shown   -- check box
+ //            dollwidth   -- number entry spinner
+ //            dollheight  -- ditto
+-//  "Font:"   fontsize    -- Huge:18pt, Large:14, Medium:12, Small:10, Tiny:8
++//  "文字:"   fontsize    -- Huge:18pt, Large:14, Medium:12, Small:10, Tiny:8
+ //            [dismiss]   -- button
+ //--
+ // Map remembers 2 size pairs, one for Zoomed unchecked, another for checked.
+@@ -50,13 +52,13 @@ extern "C" {
+ // all of the fields can be manually reversed.
+ 
+ /* Used by tile/font-size patch below and in ../../src/files.c */
+-char *qt_tilewidth=NULL;
+-char *qt_tileheight=NULL;
+-char *qt_fontsize=NULL;
++extern "C" char *qt_tilewidth=NULL;
++extern "C" char *qt_tileheight=NULL;
++extern "C" char *qt_fontsize=NULL;
+ #if defined(QWS)
+-int qt_compact_mode = 1;
++extern "C" int qt_compact_mode = 1;
+ #else
+-int qt_compact_mode = 0;
++extern "C" int qt_compact_mode = 0;
+ #endif
+ 
+ namespace nethack_qt_ {
+@@ -66,17 +68,17 @@ namespace nethack_qt_ {
+ 
+ NetHackQtSettings::NetHackQtSettings() :
+     settings(),
+-    whichsize("&Zoomed", this),
++    whichsize("拡大(&Z)", this),
+     tilewidth(this),
+     tileheight(this),
+-    widthlbl("Tile &width:", this),
+-    heightlbl("Tile &height:", this),
++    widthlbl("タイルの幅(&W):", this),
++    heightlbl("タイルの高さ(&H):", this),
+ #ifdef ENHANCED_PAPERDOLL
+-    dollshown("&Shown", this),
++    dollshown("表示(&S)", this),
+     dollwidth(this),
+     dollheight(this),
+-    dollwidthlbl("&Doll width:", this),  // should "Doll tile width"...
+-    dollheightlbl("Doll height:", this), // ...but that's too verbose
++    dollwidthlbl("装備欄の幅(&D):", this),  // should "装備欄のタイル幅"...
++    dollheightlbl("装備欄の高さ:", this), // ...but that's too verbose
+ #endif
+     fontsize(this),
+     normal("times"),
+@@ -95,15 +97,15 @@ NetHackQtSettings::NetHackQtSettings() :
+     tilewidth.setRange(TILEWMIN, 128);
+     heightlbl.setBuddy(&tileheight);
+     tileheight.setRange(TILEHMIN, 128);
+-    tilewidth.setValue(settings.value("tilewidth", 16).toInt());
+-    tileheight.setValue(settings.value("tileheight", 16).toInt());
++    tilewidth.setValue(settings.value("tilewidth", 48).toInt());
++    tileheight.setValue(settings.value("tileheight", 48).toInt());
+ #ifdef ENHANCED_PAPERDOLL
+     dollwidthlbl.setBuddy(&dollwidth);
+     dollwidth.setRange(TILEWMIN, 48);
+     dollheightlbl.setBuddy(&dollheight);
+     dollheight.setRange(TILEHMIN, 48);
+-    dollwidth.setValue(settings.value("dollwidth", 32).toInt());
+-    dollheight.setValue(settings.value("dollheight", 32).toInt());
++    dollwidth.setValue(settings.value("dollwidth", 24).toInt());
++    dollheight.setValue(settings.value("dollheight", 24).toInt());
+     doll_is_shown = settings.value("dollShown", true).toBool();
+     // needed the very first time
+     settings.setValue("dollShown", QVariant(doll_is_shown));
+@@ -163,25 +165,25 @@ NetHackQtSettings::NetHackQtSettings() :
+         doll_is_shown = false;
+     }
+ 
+-    fontsize.setMinimumContentsLength((int) strlen("Medium"));
+-    fontsize.addItem("Huge");
+-    fontsize.addItem("Large");
+-    fontsize.addItem("Medium");
+-    fontsize.addItem("Small");
+-    fontsize.addItem("Tiny");
++    fontsize.setMinimumContentsLength((int) strlen("中"));
++    fontsize.addItem("特大");
++    fontsize.addItem("大");
++    fontsize.addItem("中");
++    fontsize.addItem("小");
++    fontsize.addItem("極小");
+     fontsize.setCurrentIndex(default_fontsize);
+     connect(&fontsize, SIGNAL(activated(int)), this, SLOT(changedFont()));
+ 
+     int row = 0; // used like X11-style XtSetArg(), ++argc
+      QGridLayout *grid = new QGridLayout(this);
+     // dialog box label, spans first two rows and all three columns
+-    QLabel *settings_label = new QLabel("Qt NetHack Settings\n", this);
++    QLabel *settings_label = new QLabel("DarkDungeon 画面設定\n", this);
+     grid->addWidget(settings_label, row, 0, 2, 3), row += 2; // uses extra row
+     settings_label->setAlignment(Qt::AlignHCenter | Qt::AlignTop);
+ 
+-    QLabel *map_label = new QLabel("&Map:", this);
++    QLabel *map_label = new QLabel("マップ(&M):", this);
+     map_label->setBuddy(&whichsize);
+-    grid->addWidget(map_label, row, 0), // "Map: [ ]Zoomed"
++    grid->addWidget(map_label, row, 0), // "マップ: [ ]拡大"
+         grid->addWidget(&whichsize, row, 1), ++row;
+     grid->addWidget(&widthlbl, row, 1),
+         grid->addWidget(&tilewidth, row, 2), ++row;
+@@ -190,9 +192,9 @@ NetHackQtSettings::NetHackQtSettings() :
+ 
+ #ifdef ENHANCED_PAPERDOLL
+     dollshown.QAbstractButton::setChecked(doll_is_shown);
+-    QLabel *doll_label = new QLabel("&Invent:", this);
++    QLabel *doll_label = new QLabel("装備欄(&I):", this);
+     doll_label->setBuddy(&dollshown);
+-    grid->addWidget(doll_label, row, 0), // "Invent: [ ]Shown"
++    grid->addWidget(doll_label, row, 0), // "装備欄: [ ]表示"
+         grid->addWidget(&dollshown, row, 1), ++row;
+     grid->addWidget(&dollwidthlbl, row, 1),
+         grid->addWidget(&dollwidth, row, 2), ++row;
+@@ -200,12 +202,12 @@ NetHackQtSettings::NetHackQtSettings() :
+         grid->addWidget(&dollheight, row, 2), ++row;
+ #endif
+ 
+-    QLabel *flabel = new QLabel("&Font:", this);
++    QLabel *flabel = new QLabel("文字(&F):", this);
+     flabel->setBuddy(&fontsize);
+     grid->addWidget(flabel, row, 0),
+         grid->addWidget(&fontsize, row, 1), ++row;
+ 
+-    QPushButton *dismiss = new QPushButton("Dismiss", this);
++    QPushButton *dismiss = new QPushButton("閉じる", this);
+     dismiss->setDefault(true);
+     grid->addWidget(dismiss, row, 0, 1, 3), ++row;
+     grid->setRowStretch(row - 1, 0);
+@@ -342,3 +344,13 @@ bool NetHackQtSettings::ynInMessages()
+ NetHackQtSettings* qt_settings;
+ 
+ } // namespace nethack_qt_
++
++namespace nethack_qt_ {
++void NetHackQtSettings::setMapTileSize(int width,int height) {
++    QSignalBlocker widthBlock(tilewidth),heightBlock(tileheight);
++    const QSize previous(tilewidth.value(),tileheight.value());
++    tilewidth.setValue(width);tileheight.setValue(height);
++    if(previous==QSize(tilewidth.value(),tileheight.value()))return;
++    othersize=previous;resizeTiles();
++}
++}
+\ No newline at end of file
+diff --git a/win/Qt/qt_set.h b/win/Qt/qt_set.h
+index 99a2cf3..3711a0b 100644
+--- a/win/Qt/qt_set.h
++++ b/win/Qt/qt_set.h
+@@ -1,3 +1,5 @@
++/* Japanese Qt text, modified for DarkDungeon 2026-10-08. See dat/license. */
++/* Modified for DarkDungeon on 2026-10-08. See dat/license. */
+ // Copyright (c) Warwick Allison, 1999.
+ // Qt4 conversion copyright (c) Ray Chason, 2012-2014.
+ // NetHack may be freely redistributed.  See license for details.
+@@ -45,7 +47,7 @@ signals:
+ 	void tilesChanged();
+ 
+ public slots:
+-	void toggleGlyphSize();
++	void toggleGlyphSize(); void setMapTileSize(int width,int height);
+ 	void setGlyphSize(bool);
+ #ifdef ENHANCED_PAPERDOLL
+ 	void toggleDollShown();
+diff --git a/win/Qt/qt_stat.cpp b/win/Qt/qt_stat.cpp
+index 13aae41..d9174f8 100644
+--- a/win/Qt/qt_stat.cpp
++++ b/win/Qt/qt_stat.cpp
+@@ -1,3 +1,6 @@
++/* Japanese Qt text, modified for DarkDungeon 2026-10-08. See dat/license. */
++/* Modified for DarkDungeon on 2026-10-08. See dat/license. */
++/* Modified for DarkDungeon on 2026-10-08. See dat/license. */
+ // Copyright (c) Warwick Allison, 1999.
+ // Qt4 conversion copyright (c) Ray Chason, 2012-2014.
+ // NetHack may be freely redistributed.  See license for details.
+@@ -93,12 +96,13 @@ extern const char *const hu_stat[]; /* from eat.c */
+ #endif
+ #include "qt_post.h"
+ #include "qt_stat.h"
++#include <algorithm>
+ #include "qt_stat.moc"
+ #include "qt_set.h"
+ #include "qt_str.h"
+ #include "qt_xpms.h"
+ 
+-extern int qt_compact_mode;
++extern "C" int qt_compact_mode;
+ 
+ namespace nethack_qt_ {
+ 
+@@ -109,40 +113,40 @@ NetHackQtStatusWindow::NetHackQtStatusWindow() :
+     name(this,"(name)"),
+     dlevel(this,"(dlevel)"),
+     /* next two rows:  icon over text label for the six characteristics */
+-    str(this, "Str"),
+-    dex(this, "Dex"),
+-    con(this, "Con"),
+-    intel(this, "Int"),
+-    wis(this, "Wis"),
+-    cha(this, "Cha"),
++    str(this, "力"),
++    dex(this, "器用さ"),
++    con(this, "耐久力"),
++    intel(this, "知力"),
++    wis(this, "賢さ"),
++    cha(this, "魅力"),
+     /* sixth row, text only:  some contain two slash-separated values */
+-    hp(this,"Hit Points"),
+-    power(this,"Power"),
+-    ac(this,"Armor Class"),
+-    level(this,"Level"), // Xp level, with "/"+Exp points optionally appended
++    hp(this,"体力"),
++    power(this,"魔力"),
++    ac(this,"防御値"),
++    level(this,"レベル"), // Xp level, with "/"+Exp points optionally appended
+     blank1(this, ""),    // used for padding to align columns (was once 'exp')
+-    gold(this,"Gold"),   // gold used to be this row's first column, now last
++    gold(this,"金貨"),   // gold used to be this row's first column, now last
+     /* seventh row:  two optionally displayed values (just text, no icons) */
+-    time(this,"Time"),   // if 'time' option On
+-    score(this,"Score"), // if SCORE_ON_BOTL defined and 'showscore' option On
++    time(this,"歩数"),   // if 'time' option On
++    score(this,"得点"), // if SCORE_ON_BOTL defined and 'showscore' option On
+     /* last two rows:  alignment followed by conditions (icons over text) */
+-    align(this,"Alignment"),
++    align(this,"属性"),
+     blank2(this, " "),   // used to prevent Conditions row from being empty
+     hunger(this,""),
+     encumber(this,""),
+-    stoned(this,"Stone"),     // major conditions
+-    slimed(this,"Slime"),
+-    strngld(this,"Strngl"),
+-    sick_fp(this,"FoodPois"),
+-    sick_il(this,"TermIll"),
+-    stunned(this,"Stun"),     // minor conditions
+-    confused(this,"Conf"),
+-    hallu(this,"Hallu"),
+-    blind(this,"Blind"),
+-    deaf(this,"Deaf"),
+-    lev(this,"Lev"),          // 'other' conditions
+-    fly(this,"Fly"),
+-    ride(this,"Ride"),
++    stoned(this,"石化"),     // major conditions
++    slimed(this,"スライム化"),
++    strngld(this,"窒息"),
++    sick_fp(this,"食中毒"),
++    sick_il(this,"病気"),
++    stunned(this,"朦朧"),     // minor conditions
++    confused(this,"混乱"),
++    hallu(this,"幻覚"),
++    blind(this,"盲目"),
++    deaf(this,"聴覚喪失"),
++    lev(this,"浮遊"),          // 'other' conditions
++    fly(this,"飛行"),
++    ride(this,"乗る"),
+     vers(this,""),            // optional, right justified after 'conditions'
+     hline1(this),             // separators
+     hline2(this),
+@@ -159,76 +163,75 @@ NetHackQtStatusWindow::NetHackQtStatusWindow() :
+     prev_versinfo(0U)
+ {
+     if (!qt_compact_mode) {
+-        int w = NetHackQtBind::mainWidget()->width();
+-        setMaximumWidth(w / 2);
++        setMaximumWidth(QWIDGETSIZE_MAX);
+     }
+     // for tool tips; they mostly work without this but sometimes changes
+     // to hunger or encumbrance seemed to cause tip display to stop
+     setMouseTracking(true);
+ 
+-    p_str = QPixmap(str_xpm);
+-    p_str = QPixmap(str_xpm);
+-    p_dex = QPixmap(dex_xpm);
+-    p_con = QPixmap(cns_xpm);
+-    p_int = QPixmap(int_xpm);
+-    p_wis = QPixmap(wis_xpm);
+-    p_cha = QPixmap(cha_xpm);
+-
+-    p_chaotic = QPixmap(chaotic_xpm);
+-    p_neutral = QPixmap(neutral_xpm);
+-    p_lawful = QPixmap(lawful_xpm);
+-    p_blank2 = QPixmap(blank_xpm);
+-
+-    p_satiated = QPixmap(satiated_xpm);
+-    p_hungry = QPixmap(hungry_xpm);
+-
+-    p_encumber[0] = QPixmap(slt_enc_xpm);
+-    p_encumber[1] = QPixmap(mod_enc_xpm);
+-    p_encumber[2] = QPixmap(hvy_enc_xpm);
+-    p_encumber[3] = QPixmap(ext_enc_xpm);
+-    p_encumber[4] = QPixmap(ovr_enc_xpm);
+-
+-    p_stoned = QPixmap(stone_xpm);
+-    p_slimed = QPixmap(slime_xpm);
+-    p_strngld = QPixmap(strngl_xpm);
+-    p_sick_fp = QPixmap(sick_fp_xpm);
+-    p_sick_il = QPixmap(sick_il_xpm);
+-    p_stunned = QPixmap(stunned_xpm);
+-    p_confused = QPixmap(confused_xpm);
+-    p_hallu = QPixmap(hallu_xpm);
+-    p_blind = QPixmap(blind_xpm);
+-    p_deaf = QPixmap(deaf_xpm);
+-    p_lev = QPixmap(lev_xpm);
+-    p_fly = QPixmap(fly_xpm);
+-    p_ride = QPixmap(ride_xpm);
+-
+-    p_vers = QPixmap(blank_xpm); // same all-background pixmap as blank2
+-
+-    str.setIcon(p_str, "strength");
+-    dex.setIcon(p_dex, "dexterity");
+-    con.setIcon(p_con, "constitution");
+-    intel.setIcon(p_int, "intelligence");
+-    wis.setIcon(p_wis, "wisdom");
+-    cha.setIcon(p_cha, "charisma");
++    p_str = QPixmap(str_xpm).scaled(24,24,Qt::KeepAspectRatio,Qt::SmoothTransformation);
++    p_str = QPixmap(str_xpm).scaled(24,24,Qt::KeepAspectRatio,Qt::SmoothTransformation);
++    p_dex = QPixmap(dex_xpm).scaled(24,24,Qt::KeepAspectRatio,Qt::SmoothTransformation);
++    p_con = QPixmap(cns_xpm).scaled(24,24,Qt::KeepAspectRatio,Qt::SmoothTransformation);
++    p_int = QPixmap(int_xpm).scaled(24,24,Qt::KeepAspectRatio,Qt::SmoothTransformation);
++    p_wis = QPixmap(wis_xpm).scaled(24,24,Qt::KeepAspectRatio,Qt::SmoothTransformation);
++    p_cha = QPixmap(cha_xpm).scaled(24,24,Qt::KeepAspectRatio,Qt::SmoothTransformation);
++
++    p_chaotic = QPixmap(chaotic_xpm).scaled(24,24,Qt::KeepAspectRatio,Qt::SmoothTransformation);
++    p_neutral = QPixmap(neutral_xpm).scaled(24,24,Qt::KeepAspectRatio,Qt::SmoothTransformation);
++    p_lawful = QPixmap(lawful_xpm).scaled(24,24,Qt::KeepAspectRatio,Qt::SmoothTransformation);
++    p_blank2 = QPixmap(blank_xpm).scaled(24,24,Qt::KeepAspectRatio,Qt::SmoothTransformation);
++
++    p_satiated = QPixmap(satiated_xpm).scaled(24,24,Qt::KeepAspectRatio,Qt::SmoothTransformation);
++    p_hungry = QPixmap(hungry_xpm).scaled(24,24,Qt::KeepAspectRatio,Qt::SmoothTransformation);
++
++    p_encumber[0] = QPixmap(slt_enc_xpm).scaled(24,24,Qt::KeepAspectRatio,Qt::SmoothTransformation);
++    p_encumber[1] = QPixmap(mod_enc_xpm).scaled(24,24,Qt::KeepAspectRatio,Qt::SmoothTransformation);
++    p_encumber[2] = QPixmap(hvy_enc_xpm).scaled(24,24,Qt::KeepAspectRatio,Qt::SmoothTransformation);
++    p_encumber[3] = QPixmap(ext_enc_xpm).scaled(24,24,Qt::KeepAspectRatio,Qt::SmoothTransformation);
++    p_encumber[4] = QPixmap(ovr_enc_xpm).scaled(24,24,Qt::KeepAspectRatio,Qt::SmoothTransformation);
++
++    p_stoned = QPixmap(stone_xpm).scaled(24,24,Qt::KeepAspectRatio,Qt::SmoothTransformation);
++    p_slimed = QPixmap(slime_xpm).scaled(24,24,Qt::KeepAspectRatio,Qt::SmoothTransformation);
++    p_strngld = QPixmap(strngl_xpm).scaled(24,24,Qt::KeepAspectRatio,Qt::SmoothTransformation);
++    p_sick_fp = QPixmap(sick_fp_xpm).scaled(24,24,Qt::KeepAspectRatio,Qt::SmoothTransformation);
++    p_sick_il = QPixmap(sick_il_xpm).scaled(24,24,Qt::KeepAspectRatio,Qt::SmoothTransformation);
++    p_stunned = QPixmap(stunned_xpm).scaled(24,24,Qt::KeepAspectRatio,Qt::SmoothTransformation);
++    p_confused = QPixmap(confused_xpm).scaled(24,24,Qt::KeepAspectRatio,Qt::SmoothTransformation);
++    p_hallu = QPixmap(hallu_xpm).scaled(24,24,Qt::KeepAspectRatio,Qt::SmoothTransformation);
++    p_blind = QPixmap(blind_xpm).scaled(24,24,Qt::KeepAspectRatio,Qt::SmoothTransformation);
++    p_deaf = QPixmap(deaf_xpm).scaled(24,24,Qt::KeepAspectRatio,Qt::SmoothTransformation);
++    p_lev = QPixmap(lev_xpm).scaled(24,24,Qt::KeepAspectRatio,Qt::SmoothTransformation);
++    p_fly = QPixmap(fly_xpm).scaled(24,24,Qt::KeepAspectRatio,Qt::SmoothTransformation);
++    p_ride = QPixmap(ride_xpm).scaled(24,24,Qt::KeepAspectRatio,Qt::SmoothTransformation);
++
++    p_vers = QPixmap(blank_xpm).scaled(24,24,Qt::KeepAspectRatio,Qt::SmoothTransformation); // same all-background pixmap as blank2
++
++    str.setIcon(p_str, "力");
++    dex.setIcon(p_dex, "器用さ");
++    con.setIcon(p_con, "耐久力");
++    intel.setIcon(p_int, "知力");
++    wis.setIcon(p_wis, "賢さ");
++    cha.setIcon(p_cha, "魅力");
+ 
+     align.setIcon(p_neutral);
+     blank2.setIcon(p_blank2); // used for spacing when Conditions row is empty
+     hunger.setIcon(p_hungry);
+     encumber.setIcon(p_encumber[0]);
+ 
+-    stoned.setIcon(p_stoned, "turning to stone");
+-    slimed.setIcon(p_slimed, "turning into slime");
+-    strngld.setIcon(p_strngld, "being strangled");
+-    sick_fp.setIcon(p_sick_fp, "severe food poisoning");
+-    sick_il.setIcon(p_sick_il, "terminal illness");
+-    stunned.setIcon(p_stunned, "stunned");
+-    confused.setIcon(p_confused, "confused");
+-    hallu.setIcon(p_hallu, "hallucinating");
+-    blind.setIcon(p_blind, "cannot see");
+-    deaf.setIcon(p_deaf, "cannot hear");
+-    lev.setIcon(p_lev, "levitating");
+-    fly.setIcon(p_fly, "flying");
+-    ride.setIcon(p_ride, "riding");
++    stoned.setIcon(p_stoned, "石化が進行中");
++    slimed.setIcon(p_slimed, "スライム化が進行中");
++    strngld.setIcon(p_strngld, "窒息している");
++    sick_fp.setIcon(p_sick_fp, "重度の食中毒");
++    sick_il.setIcon(p_sick_il, "致命的な病気");
++    stunned.setIcon(p_stunned, "朦朧としている");
++    confused.setIcon(p_confused, "混乱している");
++    hallu.setIcon(p_hallu, "幻覚が見える");
++    blind.setIcon(p_blind, "目が見えない");
++    deaf.setIcon(p_deaf, "音が聞こえない");
++    lev.setIcon(p_lev, "浮遊している");
++    fly.setIcon(p_fly, "飛行している");
++    ride.setIcon(p_ride, "乗り物に乗っている");
+ 
+     vers.setIcon(p_vers); // used to align text-only version with conditions
+ 
+@@ -587,7 +590,7 @@ void NetHackQtStatusWindow::fadeHighlighting()
+ // hitpointbar: two panels: left==current health, right==missing max health
+ QHBoxLayout *NetHackQtStatusWindow::InitHitpointBar()
+ {
+-    hpbar_health.setFrameStyle(QFrame::NoFrame);
++    hpbar_health.setObjectName("adventureHealthBar"); hpbar_injury.setObjectName("adventureInjuryBar"); hpbar_health.setFrameStyle(QFrame::NoFrame);
+     hpbar_health.setMaximumHeight(9);
+     hpbar_health.setAutoFillBackground(true);
+     if (!iflags.wc2_hitpointbar)
+@@ -600,7 +603,7 @@ QHBoxLayout *NetHackQtStatusWindow::InitHitpointBar()
+     hpbar_injury.setAutoFillBackground(true);
+     hpbar_injury.hide(); // only shown when hitpointbar is On and uhp < uhpmax
+ 
+-    QHBoxLayout *hpbar = new QHBoxLayout;
++    QHBoxLayout *hpbar = new QHBoxLayout; hpbar_layout=hpbar;
+     hpbar->setSpacing(0);
+ #if QT_VERSION < 0x060000
+     hpbar->setMargin(0);
+@@ -617,101 +620,29 @@ DISABLE_WARNING_FORMAT_NONLITERAL
+ // when hitpoint bar is enabled, calculate and draw it, otherwise remove it
+ void NetHackQtStatusWindow::HitpointBar()
+ {
+-    // a style sheet is used to specify color for otherwise blank labels;
+-    // barcolors[][*]: column [0=left] is current health, [1=right] is injury
+-    static const char
+-    *styleformat = "QLabel { background-color : %s ; color : transparent ;"
+-                           " min-width : %d ; max-width %d }",
+-    *barcolors[6][2] = {
+-        { "black",   "black"     },  // 100%   /* second black never shown */
+-        { "blue",    "darkBlue"  },  //75..99
+-        /* gray is darker than darkGray for some reason (at least on OSX);
+-           default green is too dark compared to blue, yellow, orange,
+-           and red so is changed here to green.lighter(150) */
+-        { "#00c000", "gray"      },  //50..74  /* "green"=="#008000" */
+-        { "yellow",  "darkGray"  },  //25..49
+-        { "orange",  "lightGray" },  //10..24
+-        { "red",     "white"     },  // 0..9
+-    };
+-
+-    /*
+-     * tty and curses use inverse video characters in the left portion
+-     * of the name+rank string to reflect hero's health.  We draw a
+-     * separate line above the name+rank field instead.  The left side
+-     * of the line indicates current health.  The right side is only
+-     * shown when injured and indicates missing amount of maximum health.
+-     */
+-    if (iflags.wc2_hitpointbar) {
+-        int colorindx, w,
+-            ihp = Upolyd ? u.mh : u.uhp,
+-            ihpmax = Upolyd ? u.mhmax : u.uhpmax;
+-        ihp = std::max(std::min(ihp, ihpmax), 0);
+-        int pct = 100 * ihp / ihpmax,
+-            lox = hline1.x(),
+-            hix = lox + hline1.width() - 1;
+-        QRect geoH = hpbar_health.geometry(),
+-              geoI = hpbar_injury.geometry();
+-        QString styleH, styleI;
+-
+-        if (ihp < ihpmax) {
+-            // health is less than full;
+-            // use red for extreme low health even if the percentage is
+-            // above the usual threshold (which will happen when maximum
+-            // health is very low); do a similar threshold override for
+-            // orange even though it can be distracting for low level hero
+-            colorindx = (pct < 10 || ihp < 5) ? 5       // red    | white
+-                        : (pct < 25 || ihp < 10 ) ? 4   // orange | lightGray
+-                          : (pct < 50) ? 3              // yellow | darkGray*
+-                            : (pct < 75) ? 2            // green  | gray*
+-                              : 1;                      // blue   | darkBlue
+-
+-            int pxl_health = (hix - lox + 1) * ihp / ihpmax;
+-            geoH.setRight(std::min(lox + pxl_health - 1, hix));
+-            hpbar_health.setGeometry(geoH);
+-            w = geoH.right() - geoH.left() + 1; // might yield 0 (ie, if dead)
+-            styleH = nh_qsprintf(styleformat, barcolors[colorindx][0], w, w);
+-            hpbar_health.setStyleSheet(styleH);
+-            // when healing, having the old injury-side shown while the new
+-            // health-side expands pushes the injury farther right and it's
+-            // momentarily visible there before it gets recalculated+redrawn
+-            hpbar_injury.hide(); // will re-show below
+-            hpbar_health.show(); // don't need to hide() if/when width is 0
+-
+-            int oldleft = geoI.left();
+-            geoI.setLeft(geoH.right() + 1);
+-            geoI.setRight(hix);
+-            hpbar_injury.setGeometry(geoI);
+-            w = geoI.right() - geoI.left() + 1;
+-            styleI = nh_qsprintf(styleformat, barcolors[colorindx][1], w, w);
+-            hpbar_injury.setStyleSheet(styleI);
+-            if (geoI.left() != oldleft)
+-                hpbar_injury.move(geoI.left(), geoI.top());
+-            hpbar_injury.show();
+-
+-            alreadyfullhp = false;
+-        } else if (!alreadyfullhp) { // skip if unchanged
+-            // health is full
+-            colorindx = 0; // black | (not used)
+-
+-            hpbar_injury.hide();
+-            geoI.setLeft(hix); // hix + 1
+-            hpbar_injury.setGeometry(geoI);
+-
+-            geoH.setRight(hix);
+-            hpbar_health.setGeometry(geoH);
+-            w = geoH.right() - geoH.left() + 1;
+-            styleH = nh_qsprintf(styleformat, barcolors[colorindx][0], w, w);
+-            hpbar_health.setStyleSheet(styleH);
+-            hpbar_health.show();
+-
+-            alreadyfullhp = true;
+-        }
+-    } else {
+-        // hitpoint bar is disabled
+-        hpbar_health.hide();
+-        hpbar_injury.hide();
+-        alreadyfullhp = false;
++    if (!iflags.wc2_hitpointbar) {
++        hpbar_health.hide();hpbar_injury.hide();alreadyfullhp=false;return;
+     }
++    const int maximum=std::max(1,Upolyd ? u.mhmax : u.uhpmax);
++    const int health=std::clamp(Upolyd ? u.mh : u.uhp,0,maximum);
++    const int pct=100*health/maximum;
++    const char* colors[6][2]={{"black","black"},{"blue","darkBlue"},
++        {"#00c000","gray"},{"yellow","darkGray"},{"orange","lightGray"},{"red","white"}};
++    const int color=health==maximum ? 0 : (pct<10 || health<5) ? 5
++        : (pct<25 || health<10) ? 4 : pct<50 ? 3 : pct<75 ? 2 : 1;
++    // Layout stretch follows health without pinning the window's minimum width.
++    hpbar_health.setSizePolicy(QSizePolicy::Ignored,QSizePolicy::Fixed);
++    hpbar_injury.setSizePolicy(QSizePolicy::Ignored,QSizePolicy::Fixed);
++    hpbar_health.setFixedHeight(9);hpbar_injury.setFixedHeight(3);
++    hpbar_health.setStyleSheet(QString("QLabel { background-color: %1; color: transparent; }")
++        .arg(QString::fromUtf8(colors[color][0])));
++    hpbar_injury.setStyleSheet(QString("QLabel { background-color: %1; color: transparent; }")
++        .arg(QString::fromUtf8(colors[color][1])));
++    hpbar_layout->setAlignment(&hpbar_health,Qt::Alignment());
++    hpbar_layout->setAlignment(&hpbar_injury,Qt::Alignment());
++    hpbar_layout->setStretch(0,health);hpbar_layout->setStretch(1,maximum-health);
++    hpbar_health.setVisible(health>0);hpbar_injury.setVisible(health<maximum);
++    alreadyfullhp=health==maximum;
+ }
+ 
+ RESTORE_WARNING_FORMAT_NONLITERAL
+@@ -751,20 +682,20 @@ void NetHackQtStatusWindow::updateStats()
+ 
+     int st = ACURR(A_STR);
+     if (st > STR18(100)) {
+-        buf = nh_qsprintf("Str:%d", st - 100);        // 19..25
++        buf = nh_qsprintf("力:%d", st - 100);        // 19..25
+     } else if (st == STR18(100)) {
+-        buf = nh_qsprintf("Str:18/**");               // 18/100
++        buf = nh_qsprintf("力:18/**");               // 18/100
+     } else if (st > 18) {
+-        buf = nh_qsprintf("Str:18/%02d", st - 18);    // 18/01..18/99
++        buf = nh_qsprintf("力:18/%02d", st - 18);    // 18/01..18/99
+     } else {
+-        buf = nh_qsprintf("Str:%d", st);              //  3..18
++        buf = nh_qsprintf("力:%d", st);              //  3..18
+     }
+     str.setLabel(buf, NetHackQtLabelledIcon::NoNum, (long) st);
+-    dex.setLabel("Dex:", (long) ACURR(A_DEX));
+-    con.setLabel("Con:", (long) ACURR(A_CON));
+-    intel.setLabel("Int:", (long) ACURR(A_INT));
+-    wis.setLabel("Wis:", (long) ACURR(A_WIS));
+-    cha.setLabel("Cha:", (long) ACURR(A_CHA));
++    dex.setLabel("器用:", (long) ACURR(A_DEX));
++    con.setLabel("耐久:", (long) ACURR(A_CON));
++    intel.setLabel("知力:", (long) ACURR(A_INT));
++    wis.setLabel("賢さ:", (long) ACURR(A_WIS));
++    cha.setLabel("魅力:", (long) ACURR(A_CHA));
+ 
+     boolean spreadout = (::iflags.wc2_statuslines != 2);
+     int k = 0; // number of conditions shown
+@@ -862,12 +793,12 @@ void NetHackQtStatusWindow::updateStats()
+     }
+     QString buf2;
+     char buf3[BUFSZ];
+-    buf2 = nh_qsprintf("%s the %s", upstart(strcpy(buf3, svp.plname)),
+-                       buf.toLatin1().constData());
++    buf2 = nh_qsprintf("%s：%s", upstart(strcpy(buf3, svp.plname)),
++                       buf.toUtf8().constData());
+     name.setLabel(buf2, NetHackQtLabelledIcon::NoNum, u.ulevel);
+ 
+     if (!describe_level(buf3, 0)) {
+-	Sprintf(buf3, "%s, level %d",
++	Sprintf(buf3, "%s、地下%d階",
+                 svd.dungeons[u.uz.dnum].dname, ::depth(&u.uz));
+     }
+     dlevel.setLabel(buf3);
+@@ -882,18 +813,18 @@ void NetHackQtStatusWindow::updateStats()
+     if (Upolyd) {
+         // You're a monster!
+         buf = nh_qsprintf("/%d", u.mhmax);
+-        hp.setLabel("HP:", std::max((long) u.mh, 0L), buf);
+-        level.setLabel("HD:", (long) mons[u.umonnum].mlevel); // hit dice
++        hp.setLabel("体力:", std::max((long) u.mh, 0L), buf);
++        level.setLabel("強度:", (long) mons[u.umonnum].mlevel); // hit dice
+         // Exp points are not shown when HD is displayed instead of Xp level
+     } else {
+         // You're normal.
+         buf = nh_qsprintf("/%d", u.uhpmax);
+-        hp.setLabel("HP:", std::max((long) u.uhp, 0L), buf);
++        hp.setLabel("体力:", std::max((long) u.uhp, 0L), buf);
+         // if Exp points are to be displayed, append them to Xp level;
+         // up/down highlighting becomes tricky--don't try very hard;
+         // depending upon font size and status layout, "Level:NN/nnnnnnnn"
+         // might be too wide to fit
+-        static const char *const lvllbl[3] = { "Level:", "Lvl:", "L:" };
++        static const char *const lvllbl[3] = { "レベル:", "レベル:", "L:" };
+         QFontMetrics fm(level.label->font());
+         for (int i = ::flags.showexp ? 0 : 3; i < 4; ++i) {
+             // passes 0,1,2 are with Exp, 3 is without Exp and always fits
+@@ -922,29 +853,29 @@ void NetHackQtStatusWindow::updateStats()
+     had_exp = (::flags.showexp && !was_polyd) ? true : false;
+ 
+     buf = nh_qsprintf("/%d", u.uenmax);
+-    power.setLabel("Pow:", (long) u.uen, buf);
+-    ac.setLabel("AC:", (long) u.uac);
++    power.setLabel("魔力:", (long) u.uen, buf);
++    ac.setLabel("防御:", (long) u.uac);
+     // gold prefix used to be "Au:", tty uses "$:"; never too wide to fit;
+     // practical limit due to carrying capacity limit is less than 300K
+     long goldamt = money_cnt(gi.invent);
+     goldamt = std::max(goldamt, 0L); // sanity; core's botl() does likewise
+     goldamt = std::min(goldamt, 99999999L); // ditto
+-    gold.setLabel("Gold:", goldamt);
++    gold.setLabel("金貨:", goldamt);
+ 
+     const char *text;
+     QString qtext;
+     QPixmap *pxmp;
+     if (u.ualign.type == A_LAWFUL) {
+         pxmp = &p_lawful;
+-        text = "Lawful";
++        text = "秩序";
+     } else if (u.ualign.type == A_NEUTRAL) {
+         pxmp = &p_neutral;
+-        text = "Neutral";
++        text = "中立";
+     } else {
+         pxmp = &p_chaotic;
+         // Unaligned should never happen
+-        text = (u.ualign.type == A_CHAOTIC) ? "Chaotic"
+-               : (u.ualign.type == A_NONE) ? "unaligned"
++        text = (u.ualign.type == A_CHAOTIC) ? "混沌"
++               : (u.ualign.type == A_NONE) ? "無属性"
+                  : "other?";
+     }
+     qtext = nh_qsprintf("%sly aligned", text);
+@@ -957,7 +888,7 @@ void NetHackQtStatusWindow::updateStats()
+         ++k; // when not condensed, Alignment is shown on the Conditions row
+ 
+     if (!k) {
+-        blank2.show(); // for vertical spacing: force the row to be non-empty
++        blank2.hide(); // Empty condition rows do not reserve map space.
+     } else
+         blank2.hide();
+ 
+@@ -966,7 +897,7 @@ void NetHackQtStatusWindow::updateStats()
+     if (::flags.time) {
+         // hypothetically Time could grow to enough digits to have trouble
+         // fitting, but it's not worth worrying about
+-        time.setLabel("Time:", (long) svm.moves);
++        time.setLabel("歩数:", (long) svm.moves);
+     } else {
+         time.setLabel("");
+     }
+@@ -979,11 +910,11 @@ void NetHackQtStatusWindow::updateStats()
+         long pts = botl_score();
+         if (spreadout) {
+             // plenty of room; Time and Score both have the width of 3 fields
+-            score.setLabel("Score:", pts);
++            score.setLabel("得点:", pts);
+         } else {
+             // depending upon font size and status layout, "Score:nnnnnnnn"
+             // might be too wide to fit (simpler version of Level:NN/nnnnnnnn)
+-            static const char *const scrlbl[3] = { "Score:", "Scr:", "S:" };
++            static const char *const scrlbl[3] = { "得点:", "得点:", "S:" };
+             QFontMetrics fm(score.label->font());
+             for (int i = 0; i < 3; ++i) {
+                 buf = nh_qsprintf("%s%ld", scrlbl[i], pts);
+diff --git a/win/Qt/qt_stat.h b/win/Qt/qt_stat.h
+index 43cf2f1..56e905b 100644
+--- a/win/Qt/qt_stat.h
++++ b/win/Qt/qt_stat.h
+@@ -1,3 +1,5 @@
++/* Japanese Qt text, modified for DarkDungeon 2026-10-08. See dat/license. */
++/* Modified for DarkDungeon on 2026-10-08. See dat/license. */
+ // Copyright (c) Warwick Allison, 1999.
+ // Qt4 conversion copyright (c) Ray Chason, 2012-2014.
+ // NetHack may be freely redistributed.  See license for details.
+@@ -148,6 +150,7 @@ private:
+         bool had_score;
+         unsigned prev_versinfo;
+ 
++        QHBoxLayout *hpbar_layout;
+         QHBoxLayout *InitHitpointBar();
+         void HitpointBar();
+ 	void nullOut();
+diff --git a/win/Qt/qt_str.cpp b/win/Qt/qt_str.cpp
+index 764dd07..39ec61c 100644
+--- a/win/Qt/qt_str.cpp
++++ b/win/Qt/qt_str.cpp
+@@ -1,3 +1,5 @@
++/* Modified for DarkDungeon on 2026-10-08. See dat/license. */
++/* Japanese Qt text, modified for DarkDungeon 2026-10-08. See dat/license. */
+ // Copyright (c) Warwick Allison, 1999.
+ // Qt4 conversion copyright (c) Ray Chason, 2012-2014.
+ // NetHack may be freely redistributed.  See license for details.
+@@ -19,6 +21,7 @@ size_t str_copy(char *dest, const char *src, size_t max)
+         len = strlen(src);
+ 	if (len > max - 1) {
+ 	    len = max - 1;
++            while (len && (static_cast<unsigned char>(src[len]) & 0xc0) == 0x80) --len;
+ 	}
+         memcpy(dest, src, len);
+         dest[len] = '\0';
+diff --git a/win/Qt/qt_str.h b/win/Qt/qt_str.h
+index 9bc8f66..8880c85 100644
+--- a/win/Qt/qt_str.h
++++ b/win/Qt/qt_str.h
+@@ -1,3 +1,4 @@
++/* Japanese Qt text, modified for DarkDungeon 2026-10-08. See dat/license. */
+ // Copyright (c) Warwick Allison, 1999.
+ // Qt4 conversion copyright (c) Ray Chason, 2012-2014.
+ // NetHack may be freely redistributed.  See license for details.
+diff --git a/win/Qt/qt_streq.cpp b/win/Qt/qt_streq.cpp
+index dc6712a..d761efe 100644
+--- a/win/Qt/qt_streq.cpp
++++ b/win/Qt/qt_streq.cpp
+@@ -1,3 +1,5 @@
++/* Modified for DarkDungeon on 2026-10-08. See dat/license. */
++/* Japanese Qt text, modified for DarkDungeon 2026-10-08. See dat/license. */
+ // Copyright (c) Warwick Allison, 1999.
+ // Qt4 conversion copyright (c) Ray Chason, 2012-2014.
+ // NetHack may be freely redistributed.  See license for details.
+@@ -27,7 +29,7 @@ void centerOnMain(QWidget *);
+ NetHackQtStringRequestor::NetHackQtStringRequestor(QWidget *parent,
+         const char *p, const char *cancelstr, const char *okaystr) :
+     QDialog(parent),
+-    prompt(QString::fromLatin1(p),this),
++    prompt(QString::fromUtf8(p),this),
+     input(this,"input")
+ {
+     if (qt_settings)
+@@ -77,7 +79,15 @@ void NetHackQtStringRequestor::SetDefault(const char *d)
+ 
+ bool NetHackQtStringRequestor::Get(char *buffer, int maxchar, int minchar)
+ {
+-    input.setMaxLength(maxchar - 1);
++        input.setMaxLength(maxchar - 1);
++    auto limitBytes=[this,maxchar](const QString& text) {
++        const QByteArray bytes=text.toUtf8();
++        if(bytes.size()<maxchar)return;
++        QByteArray limited(maxchar,'\0');str_copy(limited.data(),bytes.constData(),maxchar);
++        QSignalBlocker block(&input);input.setText(QString::fromUtf8(limited.constData()));
++    };
++    connect(&input,&QLineEdit::textChanged,this,limitBytes);
++    limitBytes(input.text());
+ 
+     const QString &txt = prompt.text();
+     int pw = fontMetrics().QFM_WIDTH(txt),
+@@ -102,7 +112,7 @@ bool NetHackQtStringRequestor::Get(char *buffer, int maxchar, int minchar)
+     exec();
+ 
+     if (result()) {
+-        str_copy(buffer, input.text().toLatin1().constData(), maxchar);
++        str_copy(buffer, input.text().toUtf8().constData(), maxchar);
+ 	return true;
+     } else {
+ 	return false;
+diff --git a/win/Qt/qt_streq.h b/win/Qt/qt_streq.h
+index 89894dc..5b2bcc8 100644
+--- a/win/Qt/qt_streq.h
++++ b/win/Qt/qt_streq.h
+@@ -1,3 +1,4 @@
++/* Japanese Qt text, modified for DarkDungeon 2026-10-08. See dat/license. */
+ // Copyright (c) Warwick Allison, 1999.
+ // Qt4 conversion copyright (c) Ray Chason, 2012-2014.
+ // NetHack may be freely redistributed.  See license for details.
+@@ -20,8 +21,8 @@ private:
+ 
+ public:
+         NetHackQtStringRequestor(QWidget *parent, const char *p,
+-                                 const char *cancelstr = "Cancel",
+-                                 const char *okaystr = "Okay");
++                                 const char *cancelstr = "キャンセル",
++                                 const char *okaystr = "決定");
+         void SetDefault(const char *);
+         // maxchar is size of buffer[], minchar is size of line edit widget
+         bool Get(char *buffer, int maxchar = 80, int minchar = 20);
+diff --git a/win/Qt/qt_svsel.cpp b/win/Qt/qt_svsel.cpp
+index f08c0aa..4081c54 100644
+--- a/win/Qt/qt_svsel.cpp
++++ b/win/Qt/qt_svsel.cpp
+@@ -1,3 +1,4 @@
++/* Japanese Qt text, modified for DarkDungeon 2026-10-08. See dat/license. */
+ // Copyright (c) Warwick Allison, 1999.
+ // Qt4 conversion copyright (c) Ray Chason, 2012-2014.
+ // NetHack may be freely redistributed.  See license for details.
+@@ -72,7 +73,7 @@ NetHackQtSavedGameSelector::NetHackQtSavedGameSelector(const char** saved) :
+     logo->setPixmap(QPixmap("nhsplash.xpm"));
+     vbl->addWidget(logo);
+ 
+-    QLabel *attr = new QLabel("by the NetHack DevTeam", this);
++    QLabel *attr = new QLabel("NetHack開発チーム制作", this);
+     attr->setAlignment(Qt::AlignCenter);
+     vbl->addWidget(attr);
+     vbl->addStretch(2);
+@@ -84,15 +85,15 @@ QLayout: Attempting to add QLayout "" to QDialog "", which already has a layout
+     hb = new QHBoxLayout((QWidget *) NULL);
+     vbl->addLayout(hb, Qt::AlignCenter);
+ 
+-    QPushButton *q = new QPushButton("Quit", this);
++    QPushButton *q = new QPushButton("終了", this);
+     hb->addWidget(q);
+     connect(q, SIGNAL(clicked()), this, SLOT(reject()));
+-    QPushButton *c = new QPushButton("New Game", this);
++    QPushButton *c = new QPushButton("新しいゲーム", this);
+     hb->addWidget(c);
+     connect(c, SIGNAL(clicked()), this, SLOT(accept()));
+     c->setDefault(true);
+ 
+-    QGroupBox *box = new QGroupBox("Saved Characters", this);
++    QGroupBox *box = new QGroupBox("保存された冒険", this);
+     QVBoxLayout *bgl = new QVBoxLayout();
+     QButtonGroup *bg = new QButtonGroup();
+ #if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
+diff --git a/win/Qt/qt_svsel.h b/win/Qt/qt_svsel.h
+index 3a54987..4768fa8 100644
+--- a/win/Qt/qt_svsel.h
++++ b/win/Qt/qt_svsel.h
+@@ -1,3 +1,4 @@
++/* Japanese Qt text, modified for DarkDungeon 2026-10-08. See dat/license. */
+ // Copyright (c) Warwick Allison, 1999.
+ // Qt4 conversion copyright (c) Ray Chason, 2012-2014.
+ // NetHack may be freely redistributed.  See license for details.
+diff --git a/win/Qt/qt_win.cpp b/win/Qt/qt_win.cpp
+index db66579..0e4a146 100644
+--- a/win/Qt/qt_win.cpp
++++ b/win/Qt/qt_win.cpp
+@@ -1,3 +1,4 @@
++/* Japanese Qt text, modified for DarkDungeon 2026-10-08. See dat/license. */
+ // Copyright (c) Warwick Allison, 1999.
+ // Qt4 conversion copyright (c) Ray Chason, 2012-2014.
+ // NetHack may be freely redistributed.  See license for details.
+diff --git a/win/Qt/qt_win.h b/win/Qt/qt_win.h
+index 8edb919..724f79b 100644
+--- a/win/Qt/qt_win.h
++++ b/win/Qt/qt_win.h
+@@ -1,3 +1,4 @@
++/* Japanese Qt text, modified for DarkDungeon 2026-10-08. See dat/license. */
+ // Copyright (c) Warwick Allison, 1999.
+ // Qt4 conversion copyright (c) Ray Chason, 2012-2014.
+ // NetHack may be freely redistributed.  See license for details.
+diff --git a/win/Qt/qt_xcmd.cpp b/win/Qt/qt_xcmd.cpp
+index 5059493..a3ed3cc 100644
+--- a/win/Qt/qt_xcmd.cpp
++++ b/win/Qt/qt_xcmd.cpp
+@@ -1,3 +1,5 @@
++/* Japanese Qt text, modified for DarkDungeon 2026-10-08. See dat/license. */
++/* Modified for DarkDungeon on 2026-10-08. See dat/license. */
+ // Copyright (c) Warwick Allison, 1999.
+ // Qt4 conversion copyright (c) Ray Chason, 2012-2014.
+ // NetHack may be freely redistributed.  See license for details.
+@@ -9,7 +11,7 @@
+ //    preserve that partial response across widget tear-down/rebuild.
+ //  Maybe make the number of grid columns user settable?  Or a way to
+ //    specify a different font (smaller might be necessary for some folks;
+-//    the font set up in "Qt settings" or "Preferences" applies to the
++//    the font set up in "画面設定" or "設定" applies to the
+ //    message and status windows but not to extended command choosing).
+ //
+ 
+@@ -92,7 +94,7 @@ extern "C" {
+ #include "qt_str.h"
+ 
+ // temporary
+-extern int qt_compact_mode;
++extern "C" int qt_compact_mode;
+ // end temporary
+ 
+ namespace nethack_qt_ {
+@@ -139,7 +141,7 @@ interesting_command(unsigned indx, int cmds)
+ NetHackQtExtCmdRequestor::NetHackQtExtCmdRequestor(QWidget *parent) :
+     QDialog(parent),
+     prompt(new QLabel("#", this)),
+-    cancel_btn(new QPushButton("Cancel", this)),
++    cancel_btn(new QPushButton("キャンセル", this)),
+     byRow(qt_settings->xcmd_by_row),
+     set(qt_settings->xcmd_set),
+     butoffset(0),
+@@ -169,7 +171,7 @@ NetHackQtExtCmdRequestor::NetHackQtExtCmdRequestor(QWidget *parent) :
+     ctrls->addStretch(0); // Cancel will be left justified, others far right
+     // Filter: change the [sub]set of commands that get shown;
+     // presently only useful when running in wizard mode
+-    QPushButton *filter_btn = new QPushButton("Filter", this);
++    QPushButton *filter_btn = new QPushButton("絞り込み", this);
+ #if 0   /* [later] normal vs autocomplete matters regardless of wizard mode */
+     if (!WizardMode) { // nothing to filter if not in wizard mode
+         filter_btn->setEnabled(false); // gray the [Filter] button out
+@@ -185,12 +187,12 @@ NetHackQtExtCmdRequestor::NetHackQtExtCmdRequestor(QWidget *parent) :
+     butw = std::max(butw, filter_btn->width());
+     ctrls->addWidget(filter_btn);
+     // Layout: switch from by-column grid to by-row grid or vice versa
+-    QPushButton *layout_btn = new QPushButton("Layout", this);
++    QPushButton *layout_btn = new QPushButton("配置", this);
+     layout_btn->setMinimumSize(layout_btn->sizeHint());
+     butw = std::max(butw, layout_btn->width());
+     ctrls->addWidget(layout_btn);
+     // Reset: switch filter back to all commands and layout back to by-column
+-    QPushButton *reset__btn = new QPushButton("Reset", this);
++    QPushButton *reset__btn = new QPushButton("初期化", this);
+     reset__btn->setMinimumSize(reset__btn->sizeHint());
+     butw = std::max(butw, reset__btn->width());
+     ctrls->addWidget(reset__btn);
+@@ -203,14 +205,14 @@ NetHackQtExtCmdRequestor::NetHackQtExtCmdRequestor(QWidget *parent) :
+ 
+     // grid title rather than overall popup title
+     const char *ctitle = ((set == all_cmds) // implies wizard mode
+-                          ? "All commands"
++                          ? "すべてのコマンド"
+                           : (set == normal_cmds)
+-                            ? (WizardMode ? "Normal mode commands"
+-                                          : "Available commands")
++                            ? (WizardMode ? "通常のコマンド"
++                                          : "使用可能なコマンド")
+                             : (set == autocomplete_cmds)
+-                              ? "Traditional extended commands"
++                              ? "従来の拡張コマンド"
+                               : (set == wizard_cmds)
+-                                ? "Debug mode commands"
++                                ? "デバッグ用コマンド"
+                                 : "(unknown)"); // won't happen
+     const QString &qtitle = QString(ctitle);
+     // rectangular grid to hold a button for each extended command name
+@@ -604,7 +606,7 @@ void NetHackQtExtCmdRequestor::enableButtons()
+     for (auto b = buttons.begin(); b != buttons.end(); ++b) {
+         const QString &buttext = (*b)->text();
+         bool showit = (buttext.left(len) == typedstr
+-                       || (buttext.contains("(rest)")
++                       || (buttext.contains("（休む）")
+                            && typedstr == rest.left(len)));
+         (*b)->setVisible(showit);
+     }
+diff --git a/win/Qt/qt_xcmd.h b/win/Qt/qt_xcmd.h
+index 4820d2d..901691b 100644
+--- a/win/Qt/qt_xcmd.h
++++ b/win/Qt/qt_xcmd.h
+@@ -1,3 +1,4 @@
++/* Japanese Qt text, modified for DarkDungeon 2026-10-08. See dat/license. */
+ // Copyright (c) Warwick Allison, 1999.
+ // Qt4 conversion copyright (c) Ray Chason, 2012-2014.
+ // NetHack may be freely redistributed.  See license for details.
+diff --git a/win/Qt/qt_xpms.h b/win/Qt/qt_xpms.h
+index 7ea3435..1b29a41 100644
+--- a/win/Qt/qt_xpms.h
++++ b/win/Qt/qt_xpms.h
+@@ -1,3 +1,4 @@
++/* Japanese Qt text, modified for DarkDungeon 2026-10-08. See dat/license. */
+ // qt_xpms.h - static xpm arrays for use in status display
+ //
+ // In alphabetical order by array name.  Probably not the best ordering...
+diff --git a/win/Qt/qt_yndlg.cpp b/win/Qt/qt_yndlg.cpp
+index a7dea6b..b1cee50 100644
+--- a/win/Qt/qt_yndlg.cpp
++++ b/win/Qt/qt_yndlg.cpp
+@@ -1,3 +1,5 @@
++/* Japanese Qt text, modified for DarkDungeon 2026-10-08. See dat/license. */
++/* Modified for DarkDungeon on 2026-10-08. See dat/license. */
+ // Copyright (c) Warwick Allison, 1999.
+ // Qt4 conversion copyright (c) Ray Chason, 2012-2014.
+ // NetHack may be freely redistributed.  See license for details.
+@@ -20,7 +22,7 @@ extern "C" {
+ #include "qt_str.h"
+ 
+ // temporary
+-extern int qt_compact_mode;
++extern "C" int qt_compact_mode;
+ // end temporary
+ 
+ namespace nethack_qt_ {
+@@ -41,7 +43,7 @@ NetHackQtYnDialog::NetHackQtYnDialog(QWidget *parent, const QString &q,
+     le((QLineEdit *) NULL),
+     y_btn((QPushButton *) NULL)
+ {
+-    setWindowTitle("NetHack: Question");
++    setWindowTitle("DarkDungeon: 質問");
+ 
+     // plain prompt doesn't show any room for an answer (answer won't be
+     // echoed but the fact that a prompt is pending and accepts typed
+@@ -76,7 +78,7 @@ NetHackQtYnDialog::NetHackQtYnDialog(QWidget *parent, const QString &q,
+ 
+ char NetHackQtYnDialog::Exec()
+ {
+-    QString ch(QString::fromLatin1(choices));
++    QString ch(QString::fromUtf8(choices));
+ //    int ch_per_line=6;
+     QString qlabel;
+     QString enable;
+@@ -135,7 +137,7 @@ char NetHackQtYnDialog::Exec()
+ 	    // Hmm... they'll have to use a virtual keyboard
+ 	}
+     } else {
+-        ch = QString::fromLatin1(choices);
++        ch = QString::fromUtf8(choices);
+ 	qlabel = question.replace(QChar(0x200B), QString(""));
+     }
+     if (!ch.isNull()) {
+@@ -199,7 +201,7 @@ char NetHackQtYnDialog::Exec()
+                 // use alternate text is needed
+                 switch (ch[i].cell()) {
+                 case 'y':
+-                    button_name = "Yes";
++                    button_name = "はい";
+                     making_y = true;
+                     break;
+                 case 'n':
+@@ -211,9 +213,9 @@ char NetHackQtYnDialog::Exec()
+                     // show "sort" instead of "all" and allow player to
+                     // type either 'a' or 's' when not clicking on button
+                     if (question.contains(QString("vanquished?")))
+-                        button_name = "Sort", AltChoice('s', 'a');
++                        button_name = "並べ替え", AltChoice('s', 'a');
+                     else
+-                        button_name = "All";
++                        button_name = "すべて";
+                     break;
+                 case 'q':
+                     // most 'q' replies are actually for "cancel" but
+@@ -221,18 +223,18 @@ char NetHackQtYnDialog::Exec()
+                     // and for end of game disclosure it really is "quit"
+                     if (question.left(10) == QString("Dump core?")
+                         || (::program_state.gameover
+-                            && question.left(11) == QString("Do you want")))
+-                        button_name = "Quit";
++                            && question.left(11) == QString("希望しますか")))
++                        button_name = "終了";
+                     else if (is_ynaq)
+-                        button_name = "Stop", AltChoice('s', 'q');
++                        button_name = "停止", AltChoice('s', 'q');
+                     else
+-                        button_name = "Cancel", AltChoice('c', 'q');
++                        button_name = "キャンセル", AltChoice('c', 'q');
+                     break;
+                 case 'l':
+-                    button_name = "Left";
++                    button_name = "左";
+                     break;
+                 case 'r':
+-                    button_name = "Right";
++                    button_name = "右";
+                     break;
+                 }
+             } else {
+@@ -303,7 +305,7 @@ char NetHackQtYnDialog::Exec()
+         QLabel *lb = 0;
+         if (allow_count) {
+             // insert Count widget in front of [n], between [y] and [n][a][q]
+-            lb = new QLabel("Count:");
++            lb = new QLabel("個数:");
+             groupbox->insertWidget(1, lb); // [y] button is item #0, [n] is #1
+             le = new QLineEdit();
+             groupbox->insertWidget(2, le); // [n] became #2, Count label is #1
+@@ -357,7 +359,7 @@ char NetHackQtYnDialog::Exec()
+ 
+     } else {
+ 	QLabel label(qlabel,this);
+-	QPushButton cancel("Dismiss",this);
++	QPushButton cancel("閉じる",this);
+ #if __cplusplus >= 202002L
+ 	label.setFrameStyle(static_cast<int>(QFrame::Box)
+                                 | static_cast<int>(QFrame::Sunken));
+@@ -399,7 +401,7 @@ void NetHackQtYnDialog::keyPressEvent(QKeyEvent *event)
+         this->done(1);
+ 
+     } else {
+-	int where = QString::fromLatin1(choices).indexOf(QChar(keypress));
++	int where = QString::fromUtf8(choices).indexOf(QChar(keypress));
+ 
+         if (allow_count && strchr("#0123456789", keypress)) {
+             if (keypress == '#') {
+diff --git a/win/Qt/qt_yndlg.h b/win/Qt/qt_yndlg.h
+index 0dd5d39..4ac44cf 100644
+--- a/win/Qt/qt_yndlg.h
++++ b/win/Qt/qt_yndlg.h
+@@ -1,3 +1,4 @@
++/* Japanese Qt text, modified for DarkDungeon 2026-10-08. See dat/license. */
+ // Copyright (c) Warwick Allison, 1999.
+ // Qt4 conversion copyright (c) Ray Chason, 2012-2014.
+ // NetHack may be freely redistributed.  See license for details.

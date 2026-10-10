@@ -59,19 +59,31 @@ int main(int argc,char** argv) {
         settings.setValue("language",language);
     }
     const QString directory=QCoreApplication::applicationDirPath()+"/"+language;
+#ifdef Q_OS_WIN
     const QString executable=directory+"/DarkDungeon-"+language+".exe";
+#else
+    const QString executable=directory+"/DarkDungeon-"+language;
+#endif
     if(!QFileInfo::exists(executable)) {
         if(!smoke)QMessageBox::critical(nullptr,"DarkDungeon",language=="ja"?QString::fromUtf8("選択した言語のゲーム本体が見つかりません。"):QString("The selected game engine is missing."));
         return 3;
     }
     QStringList engineArguments;
     if(separator>=0)engineArguments=arguments.mid(separator+1);
+    QProcessEnvironment environment=QProcessEnvironment::systemEnvironment();
+#ifndef Q_OS_WIN
+    // Unix engines read ~/.nethackrc by default; use the engine's own options file instead.
+    environment.insert("NETHACKOPTIONS",directory+"/darkdungeonrc");
+#endif
     if(smoke) {
         QProcess engine;engine.setProgram(executable);engine.setArguments(engineArguments);engine.setWorkingDirectory(directory);
+        engine.setProcessEnvironment(environment);
         engine.setProcessChannelMode(QProcess::ForwardedChannels);engine.start();
         if(!engine.waitForStarted(10000))return 4;
         if(!engine.waitForFinished(40000)){engine.kill();engine.waitForFinished(5000);return 5;}
         return engine.exitStatus()==QProcess::NormalExit?engine.exitCode():6;
     }
-    return QProcess::startDetached(executable,engineArguments,directory)?0:4;
+    QProcess engine;engine.setProgram(executable);engine.setArguments(engineArguments);
+    engine.setWorkingDirectory(directory);engine.setProcessEnvironment(environment);
+    return engine.startDetached()?0:4;
 }

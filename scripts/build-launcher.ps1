@@ -12,9 +12,13 @@ if(!($allowedRoots | Where-Object {$output.StartsWith($_+[IO.Path]::DirectorySep
     throw 'OutputRoot must be a child directory of this project dist, artifacts, or build.'
 }
 New-Item -ItemType Directory -Force $output | Out-Null
-foreach($obsolete in @('opengl32sw.dll','D3Dcompiler_47.dll','dxcompiler.dll','dxil.dll')) {
+# Files from older single-engine layouts and removed third-party content.
+foreach($obsolete in @('opengl32sw.dll','D3Dcompiler_47.dll','dxcompiler.dll','dxil.dll','assets','provenance.json',
+        'Guidebook.txt','license','NetHack.txt','nethackrc.template','nhdat501','nhsplash.xpm','nhtiles.bmp','opthelp',
+        'rip.xpm','symbols','symbols.template','sysconf.template','licenses\personal-use-and-provenance.md',
+        'licenses\design.md','licenses\NetHack.txt')) {
     $generatedPath=Join-Path $output $obsolete
-    if(Test-Path -LiteralPath $generatedPath) { Remove-Item -LiteralPath $generatedPath -Force }
+    if(Test-Path -LiteralPath $generatedPath) { Remove-Item -LiteralPath $generatedPath -Recurse -Force }
 }
 $batch=Join-Path $root 'build\compile-launcher.cmd'
 $text=@"
@@ -38,4 +42,4 @@ $licenses=Join-Path $output 'licenses'
 New-Item -ItemType Directory -Force $licenses | Out-Null
 $qtLicenses=Join-Path (Split-Path $QtRoot -Parent) 'Src\LICENSES'
 Copy-Item (Join-Path $qtLicenses 'LGPL-3.0-only.txt'),(Join-Path $qtLicenses 'GPL-3.0-only.txt') $licenses -Force
-Copy-Item (Join-Path $root 'docs\design.md'),(Join-Path $root 'docs\localization.md') $licenses -Force
+Copy-Item (Join-Path $root 'LICENSE'),(Join-Path $root 'THIRD-PARTY-NOTICES.md'),(Join-Path $root 'docs\localization.md') $licenses -Force

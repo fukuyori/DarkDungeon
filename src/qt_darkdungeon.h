@@ -21,4 +21,10 @@ void darkdungeon_start_hooks();
 void darkdungeon_language_init();
 void darkdungeon_finish_smoke();
 extern "C" void darkdungeon_trace(const char*);
+class QString;
+class QImage;
+QString darkdungeon_text(const char* english, const char* japanese);
+QImage darkdungeon_hero_image();
+void darkdungeon_show_inventory();
+bool darkdungeon_inventory_smoke(const QString& output);
 #endif

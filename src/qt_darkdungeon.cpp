@@ -16,7 +16,6 @@ extern glyph_map glyphmap[MAX_GLYPH]; // Same tile.c mapping used by the Qt map.
 #include "qt_set.h"
 #include "qt_glyph.h"
 #include "qt_str.h"
-#include "realtime_model.h"
 #include <cstdlib>
 #include <cstdio>
 #include <cstring>
@@ -55,14 +54,6 @@ QString smokePlayerName() {
     const QString name=qEnvironmentVariable("DARKDUNGEON_SMOKE_PLAYER");
     return name.isEmpty()?languageText("Hero","勇者"):name;
 }
-// Draw a NetHack tile with its reserved background removed into any rectangle.
-void drawTile(QPainter& painter,int glyph,const QRectF& target) {
-    auto& glyphs=nethack_qt_::qt_settings->glyphs();
-    painter.save();painter.translate(target.topLeft());
-    painter.scale(target.width()/std::max(1,glyphs.width()),target.height()/std::max(1,glyphs.height()));
-    glyphs.drawForegroundCell(painter,glyph,::glyphmap[glyph].tileidx,0,0);
-    painter.restore();
-}
 
 // Original stonework, cached at the map's default resolution. Use only the
 // displayed glyph, never hidden level terrain, to choose a map texture.
@@ -99,7 +90,7 @@ const QImage& dungeonTile(int cmap,int x,int y) {
             East|North,West|North,North|East|South|West,North|East|West,
             South|East|West,North|South|West,North|South|East};
         QPainterPath wall;wall.setFillRule(Qt::WindingFill);
-        if(cmap==S_stone)wall.addRect(0,0,48,48); // Displayed solid rock and practice walls.
+        if(cmap==S_stone)wall.addRect(0,0,48,48); // Displayed solid rock.
         else {
             const int arms=connections[cmap-S_vwall];wall.addRect(1,1,46,46);
             if(arms&North)wall.addRect(1,0,46,24);
@@ -137,196 +128,300 @@ const QImage& dungeonTile(int cmap,int x,int y) {
     p.end();tiles.insert(key,image);return tiles[key];
 }
 
-// Ignore held-key repeats after practice closes, until the keys are released.
-class HeldKeyGuard final : public QObject {
-public:
-    explicit HeldKeyGuard(QList<int> keys) : QObject(qApp),blocked(std::move(keys)) {qApp->installEventFilter(this);}
-protected:
-    bool eventFilter(QObject*,QEvent* event) override {
-        if(event->type()!=QEvent::KeyPress && event->type()!=QEvent::KeyRelease)return false;
-        auto* key=static_cast<QKeyEvent*>(event);
-        if(!blocked.contains(key->key()))return false;
-        const bool consume=event->type()==QEvent::KeyRelease || key->isAutoRepeat();
-        if(!key->isAutoRepeat())blocked.removeAll(key->key());
-        if(blocked.isEmpty()){qApp->removeEventFilter(this);deleteLater();}
-        if(consume)event->accept();
-        return consume;
+// Sprite sheets: 48x48 cells, rows up/right/down/left, columns walk A/B,
+// attack wind-up/strike. Missing sheets fall back to NetHack tiles.
+const QImage& spriteSheet(const QString& name) {
+    static QHash<QString,QImage> sheets;
+    auto found=sheets.constFind(name);
+    if(found!=sheets.constEnd())return *found;
+    QImage image(QCoreApplication::applicationDirPath()+"/sprites/"+name+".png");
+    if(!image.isNull() && image.size()!=QSize(192,192))image=QImage();
+    return *sheets.insert(name,image.isNull()?image:image.convertToFormat(QImage::Format_ARGB32_Premultiplied));
+}
+QImage tinted(const QImage& gray,const QColor& tint) {
+    QImage image=gray.convertToFormat(QImage::Format_ARGB32);
+    for(int y=0;y<image.height();++y) {
+        auto* row=reinterpret_cast<QRgb*>(image.scanLine(y));
+        for(int x=0;x<image.width();++x)if(qAlpha(row[x])) {
+            const int value=qGray(row[x]);
+            QColor color=QColor::fromHsv(tint.hsvHue(),value<48?0:tint.hsvSaturation(),value,qAlpha(row[x]));
+            row[x]=color.rgba();
+        }
     }
-private:
-    QList<int> blocked;
-};
+    return image;
+}
+// The hero's layers are chosen from the role, race, gender and alignment.
+const QImage& heroSheet() {
+    static const QHash<QString,QString> roles{{"Arc","archeologist"},{"Bar","barbarian"},{"Cav","caveman"},
+        {"Hea","healer"},{"Kni","knight"},{"Mon","monk"},{"Pri","priest"},{"Ran","ranger"},{"Rog","rogue"},
+        {"Sam","samurai"},{"Tou","tourist"},{"Val","valkyrie"},{"Wiz","wizard"}};
+    static const QHash<QString,QString> races{{"Hum","human"},{"Elf","elf"},{"Dwa","dwarf"},{"Gno","gnome"},{"Orc","orc"}};
+    const QString role=roles.value(QString::fromLatin1(gu.urole.filecode)),race=races.value(QString::fromLatin1(gu.urace.filecode));
+    const QString gender=flags.female?"female":"male";
+    const int alignment=u.ualign.type;
+    const QString key=role+"|"+race+"|"+gender+"|"+QString::number(alignment);
+    static QHash<QString,QImage> composites;
+    auto found=composites.constFind(key);
+    if(found!=composites.constEnd())return *found;
+    const QString layers[]={"hero/body_"+race+"_"+gender,"hero/hair_"+gender,"hero/outfit_"+role,"hero/cape",
+                            "hero/weapon_longsword","hero/shield_round"};
+    QImage composite(192,192,QImage::Format_ARGB32_Premultiplied);composite.fill(Qt::transparent);
+    QPainter p(&composite);
+    for(const QString& layer:layers) {
+        const QImage& sheet=spriteSheet(layer);
+        if(role.isEmpty() || race.isEmpty() || sheet.isNull()){p.end();return *composites.insert(key,QImage());}
+        const QColor cape=alignment>0?QColor("#3a6fd8"):alignment<0?QColor("#c83a3a"):QColor("#3a9a4a");
+        p.drawImage(0,0,layer=="hero/cape"?tinted(sheet,cape):sheet);
+    }
+    p.end();return *composites.insert(key,composite);
+}
+const QImage& monsterSheet(int monster) {
+    static const QImage none;
+    if(monster<0 || monster>=NUMMONS)return none;
+    switch(monster) {
+    case PM_LITTLE_DOG: case PM_DOG: case PM_LARGE_DOG:return spriteSheet("monster/dog");
+    case PM_JACKAL: case PM_COYOTE:return spriteSheet("monster/jackal");
+    case PM_NEWT:return spriteSheet("monster/newt");
+    default:break;
+    }
+    if(mons[monster].mlet==S_GNOME)return spriteSheet("monster/gnome");
+    return none;
+}
 
-class RealtimeArena final : public QDialog {
-public:
-    explicit RealtimeArena(QWidget* parent) : QDialog(parent),model(snapshot()) {
-        setWindowTitle(languageText("DarkDungeon - Realtime practice","DarkDungeon - リアルタイム練習"));
-        resize(1100,760);setFocusPolicy(Qt::StrongFocus);
-        // Practice enemies are temporary actors, not mutations of NetHack monsters.
-        std::queue<std::pair<int,int>> todo;
-        std::vector<int> distance(static_cast<size_t>(model.width*model.height),-1);
-        int startX=static_cast<int>(model.player.x),startY=static_cast<int>(model.player.y);
-        todo.push({startX,startY});distance[static_cast<size_t>(startY*model.width+startX)]=0;
-        std::vector<darkdungeon::Position> candidates;
-        while(!todo.empty()) {
-            auto [x,y]=todo.front();todo.pop();
-            int d=distance[static_cast<size_t>(y*model.width+x)];
-            if(d>=4 && d<=14) candidates.push_back({x+.5,y+.5});
-            const int dx[4]={0,1,0,-1},dy[4]={-1,0,1,0};
-            for(int dir=0;dir<4;++dir) {
-                int nx=x+dx[dir],ny=y+dy[dir];
-                if(model.floorAt(nx,ny) && distance[static_cast<size_t>(ny*model.width+nx)]<0) {
-                    distance[static_cast<size_t>(ny*model.width+nx)]=d+1;todo.push({nx,ny});
-                }
-            }
-        }
-        for(int i=0;i<4 && i<static_cast<int>(candidates.size());++i) {
-            size_t index=static_cast<size_t>((i+1)*(candidates.size()-1)/4);
-            model.addEnemy(static_cast<darkdungeon::EnemyKind>(i),candidates[index]);
-        }
-        clock.start();timer.setTimerType(Qt::PreciseTimer);timer.setInterval(16);
-        connect(&timer,&QTimer::timeout,this,[this] {
-            double elapsed=std::min(clock.restart()/1000.0,.2);
-            if(!paused) {
-                accumulated+=elapsed;
-                while(accumulated>=1.0/60) {model.tick(input());accumulated-=1.0/60;}
-            }
-            update();
-        });timer.start();
+// Short walk and attack animations, started when the hero or a monster
+// moves one square or attacks. Display only: game state is never changed.
+struct ActorAnimation { int facing=2,kind=0; qint64 start=-1; };
+enum { AnimationIdle,AnimationWalk,AnimationAttack };
+constexpr int animationFrameMs=90;
+QHash<unsigned,ActorAnimation> actorAnimations; // 0 is the hero; others are m_id.
+QElapsedTimer animationClock;
+int facingFor(int dx,int dy) {return dx>0?1:dx<0?3:dy<0?0:2;}
+void startAnimation(unsigned id,int kind,int dx,int dy) {
+    if(!dx && !dy)return;
+    auto& animation=actorAnimations[id];
+    animation.facing=facingFor(dx,dy);animation.kind=kind;animation.start=-1; // Starts on the next map refresh.
+}
+int animationColumn(unsigned id) {
+    auto found=actorAnimations.find(id);
+    if(found==actorAnimations.end() || found->kind==AnimationIdle || found->start<0)return 0;
+    const int step=int((animationClock.elapsed()-found->start)/animationFrameMs);
+    static const int walk[]={0,1,0},attack[]={2,3,0};
+    if(step>=3){found->kind=AnimationIdle;return 0;}
+    return found->kind==AnimationWalk?walk[step]:attack[step];
+}
+int animationFacing(unsigned id) {auto found=actorAnimations.constFind(id);return found==actorAnimations.constEnd()?2:found->facing;}
+bool drawActorSprite(QPainter& painter,int glyph,unsigned flags,const QRect& cell) {
+    if(Hallucination || u.uswallow)return false;
+    const QImage* sheet=nullptr;unsigned id=0;
+    if(flags & MG_HERO) {
+        if(Upolyd)return false;
+        sheet=&heroSheet();
+    } else {
+        if(!glyph_is_monster(glyph) || glyph_is_invisible(glyph))return false;
+        const int x=cell.x()/std::max(1,cell.width()),y=cell.y()/std::max(1,cell.height());
+        struct monst* monster=isok(x,y)?m_at(x,y):nullptr;
+        if(!monster || !canspotmon(monster))return false;
+        id=monster->m_id;sheet=&monsterSheet(glyph_to_mon(glyph));
     }
-    darkdungeon::RealtimeModel model;
-    void reject() override {
-        guardHeldKeys();QDialog::reject();
-    }
-    bool verifyInput() {
-        setWindowModality(Qt::ApplicationModal);show();raise();activateWindow();setFocus();QCoreApplication::processEvents();
-        auto key=[this](int code,bool press) {
-            QKeyEvent event(press?QEvent::KeyPress:QEvent::KeyRelease,code,Qt::NoModifier);
-            QCoreApplication::sendEvent(this,&event);
+    if(sheet->isNull())return false;
+    painter.drawImage(cell,*sheet,QRect(animationColumn(id)*48,animationFacing(id)*48,48,48));
+    return true;
+}
+// Compare positions while Qt waits for input; queued attacks start here too.
+void refreshAnimations() {
+    static QPoint hero;static int level=-1;static QHash<unsigned,QPoint> monsters;
+    if(!program_state.in_moveloop || program_state.gameover || !u.ux)return;
+    const int currentLevel=ledger_no(&u.uz);
+    QHash<unsigned,QPoint> seen;
+    for(struct monst* monster=fmon;monster;monster=monster->nmon)
+        if(!DEADMONSTER(monster))seen.insert(monster->m_id,QPoint(monster->mx,monster->my));
+    if(currentLevel==level) {
+        auto walked=[](unsigned id,QPoint from,QPoint to) {
+            const QPoint step=to-from;
+            if(std::abs(step.x())<=1 && std::abs(step.y())<=1 && step!=QPoint())
+                if(actorAnimations.value(id).kind!=AnimationAttack || actorAnimations.value(id).start>=0)
+                    startAnimation(id,AnimationWalk,step.x(),step.y());
         };
-        auto wait=[](int milliseconds) {
-            QEventLoop loop;QTimer::singleShot(milliseconds,&loop,&QEventLoop::quit);
-            QElapsedTimer elapsed;elapsed.start();int result=loop.exec();
-            darkdungeon_trace(QString("practice wait requested=%1 elapsed=%2 result=%3").arg(milliseconds).arg(elapsed.elapsed()).arg(result).toUtf8().constData());
-        };
-        wait(100); // allow native focus notifications to settle before input
-        if(paused)key(Qt::Key_P,true);
-        const auto original=model.player;
-        const int dx[4]={0,1,0,-1},dy[4]={-1,0,1,0};
-        const int codes[4]={Qt::Key_Up,Qt::Key_Right,Qt::Key_Down,Qt::Key_Left};
-        int chosen=-1;
-        for(int d=0;d<4;++d)
-            if(model.walkable(original.x+dx[d]*.5,original.y+dy[d]*.5)) {chosen=d;break;}
-        if(chosen<0){darkdungeon_trace("practice: no walkable direction");return false;}
-        key(codes[chosen],true);wait(300);key(codes[chosen],false);
-        if(std::hypot(model.player.x-original.x,model.player.y-original.y)<.1){darkdungeon_trace(QString("practice: movement failed paused=%1 visible=%2 active=%3").arg(paused).arg(isVisible()).arg(isActiveWindow()).toUtf8().constData());return false;}
-        key(Qt::Key_Space,true);wait(250);key(Qt::Key_Space,false);
-        if(model.sword<.8){darkdungeon_trace("practice: sword failed");return false;}
-        key(Qt::Key_P,true);double pausedTime=model.time;wait(100);
-        if(model.time!=pausedTime){darkdungeon_trace("practice: pause failed");return false;}
-        key(Qt::Key_R,true);
-        if(model.sword!=0 || model.hp!=100 || model.player.x!=original.x || model.player.y!=original.y)return false;
-        // Produce the screenshot with the sword drawn, then return to adventure.
-        key(Qt::Key_Space,true);wait(250);key(Qt::Key_Space,false);
-        return model.sword>.8;
-    }
-protected:
-    void closeEvent(QCloseEvent* event) override {guardHeldKeys();QDialog::closeEvent(event);}
-    void keyPressEvent(QKeyEvent* event) override {
-        if(!event->isAutoRepeat()) {
-            const int key=event->key();
-            if(key==Qt::Key_Escape) {reject();event->accept();return;}
-            if(key==Qt::Key_P) {paused=!paused;held.clear();accumulated=0;clock.restart();}
-            else if(key==Qt::Key_R) {model.reset();held.clear();accumulated=0;paused=false;}
-            else if(!held.contains(key)) held.append(key);
+        walked(0,hero,QPoint(u.ux,u.uy));
+        for(auto it=seen.cbegin();it!=seen.cend();++it)if(monsters.contains(it.key()))walked(it.key(),monsters.value(it.key()),it.value());
+    } else actorAnimations.clear();
+    level=currentLevel;hero=QPoint(u.ux,u.uy);monsters=seen;
+    bool active=false;
+    for(auto it=actorAnimations.begin();it!=actorAnimations.end();) {
+        if(it.key() && !seen.contains(it.key())){it=actorAnimations.erase(it);continue;}
+        if(it->kind!=AnimationIdle) {
+            if(it->start<0)it->start=animationClock.elapsed();
+            if(animationClock.elapsed()-it->start<=3*animationFrameMs+animationFrameMs)active=true;
+            else it->kind=AnimationIdle;
         }
-        event->accept();
+        ++it;
     }
-    void keyReleaseEvent(QKeyEvent* event) override {
-        if(!event->isAutoRepeat()) held.removeAll(event->key());
-        event->accept();
+    static bool wasActive=false;
+    if(active || wasActive)
+        if(auto* main=nethack_qt_::NetHackQtBind::mainWidget())
+            for(auto* map:main->findChildren<nethack_qt_::NetHackQtMapWindow2*>())if(map->widget())map->widget()->update();
+    wasActive=active;
+}
+
+// Player-chosen toolbar. The built-in buttons stay in place and are only shown
+// or hidden; Gear, Action, Magic and Info menu entries become extra buttons that
+// trigger the same menu action, so they behave exactly like the menu.
+struct ToolbarChoice { QString id,label,group,command; QAction* menuAction=nullptr; QToolButton* builtin=nullptr; };
+QString menuLabel(const QAction* action) {
+    QString text=action->text().section('\t',0,0);text.remove('&');return text.trimmed();
+}
+QString commandForMenuData(const QString& data) {
+    if(data.startsWith('#')) { // Qt menus store the shortest unique prefix, e.g. "#pra".
+        const QByteArray prefix=data.mid(1).toLatin1();
+        for(int i=0;extcmdlist[i].ef_txt;++i)
+            if(!std::strncmp(extcmdlist[i].ef_txt,prefix.constData(),size_t(prefix.size())))return QString::fromLatin1(extcmdlist[i].ef_txt);
+        return QString();
     }
-    void changeEvent(QEvent* event) override {
-        if(event->type()==QEvent::ActivationChange && !isActiveWindow()) {paused=true;held.clear();accumulated=0;}
-        QDialog::changeEvent(event);
+    if(data.size()!=1)return QString();
+    const char key=char(data.at(0).unicode());
+    for(int i=0;extcmdlist[i].ef_txt;++i)
+        if(extcmdlist[i].ef_funct && cmd_from_func(extcmdlist[i].ef_funct)==key)return QString::fromLatin1(extcmdlist[i].ef_txt);
+    return QString();
+}
+QList<QToolBar*> adventureToolbars(QMainWindow* main) {
+    QList<QToolBar*> bars;
+    for(const char* name:{"adventureToolbar","adventureToolsToolbar"})if(auto* bar=main->findChild<QToolBar*>(name))bars.append(bar);
+    return bars;
+}
+QList<ToolbarChoice> toolbarCatalog(QMainWindow* main) {
+    QList<ToolbarChoice> choices;QSet<QString> builtinCommands;
+    for(auto* bar:adventureToolbars(main))for(QAction* action:bar->actions())
+        if(auto* button=qobject_cast<QToolButton*>(bar->widgetForAction(action))) {
+            const QString command=button->property("commandName").toString();
+            if(command.isEmpty())continue; // zoom and DarkDungeon-added buttons
+            builtinCommands.insert(command);
+            choices.append({"builtin:"+command,button->text(),languageText("Standard buttons","標準のボタン"),command,nullptr,button});
+        }
+    const auto menus=main->menuBar()->actions();
+    for(int i=1;i<menus.size();++i) { // 0 is the Game menu.
+        QMenu* menu=menus[i]->menu();
+        if(!menu || menus[i]->text()==languageText("Help","ヘルプ") || menus[i]->text()==languageText("Language","言語"))continue;
+        for(QAction* action:menu->actions()) {
+            const QString data=action->data().toString();
+            if(action->isSeparator() || action->menu() || data.isEmpty())continue;
+            const QString command=commandForMenuData(data);
+            if(!command.isEmpty() && builtinCommands.contains(command))continue; // already a standard button
+            choices.append({"menu:"+data,menuLabel(action),menuLabel(menus[i]),command,action,nullptr});
+        }
     }
-    void paintEvent(QPaintEvent*) override {
-        QPainter p(this);p.setRenderHint(QPainter::SmoothPixmapTransform,false);
-        p.fillRect(rect(),QColor("#10151d"));
-        p.setPen(QColor("#d5ae66"));QFont title("Segoe UI",18,QFont::DemiBold);p.setFont(title);
-        p.drawText(24,36,languageText("DARKDUNGEON  /  REALTIME PRACTICE","DARKDUNGEON  /  リアルタイム練習"));
-        p.setPen(QColor("#a6b0bd"));p.setFont(QFont("Segoe UI",10));
-        p.drawText(24,61,languageText("Current NetHack map · Adventure paused · Practice resets when closed","現在の階の地形 · 冒険は停止中 · 閉じると練習状態を初期化"));
-        p.fillRect(24,80,240,12,QColor("#293340"));
-        p.fillRect(24,80,240*model.hp/100,12,QColor("#5dba99"));
-        p.setPen(Qt::white);p.drawText(280,92,languageText("HERO  %1 / 100     DEFEATED  %2","勇者  %1 / 100     撃破  %2").arg(model.hp).arg(model.kills));
-        const QRect field(16,112,width()-32,height()-164);
-        p.save();p.setClipRect(field);
-        constexpr double tile=36;
-        QPointF camera(field.center().x()-model.player.x*tile,field.center().y()-model.player.y*tile);
-        for(int y=0;y<model.height;++y)for(int x=0;x<model.width;++x) {
-            QRectF target(camera.x()+x*tile,camera.y()+y*tile,tile,tile);
-            if(!target.intersects(field))continue;
-            p.drawImage(target,dungeonTile(model.floorAt(x,y)?S_room:S_stone,x,y));
+    return choices;
+}
+QStringList defaultToolbarItems(const QList<ToolbarChoice>& catalog) {
+    QStringList items;for(const auto& choice:catalog)if(choice.builtin)items.append(choice.id);return items;
+}
+QStringList savedToolbarItems(const QList<ToolbarChoice>& catalog) {
+    const QVariant saved=QSettings().value("toolbar/items");
+    return saved.isValid()?saved.toStringList():defaultToolbarItems(catalog);
+}
+void applyToolbarItems(QMainWindow* main) {
+    const QList<ToolbarChoice> catalog=toolbarCatalog(main);
+    const QStringList items=savedToolbarItems(catalog);
+    auto* tools=main->findChild<QToolBar*>("adventureToolsToolbar");
+    if(!tools)return;
+    for(auto* bar:adventureToolbars(main))for(QAction* action:bar->actions())
+        if(auto* button=qobject_cast<QToolButton*>(bar->widgetForAction(action))) {
+            if(button->objectName()=="customToolbarButton"){bar->removeAction(action);button->deleteLater();continue;}
+            const QString command=button->property("commandName").toString();
+            if(!command.isEmpty())action->setVisible(items.contains("builtin:"+command));
         }
-        auto actorRect=[&](darkdungeon::Position position) {
-            return QRectF(camera.x()+position.x*tile-tile/2,camera.y()+position.y*tile-tile/2,tile,tile);
-        };
-        for(const auto& enemy:model.enemies) {
-            if(enemy.hp<=0)continue;
-            int monster=PM_GREEN_SLIME;
-            switch(enemy.kind) {
-            case darkdungeon::EnemyKind::Slime:monster=PM_GREEN_SLIME;break;
-            case darkdungeon::EnemyKind::Knight:monster=PM_SOLDIER;break;
-            case darkdungeon::EnemyKind::Mage:monster=PM_GNOMISH_WIZARD;break;
-            case darkdungeon::EnemyKind::Dragon:monster=PM_RED_DRAGON;break;
-            }
-            drawTile(p,monnum_to_glyph(monster,MALE),actorRect(enemy.position));
-        }
-        for(const auto& spell:model.projectiles) {
-            QPointF center(camera.x()+spell.position.x*tile,camera.y()+spell.position.y*tile);
-            p.setPen(Qt::NoPen);p.setBrush(QColor("#fa9471"));p.drawEllipse(center,6,6);
-            p.setBrush(QColor("#ffd888"));p.drawEllipse(center,3,3);
-        }
-        drawTile(p,hero_glyph,actorRect(model.player));
-        // The drawn sword extends from the hero in the facing direction.
-        if(model.sword>.05) {
-            const double dx[4]={0,1,0,-1},dy[4]={-1,0,1,0};
-            const QPointF center(camera.x()+model.player.x*tile,camera.y()+model.player.y*tile);
-            const double reach=tile*(.25+.55*std::min(1.0,model.sword));
-            p.setPen(QPen(QColor("#e8edf2"),4,Qt::SolidLine,Qt::RoundCap));
-            p.drawLine(center,center+QPointF(dx[model.facing]*reach,dy[model.facing]*reach));
-        }
-        p.restore();
-        if(paused || model.hp<=0) {
-            p.fillRect(field,QColor(0,0,0,150));p.setFont(title);p.setPen(Qt::white);
-            p.drawText(field,Qt::AlignCenter,model.hp<=0?languageText("THE HERO HAS FALLEN\nR  ·  Restart practice","勇者は倒れた\nR  ·  練習をやり直す"):languageText("PAUSED\nP  ·  Resume","一時停止\nP  ·  再開"));
-        }
-        p.setFont(QFont("Segoe UI",10));p.setPen(QColor("#bfc8d2"));
-        p.drawText(24,height()-20,languageText("Arrows / WASD  Move     Space  Draw sword     P  Pause     R  Reset     Esc  Return to adventure","矢印 / WASD  移動     Space  剣を構える     P  一時停止     R  初期化     Esc  冒険に戻る"));
+    // Extra buttons go just before the separator in front of the zoom buttons.
+    QAction* before=nullptr;
+    const auto toolActions=tools->actions();
+    for(int i=0;i<toolActions.size();++i)
+        if(auto* widget=tools->widgetForAction(toolActions[i]);widget && widget->objectName()=="zoomOut"){before=i?toolActions[i-1]:toolActions[i];break;}
+    for(const QString& id:items) {
+        auto found=std::find_if(catalog.cbegin(),catalog.cend(),[&](const ToolbarChoice& choice){return choice.id==id && choice.menuAction;});
+        if(found==catalog.cend())continue;
+        auto* button=new QToolButton(tools);button->setObjectName("customToolbarButton");button->setProperty("toolbarId",id);
+        button->setText(found->label);button->setToolTip(found->label);
+        button->setIcon(darkdungeon_toolbar_icon(found->command.toLatin1().constData()));
+        button->setIconSize(QSize(24,24));button->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+        button->setMinimumSize(72,52);button->setFocusPolicy(Qt::NoFocus);
+        QFont font=button->font();font.setPointSize(11);button->setFont(font);
+        QPointer<QAction> menuAction=found->menuAction;
+        QObject::connect(button,&QToolButton::clicked,button,[menuAction] {
+            if(menuAction && menuAction->isEnabled())menuAction->trigger();
+        });
+        if(before)tools->insertWidget(before,button);else tools->addWidget(button);
     }
-private:
-    QTimer timer;QElapsedTimer clock;QList<int> held;bool paused=false;double accumulated=0;
-    void guardHeldKeys() {if(!held.isEmpty()){new HeldKeyGuard(held);held.clear();}}
-    darkdungeon::Input input() const {
-        darkdungeon::Input in;in.sword=held.contains(Qt::Key_Space);
-        for(auto it=held.crbegin();it!=held.crend();++it) {
-            if(*it==Qt::Key_Up || *it==Qt::Key_W) {in.direction=0;break;}
-            if(*it==Qt::Key_Right || *it==Qt::Key_D) {in.direction=1;break;}
-            if(*it==Qt::Key_Down || *it==Qt::Key_S) {in.direction=2;break;}
-            if(*it==Qt::Key_Left || *it==Qt::Key_A) {in.direction=3;break;}
-        }return in;
+    main->setProperty("adventureTwoToolbarRows",QVariant());
+    darkdungeon_layout_toolbars(main);
+}
+void showToolbarDialog(QMainWindow* main) {
+    const QList<ToolbarChoice> catalog=toolbarCatalog(main);
+    const QStringList current=savedToolbarItems(catalog);
+    QDialog dialog(main);dialog.setObjectName("toolbarDialog");
+    dialog.setWindowTitle(languageText("Customize toolbar","ツールバーの設定"));dialog.resize(440,600);
+    auto* layout=new QVBoxLayout(&dialog);
+    auto* note=new QLabel(languageText("Choose the actions shown on the toolbar. Gear, Action, Magic and Info entries are added after the standard buttons.",
+        "ツールバーに表示する行動を選びます。装備・行動・魔法・情報の項目は、標準のボタンの後に追加します。"),&dialog);
+    note->setWordWrap(true);layout->addWidget(note);
+    auto* tree=new QTreeWidget(&dialog);tree->setObjectName("toolbarChoices");tree->setHeaderHidden(true);layout->addWidget(tree);
+    QHash<QString,QTreeWidgetItem*> groups;
+    for(const auto& choice:catalog) {
+        QTreeWidgetItem*& group=groups[choice.group];
+        if(!group){group=new QTreeWidgetItem(tree,QStringList{choice.group});group->setFlags(Qt::ItemIsEnabled);group->setExpanded(true);}
+        auto* item=new QTreeWidgetItem(group,QStringList{choice.label});
+        item->setFlags(Qt::ItemIsEnabled|Qt::ItemIsUserCheckable);item->setData(0,Qt::UserRole,choice.id);
+        item->setCheckState(0,current.contains(choice.id)?Qt::Checked:Qt::Unchecked);
     }
-    static darkdungeon::RealtimeModel snapshot() {
-        std::vector<uint8_t> cells(COLNO*ROWNO,0);
-        for(int y=0;y<ROWNO;++y)for(int x=1;x<COLNO;++x) {
-            int type=levl[x][y].typ;
-            bool open=ACCESSIBLE(type) && !IS_POOL(type) && type!=LAVAPOOL;
-            if(IS_DOOR(type) && (levl[x][y].doormask&(D_CLOSED|D_LOCKED)))open=false;
-            cells[static_cast<size_t>(y*COLNO+x)]=open?1:0;
+    auto setChecks=[tree](const QStringList& items) {
+        for(int g=0;g<tree->topLevelItemCount();++g)for(int c=0;c<tree->topLevelItem(g)->childCount();++c) {
+            auto* item=tree->topLevelItem(g)->child(c);
+            item->setCheckState(0,items.contains(item->data(0,Qt::UserRole).toString())?Qt::Checked:Qt::Unchecked);
         }
-        return darkdungeon::RealtimeModel(COLNO,ROWNO,std::move(cells),{u.ux+.5,u.uy+.5});
+    };
+    auto* buttons=new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel|QDialogButtonBox::RestoreDefaults,&dialog);
+    buttons->button(QDialogButtonBox::Ok)->setText(languageText("OK","決定"));
+    buttons->button(QDialogButtonBox::Cancel)->setText(languageText("Cancel","キャンセル"));
+    buttons->button(QDialogButtonBox::RestoreDefaults)->setText(languageText("Restore defaults","初期状態に戻す"));
+    QObject::connect(buttons->button(QDialogButtonBox::RestoreDefaults),&QPushButton::clicked,&dialog,[&]{setChecks(defaultToolbarItems(catalog));});
+    QObject::connect(buttons,&QDialogButtonBox::accepted,&dialog,&QDialog::accept);
+    QObject::connect(buttons,&QDialogButtonBox::rejected,&dialog,&QDialog::reject);
+    layout->addWidget(buttons);
+    if(dialog.exec()!=QDialog::Accepted)return;
+    QStringList items;
+    for(int g=0;g<tree->topLevelItemCount();++g)for(int c=0;c<tree->topLevelItem(g)->childCount();++c) {
+        auto* item=tree->topLevelItem(g)->child(c);
+        if(item->checkState(0)==Qt::Checked)items.append(item->data(0,Qt::UserRole).toString());
     }
-};
+    QSettings().setValue("toolbar/items",items);
+    applyToolbarItems(main);
+}
+void installToolbarCustomization(QMainWindow* main) {
+    const auto menus=main->menuBar()->actions();
+    if(!menus.isEmpty() && menus.first()->menu()) {
+        auto* customize=menus.first()->menu()->addAction(languageText("Customize toolbar...","ツールバーの設定..."));
+        customize->setObjectName("customizeToolbar");
+        QObject::connect(customize,&QAction::triggered,main,[main]{showToolbarDialog(main);});
+    }
+    for(auto* bar:adventureToolbars(main)) {
+        // The Inventory button opens the equipment and inventory window.
+        for(auto* button:bar->findChildren<QToolButton*>())if(button->property("commandName")=="inventory") {
+            QObject::disconnect(button,&QToolButton::clicked,nullptr,nullptr);
+            QObject::connect(button,&QToolButton::clicked,main,[]{darkdungeon_show_inventory();});
+        }
+        bar->setContextMenuPolicy(Qt::CustomContextMenu);
+        QObject::connect(bar,&QWidget::customContextMenuRequested,main,[main]{showToolbarDialog(main);});
+    }
+    applyToolbarItems(main);
+}
+
+}
+
+QString darkdungeon_text(const char* english,const char* japanese) {return languageText(english,japanese);}
+QImage darkdungeon_hero_image() {
+    if(Upolyd || heroSheet().isNull())return QImage();
+    return heroSheet().copy(0,2*48,48,48); // facing down, idle frame
+}
+
+extern "C" void darkdungeon_note_attack(unsigned id,int dx,int dy) {
+    startAnimation(id,AnimationAttack,dx,dy);
 }
 
 bool darkdungeon_draw(QPainter& painter,int glyph,unsigned flags,const QRect& cell) {
@@ -372,6 +467,7 @@ void darkdungeon_draw_map_cell(QPainter& painter,int glyph,int tileidx,unsigned 
     if(overlay && background>=0 && background<MAX_GLYPH && glyph_is_cmap(background))
         terrain(background,::glyphmap[background].tileidx);
     if(darkdungeon_draw(painter,glyph,flags,cell))return;
+    if(overlay && drawActorSprite(painter,glyph,flags,cell))return;
     if(overlay)glyphs.drawForegroundCell(painter,glyph,tileidx,x,y);
     else terrain(glyph,tileidx);
 }
@@ -379,6 +475,15 @@ void darkdungeon_draw_map_cell(QPainter& painter,int glyph,int tileidx,unsigned 
 bool darkdungeon_route_arrow(QObject* receiver,QEvent* event) {
     if(event->type()!=QEvent::KeyPress && event->type()!=QEvent::KeyRelease)return false;
     auto* key=static_cast<QKeyEvent*>(event);
+    // 'i' at the command prompt opens the equipment and inventory window.
+    if(key->text()=="i" && !(key->modifiers() & (Qt::AltModifier|Qt::ControlModifier|Qt::MetaModifier))) {
+        auto* window=qobject_cast<QWidget*>(receiver);
+        if(window && window->window()==nethack_qt_::NetHackQtBind::mainWidget() && !QApplication::activeModalWidget()
+                && !QApplication::activePopupWidget() && program_state.input_state==commandInp && u.ux) {
+            if(event->type()==QEvent::KeyPress && !key->isAutoRepeat())darkdungeon_show_inventory();
+            return true;
+        }
+    }
     const bool space=key->key()==Qt::Key_Space;
     if(!space && (key->key()<Qt::Key_Left || key->key()>Qt::Key_Down))return false;
     if(space && (key->modifiers() & (Qt::AltModifier|Qt::ControlModifier|Qt::MetaModifier)))return false;
@@ -477,6 +582,12 @@ QIcon darkdungeon_toolbar_icon(const char* command) {
         arrow(name=="up"?QPointF(6,15):QPointF(25,3),name=="up"?QPointF(25,3):QPointF(6,15));
     } else if(name=="contextaction") {
         p.setBrush(blue);p.drawRoundedRect(QRectF(2,9,28,17),3,3);p.setPen(QPen(gold,2));path({{8,16},{8,21},{24,21},{24,16}});
+    } else {
+        // Commands without their own artwork (toolbar entries added from menus):
+        // a blue plate with the command's initial.
+        p.setBrush(blue);p.drawRoundedRect(QRectF(4,4,24,24),5,5);
+        QFont font("Segoe UI");font.setPixelSize(15);font.setBold(true);p.setFont(font);p.setPen(gold);
+        p.drawText(QRectF(4,4,24,24),Qt::AlignCenter,QString(QChar(name.isEmpty()?'?':QChar::fromLatin1(name.at(0)).toUpper())));
     }
     return QIcon(image);
 }
@@ -540,6 +651,12 @@ void darkdungeon_layout_toolbars(QMainWindow* main) {
 }
 
 void darkdungeon_start_hooks() {
+    // Characters are drawn over the remembered terrain on every platform.
+    iflags.use_background_glyph=TRUE;
+    animationClock.start();
+    auto* animationTimer=new QTimer(qApp);
+    QObject::connect(animationTimer,&QTimer::timeout,qApp,refreshAnimations);
+    animationTimer->start(30);
     auto* main=qobject_cast<QMainWindow*>(nethack_qt_::NetHackQtBind::mainWidget());
     if(main) {
         for(auto* toolbar:main->findChildren<QToolBar*>()) {
@@ -592,13 +709,6 @@ void darkdungeon_start_hooks() {
             });
             break;
         }
-        auto* menu=main->menuBar()->addMenu(languageText("Practice","練習"));
-        auto* action=menu->addAction(languageText("Realtime practice","リアルタイム練習"));
-        QObject::connect(action,&QAction::triggered,main,[main] {
-            if(!u.ux || !u.uy || program_state.gameover)return;
-            try {RealtimeArena arena(main);arena.exec();}
-            catch(const std::exception& e){QMessageBox::warning(main,languageText("Practice unavailable","練習を開始できません"),languageText(e.what(),"この場所では練習用の地形を作成できません。"));}
-        });
         auto* languages=main->menuBar()->addMenu(languageText("Language","言語"));
         for(const QString& code:{QString("en"),QString("ja")}) {
             auto* choice=languages->addAction(code=="ja"?QString::fromUtf8("日本語"):QString("English"));
@@ -607,6 +717,7 @@ void darkdungeon_start_hooks() {
                 QMessageBox::information(main,languageText("Language","言語"),languageText("Language saved for the next launch. Save and exit to restart. Adventures are stored separately for each language.","次回起動する言語を保存しました。冒険を保存して終了し、再起動してください。セーブは言語別に保存します。"));
             });
         }
+        installToolbarCustomization(main);
     }
     // Disabled during normal play. Dedicated smoke launches use separate data files.
     QString output=qEnvironmentVariable("DARKDUNGEON_SMOKE_OUTPUT");
@@ -704,7 +815,7 @@ void darkdungeon_start_hooks() {
         // NetHack exits that loop to deliver keys; nesting tests in its timer
         // callback can make QDialog::exec return before the dialog is shown.
         deferredSmoke=[output,timer,main] {
-        darkdungeon_trace("NetHack movement verified; realtime input verification");
+        darkdungeon_trace("NetHack movement verified; deferred UI verification");
         QDir().mkpath(output);
         // A visual review sheet for corners, junctions and light/dark floors.
         QImage terrain(768,432,QImage::Format_RGB32);terrain.fill(QColor("#171918"));
@@ -808,8 +919,13 @@ void darkdungeon_start_hooks() {
         const QImage heroFloor=renderLayer(heroGlyph,MG_HERO,roomGlyph);
         int uncoveredStairs=0;
         const QImage heroTile=nethack_qt_::qt_settings->glyphs().glyph(heroGlyph,::glyphmap[heroGlyph].tileidx).toImage();
+        const QImage heroSprite=heroSheet().isNull()?QImage():heroSheet().copy(0,animationFacing(0)*48,48,48);
+        auto heroTransparent=[&](int x,int y) {
+            if(!heroSprite.isNull())return qAlpha(heroSprite.pixel(x,y))==0;
+            return (heroTile.pixel(x*heroTile.width()/48,y*heroTile.height()/48)|0xff000000)==qRgb(71,108,108);
+        };
         for(int y=0;y<48;++y)for(int x=0;x<48;++x)
-            if((heroTile.pixel(x*heroTile.width()/48,y*heroTile.height()/48)|0xff000000)==qRgb(71,108,108)) {
+            if(heroTransparent(x,y)) {
             if(heroStairs.pixel(x,y)!=stairs.pixel(x,y) || heroFloor.pixel(x,y)!=floorLayer.pixel(x,y))std::exit(78);
             if(stairs.pixel(x,y)!=floorLayer.pixel(x,y))++uncoveredStairs;
         }
@@ -842,6 +958,41 @@ void darkdungeon_start_hooks() {
         if(sameActor!=gg.gbuf[u.uy][u.ux].glyphinfo.glyph || onFountain==afterDrying)std::exit(86);
         onFountain.save(output+"/hero-fountain-before.png");afterDrying.save(output+"/hero-fountain-after.png");
         levl[u.ux][u.uy]=heroCell;newsym(u.ux,u.uy);flush_screen(0);QCoreApplication::processEvents();
+        }
+        {
+        // Sprite sheets, and a temporary pet's walk animation on the real Qt map.
+        for(const char* name:{"hero/body_human_female","hero/hair_female","hero/outfit_valkyrie","hero/cape",
+                               "hero/weapon_longsword","hero/shield_round","monster/dog","monster/jackal",
+                               "monster/newt","monster/gnome"})
+            if(spriteSheet(QString::fromLatin1(name)).isNull())std::exit(90);
+        int petX=0,petY=0;
+        for(int dy=-1;dy<=1 && !petX;++dy)for(int dx=-1;dx<=1;++dx) {
+            const int x=u.ux+dx,y=u.uy+dy;
+            if((dx || dy) && isok(x,y) && ACCESSIBLE(levl[x][y].typ) && !m_at(x,y) && cansee(x,y)){petX=x;petY=y;break;}
+        }
+        if(!petX)std::exit(91);
+        struct monst* dog=makemon(&mons[PM_LITTLE_DOG],petX,petY,NO_MINVENT|MM_NOMSG);
+        if(!dog)std::exit(92);
+        newsym(petX,petY);flush_screen(0);QCoreApplication::processEvents();
+        auto* map=main->findChild<nethack_qt_::NetHackQtMapWindow2*>();
+        if(!map || !map->widget())std::exit(93);
+        const QRect petCell(petX*48,petY*48,48,48);
+        auto grabPet=[&]{return map->widget()->grab(petCell).toImage();};
+        const QImage idle=grabPet();
+        startAnimation(dog->m_id,AnimationWalk,1,0);refreshAnimations();
+        QList<QImage> frames;QElapsedTimer elapsed;elapsed.start();
+        while(elapsed.elapsed()<4*animationFrameMs+60) {
+            frames.append(grabPet());
+            QEventLoop loop;QTimer::singleShot(20,&loop,&QEventLoop::quit);loop.exec();
+        }
+        refreshAnimations();
+        const QImage settled=grabPet();
+        bool moved=false;for(const QImage& frame:frames)if(frame!=frames.first())moved=true;
+        if(!moved || animationFacing(dog->m_id)!=1 || settled!=frames.first())std::exit(94);
+        QImage strip(48*std::min<qsizetype>(frames.size(),12),48,QImage::Format_RGB32);
+        {QPainter p(&strip);for(int i=0;i<std::min<qsizetype>(frames.size(),12);++i)p.drawImage(i*48,0,frames[i]);}
+        idle.save(output+"/pet-idle.png");strip.save(output+"/pet-walk-frames.png");
+        mongone(dog);newsym(petX,petY);flush_screen(0);QCoreApplication::processEvents();
         }
         const QString objectName=QString::fromUtf8(OBJ_NAME(objects[LONG_SWORD]));
         if(objectName!=languageText("long sword","長剣"))std::exit(23);
@@ -1026,15 +1177,7 @@ void darkdungeon_start_hooks() {
         closePopup("inventory");display_inventory(nullptr,FALSE);
         closePopup("help");display_file(HELP,TRUE);
         gs.simple_options_help=TRUE;closePopup("options");doset_simple();
-        // Timing checks need a live event loop before command button clicks
-        // deliberately call qApp->exit() to hand control back to the core.
-        try {
-            RealtimeArena arena(main);
-            if(!arena.verifyInput())std::exit(13);
-            darkdungeon_trace("Realtime input verified");
-            if(!arena.grab().save(output+"/realtime.png"))std::exit(7);
-            if(u.ux!=targetX || u.uy!=targetY)std::exit(14);
-        }catch(const std::exception&){std::exit(8);}
+        if(u.ux!=targetX || u.uy!=targetY)std::exit(14);
         auto* toolbar=main->findChild<QToolBar*>("adventureToolbar");
         auto* tools=main->findChild<QToolBar*>("adventureToolsToolbar");
         auto* map=main->findChild<nethack_qt_::NetHackQtMapWindow2*>();
@@ -1055,6 +1198,13 @@ void darkdungeon_start_hooks() {
             if(button->property("commandName").isValid()) {
                 const QString name=button->property("commandName").toString();commands.insert(name);
                 if(nethack_qt_::NetHackQtBind::qt_kbhit())std::exit(52);
+                if(name=="inventory") { // opens the equipment and inventory window instead of sending keys
+                    button->click();QCoreApplication::processEvents();
+                    QWidget* window=nullptr;
+                    for(auto* top:QApplication::topLevelWidgets())if(top->objectName()=="inventoryWindow" && top->isVisible())window=top;
+                    if(!window || nethack_qt_::NetHackQtBind::qt_kbhit())std::exit(52);
+                    window->close();QCoreApplication::processEvents();++labelled;continue;
+                }
                 button->click();
                 if(!nethack_qt_::NetHackQtBind::qt_kbhit())std::exit(52);
                 const int key=nethack_qt_::NetHackQtBind::qt_nhgetch();
@@ -1215,6 +1365,31 @@ void darkdungeon_start_hooks() {
             main->grab().save(output+"/layout-maximized.png");
             main->showNormal();QCoreApplication::processEvents();
         }
+        {
+        // Toolbar customization: hide a standard button and add a Magic menu entry, then restore.
+        auto* mainWindow=qobject_cast<QMainWindow*>(main);
+        const auto catalog=toolbarCatalog(mainWindow);
+        const auto hidden=std::find_if(catalog.cbegin(),catalog.cend(),[](const ToolbarChoice& c){return c.builtin && c.command!="contextaction";});
+        const auto added=std::find_if(catalog.cbegin(),catalog.cend(),[](const ToolbarChoice& c){return c.menuAction && c.command=="pray";});
+        if(hidden==catalog.cend() || added==catalog.cend()) {
+            for(const auto& c:catalog)darkdungeon_trace(QString("toolbar choice %1 [%2] %3 cmd=%4").arg(c.id,c.group,c.label,c.command).toUtf8().constData());
+            std::exit(95);
+        }
+        QStringList items=defaultToolbarItems(catalog);items.removeAll(hidden->id);items.append(added->id);
+        QSettings().setValue("toolbar/items",items);applyToolbarItems(mainWindow);QCoreApplication::processEvents();
+        auto* custom=main->findChild<QToolButton*>("customToolbarButton");
+        if(!custom || custom->text()!=added->label || !custom->isVisible() || hidden->builtin->isVisible())std::exit(96);
+        {
+            const QImage icon=custom->icon().pixmap(QSize(24,24)).toImage();bool painted=false;
+            for(int y=0;y<icon.height() && !painted;++y)for(int x=0;x<icon.width();++x)if(qAlpha(icon.pixel(x,y))){painted=true;break;}
+            if(!painted)std::exit(96);
+        }
+        main->grab().save(output+"/toolbar-custom.png");
+        QSettings().remove("toolbar/items");applyToolbarItems(mainWindow);
+        QCoreApplication::sendPostedEvents(nullptr,QEvent::DeferredDelete);QCoreApplication::processEvents();
+        if(main->findChild<QToolButton*>("customToolbarButton") || !hidden->builtin->isVisible())std::exit(97);
+        }
+        if(!darkdungeon_inventory_smoke(output))std::exit(98);
         main->resize(originalSize);QCoreApplication::processEvents();
         QCoreApplication::processEvents();
         if (!main->grab().save(output+"/nethack-qt.png")) std::exit(5);
@@ -1233,8 +1408,10 @@ void darkdungeon_start_hooks() {
             localized.write("HP bar: full/half/zero/off visibility, half ratio, 9/3 pixel heights and actual 960px window width; doll toggle preserves message height=pass\n");
             localized.write("Map layers: transparent hero/items/monsters/corpses/statues, black details preserved, stairs visible, unseen terrain and swallowed guards, terrain refresh under unchanged hero=pass\n");
             localized.write("Solid rock: main-map S_stone uses gray masonry; unexplored remains black=pass\n");
+            localized.write("Toolbar customization: hide a standard button, add a Magic menu entry, restore defaults=pass\n");
+            localized.write("Equipment and inventory window: slots, item grid and drag command keys=pass\n");
+            localized.write("Sprites: all sheets load; pet walk animation changes frames on the Qt map and returns to idle=pass\n");
             localized.write("Again toolbar button executed prior contextual wait; empty container selection ended without animal looting=pass\n");
-            localized.write("Realtime Qt input, sword, pause, reset=pass\nPractice did not change adventure position=pass\n");
             localized.write("Space map input and one-turn wait, auto-repeat guard, container look/lock/choice, pickup, stair priority, doors and text input=pass\n");
 #ifdef DARKDUNGEON_JAPANESE
             localized.write("Japanese input echo and UTF-8 buffer boundary=pass\n");

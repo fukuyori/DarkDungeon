@@ -36,7 +36,7 @@ if ($LASTEXITCODE -gt 7) { throw "Source copy failed: $LASTEXITCODE" }
 $qtRootForward = $QtRoot.Replace('\','/')
 $qtSources = Get-ChildItem (Join-Path $NetHackSource 'win\Qt') -Filter '*.cpp'
 $qtObjects = ($qtSources | ForEach-Object { '$(OTTY)' + $_.BaseName + '.o' }) -join ' '
-$qtObjects += ' $(OTTY)qt_darkdungeon.o $(OTTY)realtime_model.o $(OTTY)tile.o'
+$qtObjects += ' $(OTTY)qt_darkdungeon.o $(OTTY)qt_inventory.o $(OTTY)tile.o'
 $makePath = Join-Path $snapshot 'src\Makefile'
 $make = Get-Content (Join-Path $NetHackSource 'sys\windows\Makefile.nmake') -Raw
 $make = "# Modified for DarkDungeon on 2026-10-08; Windows Qt build. See dat/license.`r`n" + $make
@@ -54,9 +54,9 @@ if ($start -lt 0 -or $end -lt 0) { throw 'Unsupported upstream Makefile layout.'
 $qtLink = $make.Substring($start, $end - $start).Replace('$(conlflags)', '$(guilflags) /ENTRY:mainCRTStartup')
 $make = $make.Substring(0,$start) + $qtLink + $make.Substring($end)
 $make += "`r`n# DarkDungeon Qt rules (explicit outputs and Unicode-safe Qt headers).`r`n"
-foreach ($qtSource in @($qtSources) + @([pscustomobject]@{BaseName='qt_darkdungeon'},[pscustomobject]@{BaseName='realtime_model'})) {
+foreach ($qtSource in @($qtSources) + @([pscustomobject]@{BaseName='qt_darkdungeon'},[pscustomobject]@{BaseName='qt_inventory'})) {
     $base = $qtSource.BaseName
-    $make += "`r`n`$(OTTY)$base.o: ..\win\Qt\$base.cpp ..\win\Qt\qt_darkdungeon.h ..\win\Qt\realtime_model.h `$(HACK_H)`r`n`t`$(Q)`$(CC) `$(CPPFLAGS) `$(TTYDEF) -Fo`$@ ..\win\Qt\$base.cpp`r`n"
+    $make += "`r`n`$(OTTY)$base.o: ..\win\Qt\$base.cpp ..\win\Qt\qt_darkdungeon.h `$(HACK_H)`r`n`t`$(Q)`$(CC) `$(CPPFLAGS) `$(TTYDEF) -Fo`$@ ..\win\Qt\$base.cpp`r`n"
 }
 $make += "`r`n`$(OTTY)tile.o: tile.c `$(HACK_H)`r`n`t`$(Q)`$(CC) `$(CFLAGS) `$(TTYDEF) -Fo`$@ tile.c`r`n"
 $make += "`r`n`$(OTTY)qt_darkdungeon.o `$(OTTY)qt_main.o `$(OTTY)cmd.o `$(OTTY)pickup.o: ..\include\context_action.h`r`n"
@@ -96,6 +96,7 @@ Update-Source 'src\cmd.c' {
       "look inside a container at your feet",
 #endif
       darkdungeon_look_here, AUTOCOMPLETE, NULL },
+    { '\0', "containermove", NULL, darkdungeon_container_move, INTERNALCMD, NULL },
 '@
     $s=$s.Replace($anchor,$entry+"`r`n"+$anchor)
     $anchor='donull, (IFBURIED | CMD_M_PREFIX), "waiting"'
@@ -114,6 +115,14 @@ Update-Source 'src\pickup.c' {
     $anchor='    for (;;) { /* repeats iff ''?'' or '':'' gets chosen */'
     if(!$s.Contains($anchor)){throw 'Container look shortcut anchor missing.'}
     $look=@'
+    /* The Qt inventory window shows the contents for drag and drop. */
+    if (darkdungeon_container_window(gc.current_container)) {
+        if (!gc.current_container->cknown)
+            used = ECMD_TIME;
+        gc.current_container->cknown = 1;
+        ga.abort_looting = TRUE;
+        goto containerdone;
+    }
     if (darkdungeon_looking_here) {
         if (!gc.current_container->cknown)
             used = ECMD_TIME;
@@ -146,7 +155,55 @@ int darkdungeon_look_here(void) {
     darkdungeon_looking_here = previous;
     return result;
 }
+
+/* One drag in the Qt container window: move one inventory stack into, or one
+   stack out of, the container that window shows. The normal in_container()
+   and out_container() rules (curses, shops, weight, bags of holding) apply. */
+unsigned darkdungeon_move_container = 0, darkdungeon_move_object = 0;
+int darkdungeon_move_into = 0;
+int darkdungeon_container_move(void) {
+    struct obj *box = 0, *otmp, *obj = 0;
+    int result;
+    for (otmp = svl.level.objects[u.ux][u.uy]; otmp && !box; otmp = otmp->nexthere)
+        if (otmp->o_id == darkdungeon_move_container) box = otmp;
+    for (otmp = gi.invent; otmp && !box; otmp = otmp->nobj)
+        if (otmp->o_id == darkdungeon_move_container) box = otmp;
+    if (!box || !Is_container(box) || box->olocked || !u_handsy())
+        return ECMD_OK;
+    for (otmp = darkdungeon_move_into ? gi.invent : box->cobj; otmp; otmp = otmp->nobj)
+        if (otmp->o_id == darkdungeon_move_object) obj = otmp;
+    if (!obj || obj == box)
+        return ECMD_OK;
+    gc.current_container = box;
+    gs.sellobj_first = TRUE; /* in_container() should call sellobj_state() */
+    result = darkdungeon_move_into ? in_container(obj) : out_container(obj);
+    sellobj_state(SELL_NORMAL);
+    if (gc.current_container)
+        gc.current_container->cknown = 1;
+    gc.current_container = 0;
+    update_inventory();
+    return result ? ECMD_TIME : ECMD_OK;
+}
 '@
+}
+# Attack events for the Qt map's sprite animations. Display only; no game rules change.
+Update-Source 'src\uhitm.c' {
+    param($s)
+    $pattern='(\r?\n)(    if \(Upolyd\)\r?\n        \(void\) hmonas\(mtmp\);\r?\n    else\r?\n        \(void\) hitum\(mtmp, gy\.youmonst\.data->mattk\);)'
+    if(![regex]::IsMatch($s,$pattern)){throw 'Hero attack animation anchor missing.'}
+    [regex]::Replace($s,$pattern,'$1    { extern void darkdungeon_note_attack(unsigned, int, int); darkdungeon_note_attack(0, mtmp->mx - u.ux, mtmp->my - u.uy); }$1$2')
+}
+Update-Source 'src\mhitu.c' {
+    param($s)
+    $pattern='(    calc_mattacku_vars\(mtmp, &ranged, &range2, &foundyou, &youseeit\);)(\r?\n)'
+    if(![regex]::IsMatch($s,$pattern)){throw 'Monster attack animation anchor missing.'}
+    [regex]::Replace($s,$pattern,'$1$2    { extern void darkdungeon_note_attack(unsigned, int, int); darkdungeon_note_attack(mtmp->m_id, u.ux - mtmp->mx, u.uy - mtmp->my); }$2')
+}
+Update-Source 'src\mhitm.c' {
+    param($s)
+    $pattern='(\r?\n)(    /\* Calculate the armour class differential\. \*/)'
+    if(![regex]::IsMatch($s,$pattern)){throw 'Monster-versus-monster animation anchor missing.'}
+    [regex]::Replace($s,$pattern,'$1    { extern void darkdungeon_note_attack(unsigned, int, int); darkdungeon_note_attack(magr->m_id, mdef->mx - magr->mx, mdef->my - magr->my); }$1$2')
 }
 Update-Source 'win\Qt\qt_bind.cpp' {
     param($s)
@@ -652,8 +709,7 @@ foreach($level in @('Tou-strt.lua','Tou-loca.lua')) {
     $fixed=$text.Replace('montype="wumpus" x=', 'montype="wumpus", x=').Replace("end=`n", "end`n").Replace("end=`r`n", "end`r`n")
     if($fixed -ne $text) {[IO.File]::WriteAllText($path,"-- Syntax correction for DarkDungeon 2026-10-08. See dat/license.`n"+$fixed,[Text.UTF8Encoding]::new($false))}
 }
-Copy-Item (Join-Path $projectRoot 'src\qt_darkdungeon.*') (Join-Path $snapshot 'win\Qt') -Force
-Copy-Item (Join-Path $projectRoot 'src\realtime_model.*') (Join-Path $snapshot 'win\Qt') -Force
+Copy-Item (Join-Path $projectRoot 'src\qt_darkdungeon.*'),(Join-Path $projectRoot 'src\qt_inventory.cpp') (Join-Path $snapshot 'win\Qt') -Force
 foreach ($header in Get-ChildItem (Join-Path $snapshot 'win\Qt') -Filter '*.h') {
     if ((Get-Content $header.FullName -Raw) -match 'Q_OBJECT') {
         & (Join-Path $QtRoot 'bin\moc.exe') '-DQT_VERSION=0x060B02' ('-I'+(Join-Path $QtRoot 'include')) $header.FullName -o (Join-Path $snapshot ('src\'+$header.BaseName+'.moc'))

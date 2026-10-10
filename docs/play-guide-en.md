@@ -10,13 +10,13 @@ Equipment and status appear at the top, the dungeon in the center, and messages 
 
 ## Movement and time
 
-Characters and items are drawn with transparent backgrounds over terrain, leaving the floor or staircase beneath them visible. Walls use thick, dark gray stone masonry and floors use lighter gray flagstones. Floor brightness distinguishes lit rooms, dark rooms and corridors. Realtime practice uses the same stonework.
+Characters and items are drawn with transparent backgrounds over terrain, leaving the floor or staircase beneath them visible. Walls use thick, dark gray stone masonry and floors use lighter gray flagstones. Floor brightness distinguishes lit rooms, dark rooms and corridors.
 
 Use the arrow keys to move. Moving into an enemy attacks it. Walls and closed doors block movement. The in-game help describes diagonal movement and other key bindings.
 
-The adventure uses turns: taking an action lets enemies act. Reading a menu and using realtime practice do not advance the adventure. Use Action for searching, opening doors, picking up items, eating and resting. Use Up or Down while standing on a staircase to change levels.
+The adventure uses turns: taking an action lets enemies act. Reading a menu does not advance the adventure. Use Action for searching, opening doors, picking up items, eating and resting. Use Up or Down while standing on a staircase to change levels.
 
-Space chooses a basic action in this order: look inside a container at your feet, pick up floor items, use the staircase beneath you, then open an adjacent closed door. Multiple containers or items open a selection menu; multiple closed doors ask for a direction. With no target, Space waits one turn and enemies act. Normal locks, traps and restrictions still apply. Holding Space does not repeat adventure actions. Text input and selection screens keep their usual Space behavior. Space draws your sword in realtime practice.
+Space chooses a basic action in this order: look inside a container at your feet, pick up floor items, use the staircase beneath you, then open an adjacent closed door. Multiple containers or items open a selection menu; multiple closed doors ask for a direction. With no target, Space waits one turn and enemies act. Normal locks, traps and restrictions still apply. Holding Space does not repeat adventure actions. Text input and selection screens keep their usual Space behavior.
 
 ## Status and inventory
 
@@ -34,21 +34,7 @@ Gear provides wielding, armor and accessories. Use tools through Apply under Act
 
 Combat, projectiles, traps, hunger and dangerous items affect health and conditions. Pets and peaceful creatures also inhabit the dungeon: read confirmation questions before attacking. Shops require payment. Use the information commands to examine unfamiliar symbols and creatures.
 
-NetHack's usual objective is to recover the Amulet of Yendor and offer it to your deity. Special levels and role quests have their own conditions. Detailed rules combining turn-based and realtime play remain under consideration.
-
-## Realtime practice
-
-Choose Practice → Realtime practice to try controls on the current level's terrain.
-
-| Action | Key |
-|---|---|
-| Move | Arrows / WASD |
-| Draw your sword | Hold Space |
-| Pause or resume | P |
-| Reset practice | R |
-| Return to the adventure | Esc |
-
-Try sword timing and direction, shields, enemies and projectiles. The hero and enemies are drawn with NetHack tiles, and a line shows your drawn sword. Losing window focus pauses practice; press P to resume. Position, health and defeated enemies in practice do not change the adventure. Closing practice discards its state. Its map includes unexplored terrain.
+NetHack's usual objective is to recover the Amulet of Yendor and offer it to your deity. Special levels and role quests have their own conditions.
 
 ## Save, exit and language
 

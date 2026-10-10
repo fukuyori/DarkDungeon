@@ -1,0 +1,2 @@
+*.sh text eol=lf
+patches/darkdungeon-unix-*.patch text eol=lf
