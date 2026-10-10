@@ -1,0 +1,6 @@
+/build/
+/dist/
+/personal-assets/
+/artifacts/
+*.user
+/*.log

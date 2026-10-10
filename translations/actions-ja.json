@@ -1,0 +1,577 @@
+[
+  {
+    "file": "src/iactions.c",
+    "literal": "Name",
+    "translation": "名前をつける"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Rename or un-name",
+    "translation": "名前を変更・解除する"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Call",
+    "translation": "種類に名前をつける"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Re-call or un-call",
+    "translation": "種類の名前を変更・解除する"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "the",
+    "translation": "対象の"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "this specific",
+    "translation": "この"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "this stack of",
+    "translation": "この束の"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Read the message inside this cookie",
+    "translation": "クッキーの中の文章を読む"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Read the slogan on the shirt",
+    "translation": "シャツの標語を読む"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Read the slogan on the apron",
+    "translation": "エプロンの標語を読む"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Look at the pattern on the shirt",
+    "translation": "シャツの模様を見る"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Read",
+    "translation": "読む"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Examine",
+    "translation": "調べる"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Study",
+    "translation": "学ぶ"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "tome",
+    "translation": "魔道書"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "spellbook",
+    "translation": "魔法の本"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Extinguish",
+    "translation": "消す"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Light",
+    "translation": "点火する"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Quiver",
+    "translation": "矢筒に入れる"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Wield",
+    "translation": "構える"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "un-ready",
+    "translation": "準備を解除する"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "un-wield",
+    "translation": "構えを解除する"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "these",
+    "translation": "これら"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "this",
+    "translation": "これ"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "weapon",
+    "translation": "武器"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "item",
+    "translation": "品物"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Flip a coin",
+    "translation": "硬貨を投げる"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Hit yourself with this cream pie",
+    "translation": "クリームパイを自分の顔にぶつける"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Lash out with this whip",
+    "translation": "この鞭を振るう"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Grapple something with this hook",
+    "translation": "この鉤で引っかける"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Reach into this bag",
+    "translation": "この袋に手を入れる"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Open this container",
+    "translation": "この容器を開ける"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Use the can to grease an item",
+    "translation": "品物にグリースを塗る"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Use this tool to pick a lock",
+    "translation": "この道具で錠を開ける"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Use this kit to tin a corpse",
+    "translation": "死体を缶詰にする"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Attach this leash to a pet",
+    "translation": "ペットに綱をつける"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Place this saddle on a pet",
+    "translation": "ペットに鞍をつける"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Blow this whistle",
+    "translation": "この笛を吹く"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Use this leaf as a whistle",
+    "translation": "この葉を笛として吹く"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Listen through the stethoscope",
+    "translation": "聴診器で聞く"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Show something its reflection",
+    "translation": "鏡に映った姿を見せる"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Ring the bell",
+    "translation": "ベルを鳴らす"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "light",
+    "translation": "点火する"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "extinguish",
+    "translation": "消す"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "them",
+    "translation": "それら"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "it",
+    "translation": "それ"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "one of these",
+    "translation": "このうちの一つ"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Take a photograph",
+    "translation": "写真を撮る"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Clean yourself off with this towel",
+    "translation": "タオルで自分を拭く"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Peer into this crystal ball",
+    "translation": "水晶玉を覗く"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Write on something with this marker",
+    "translation": "マーカーで書く"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Make this figurine transform",
+    "translation": "彫像を変化させる"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Use this unicorn horn",
+    "translation": "ユニコーンの角を使う"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Blow into the horn of plenty",
+    "translation": "豊穣の角を吹く"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Play this musical instrument",
+    "translation": "楽器を演奏する"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Arm this trap",
+    "translation": "罠を設置する"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Dig with this digging tool",
+    "translation": "この道具で掘る"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Break this wand",
+    "translation": "この杖を折る"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "stack",
+    "translation": "束"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "one of these tins",
+    "translation": "この缶詰のうちの一つ"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "this tin",
+    "translation": "この缶詰"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Eat %s",
+    "translation": "%sを食べる"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Wipe the floor with this towel",
+    "translation": "このタオルで床を拭く"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Scribble graffiti on the floor",
+    "translation": "床に落書きする"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Engrave",
+    "translation": "刻む"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Write",
+    "translation": "書く"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "one of these items",
+    "translation": "この品物のうちの一つ"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "this item",
+    "translation": "この品物"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Shoot",
+    "translation": "射撃する"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Throw",
+    "translation": "投げる"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Adjust inventory by assigning new letter",
+    "translation": "持ち物の選択文字を変更する"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Adjust inventory by splitting this stack",
+    "translation": "束を分けて持ち物を整理する"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Offer this corpse as a sacrifice at this altar",
+    "translation": "死体をこの祭壇に捧げる"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Offer this amulet as a sacrifice at this altar",
+    "translation": "魔除けをこの祭壇に捧げる"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Put this amulet on",
+    "translation": "この魔除けをつける"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Put this ring on",
+    "translation": "この指輪をつける"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Put these lenses on",
+    "translation": "この眼鏡をつける"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "one of these potions",
+    "translation": "この薬のうちの一つ"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "this potion",
+    "translation": "この薬"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "shooting",
+    "translation": "射撃"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "throwing",
+    "translation": "投擲"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "amulet",
+    "translation": "魔除け"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "ring",
+    "translation": "指輪"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "eyewear",
+    "translation": "眼鏡"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "accessory",
+    "translation": "装飾品"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Rub something on this stone",
+    "translation": "この石でこする"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Take off this armor",
+    "translation": "この防具を脱ぐ"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Tip all the contents out of this container",
+    "translation": "この容器の中身を全部出す"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Try to invoke a unique power of this object",
+    "translation": "この品物の特別な力を呼び出す"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Wield the tin opener to easily open tins",
+    "translation": "缶を開けやすくするため缶切りを構える"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Wear this armor",
+    "translation": "この防具を着る"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Swap this with your alternate weapon",
+    "translation": "控えの武器と交換する"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Ready this as an alternate weapon",
+    "translation": "控えの武器として準備する"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Swap this with your main weapon",
+    "translation": "主武器と交換する"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Zap this wand to release its magic",
+    "translation": "杖を振って魔法を放つ"
+  },
+  {
+    "file": "src/options.c",
+    "literal": "no permanent inventory window",
+    "translation": "持ち物を常時表示しない"
+  },
+  {
+    "file": "src/options.c",
+    "literal": "all inventory except for gold",
+    "translation": "金貨以外の全持ち物"
+  },
+  {
+    "file": "src/options.c",
+    "literal": "full inventory including gold",
+    "translation": "金貨を含む全持ち物"
+  },
+  {
+    "file": "src/options.c",
+    "literal": "all except gold, plus unused letters",
+    "translation": "金貨以外の全持ち物と未使用の選択文字"
+  },
+  {
+    "file": "src/options.c",
+    "literal": "full inventory, plus unused letters",
+    "translation": "全持ち物と未使用の選択文字"
+  },
+  {
+    "file": "src/options.c",
+    "literal": "subset: items currently in use",
+    "translation": "使用中の品物だけ"
+  },
+  {
+    "file": "src/options.c",
+    "literal": "show help",
+    "translation": "説明を表示"
+  },
+  {
+    "file": "src/options.c",
+    "literal": "Options",
+    "translation": "設定"
+  },
+  {
+    "file": "src/options.c",
+    "literal": "Other settings:",
+    "translation": "その他の設定:"
+  },
+  {
+    "file": "src/options.c",
+    "literal": "Variable playground locations:",
+    "translation": "保存先の設定:"
+  },
+  {
+    "file": "src/options.c",
+    "literal": "Set what options?",
+    "translation": "どの設定を変更しますか？"
+  },
+  {
+    "file": "src/options.c",
+    "literal": "Do what?",
+    "translation": "何をしますか？"
+  },
+  {
+    "file": "src/options.c",
+    "literal": "exit this menu",
+    "translation": "このメニューを閉じる"
+  },
+  {
+    "file": "src/options.c",
+    "literal": "Menu control keys:",
+    "translation": "メニューの操作キー:"
+  },
+  {
+    "file": "src/options.c",
+    "literal": "Next page",
+    "translation": "次のページ"
+  },
+  {
+    "file": "src/options.c",
+    "literal": "Previous page",
+    "translation": "前のページ"
+  },
+  {
+    "file": "src/options.c",
+    "literal": "First page",
+    "translation": "最初のページ"
+  },
+  {
+    "file": "src/options.c",
+    "literal": "Last page",
+    "translation": "最後のページ"
+  },
+  {
+    "file": "src/options.c",
+    "literal": "Exter a target string and invert all matching entries",
+    "translation": "検索文字を入力し、一致する項目の選択を反転する"
+  },
+  {
+    "file": "src/options.c",
+    "literal": "  (for autopickup)",
+    "translation": "  （自動で拾う対象）"
+  }
+]

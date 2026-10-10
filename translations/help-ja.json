@@ -1,0 +1,752 @@
+[
+  {
+    "file": "dat/opthelp",
+    "literal": "acoustics      can your character hear anything                         [True]",
+    "translation": "acoustics      キャラクターが音を聞き取れるか                           [True]"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "armorstatus    show extra status field summarizing worn armor     [False]",
+    "translation": "armorstatus    着用中の防具をまとめた追加ステータス欄を表示する        [False]"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "autodescribe   describe the terrain under cursor                       [False]",
+    "translation": "autodescribe   カーソル位置の地形を説明する                            [False]"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "BIOS           allow the use of IBM ROM BIOS calls                     [False]",
+    "translation": "BIOS           IBM ROM BIOS コールの使用を許可する                     [False]"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "blind          your character is permanently blind                     [False]",
+    "translation": "blind          キャラクターが常に盲目状態になる                        [False]"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "bones          allow loading bones files                                [True]",
+    "translation": "bones          骨ファイルの読み込みを許可する                           [True]"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "clicklook      look at map by clicking right mouse button              [False]",
+    "translation": "clicklook      マウスの右ボタンをクリックして地図を調べる              [False]"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "dark_room      show floor not in sight in different color               [True]",
+    "translation": "dark_room      視界外の床を別の色で表示する                             [True]"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "dropped_nopick exclude dropped objects from autopickup             [True]",
+    "translation": "dropped_nopick 自分で落とした物を自動拾いの対象から除く                 [True]"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "               X11: menu has all commands (T) or traditional subset (F)",
+    "translation": "               X11: メニューに全コマンドを表示する(T)か，従来の一部のみか(F)"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "female         deprecated; use compound option gender:female      [False]",
+    "translation": "female         非推奨．複合オプション gender:female を使うこと         [False]"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "force_invmenu  commands asking for inventory item show a menu          [False]",
+    "translation": "force_invmenu  持ち物を尋ねるコマンドでメニューを表示する              [False]"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "goldX          when filtering objects by bless/curse state,            [False]\n               whether to classify gold as X (unknown) or U (uncursed)",
+    "translation": "goldX          物を祝福/呪いの状態で絞り込むとき，金貨を              [False]\n               X (不明) と U (呪われていない) のどちらに分類するか"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "herecmd_menu   show menu of some possible commands when clicking\n               on yourself or next to you with mouse                   [False]",
+    "translation": "herecmd_menu   マウスで自分自身や隣のマスをクリックしたとき，\n               実行可能なコマンドのメニューを表示する                  [False]"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "hilite_pile    display item piles in a highlighted manner              [False]",
+    "translation": "hilite_pile    積み重なったアイテムを強調表示する                      [False]"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "mention_decor  give feedback when walking across stairs, altars,  [False]\n               fountains, and such even when not obscured by objects",
+    "translation": "mention_decor  物で隠れていなくても，階段・祭壇・泉などの上を        [False]\n               歩いたときにメッセージを表示する"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "mention_walls  give feedback when walking against a wall               [False]",
+    "translation": "mention_walls  壁に向かって歩いたときにメッセージを表示する            [False]"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "menu_overlay   overlay menus on the screen and align to right           [True]",
+    "translation": "menu_overlay   メニューを画面に重ねて右寄せで表示する                   [True]"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "menucolors     enable MENUCOLOR pattern matching to highlight     [False]\n               lines in object menus like inventory; might highlight with\n               bold, inverse, &c even when color is unavailable or toggled off",
+    "translation": "menucolors     MENUCOLOR のパターン照合を有効にし，持ち物一覧などの    [False]\n               物のメニューの行を強調表示する; 色が使えないときや\n               オフのときでも，太字や反転などで強調表示することがある"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "nudist         start your character without armor                      [False]",
+    "translation": "nudist         防具なしでゲームを始める                                [False]"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "pauper         start your character with no possessions           [False]",
+    "translation": "pauper         所持品なしでゲームを始める                              [False]"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "pickup_stolen  override pickup_types for stolen objects            [True]",
+    "translation": "pickup_stolen  盗まれたアイテムに対してはpickup_typesを上書きする       [True]"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "price_quotes   show remembered price quotes for unIDed items      [False]",
+    "translation": "price_quotes   未識別アイテムについて覚えている値段を表示する          [False]"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "quick_farsight usually skip the chance to browse the map when     [False]\n               randomly triggered clairvoyance takes place",
+    "translation": "quick_farsight ランダムに千里眼が発動したとき，通常は地図を見て回る    [False]\n               機会を省略する"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "reroll         allow rerolling of starting inventory              [False]",
+    "translation": "reroll         初期所持品の振り直しを許可する                          [False]"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "safe_wait      require use of 'm' prefix before '.' or 's' to      [True]\n               wait or search when adjacent to a hostile monster",
+    "translation": "safe_wait      敵対的な怪物が隣にいるとき，'.'や's'で待機・探索       [True]\n               するには'm'接頭辞を必要とする"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "sanity_check   perform data sanity checks                              [False]",
+    "translation": "sanity_check   データの整合性チェックを行う                            [False]"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "showvers       show version number on status lines                [False]",
+    "translation": "showvers       ステータス行にバージョン番号を表示する                  [False]"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "status_updates update the status lines                                  [True]",
+    "translation": "status_updates ステータス行を更新する                                   [True]"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "terrainstatus  show extra status field describing current location     [False]",
+    "translation": "terrainstatus  現在地を説明する追加ステータス欄を表示する              [False]"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "tips           show some helpful tips during gameplay                   [True]",
+    "translation": "tips           プレイ中に役立つヒントを表示する                         [True]"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "travel         enables travelling via mouse click if supported;         [True]\n               can be toggled off to prevent mouse clicks on the map from\n               attempting to move the hero; does not affect travel via '_'",
+    "translation": "travel         対応していれば，マウスクリックによるトラベル移動を       [True]\n               有効にする; オフにすると，地図をクリックしたときに\n               主人公が移動しようとするのを防げる; '_'によるトラベルには\n               影響しない"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "weaponstatus   show extra status field listing wielded weapon(s)       [False]",
+    "translation": "weaponstatus   装備中の武器を示す追加ステータス欄を表示する            [False]"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "whatis_menu    show menu when getting a map location                   [False]",
+    "translation": "whatis_menu    地図上の位置を指定するときにメニューを表示する          [False]"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "whatis_moveskip skip same glyphs when getting a map location           [False]",
+    "translation": "whatis_moveskip 地図上の位置を指定するとき，同じ記号を飛ばして移動する [False]"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "Boolean option if TTY_TILES_ESCCODES was set at compile time (tty only):\nvt_tiledata    insert extra data escape code markers into output       [False]",
+    "translation": "コンパイル時に TTY_TILES_ESCCODES が設定されているならば(tty のみ):\nvt_tiledata    出力に追加データ用のエスケープコードの目印を挿入する    [False]"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "Boolean option if TTY_SOUND_ESCCODES was set at compile time (tty only):\nvt_sounddata   insert sound data escape code markers into output  [False]",
+    "translation": "コンパイル時に TTY_SOUND_ESCCODES が設定されているならば(tty のみ):\nvt_sounddata   出力にサウンドデータ用のエスケープコードの目印を挿入する [False]"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "Boolean options which may be available depending upon which interfaces\nthe program has been built to support.  If it supports multiple such,\nsome of these may show as available for setting but not do anything if\nyou happen to be using a different interface than the one(s) they're for:",
+    "translation": "プログラムがどのインターフェースに対応してビルドされたかによって\n利用できる真偽オプション．複数のインターフェースに対応している場合，\n設定可能と表示されても，使用中のインターフェースがそのオプションの\n対象と異なれば何の効果もないことがある:"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "ascii_map      show map as text, forces tiles_map Off; Qt, X11",
+    "translation": "ascii_map      地図を文字で表示し，tiles_map をオフにする; Qt, X11"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "hitpointbar    curses, tty, Windows GUI if statushilites enabled;\n               Qt without statushilites; X11 if 'fancy_status' disabled\n               (via X application defaults) and statushilities enabled",
+    "translation": "hitpointbar    curses, tty, statushilites が有効な場合の Windows GUI;\n               statushilites なしの Qt; (X のアプリケーションデフォルトで)\n               'fancy_status' が無効かつ statushilities が有効な場合の X11"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "selectsaved    tty (Qt and Windows GUI do this unconditionally)",
+    "translation": "selectsaved    tty (Qt と Windows GUI では常にこの動作をする)"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "tiled_map      show map as tiles, forces ascii_map Off; Qt, X11",
+    "translation": "tiled_map      地図をタイルで表示し，ascii_map をオフにする; Qt, X11"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "Boolean options available when running in debug mode (aka wizard mode):",
+    "translation": "デバッグモード(ウィザードモード)で実行しているときに利用できる真偽オプション:"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "menu_tab_sep   menu formatting--do not touch",
+    "translation": "menu_tab_sep   メニューの書式用．変更しないこと"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "monpolycontrol have player choose shape-changing monsters' new shapes",
+    "translation": "monpolycontrol 変身する怪物の新しい姿をプレイヤーが選ぶ"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "montelecontrol let player choose destination for teleported monsters",
+    "translation": "montelecontrol テレポートした怪物の行き先をプレイヤーが選ぶ"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "travel_debug   show state of travel pathfinding algorithm on the map",
+    "translation": "travel_debug   トラベルの経路探索アルゴリズムの状態を地図上に表示する"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "wizweight      include item weights in inventory display",
+    "translation": "wizweight      持ち物表示にアイテムの重さを含める"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "Alternatively, the compound option syntax can be used: 'optname:true' and\n'optname:false'.",
+    "translation": "あるいは，複合オプションの書式 'optname:true' と 'optname:false' も\n使用できる．"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "autounlock    when attempting to open a locked door or loot     [Apply-Key]\n              a locked container, specifies an action to take: can be\n              None, or one or more of Untrap + Apply-Key + Kick + Force;\n              if Untrap is included, it will be handled first; the\n              others apply if you answer \"no\" to \"check for traps?\";\n              for \"yes\", it won't necessary find anything even when a\n              trap happens to be present and will use up the rest of\n              the current move regardless of whether it finds anything;\n              Kick is only useful for doors and Force is only useful for\n              containers; either will only be attempted if Untrap is\n              omitted or skipped and Apply-Key is omitted or you aren't\n              carrying an unlocking tool or you decline to use one",
+    "translation": "autounlock    鍵のかかった扉を開けようとしたときや，鍵のかかった [Apply-Key]\n              容器を開けようとしたときに取る行動を指定する:\n              None，または Untrap + Apply-Key + Kick + Force のうち1つ以上;\n              Untrap が含まれている場合はそれが最初に処理され，\n              罠を調べるかの確認(\"check for traps?\")に \"no\" と答えると\n              その他の行動が適用される; \"yes\" と答えた場合，罠が実際に\n              あっても見つかるとは限らず，何か見つかったかどうかに\n              関わらず現在の手番の残りを消費する;\n              Kick は扉にのみ，Force は容器にのみ有効; どちらも，\n              Untrap が省略またはスキップされ，かつ Apply-Key が\n              省略されているか，解錠道具を持っていないか，その使用を\n              断った場合にのみ試みられる"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "crash_email   email address to use when filling in crash reports         []",
+    "translation": "crash_email   クラッシュレポートの記入に使うメールアドレス                []"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "crash_name    name to use when filling in crash reports                  []",
+    "translation": "crash_name    クラッシュレポートの記入に使う名前                          []"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "crash_urlmax  length of longest url we can generate for a crash report   []",
+    "translation": "crash_urlmax  クラッシュレポート用に生成できる URL の最大長               []"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "              (space separated list of two-character values;\n              prefix: '+' always disclose, '-' never disclose,\n              'n' prompt with default \"no\", 'y' prompt with default \"yes\",\n              'a' prompt to select sorting order (for suffix 'v' only);\n              suffix: 'i' inventory, 'a' attributes, 'v' vanquished\n              monsters, 'g' genocided and extinct monsters, 'c' conduct\n              and achievements, 'o' dungeon overview)",
+    "translation": "              (2文字の値を空白で区切ったリスト;\n              接頭辞: '+' 常に表示する，'-' 表示しない，\n              'n' デフォルト \"no\" で確認する，'y' デフォルト \"yes\" で確認する，\n              'a' 並び順を選ぶよう確認する (接尾辞 'v' のみ);\n              接尾辞: 'i' 持ち物，'a' 属性，'v' 倒した怪物，\n              'g' 虐殺・絶滅した怪物，'c' 行動規範と実績，\n              'o' ダンジョン概要)"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "hilite_status specifies a rule for highlighting a status field           []\n              (multiple instances are allowed)",
+    "translation": "hilite_status ステータス欄を強調表示するルールを指定する                    []\n              (複数指定できる)"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "              (With Traditional, many actions allow pseudo-class 'm' to\n              request a menu for choosing items: one-shot Combination.)",
+    "translation": "              (Traditional の場合，多くの行動では疑似クラス 'm' を指定して\n              アイテム選択用のメニューを要求できる: 一回限りの Combination．)"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "menu_objsyms  whether to include object class symbols in menus:         [4]\n              0 - none    -- don't add object symbols to menus;\n              1 - headers -- append object class symbol to menu header lines;\n              2 - entries -- show object glyphs (same as class symbol\n                             for ASCII interfaces) on each menu entry line;\n              3 - both    -- 1 and 2 combined;\n              4 - conditional  -- as 2 but only if no headers are present;\n              5 - one-or-other -- 1 and 4 combined;\n              choices 0 and 1 should work with any interface; 2 through 5\n              are supported by tty and curses",
+    "translation": "menu_objsyms  メニューに物のクラス記号を含めるかどうか:                 [4]\n              0 - none    -- メニューに物の記号を追加しない;\n              1 - headers -- メニューの見出し行に物のクラス記号を付け加える;\n              2 - entries -- メニューの各項目行に物の記号を表示する\n                             (ASCII インターフェースではクラス記号と同じ);\n              3 - both    -- 1 と 2 の組み合わせ;\n              4 - conditional  -- 2 と同様だが，見出しがない場合のみ;\n              5 - one-or-other -- 1 と 4 の組み合わせ;\n              0 と 1 はどのインターフェースでも動作するはずである;\n              2 から 5 は tty と curses が対応している"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "msg_window    behavior of ^P message recall for curses interface:       [r]\n              reverse     -- full window, most recent first\n              full        -- full with messages printed least recent first,\n                             initially positioned on last page to start\n                             with most recent messages in view",
+    "translation": "msg_window    curses インターフェースで ^P を使ったときの処理方法:        [r]\n              reverse     -- 全画面表示，新しいメッセージから順に表示\n              full        -- 全画面表示，古いメッセージから順に表示するが，\n                             最初は最新のメッセージが見えるよう\n                             最後のページが表示される"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "              Setting number_pad (to a positive value) affects how all\n              digit keys are handled, not just those on numeric keypad.",
+    "translation": "              number_pad を(正の値に)設定すると，テンキーだけでなく\n              すべての数字キーの扱いに影響する．"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "                      also requires yes rather than y for pray, trap, Autoall",
+    "translation": "                      また，pray, trap, Autoall で y ではなく yes が必要になる"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "              trap    -- y to enter a known trap unless it is harmless;\n              swim    -- require m prefix to move into water or lava when\n                      hero has seen it and isn't impaired; on by default;\n              AutoAll -- y to confirm if using menustyle:Full and choice 'A'\n                      in the object class filtering menu is selected;",
+    "translation": "              trap    -- 無害なもの以外の既知の罠に入るときにyで確認する;\n              swim    -- 主人公が水や溶岩を見ていて，行動に支障がない場合，\n                      そこへ移動するには m 接頭辞を必要とする; デフォルトでon;\n              AutoAll -- menustyle:Full を使用中に，物のクラス絞り込み\n                      メニューで 'A' を選んだときにyで確認する;"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "perminv_mode  if the interface supports a persistent inventory window   [a]\n              and the perm_invent option is true, this controls what\n              will be shown:\n              none/off -- behave as if perm_invent is false\n              all/on   -- show inventory except for gold (default)\n              full     -- show inventory including gold\n              in-use   -- only show worn and wielded items\n              (the tty interface's optional perm_invent support includes\n              a couple of additional choices that vary all and full)",
+    "translation": "perminv_mode  インターフェースが常時表示の持ち物ウィンドウに対応し，   [a]\n              perm_invent オプションが真の場合に，何を表示するかを制御する:\n              none/off -- perm_invent が偽であるかのように動作する\n              all/on   -- 金貨以外の持ち物を表示する (デフォルト)\n              full     -- 金貨を含む持ち物を表示する\n              in-use   -- 身につけている物と装備中の物のみ表示する\n              (tty インターフェースの任意機能である perm_invent 対応には，\n              all と full を変形した追加の選択肢がいくつかある)"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "sortdiscoveries preferred order when viewing list of discovered objects [o]\n              o -- in order of discovery within each class\n              s -- sortloot's \"loot\" order\n              c -- alphabetized within each class\n              a -- alphabetized across all classes",
+    "translation": "sortdiscoveries 発見済みの物の一覧を見るときの並び順                  [o]\n              o -- クラスごとに発見した順\n              s -- sortloot の \"loot\" の順\n              c -- クラスごとにアルファベット順\n              a -- 全クラスを通してアルファベット順"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "sortloot      preferred order when examining a set of objects           [n]\n              none -- no sorting\n              loot -- sort piles of objects on floor and in containers\n              full -- 'loot' plus objects in inventory",
+    "translation": "sortloot      複数の物を調べるときの並び順                              [n]\n              none -- 並べ替えない\n              loot -- 床の上や容器の中の物の山を並べ替える\n              full -- 'loot' に加えて持ち物も並べ替える"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "sortvanquished preferred order when viewing vanquished monsters list    [t]\n              t -- traditional, order by monster level\n              d -- order by monster difficulty rating\n              a -- alphabetical, first any unique monsters then others\n              c -- order by class, low to high level within each class\n              n -- order by count, high to low\n              z -- order by count, low to high",
+    "translation": "sortvanquished 倒した怪物の一覧を見るときの並び順                       [t]\n              t -- 従来通り，怪物のレベル順\n              d -- 怪物の難易度順\n              a -- アルファベット順，ユニークな怪物を先に，その後に他の怪物\n              c -- クラス順，各クラス内ではレベルの低い順\n              n -- 数の多い順\n              z -- 数の少ない順"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "statushilites whether to display status highlights (when non-zero) and  [0]\n              also how many turns to display temporary highlights (for\n              'up', 'down', and 'changed' hilite_status rules)",
+    "translation": "statushilites ステータスの強調表示を行うか(0以外のとき)，および          [0]\n              一時的な強調表示を何ターン表示するか\n              (hilite_status の 'up'，'down'，'changed' ルール用)"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "statuslines   whether to use expanded (3) or condensed (2) status       [2]\n              (for tty and curses; 2 is traditional, 3 is recommended;\n              also for Qt, where 3 is traditional and 2 is recommended)",
+    "translation": "statuslines   ステータスを拡張表示(3)にするか簡略表示(2)にするか          [2]\n              (tty と curses 用; 2 が従来の表示，3 が推奨;\n              Qt でも使用でき，こちらは 3 が従来の表示，2 が推奨)"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "versinfo      selects what information is displayed when showvers  [1 or 4]\n              is true (default depends on program development status)",
+    "translation": "versinfo      showvers が真のときに表示する情報を選ぶ             [1 または 4]\n              (デフォルトはプログラムの開発状況によって異なる)"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "whatis_coord  controls whether to include map coordinates when          [n]\n              autodescribe is active for the '/' and ';' commands.\n              Value is the first letter of one of\n              compass      -- (relative to you; 'east' or '3s' or '2n,4w')\n              full compass -- ('east' or '3south' or '2north,4west')\n              map          -- <x,y>        (map column x=0 is not used)\n              screen       -- [row,column] (row is offset to match tty usage)\n              none         -- no coordinates shown.",
+    "translation": "whatis_coord  '/' や ';' コマンドで autodescribe が有効なときに，        [n]\n              地図の座標を含めるかどうかを制御する．\n              値は次のいずれかの最初の一文字\n              compass      -- (自分からの相対位置; 'east'，'3s'，'2n,4w' など)\n              full compass -- ('east'，'3south'，'2north,4west' など)\n              map          -- <x,y>        (地図の x=0 の列は使われない)\n              screen       -- [row,column] (row は tty での使い方に合わせてずらしてある)\n              none         -- 座標を表示しない．"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "whatis_filter controls how to filter eligible map coordinates when      [n]\n              getting a map location for eg. the travel command.\n              Value is the one of\n              n - no filtering\n              v - locations in view only\n              a - locations in same area (room, corridor, etc)",
+    "translation": "whatis_filter トラベルコマンドなどで地図上の位置を指定するとき，          [n]\n              選択可能な座標をどう絞り込むかを制御する．\n              値は次のいずれか\n              n - 絞り込まない\n              v - 視界内の位置のみ\n              a - 同じ区域(部屋，通路など)内の位置"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "           Several roles who start with a dog have one whose name is\n           pre-set (for example, \"Hachi\" for Samurai), but that name\n           will be overridden if you specify dogname.",
+    "translation": "           犬を連れて始まる職業のいくつかは，犬の名前があらかじめ\n           決まっている(例えば侍の \"Hachi\")が，dogname を指定すると\n           その名前で上書きされる．"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "           menu_shift_left    pan view to left (perm_invent only)  [{](cx)\n           menu_shift_right   pan view to right (perm_invent only) [}](cx)",
+    "translation": "           menu_shift_left    表示を左へ移動 (perm_invent のみ)  [{](cx)\n           menu_shift_right   表示を右へ移動 (perm_invent のみ)  [}](cx)"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "           menu_search        prompt for target text and invert  [:](tcwxq)\n                              items which match that",
+    "translation": "           menu_search        検索する文字列を尋ね，一致する     [:](tcwxq)\n                              アイテムを反転"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "name       あなたの名前       [defaults to username on multi-\n           user systems, asks \"who are you?\" on single-user systems or if\n           the username is classified as generic like \"games\"]\n           MS Windows is treated as single-user even though it supports\n           usernames.  If character name is specified on the command\n           line (typically via 'nethack -u myname' depending upon type\n           of system and method of access to it), that name overrides\n           'name' from your options.",
+    "translation": "name       あなたの名前\n           [マルチユーザーシステムではユーザー名がデフォルト．\n           シングルユーザーシステムの場合や，ユーザー名が \"games\" の\n           ような汎用的なものと分類される場合は，名前を尋ねる]\n           MS Windows はユーザー名に対応しているが，シングルユーザーとして\n           扱われる．コマンドラインでキャラクター名を指定した場合\n           (システムの種類やアクセス方法によるが，通常は\n           'nethack -u myname' のように指定する)，その名前がオプションの\n           'name' より優先される．"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "pettype    あなたの好きなペットの種類 (cat, dog, horse, random,    [random]\n           or none), if your role allows more than one type (or if you\n           want to avoid a starting pet).  Most roles allow dog or cat\n           but not horse.  For roles which force a particular type,\n           pettype is ignored unless it specifies 'none'.",
+    "translation": "pettype    職業が複数の種類を選べる場合(または最初のペットを          [random]\n           連れて行きたくない場合)の，あなたの好きなペットの種類\n           (cat, dog, horse, random, none のいずれか)．\n           ほとんどの職業では犬か猫を選べるが，馬は選べない．\n           特定の種類に固定されている職業では，'none' を指定しない限り\n           pettype は無視される．"
+  },
+  {
+    "file": "dat/opthelp",
+    "literal": "windowtype 使用するウインドゥシステム [システムとコンパイル設定依存]\n           if more than one choice is available.\n           Some instances of the program support only one window-type;\n           when that is the case, you don't need to specify anything.\n           The list of supported window-types in your program can be\n           seen while the program is running by using the #version\n           command or from outside the program by examining the text file\n           named 'options' which is generated when building it.",
+    "translation": "windowtype 複数の選択肢がある場合に使用するウインドウシステム\n           [システムとコンパイル設定依存]\n           ウインドウタイプを1種類しかサポートしないプログラムもあり，\n           その場合は何も指定する必要はない．\n           プログラムがサポートするウインドウタイプの一覧は，実行中に\n           #version コマンドを使うか，プログラムの外からビルド時に\n           生成される 'options' という名前のテキストファイルを調べることで\n           確認できる．"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "        Microsoft Windows specific help file for NetHack 5.0",
+    "translation": "        NetHack 5.0 Microsoft Windows 版固有のヘルプファイル"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "                   (Last Revision: June 20, 2026)",
+    "translation": "                   (最終改訂: 2026年6月20日)"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "This file details some specifics for NetHack built for Windows.",
+    "translation": "このファイルでは、Windows 向けにビルドされた NetHack 固有の事項について説明します。"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "New players should be sure to read GuideBook.txt which contains\nessential information about playing NetHack. It can be found in the\nsame directory as your NetHack executable.",
+    "translation": "初めてのプレイヤーは、NetHack のプレイに欠かせない情報が載っている\nGuideBook.txt を必ず読んでください。このファイルは NetHack の実行ファイルと\n同じディレクトリにあります。"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "The NetHack for Windows port supports some additional or enhanced\ncommands as well as some NetHack config file options.",
+    "translation": "Windows 版 NetHack は、いくつかの追加・拡張コマンドと、\nいくつかの NetHack 設定ファイルのオプションに対応しています。"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "The active NetHack config file is stored in the nethack subfolder of the\nuser's User Profile Folder. The config file can be referenced\nin the legacy CMD command prompt as:",
+    "translation": "使用中の NetHack 設定ファイルは、ユーザーのユーザープロファイルフォルダー内の\nnethack サブフォルダーに保存されています。従来の CMD コマンドプロンプトでは、\n設定ファイルを次のように参照できます:"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "Under powershell, the User's config file can be referenced\nas:",
+    "translation": "PowerShell では、ユーザーの設定ファイルを次のように参照できます:"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "Some options are applicable only to the \"Graphical Interface.\"\nThese are discussed separately in their own section.",
+    "translation": "一部のオプションは「グラフィカルインターフェース」でのみ有効です。\nこれらは専用の節で別に説明します。"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "Contents\n1. ALT Key Combinations\n2. Graphical Interface - Options you can assign a value to\n3. Graphical Interface - Additional/Enhanced Commands\n4. Graphical Interface - Menus\n5. Numeric Keypad (for number_pad mode)",
+    "translation": "目次\n1. ALT キーの組み合わせ\n2. グラフィカルインターフェース - 値を設定するオプション\n3. グラフィカルインターフェース - 追加・拡張コマンド\n4. グラフィカルインターフェース - メニュー\n5. テンキー (number_pad モード用)"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "1. ALT Key Combinations\n----------------------------------------------",
+    "translation": "1. ALT キーの組み合わせ\n----------------------------------------------"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "The non-graphical (tty) interface always operates in \"NetHack mode\",\nwhile the \"NetHack for Windows - Graphical Interface\" lets you\ntoggle the mode.  In non-NetHack mode, all ALT-key combinations\nare sent to the Windows itself, rather than to NetHack.",
+    "translation": "非グラフィカル(tty)インターフェースは常に「NetHack モード」で動作しますが、\n「NetHack for Windows - グラフィカルインターフェース」ではモードを\n切り替えられます。NetHack モードでないときは、ALT キーの組み合わせはすべて\nNetHack ではなく Windows 自体に送られます。"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "While playing in NetHack mode you can press the ALT key in\ncombination with another key to execute an extended command\nas an alternative method to pressing a # key sequence.\nThe available commands are:",
+    "translation": "NetHack モードでプレイしているときは、# キーから始まる入力の代わりに、\nALT キーと別のキーを組み合わせて押すことで拡張コマンドを実行できます。\n使用できるコマンドは次のとおりです:"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "    Alt-2    #twoweapon      - toggle two-weapon combat (unavailable\n                               if number_pad mode is set)",
+    "translation": "    Alt-2    #twoweapon      - 二刀流を切り替える (number_pad モードが\n                               設定されている場合は使用不可)"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "    Alt-a    #adjust         - adjust inventory letters.",
+    "translation": "    Alt-a    #adjust         - 持ち物の文字を調整する。"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "    Alt-c    #chat           - talk to someone or something.",
+    "translation": "    Alt-c    #chat           - 誰かや何かに話しかける。"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "    Alt-d    #dip            - dip an object into something.",
+    "translation": "    Alt-d    #dip            - 物を何かに浸す。"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "    Alt-e    #enhance        - enhance your skill with a weapon.",
+    "translation": "    Alt-e    #enhance        - 武器のスキルを高める。"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "    Alt-f    #force          - force a lock.",
+    "translation": "    Alt-f    #force          - 鍵をこじ開ける。"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "    Alt-i    #invoke         - invoke an object's powers.",
+    "translation": "    Alt-i    #invoke         - 物の力を引き出す。"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "    Alt-j    #jump           - jump to a location.",
+    "translation": "    Alt-j    #jump           - ある場所へ跳ぶ。"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "    Alt-l    #loot           - loot a box on the floor.",
+    "translation": "    Alt-l    #loot           - 床の上の箱を開けて中身を調べる。"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "    Alt-m    #monster        - use a monster's special ability.",
+    "translation": "    Alt-m    #monster        - 怪物の特殊能力を使う。"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "    Alt-n    #name           - name an item or type of object.",
+    "translation": "    Alt-n    #name           - アイテムや物の種類に名前を付ける。"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "    Alt-o    #offer          - offer a sacrifice to the gods.",
+    "translation": "    Alt-o    #offer          - 神に生贄を捧げる。"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "    Alt-p    #pray           - pray to the gods for help.",
+    "translation": "    Alt-p    #pray           - 神に助けを祈る。"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "    Alt-q    #quit           - quit the game. (Same as #quit)",
+    "translation": "    Alt-q    #quit           - ゲームを終了する。(#quit と同じ)"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "    Alt-r    #rub            - rub a lamp.",
+    "translation": "    Alt-r    #rub            - ランプをこする。"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "    Alt-s    #sit            - sit down.",
+    "translation": "    Alt-s    #sit            - 座る。"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "    Alt-t    #turn           - turn undead.",
+    "translation": "    Alt-t    #turn           - アンデッドを退散させる。"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "    Alt-u    #untrap         - untrap something.",
+    "translation": "    Alt-u    #untrap         - 罠を解除する。"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "    Alt-v    #version        - list compile time options for this version of\n                               NetHack.",
+    "translation": "    Alt-v    #version        - このバージョンの NetHack のコンパイル時\n                               オプションを一覧表示する。"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "    Alt-w    #wipe           - wipe off your face.",
+    "translation": "    Alt-w    #wipe           - 顔を拭う。"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "    Alt-?    #?              - display list of extended menu commands",
+    "translation": "    Alt-?    #?              - 拡張コマンドの一覧を表示する。"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "2. Options that you assign a value to (Graphical Interface only)",
+    "translation": "2. 値を設定するオプション (グラフィカルインターフェースのみ)"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "\"NetHack for Windows - Graphical Interface\" recognizes the following\nadditional options, which the non-graphical (tty) version will\nsilently ignore.  These are options that specify attributes of various\nwindows.  The windows that you can tailor include menu windows (such\nas the inventory list), text windows (such as \"It is written in the\nbook of ...\" screens), the message window (where events of the game are\ndisplayed), the status window (where your character name\nand attributes are displayed), and the map window (where the map\nis drawn).",
+    "translation": "「NetHack for Windows - グラフィカルインターフェース」は、以下の追加オプションを\n認識します。非グラフィカル(tty)版では、これらのオプションは通知なしに\n無視されます。これらは各種ウィンドウの属性を指定するオプションです。\n調整できるウィンドウには、メニューウィンドウ(持ち物一覧など)、\nテキストウィンドウ(「…の書にこう記されている」のような画面など)、\nメッセージウィンドウ(ゲームの出来事が表示される場所)、\nステータスウィンドウ(キャラクター名や能力値が表示される場所)、\nマップウィンドウ(地図が描かれる場所)があります。"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "Window Alignment options:",
+    "translation": "ウィンドウ配置のオプション:"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "    align_message  Specifies at which side of the NetHack screen the\n                   message window is aligned. This option can be used\n                   to align the window to \"top\" or \"bottom\".\n                   Default: [TOP]",
+    "translation": "    align_message  NetHack 画面のどちら側にメッセージウィンドウを\n                   配置するかを指定します。\"top\"(上)または\n                   \"bottom\"(下)に配置できます。\n                   デフォルト: [TOP]"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "    align_status   Specifies at which side of the NetHack screen the\n                   status window is aligned. This option can be used\n                   to align the window to \"top\" or \"bottom\".\n                   Default: [BOTTOM]",
+    "translation": "    align_status   NetHack 画面のどちら側にステータスウィンドウを\n                   配置するかを指定します。\"top\"(上)または\n                   \"bottom\"(下)に配置できます。\n                   デフォルト: [BOTTOM]"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "Map Window options:",
+    "translation": "マップウィンドウのオプション:"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "    map_mode       Specifies which map mode to use.\n                   The following map modes are available:\n                   tiles (display things on the map with colored tiles),\n                   ascii4x6, ascii6x8, ascii8x8, ascii16x8, ascii7x12,\n                   ascii8x12, ascii16x12, ascii12x16, ascii10x18\n                   (which use that size font to display things on\n                   the map), or fit_to_screen (an ascii mode which\n                   forces things to fit on a single screen).\n                   Default: [tiles]",
+    "translation": "    map_mode       使用するマップモードを指定します。\n                   次のマップモードを使用できます:\n                   tiles (地図上の物をカラーのタイルで表示)、\n                   ascii4x6, ascii6x8, ascii8x8, ascii16x8, ascii7x12,\n                   ascii8x12, ascii16x12, ascii12x16, ascii10x18\n                   (その大きさのフォントで地図上の物を表示)、\n                   fit_to_screen (1画面に収まるように表示する\n                   ASCII モード)。\n                   デフォルト: [tiles]"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "    scroll_margin  Specifies the number of map cells from the edge\n                   of the map window where scrolling will take place.\n                   Default: [5]",
+    "translation": "    scroll_margin  マップウィンドウの端から何マスの位置で\n                   スクロールが行われるかを指定します。\n                   デフォルト: [5]"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "    tile_file      An alternative file containing bitmap to use for\n                   tiles. This file should be a .bmp file and should\n                   be organized as 40 rectangular tiles wide. It is\n                   beyond the scope of this document to describe the\n                   exact contents of each tile in the .bmp, which must\n                   match the object lists used when building NetHack.",
+    "translation": "    tile_file      タイルに使う、ビットマップを含む代わりのファイル。\n                   このファイルは .bmp ファイルで、横に 40 個の\n                   長方形のタイルが並ぶ構成にする必要があります。\n                   .bmp 内の各タイルの正確な内容の説明はこの文書の\n                   範囲外ですが、NetHack のビルド時に使われる物の\n                   一覧と一致している必要があります。"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "    tile_height    Used with tile_file to specify the height of each\n                   tile in pixels. This option may only be specified\n                   in the defaults.nh config file.\n                   Default: [16]",
+    "translation": "    tile_height    tile_file と共に使用し、各タイルの高さを\n                   ピクセル単位で指定します。このオプションは\n                   defaults.nh 設定ファイルでのみ指定できます。\n                   デフォルト: [16]"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "    tile_width     Used with tile_file to specify the width of each\n                   tile in pixels. This option may only be specified\n                   in the defaults.nh config file.\n                   Default: [16]",
+    "translation": "    tile_width     tile_file と共に使用し、各タイルの幅を\n                   ピクセル単位で指定します。このオプションは\n                   defaults.nh 設定ファイルでのみ指定できます。\n                   デフォルト: [16]"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "Other Window options:",
+    "translation": "その他のウィンドウのオプション:"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "    windowcolors   Specifies the colors for various windows\n                   This option may only be specified in the\n                   defaults.nh config file and has the following\n                   format:",
+    "translation": "    windowcolors   各種ウィンドウの色を指定します。\n                   このオプションは defaults.nh 設定ファイルでのみ\n                   指定でき、書式は次のとおりです:"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "                   Notes:\n                      - Both foreground and background colors are\n                        required, and a slash must separate them.\n                      - \"window-type\" is either \"message\" or \"status\"\n                        (Short forms are: \"msg\" or \"sts\").\n                      - \"foreground\" and \"background\" may be specified as\n                        a color name (such as \"blue\"), or by a six\n                        digit hexadecimal RGB color value (such as\n                        \"#8F8F8F\")",
+    "translation": "                   注意:\n                      - 前景色(foreground)と背景色(background)の両方が\n                        必要で、スラッシュで区切る必要があります。\n                      - \"window-type\" は \"message\" または \"status\" です\n                        (短縮形は \"msg\" または \"sts\")。\n                      - \"foreground\" と \"background\" は、色の名前\n                        (\"blue\" など)、または 6 桁の 16 進数 RGB カラー値\n                        (\"#8F8F8F\" など)で指定できます。"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "                      - The following color names are available:\n                        black, red, green, brown, blue, magenta,\n                        cyan, gray (or grey), orange, brightgreen,\n                        yellow, brightblue, brightmagenta, brightcyan,\n                        white, trueblack, purple, silver, maroon, fuchsia,\n                        lime, olive, navy, teal, aqua. In addition, you\n                        can use the following names to refer to default\n                        Windows settings: activeborder, activecaption, \\\n                        appworkspace, background, btnface, btnshadow, btntext,\n                        captiontext, graytext, highlight, highlighttext,\n                        inactiveborder, inactivecaption, menu, menutext,\n                        scrollbar, window, windowframe, windowtext.",
+    "translation": "                      - 次の色の名前を使用できます:\n                        black, red, green, brown, blue, magenta,\n                        cyan, gray (または grey), orange, brightgreen,\n                        yellow, brightblue, brightmagenta, brightcyan,\n                        white, trueblack, purple, silver, maroon, fuchsia,\n                        lime, olive, navy, teal, aqua。\n                        さらに、Windows の既定の設定を参照する次の名前も\n                        使用できます: activeborder, activecaption,\n                        appworkspace, background, btnface, btnshadow, btntext,\n                        captiontext, graytext, highlight, highlighttext,\n                        inactiveborder, inactivecaption, menu, menutext,\n                        scrollbar, window, windowframe, windowtext。"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "                        Example:",
+    "translation": "                        例:"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "    font_menu      Specifies the name of the menu font.\n    font_message   Specifies the name of the message font.\n    font_status    Specifies the name of the status font.\n    font_text      Specifies the name of the text font.",
+    "translation": "    font_menu      メニューのフォント名を指定します。\n    font_message   メッセージのフォント名を指定します。\n    font_status    ステータスのフォント名を指定します。\n    font_text      テキストのフォント名を指定します。"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "    font_size_menu Specifies the size of the menu font.",
+    "translation": "    font_size_menu メニューのフォントサイズを指定します。"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "                   Specifies the size of the message font.",
+    "translation": "                   メッセージのフォントサイズを指定します。"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "                   Specifies the size of the status font.",
+    "translation": "                   ステータスのフォントサイズを指定します。"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "    font_size_text Specifies the size of the text font.",
+    "translation": "    font_size_text テキストのフォントサイズを指定します。"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "Miscellaneous options:",
+    "translation": "その他のオプション:"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "    vary_msgcount  Number of lines to display in message window.",
+    "translation": "    vary_msgcount  メッセージウィンドウに表示する行数。"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "3. NetHack for Windows - Graphical Interface, Additional/Enhanced Commands",
+    "translation": "3. NetHack for Windows - グラフィカルインターフェース、追加・拡張コマンド"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "The following function keys are active in\nthe \"NetHack for Windows - Graphical Interface\":",
+    "translation": "「NetHack for Windows - グラフィカルインターフェース」では、\n次のファンクションキーが使用できます:"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "    F4             Toggle level overview mode on/off\n                   This key will toggle the map between a view that\n                   is mapped to fit exactly to the window, and the\n                   view that shows the various symbols in their\n                   normal size. This is useful for getting an idea\n                   of where you are in a level.",
+    "translation": "    F4             階全体表示モードのオン/オフを切り替えます。\n                   このキーは、地図をウィンドウにぴったり収まるように\n                   表示するか、各記号を通常の大きさで表示するかを\n                   切り替えます。階の中で自分がどこにいるかを\n                   把握するのに便利です。"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "    F5             Toggle tiled display on/off.\n                   This key switches between the tiled and the\n                   traditional ASCII display. This is equivalent to\n                   using the \"map_mode\" option.",
+    "translation": "    F5             タイル表示のオン/オフを切り替えます。\n                   このキーは、タイル表示と従来の ASCII 表示を\n                   切り替えます。\"map_mode\" オプションを使うのと\n                   同じです。"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "    F10            Activate menu bar.\n                   This key will activate the menu bar, allowing you\n                   to select between the menus: File, Map,\n                   Window Settings, and Help.",
+    "translation": "    F10            メニューバーを有効にします。\n                   このキーでメニューバーが有効になり、File、Map、\n                   Window Settings、Help の各メニューを選択できます。"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "4. Graphical Port Menus",
+    "translation": "4. グラフィカル版のメニュー"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "  Save - Allows you to save and exit the game\n  Quit - Allows you to quit the game",
+    "translation": "  Save - ゲームを保存して終了します\n  Quit - ゲームを終了します"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "Map - Provides for selection of map mode. Equivalent to using\nthe map_mode option.",
+    "translation": "Map - マップモードを選択します。map_mode オプションを\n使うのと同じです。"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "Window Settings - Changes your logged-on user's settings for NetHack.\nOnly one setting is available: NetHack mode, which can be\nchecked or unchecked. NetHack mode allows you to use the ALT key for\ngame key commands [see list above]. You can use F10 to access the\nmenu bar while in NetHack mode. You can also clear your logged-on\nuser's settings for NetHack. Settings in this window are saved in\nyour logged-on user's registry.",
+    "translation": "Window Settings - ログオン中のユーザーの NetHack 設定を変更します。\n設定できる項目は NetHack モードの 1 つだけで、チェックのオン/オフを\n切り替えられます。NetHack モードでは、ゲームのキーコマンドに ALT キーを\n使えます[上記の一覧を参照]。NetHack モード中は、F10 でメニューバーに\nアクセスできます。ログオン中のユーザーの NetHack 設定を消去することも\nできます。このウィンドウの設定は、ログオン中のユーザーの\nレジストリに保存されます。"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "Help - Provides help about various portions of NetHack.",
+    "translation": "Help - NetHack のさまざまな部分についてのヘルプを表示します。"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "5. Numeric Keypad (for \"OPTION=number_pad\" mode)",
+    "translation": "5. テンキー (\"OPTION=number_pad\" モード用)"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "The numeric keypad and surrounding characters act as macros for different\ncommands in NetHack.  The Num Lock should be toggled to \"on\" to make the\nmost of these keys:",
+    "translation": "テンキーとその周辺のキーは、NetHack のさまざまなコマンドのマクロとして\n機能します。これらのキーを最大限に活用するには、Num Lock を\n「オン」にしてください:"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "          Key         Normal       Shift-Key\n       ----------   ----------    -------------\n       1, 2, 3, 4   Move In       Run In\n       6, 7, 8, 9   Direction     Direction\n\n        0 (Ins)     Inventory     Categorized\n                                  Inventory\n\n        . (Del)     Wait Turn     : - Look Here\n\n        +           Spell List    P - Put on an\n                                  accessory\n\n        -           m - Move      Previous\n                    Only          Message",
+    "translation": "          キー        通常          Shift+キー\n       ----------   ----------    -------------\n       1, 2, 3, 4   その方向へ    その方向へ\n       6, 7, 8, 9   移動          走る\n\n        0 (Ins)     持ち物一覧    分類別の\n                                  持ち物一覧\n\n        . (Del)     1ターン待つ   : - ここを調べる\n\n        +           呪文一覧      P - 装身具を\n                                  身につける\n\n        -           m - 移動      前の\n                    のみ          メッセージ"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "    NetHack for Windows - tty Interface Specific Behavior:",
+    "translation": "    NetHack for Windows - tty インターフェース固有の動作:"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "      In the non-graphical (tty) interface, when you use the Ctrl key with a\n      directional key (1, 2, 3, 4, 6, 7, 8, 9) it means \"go in specified\n      direction until you hit a wall or run into something interesting.\"",
+    "translation": "      非グラフィカル(tty)インターフェースでは、Ctrl キーを方向キー\n      (1, 2, 3, 4, 6, 7, 8, 9)と組み合わせて使うと、「壁に当たるか\n      何か興味を引くものに出会うまで、指定した方向へ進む」という\n      意味になります。"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "    NetHack for Windows - Graphical Interface Specific Behavior:",
+    "translation": "    NetHack for Windows - グラフィカルインターフェース固有の動作:"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "      It is possible to scroll or pan the map in a specific direction:",
+    "translation": "      地図を特定の方向へスクロール(パン)できます:"
+  },
+  {
+    "file": "sys/windows/porthelp",
+    "literal": "        Ctrl-Shift-Left  (4)     Scroll (Pan) map left\n        Ctrl-Shift-Right (6)     Scroll (Pan) map right\n        Ctrl-Shift-Up    (8)     Scroll (Pan) map up\n        Ctrl-Shift-Down  (2)     Scroll (Pan) map down\n        Ctrl-Shift-Home  (7)     Scroll (Pan) map left to leftmost corner\n        Ctrl-Shift-End   (1)     Scroll (Pan) map left to rightmost corner\n        Ctrl-Shift-PgUp  (9)     Scroll (Pan) map left to uppermost corner\n        Ctrl-Shift-PgDn  (3)     Scroll (Pan) map left to lowermost corner",
+    "translation": "        Ctrl-Shift-Left  (4)     地図を左へスクロール(パン)\n        Ctrl-Shift-Right (6)     地図を右へスクロール(パン)\n        Ctrl-Shift-Up    (8)     地図を上へスクロール(パン)\n        Ctrl-Shift-Down  (2)     地図を下へスクロール(パン)\n        Ctrl-Shift-Home  (7)     地図を左端の隅までスクロール(パン)\n        Ctrl-Shift-End   (1)     地図を右端の隅までスクロール(パン)\n        Ctrl-Shift-PgUp  (9)     地図を上端の隅までスクロール(パン)\n        Ctrl-Shift-PgDn  (3)     地図を下端の隅までスクロール(パン)"
+  }
+]

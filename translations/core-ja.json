@@ -1,0 +1,3622 @@
+[
+  {
+    "file": "src/apply.c",
+    "literal": "%s shifts location",
+    "translation": "%sが位置を変えた"
+  },
+  {
+    "file": "src/apply.c",
+    "literal": "%s appears",
+    "translation": "%sが現れた"
+  },
+  {
+    "file": "src/apply.c",
+    "literal": "%s disappears",
+    "translation": "%sが消えた"
+  },
+  {
+    "file": "src/apply.c",
+    "literal": "%s creatures shift locations",
+    "translation": "%sの生き物が位置を変えた"
+  },
+  {
+    "file": "src/apply.c",
+    "literal": "%s %s appear",
+    "translation": "%s %sが現れた"
+  },
+  {
+    "file": "src/apply.c",
+    "literal": "%s %s disappear",
+    "translation": "%s %sが消えた"
+  },
+  {
+    "file": "src/apply.c",
+    "literal": "look like %s.",
+    "translation": "%sのように見える。"
+  },
+  {
+    "file": "src/apply.c",
+    "literal": "%s isn't capable of jumping in place.",
+    "translation": "%sはその場で跳ぶことができない。"
+  },
+  {
+    "file": "src/apply.c",
+    "literal": "jump up and %s back down.",
+    "translation": "跳び上がって、また降りた(%s)。"
+  },
+  {
+    "file": "src/apply.c",
+    "literal": "smear royal jelly all over %s.",
+    "translation": "%sにローヤルゼリーを塗りたくった。"
+  },
+  {
+    "file": "src/apply.c",
+    "literal": "The %s %s feebly.",
+    "translation": "%sは弱々しく%s。"
+  },
+  {
+    "file": "src/apply.c",
+    "literal": "The %s %s briefly.",
+    "translation": "%sは一瞬%s。"
+  },
+  {
+    "file": "src/apply.c",
+    "literal": "don't want to get the pages even more soggy, do you?",
+    "translation": "ページをこれ以上濡らしたくはないだろう？"
+  },
+  {
+    "file": "src/apply.c",
+    "literal": "flip through the pages of %s.",
+    "translation": "%sのページをぱらぱらとめくった。"
+  },
+  {
+    "file": "src/apply.c",
+    "literal": "the pages make an unpleasant %s sound.",
+    "translation": "ページが不快な%s音を立てるのを聞いた。"
+  },
+  {
+    "file": "src/apply.c",
+    "literal": "the pages tremble.",
+    "translation": "ページが震えるのを感じた。"
+  },
+  {
+    "file": "src/apply.c",
+    "literal": "The pages feel %s.",
+    "translation": "ページの手触りは%sだ。"
+  },
+  {
+    "file": "src/apply.c",
+    "literal": "This spellbook %s.",
+    "translation": "この魔法書は%s。"
+  },
+  {
+    "file": "src/apply.c",
+    "literal": "enjoy the animated initials.",
+    "translation": "動く飾り文字を楽しんだ。"
+  },
+  {
+    "file": "src/apply.c",
+    "literal": "This looks like it might be interesting to read.",
+    "translation": "これは読むと面白そうだ。"
+  },
+  {
+    "file": "src/apply.c",
+    "literal": "The%s ink in this spellbook is %s.",
+    "translation": "この魔法書の%sインクは%sだ。"
+  },
+  {
+    "file": "src/apply.c",
+    "literal": "It tumbles away.",
+    "translation": "それは転がっていった。"
+  },
+  {
+    "file": "src/apply.c",
+    "literal": "It slips between your %s.",
+    "translation": "それはあなたの%sの間からすり抜けた。"
+  },
+  {
+    "file": "src/apply.c",
+    "literal": "Wow, a double header!",
+    "translation": "わお、両面とも表だ！"
+  },
+  {
+    "file": "src/apply.c",
+    "literal": "It comes up %s.",
+    "translation": "%sが出た。"
+  },
+  {
+    "file": "src/artifact.c",
+    "literal": "%s %s %s in a cloud of brimstone!",
+    "translation": "硫黄の煙とともに、%s %s %s！"
+  },
+  {
+    "file": "src/ball.c",
+    "literal": "placebc denied, restriction in effect",
+    "translation": "placebcは拒否された、制限中"
+  },
+  {
+    "file": "src/ball.c",
+    "literal": "lift_covet_and_placebc denied, %s",
+    "translation": "lift_covet_and_placebcは拒否された、%s"
+  },
+  {
+    "file": "src/ball.c",
+    "literal": "Placebc denied to %s:%d, restricted by %s:%d",
+    "translation": "%s:%dへのPlacebcは拒否された、%s:%dにより制限中"
+  },
+  {
+    "file": "src/ball.c",
+    "literal": "Unplacebc from %s:%d, when restricted to %s:%d",
+    "translation": "%s:%dからのUnplacebc、%s:%dに制限中"
+  },
+  {
+    "file": "src/ball.c",
+    "literal": "Lift_covet_and_placebc denied to %s:%d, restricted by %s:%d",
+    "translation": "%s:%dへのLift_covet_and_placebcは拒否された、%s:%dにより制限中"
+  },
+  {
+    "file": "src/bones.c",
+    "literal": "make adjustments to %s to suit your %s hand.",
+    "translation": "%sを%s手に合うように調整した。"
+  },
+  {
+    "file": "src/botl.c",
+    "literal": "change sort order from \\\"%s\\\" to \\\"%s\\\"",
+    "translation": "並び順を「%s」から「%s」に変更"
+  },
+  {
+    "file": "src/botl.c",
+    "literal": "sorted %s",
+    "translation": "並べ替え: %s"
+  },
+  {
+    "file": "src/botl.c",
+    "literal": "Highlight critically low %s",
+    "translation": "%sが危険なほど低いときに強調表示"
+  },
+  {
+    "file": "src/botl.c",
+    "literal": "That's enough tries.",
+    "translation": "もう十分試した。"
+  },
+  {
+    "file": "src/cfgfiles.c",
+    "literal": "Strange, could not figure out config file name.",
+    "translation": "おかしい、設定ファイル名がわからなかった。"
+  },
+  {
+    "file": "src/cfgfiles.c",
+    "literal": "Warning: saveoptions is highly experimental!",
+    "translation": "警告: saveoptionsは非常に実験的な機能だ！"
+  },
+  {
+    "file": "src/cfgfiles.c",
+    "literal": "Some settings are not saved!",
+    "translation": "一部の設定は保存されない！"
+  },
+  {
+    "file": "src/cfgfiles.c",
+    "literal": "All manual customization and comments are removed",
+    "translation": "手動のカスタマイズとコメントはすべて削除される"
+  },
+  {
+    "file": "src/cfgfiles.c",
+    "literal": "An error occurred, wrote only partial data (%zu/%zu).",
+    "translation": "エラーが発生し、データの一部のみ書き込んだ(%zu/%zu)。"
+  },
+  {
+    "file": "src/cfgfiles.c",
+    "literal": "Line %d: ",
+    "translation": "%d行目: "
+  },
+  {
+    "file": "src/cfgfiles.c",
+    "literal": "\\n%d error%s %s %s.\\n",
+    "translation": "\\n%d個のエラー%s %s %s。\\n"
+  },
+  {
+    "file": "src/cmd.c",
+    "literal": "[m] Command accepts '%s' prefix",
+    "translation": "[m] コマンドは'%s'接頭辞を受け付ける"
+  },
+  {
+    "file": "src/cmd.c",
+    "literal": "Mine's-end",
+    "translation": "鉱山の最深部"
+  },
+  {
+    "file": "src/cmd.c",
+    "literal": "Soko-prize",
+    "translation": "倉庫番の景品"
+  },
+  {
+    "file": "src/cmd.c",
+    "literal": "internal levl[][].typ codes in base-36",
+    "translation": "内部levl[][].typコード(36進)"
+  },
+  {
+    "file": "src/cmd.c",
+    "literal": "legend of base-36 levl[][].typ codes",
+    "translation": "36進levl[][].typコードの凡例"
+  },
+  {
+    "file": "src/cmd.c",
+    "literal": "guess %s to be %s %s.",
+    "translation": "%sは%s %sだと推測した。"
+  },
+  {
+    "file": "src/cmd.c",
+    "literal": "can't guess the size of %s area.",
+    "translation": "%s領域の大きさは推測できない。"
+  },
+  {
+    "file": "src/cmd.c",
+    "literal": "Use #optionsfull to set any option instead.",
+    "translation": "代わりに#optionsfullで任意のオプションを設定してほしい。"
+  },
+  {
+    "file": "src/cmd.c",
+    "literal": "Bind which key? ",
+    "translation": "どのキーを割り当てる？ "
+  },
+  {
+    "file": "src/cmd.c",
+    "literal": "Key '%s' is currently bound to \\\"%s\\\".",
+    "translation": "キー'%s'は現在「%s」に割り当てられている。"
+  },
+  {
+    "file": "src/cmd.c",
+    "literal": "Key '%s' is not bound to anything.",
+    "translation": "キー'%s'には何も割り当てられていない。"
+  },
+  {
+    "file": "src/cmd.c",
+    "literal": "nothing: unbind the key",
+    "translation": "nothing: キーの割り当てを解除"
+  },
+  {
+    "file": "src/cmd.c",
+    "literal": "Bind '%s' to what command?",
+    "translation": "'%s'をどのコマンドに割り当てる？"
+  },
+  {
+    "file": "src/cmd.c",
+    "literal": "Bind what command?",
+    "translation": "どのコマンドを割り当てる？"
+  },
+  {
+    "file": "src/cmd.c",
+    "literal": "Command %s requires a parameter:",
+    "translation": "コマンド%sには引数が必要:"
+  },
+  {
+    "file": "src/cmd.c",
+    "literal": "Changed key '%s' from \\\"%s\\\" to \\\"%s\\\".",
+    "translation": "キー'%s'を「%s」から「%s」に変更した。"
+  },
+  {
+    "file": "src/cmd.c",
+    "literal": "Bound key '%s' to \\\"%s\\\".",
+    "translation": "キー'%s'を「%s」に割り当てた。"
+  },
+  {
+    "file": "src/cmd.c",
+    "literal": "Key binding failed?!",
+    "translation": "キーの割り当てに失敗した？！"
+  },
+  {
+    "file": "src/cmd.c",
+    "literal": "bind key to a command",
+    "translation": "キーにコマンドを割り当てる"
+  },
+  {
+    "file": "src/cmd.c",
+    "literal": "bind command to a key",
+    "translation": "コマンドをキーに割り当てる"
+  },
+  {
+    "file": "src/cmd.c",
+    "literal": "view changed key binds",
+    "translation": "変更したキー割り当てを見る"
+  },
+  {
+    "file": "src/cmd.c",
+    "literal": "%s prefix",
+    "translation": "%s接頭辞"
+  },
+  {
+    "file": "src/cmd.c",
+    "literal": "The '%s' prefix should be followed by a movement command%s.",
+    "translation": "'%s'接頭辞の後には移動コマンドが必要だ%s。"
+  },
+  {
+    "file": "src/cmd.c",
+    "literal": "desired location, then type '%s' for left click, '%s' for right",
+    "translation": "目的の位置へ移動し、左クリックは'%s'、右クリックは'%s'を入力"
+  },
+  {
+    "file": "src/cmd.c",
+    "literal": "Are you trying to use ^%c%s?",
+    "translation": "^%c%sを使おうとしている？"
+  },
+  {
+    "file": "src/cmd.c",
+    "literal": "To use that command, hold down the <Ctrl> key as a shift",
+    "translation": "そのコマンドを使うには、<Ctrl>キーをシフトのように押したまま"
+  },
+  {
+    "file": "src/cmd.c",
+    "literal": "and press the <%c> key.",
+    "translation": "<%c>キーを押す。"
+  },
+  {
+    "file": "src/cmd.c",
+    "literal": "Drink from the %s",
+    "translation": "%sから飲む"
+  },
+  {
+    "file": "src/cmd.c",
+    "literal": "Go down the %s",
+    "translation": "%sを降りる"
+  },
+  {
+    "file": "src/cmd.c",
+    "literal": "Dismount %s",
+    "translation": "%sから降りる"
+  },
+  {
+    "file": "src/cmd.c",
+    "literal": "Pick up %s",
+    "translation": "%sを拾う"
+  },
+  {
+    "file": "src/cmd.c",
+    "literal": "%sunlock the door",
+    "translation": "%s扉を解錠する"
+  },
+  {
+    "file": "src/cmd.c",
+    "literal": "Remove saddle from %s",
+    "translation": "%sから鞍を外す"
+  },
+  {
+    "file": "src/cmd.c",
+    "literal": "Put saddle on %s",
+    "translation": "%sに鞍をつける"
+  },
+  {
+    "file": "src/cmd.c",
+    "literal": "Talk to %s",
+    "translation": "%sと話す"
+  },
+  {
+    "file": "src/cmd.c",
+    "literal": "Swap places with %s",
+    "translation": "%sと場所を入れ替わる"
+  },
+  {
+    "file": "src/cmd.c",
+    "literal": "Attack %s",
+    "translation": "%sを攻撃する"
+  },
+  {
+    "file": "src/cmd.c",
+    "literal": "No travel destination set.",
+    "translation": "移動先が設定されていない。"
+  },
+  {
+    "file": "src/cmd.c",
+    "literal": "are already here.",
+    "translation": "すでにここにいる。"
+  },
+  {
+    "file": "src/detect.c",
+    "literal": "seems to be nothing of interest on this level.",
+    "translation": "この階には興味をひくものは何もないようだ。"
+  },
+  {
+    "file": "src/detect.c",
+    "literal": "map already shows all relevant locations.",
+    "translation": "地図にはすでに関係する場所がすべて示されている。"
+  },
+  {
+    "file": "src/detect.c",
+    "literal": "%d secret doors",
+    "translation": "%d個の隠し扉"
+  },
+  {
+    "file": "src/detect.c",
+    "literal": "%d secret corridors",
+    "translation": "%d本の隠し通路"
+  },
+  {
+    "file": "src/detect.c",
+    "literal": "%d hidden monsters",
+    "translation": "%d体の隠れた怪物"
+  },
+  {
+    "file": "src/detect.c",
+    "literal": "reveal %s!",
+    "translation": "%sを暴いた！"
+  },
+  {
+    "file": "src/detect.c",
+    "literal": "%d%s unseen monsters",
+    "translation": "%d%s体の見えない怪物"
+  },
+  {
+    "file": "src/detect.c",
+    "literal": "%s unseen monster",
+    "translation": "%s見えない怪物"
+  },
+  {
+    "file": "src/detect.c",
+    "literal": "detect %s!",
+    "translation": "%sを探知した！"
+  },
+  {
+    "file": "src/detect.c",
+    "literal": "%sless paranoid.",
+    "translation": "%s疑心暗鬼が和らいだ気がした。"
+  },
+  {
+    "file": "src/detect.c",
+    "literal": "don't find anything.",
+    "translation": "何も見つけられなかった。"
+  },
+  {
+    "file": "src/dig.c",
+    "literal": "destroy %s with %s.",
+    "translation": "%sを%sで破壊した。"
+  },
+  {
+    "file": "src/dig.c",
+    "literal": "%s falls into the %s!",
+    "translation": "%sは%sに落ちた！"
+  },
+  {
+    "file": "src/dig.c",
+    "literal": "No objects here or adjacent to bury.",
+    "translation": "ここにも隣にも埋める物はない。"
+  },
+  {
+    "file": "src/dig.c",
+    "literal": "No objects buried.",
+    "translation": "何も埋めなかった。"
+  },
+  {
+    "file": "src/dig.c",
+    "literal": "%d object%s buried.",
+    "translation": "%d個の物体%sを埋めた。"
+  },
+  {
+    "file": "src/display.c",
+    "literal": "set_wall_type: wall mode problems with: ",
+    "translation": "set_wall_type: 壁モードの問題: "
+  },
+  {
+    "file": "src/do.c",
+    "literal": "%s instantly digested!",
+    "translation": "%sは瞬時に消化された！"
+  },
+  {
+    "file": "src/do.c",
+    "literal": "(monster in hero's way)",
+    "translation": "(怪物が行く手をふさいでいる)"
+  },
+  {
+    "file": "src/do.c",
+    "literal": "  Use '%s' prefix to force %s.",
+    "translation": "  '%s'接頭辞を使うと強制的に%s。"
+  },
+  {
+    "file": "src/dogmove.c",
+    "literal": "leash goes slack.",
+    "translation": "引き綱がたるんだ。"
+  },
+  {
+    "file": "src/dokick.c",
+    "literal": "Thanks for the tip, %s.",
+    "translation": "チップをありがとう、%s。"
+  },
+  {
+    "file": "src/dokick.c",
+    "literal": "There's not enough room to kick in here.",
+    "translation": "ここには蹴るだけの空間がない。"
+  },
+  {
+    "file": "src/dothrow.c",
+    "literal": "bumping into %s",
+    "translation": "%sにぶつかって"
+  },
+  {
+    "file": "src/dothrow.c",
+    "literal": "%s bumps into %s.",
+    "translation": "%sは%sにぶつかった。"
+  },
+  {
+    "file": "src/dothrow.c",
+    "literal": "%s bumps into you.",
+    "translation": "%sはあなたにぶつかった。"
+  },
+  {
+    "file": "src/dothrow.c",
+    "literal": "%s doesn't budge!",
+    "translation": "%sはびくともしない！"
+  },
+  {
+    "file": "src/dothrow.c",
+    "literal": "%s part in this is finished.",
+    "translation": "%s 役目はこれで終わりだ。"
+  },
+  {
+    "file": "src/dothrow.c",
+    "literal": "We will guard it in case it is ever needed again, %s forbid.",
+    "translation": "再び必要となる時に備えて我々が守護しよう。%sよ、そのような時が来ぬように。"
+  },
+  {
+    "file": "src/do_name.c",
+    "literal": "%s would rather keep %s existing %s.",
+    "translation": "%sは%s今の%sのままでいたいようだ。"
+  },
+  {
+    "file": "src/do_name.c",
+    "literal": "[Invalid mon->data %s < %s]",
+    "translation": "[不正なmon->data %s < %s]"
+  },
+  {
+    "file": "src/do_name.c",
+    "literal": "[Invalid mon->data %s >= %s]",
+    "translation": "[不正なmon->data %s >= %s]"
+  },
+  {
+    "file": "src/do_wear.c",
+    "literal": "%s shining.",
+    "translation": "%s、輝きが消えた。"
+  },
+  {
+    "file": "src/do_wear.c",
+    "literal": "are no longer bothered by the poison gas.",
+    "translation": "もう毒ガスに悩まされなくなった。"
+  },
+  {
+    "file": "src/do_wear.c",
+    "literal": "are now in flight.",
+    "translation": "飛行している。"
+  },
+  {
+    "file": "src/do_wear.c",
+    "literal": "have no head to wear %s on.",
+    "translation": "%sをかぶる頭がない。"
+  },
+  {
+    "file": "src/do_wear.c",
+    "literal": "are no longer wielding either weapon.",
+    "translation": "どちらの武器も装備していない。"
+  },
+  {
+    "file": "src/dungeon.c",
+    "literal": "Cannot open dungeon description - \\\"%s",
+    "translation": "ダンジョン記述を開けない - \\\"%s"
+  },
+  {
+    "file": "src/dungeon.c",
+    "literal": "sense something below your %s.",
+    "translation": "%sの下に何かを感じた。"
+  },
+  {
+    "file": "src/dungeon.c",
+    "literal": " (tune %s)",
+    "translation": " (旋律 %s)"
+  },
+  {
+    "file": "src/dungeon.c",
+    "literal": "Portal @ (%d,%d), hero @ (%d,%d)",
+    "translation": "ポータル @ (%d,%d)、主人公 @ (%d,%d)"
+  },
+  {
+    "file": "src/dungeon.c",
+    "literal": "general, size %ld",
+    "translation": "一般, サイズ %ld"
+  },
+  {
+    "file": "src/dungeon.c",
+    "literal": "cemetery, size %ld",
+    "translation": "墓地, サイズ %ld"
+  },
+  {
+    "file": "src/dungeon.c",
+    "literal": "annotations, text",
+    "translation": "注記, テキスト"
+  },
+  {
+    "file": "src/dungeon.c",
+    "literal": "unknown plane #%d",
+    "translation": "不明な次元界 #%d"
+  },
+  {
+    "file": "src/dungeon.c",
+    "literal": "notes \\\"%s\\\"",
+    "translation": "メモ「%s」"
+  },
+  {
+    "file": "src/eat.c",
+    "literal": "It's full of %s.",
+    "translation": "%sでいっぱいだ。"
+  },
+  {
+    "file": "src/eat.c",
+    "literal": "Core dumped.",
+    "translation": "コアダンプした。"
+  },
+  {
+    "file": "src/eat.c",
+    "literal": "%s -- core dumped.",
+    "translation": "%s -- コアダンプした。"
+  },
+  {
+    "file": "src/eat.c",
+    "literal": "You only manage to %s the bear trap.",
+    "translation": "あなたはトラバサミを%sことしかできなかった。"
+  },
+  {
+    "file": "src/eat.c",
+    "literal": "%s but you %s eat them.",
+    "translation": "%s しかし、それを食べることは%s。"
+  },
+  {
+    "file": "src/eat.c",
+    "literal": "breathe acid on yourself...",
+    "translation": "自分に酸を吐きかけた…"
+  },
+  {
+    "file": "src/end.c",
+    "literal": "release %s.",
+    "translation": "%sを放した。"
+  },
+  {
+    "file": "src/end.c",
+    "literal": "%s releases you.",
+    "translation": "%sはあなたを放した。"
+  },
+  {
+    "file": "src/files.c",
+    "literal": "Invalid %s",
+    "translation": "不正な%s"
+  },
+  {
+    "file": "src/files.c",
+    "literal": "Cannot open file \\\"%s\\\" for level %d (errno %d).",
+    "translation": "ファイル「%s」(レベル%d)を開けない(errno %d)。"
+  },
+  {
+    "file": "src/files.c",
+    "literal": "Cannot create bones \\\"%s\\\", id %s (errno %d).",
+    "translation": "骨ファイル「%s」(id %s)を作成できない(errno %d)。"
+  },
+  {
+    "file": "src/files.c",
+    "literal": "couldn't rename %s to %s.",
+    "translation": "%sを%sに名前変更できなかった。"
+  },
+  {
+    "file": "src/files.c",
+    "literal": "Fork to %scompress %s failed.",
+    "translation": "%scompress用のfork(%s)に失敗した。"
+  },
+  {
+    "file": "src/files.c",
+    "literal": "Error in zlib docompress_file %s",
+    "translation": "zlib docompress_fileでエラー %s"
+  },
+  {
+    "file": "src/files.c",
+    "literal": "zlib failed to allocate memory",
+    "translation": "zlibがメモリ確保に失敗した"
+  },
+  {
+    "file": "src/files.c",
+    "literal": "Failure reading uncompressed file",
+    "translation": "非圧縮ファイルの読み込みに失敗"
+  },
+  {
+    "file": "src/files.c",
+    "literal": "Can't compress %s.",
+    "translation": "%sを圧縮できない。"
+  },
+  {
+    "file": "src/files.c",
+    "literal": "Failure writing compressed file",
+    "translation": "圧縮ファイルの書き込みに失敗"
+  },
+  {
+    "file": "src/files.c",
+    "literal": "Error in zlib docompress file uncompress %s",
+    "translation": "zlib docompress fileの展開でエラー %s"
+  },
+  {
+    "file": "src/files.c",
+    "literal": "Failure reading compressed file",
+    "translation": "圧縮ファイルの読み込みに失敗"
+  },
+  {
+    "file": "src/files.c",
+    "literal": "Can't uncompress %s.",
+    "translation": "%sを展開できない。"
+  },
+  {
+    "file": "src/files.c",
+    "literal": "Failure writing uncompressed file",
+    "translation": "非圧縮ファイルの書き込みに失敗"
+  },
+  {
+    "file": "src/files.c",
+    "literal": "error   \\\"%s\\\", (errno %d).",
+    "translation": "エラー  「%s」(errno %d)。"
+  },
+  {
+    "file": "src/files.c",
+    "literal": "missing \\\"%s\\\", creating new scorefile.",
+    "translation": "「%s」がないため、新しいスコアファイルを作成する。"
+  },
+  {
+    "file": "src/files.c",
+    "literal": "[%s, by Terry Pratchett]",
+    "translation": "[%s、テリー・プラチェット著]"
+  },
+  {
+    "file": "src/files.c",
+    "literal": "; passage #%d]",
+    "translation": "; 第%d節]"
+  },
+  {
+    "file": "src/files.c",
+    "literal": "Cannot open live log file!",
+    "translation": "ライブログファイルを開けない！"
+  },
+  {
+    "file": "src/fountain.c",
+    "literal": "%s tastes like nothing.",
+    "translation": "%sは何の味もしない。"
+  },
+  {
+    "file": "src/fountain.c",
+    "literal": "wash your %s%s in the %s.",
+    "translation": "%s%sを%sで洗った。"
+  },
+  {
+    "file": "src/fountain.c",
+    "literal": "%s are no longer slippery.",
+    "translation": "%sはもう滑らない。"
+  },
+  {
+    "file": "src/fountain.c",
+    "literal": "Ew, what a stench!",
+    "translation": "うわっ、なんて悪臭だ！"
+  },
+  {
+    "file": "src/fountain.c",
+    "literal": "%s are still slippery.",
+    "translation": "%sはまだ滑る。"
+  },
+  {
+    "file": "src/fountain.c",
+    "literal": "hold %s under the tap.",
+    "translation": "%sを蛇口の下にかざした。"
+  },
+  {
+    "file": "src/fountain.c",
+    "literal": "pour %s%s down the drain.",
+    "translation": "%s%sを排水口に流した。"
+  },
+  {
+    "file": "src/fountain.c",
+    "literal": "It leaves an oily film on the basin.",
+    "translation": "流しに油の膜が残った。"
+  },
+  {
+    "file": "src/fountain.c",
+    "literal": "drain seems less clogged.",
+    "translation": "排水口の詰まりが少し解消したようだ。"
+  },
+  {
+    "file": "src/fountain.c",
+    "literal": "a sucking sound.",
+    "translation": "吸い込むような音を聞いた。"
+  },
+  {
+    "file": "src/fountain.c",
+    "literal": "sense a ring lost down the drain.",
+    "translation": "排水口に指輪が落ちたのを感じた。"
+  },
+  {
+    "file": "src/fountain.c",
+    "literal": "A wisp of vapor rises up...",
+    "translation": "ひとすじの蒸気が立ちのぼった…"
+  },
+  {
+    "file": "src/hack.c",
+    "literal": "%s moves %s.",
+    "translation": "%sは%sを動かした。"
+  },
+  {
+    "file": "src/hack.c",
+    "literal": "That feels like a boulder.",
+    "translation": "岩のような手触りだ。"
+  },
+  {
+    "file": "src/hack.c",
+    "literal": "%s over a boulder here.",
+    "translation": "%s、ここの岩を越えた。"
+  },
+  {
+    "file": "src/hack.c",
+    "literal": "squeeze yourself %s the boulder.",
+    "translation": "身をよじって岩を(%s)通り抜けた。"
+  },
+  {
+    "file": "src/hack.c",
+    "literal": "is a boulder in your way.",
+    "translation": "行く手に岩がある。"
+  },
+  {
+    "file": "src/hack.c",
+    "literal": "%s away from you!",
+    "translation": "%s あなたから離れていった！"
+  },
+  {
+    "file": "src/hack.c",
+    "literal": "are too full to eat the bars.",
+    "translation": "満腹で鉄格子を食べられない。"
+  },
+  {
+    "file": "src/hack.c",
+    "literal": "impossible [background glyph=%d]",
+    "translation": "ありえない [背景グリフ=%d]"
+  },
+  {
+    "file": "src/hack.c",
+    "literal": "stop, unsure which way to go.",
+    "translation": "どちらへ行けばよいかわからず立ち止まった。"
+  },
+  {
+    "file": "src/hack.c",
+    "literal": "(Tip: use the #enhance command to advance them.)",
+    "translation": "(ヒント: #enhanceコマンドで技能を上げられる。)"
+  },
+  {
+    "file": "src/hack.c",
+    "literal": "(Tip: use '%s' prefix to step in if you really want to.)",
+    "translation": "(ヒント: どうしても踏み込みたいなら'%s'接頭辞を使う。)"
+  },
+  {
+    "file": "src/hack.c",
+    "literal": "(Tip: perhaps #untrap would help?)",
+    "translation": "(ヒント: #untrapが役立つかも？)"
+  },
+  {
+    "file": "src/hack.c",
+    "literal": "avoid %s into the %s.",
+    "translation": "%sで%sに入るのを避けた。"
+  },
+  {
+    "file": "src/hack.c",
+    "literal": "%s %s through the web!",
+    "translation": "%sは蜘蛛の巣を%s！"
+  },
+  {
+    "file": "src/hack.c",
+    "literal": "%s ineffectually at some of the strands.",
+    "translation": "%s、糸を何本か払おうとしたが効果がなかった。"
+  },
+  {
+    "file": "src/hack.c",
+    "literal": "%s through the web.",
+    "translation": "%sで蜘蛛の巣を突破した。"
+  },
+  {
+    "file": "src/hack.c",
+    "literal": "stop.  %s can't move out of %s%s.",
+    "translation": "立ち止まった。%sは%s%sから動けない。"
+  },
+  {
+    "file": "src/hack.c",
+    "literal": "stop.  %s doesn't want to swap places.",
+    "translation": "立ち止まった。%sは場所を入れ替わりたがらない。"
+  },
+  {
+    "file": "src/hack.c",
+    "literal": "%s swaps places with you...",
+    "translation": "%sはあなたと場所を入れ替わった…"
+  },
+  {
+    "file": "src/hack.c",
+    "literal": "[HP %i, %i left]",
+    "translation": "[HP %i、残り%i]"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "%s the type for %s",
+    "translation": "%s(%sの種類)"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Read this scroll%s",
+    "translation": "この巻物を読む%s"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "%s this %s",
+    "translation": "%s: この%s"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Detach this leash from %s",
+    "translation": "この引き綱を%sから外す"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "%s the candelabrum",
+    "translation": "%s: 燭台"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Attach %s to your candelabrum, or %s %s",
+    "translation": "%sを燭台に取り付けるか、%s %s"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "%s this light source",
+    "translation": "%s: この光源"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "%s this oil",
+    "translation": "%s: この油"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Dip something into %s potion%s",
+    "translation": "%s薬%sに何かを浸す"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Drop this %s",
+    "translation": "この%sを置く"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Open %s%s and eat the contents",
+    "translation": "%s%sを開けて中身を食べる"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "%s on the %s with %s",
+    "translation": "%s: %sに%sで"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": " with your wielded %s",
+    "translation": " 装備した%sで"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Buy this unpaid %s",
+    "translation": "この未払いの%sを買う"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "[both ring %s in use]",
+    "translation": "[両方の指輪%sは使用中]"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Put this on%s",
+    "translation": "これを身につける%s"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Quaff (drink) %s",
+    "translation": "%sを飲む"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Quiver this %s for easy %s with \\'f\\'ire",
+    "translation": "この%sを矢筒に入れ、'f'で簡単に%sできるようにする"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Remove this %s",
+    "translation": "この%sを外す"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Rub this %s",
+    "translation": "この%sをこする"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Wield this %s as your weapon",
+    "translation": "この%sを武器として装備する"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Wield this %s in your %s",
+    "translation": "この%sを%sに装備する"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "[already wearing %s]",
+    "translation": "[すでに%sを身につけている]"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Toggle two-weapon combat %s",
+    "translation": "二刀流を%sにする"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Look up information about %s",
+    "translation": "%sについての情報を調べる"
+  },
+  {
+    "file": "src/iactions.c",
+    "literal": "Do what with %s?",
+    "translation": "%sをどうする？"
+  },
+  {
+    "file": "src/insight.c",
+    "literal": " due to your %s",
+    "translation": " (%sのため)"
+  },
+  {
+    "file": "src/insight.c",
+    "literal": "No chronicled events.",
+    "translation": "記録された出来事はない。"
+  },
+  {
+    "file": "src/insight.c",
+    "literal": "Chronicle was turned off during compile-time.",
+    "translation": "年代記機能はコンパイル時に無効化されている。"
+  },
+  {
+    "file": "src/insight.c",
+    "literal": "%s events:",
+    "translation": "%sの出来事:"
+  },
+  {
+    "file": "src/insight.c",
+    "literal": "No creatures were vanquished.",
+    "translation": "倒した生き物はいない。"
+  },
+  {
+    "file": "src/insight.c",
+    "literal": "No species were genocided or became extinct.",
+    "translation": "虐殺または絶滅した種はいない。"
+  },
+  {
+    "file": "src/insight.c",
+    "literal": "died born",
+    "translation": "死亡 誕生"
+  },
+  {
+    "file": "src/insight.c",
+    "literal": "unknown size (%d)",
+    "translation": "不明な大きさ (%d)"
+  },
+  {
+    "file": "src/insight.c",
+    "literal": "; hungry %ld; apport %d",
+    "translation": "; 空腹 %ld; 忠誠度 %d"
+  },
+  {
+    "file": "src/invent.c",
+    "literal": "start the game with this character",
+    "translation": "このキャラクターでゲームを開始する"
+  },
+  {
+    "file": "src/invent.c",
+    "literal": "Persistent inventory display is not supported by '%s'.",
+    "translation": "持ち物の常時表示は'%s'では対応していない。"
+  },
+  {
+    "file": "src/invent.c",
+    "literal": "Persistent inventory ('perm_invent' option) is not presently enabled.",
+    "translation": "持ち物の常時表示('perm_invent'オプション)は現在無効だ。"
+  },
+  {
+    "file": "src/invent.c",
+    "literal": "Persistent inventory display is empty.",
+    "translation": "持ち物の常時表示は空だ。"
+  },
+  {
+    "file": "src/invent.c",
+    "literal": "Debug Identify",
+    "translation": "デバッグ識別"
+  },
+  {
+    "file": "src/invent.c",
+    "literal": " -- unidentified or partially identified item%s",
+    "translation": " -- 未識別または一部識別のアイテム%s"
+  },
+  {
+    "file": "src/invent.c",
+    "literal": "select %s to permanently identify",
+    "translation": "恒久的に識別する%sを選択"
+  },
+  {
+    "file": "src/invent.c",
+    "literal": "%s %s (no weapon)",
+    "translation": "%s %s (武器なし)"
+  },
+  {
+    "file": "src/invent.c",
+    "literal": "%s at least 1.",
+    "translation": "%s 1以上。"
+  },
+  {
+    "file": "src/invent.c",
+    "literal": "%s less than %ld.",
+    "translation": "%s %ld未満。"
+  },
+  {
+    "file": "src/invent.c",
+    "literal": "%s could not be enabled.",
+    "translation": "%sを有効にできなかった。"
+  },
+  {
+    "file": "src/invent.c",
+    "literal": "%s needs a terminal that is at least %dx%d, yours ",
+    "translation": "%sには少なくとも%dx%dの端末が必要だが、あなたのは "
+  },
+  {
+    "file": "src/light.c",
+    "literal": "Mobile light sources: hero @ (%2d,%2d)",
+    "translation": "移動光源: 主人公 @ (%2d,%2d)"
+  },
+  {
+    "file": "src/light.c",
+    "literal": "location range flags  type    id",
+    "translation": "位置     範囲  フラグ 種類    id"
+  },
+  {
+    "file": "src/lock.c",
+    "literal": "Unlock it with %s?",
+    "translation": "%sで解錠しますか？"
+  },
+  {
+    "file": "src/mail.c",
+    "literal": "Cannot get status of MAIL=\\\"%s\\\".",
+    "translation": "MAIL=\\\"%s\\\"の状態を取得できない。"
+  },
+  {
+    "file": "src/mail.c",
+    "literal": "System command (%s)",
+    "translation": "システムコマンド (%s)"
+  },
+  {
+    "file": "src/makemon.c",
+    "literal": "cnt=%d using %d, cnttmp=%d, cntdiv=%d",
+    "translation": "cnt=%d 使用 %d, cnttmp=%d, cntdiv=%d"
+  },
+  {
+    "file": "src/mcastu.c",
+    "literal": "drained...",
+    "translation": "消耗した気がする…"
+  },
+  {
+    "file": "src/mdlib.c",
+    "literal": "%s JNetHack%s Version %s-%d.%d. %s %s",
+    "translation": "%s JNetHack%s バージョン %s-%d.%d. %s %s"
+  },
+  {
+    "file": "src/mdlib.c",
+    "literal": "s %lu.%lu.%lu through %d.%d.%d",
+    "translation": " %lu.%lu.%lu～%d.%d.%d"
+  },
+  {
+    "file": "src/mdlib.c",
+    "literal": " %d.%d.%d only",
+    "translation": " %d.%d.%dのみ"
+  },
+  {
+    "file": "src/mdlib.c",
+    "literal": "%sNetHack version %d.%d.%d%s\\n",
+    "translation": "%sNetHack バージョン %d.%d.%d%s\\n"
+  },
+  {
+    "file": "src/mdlib.c",
+    "literal": "Options compiled into this edition:",
+    "translation": "この版に組み込まれたオプション:"
+  },
+  {
+    "file": "src/mdlib.c",
+    "literal": "Supported windowing system%s:",
+    "translation": "対応ウィンドウシステム%s:"
+  },
+  {
+    "file": "src/mdlib.c",
+    "literal": "with a default of \\\"%s\\\".",
+    "translation": "既定は「%s」。"
+  },
+  {
+    "file": "src/mdlib.c",
+    "literal": "Supported soundlib%s:",
+    "translation": "対応サウンドライブラリ%s:"
+  },
+  {
+    "file": "src/mdlib.c",
+    "literal": "user sounds.",
+    "translation": "ユーザーサウンド。"
+  },
+  {
+    "file": "src/mhitm.c",
+    "literal": "%s tries to move %s out of %s way.",
+    "translation": "%sは%sを%s進路からどかそうとした。"
+  },
+  {
+    "file": "src/mhitm.c",
+    "literal": "notice %s.",
+    "translation": "%sに気づいた。"
+  },
+  {
+    "file": "src/mhitm.c",
+    "literal": "%.99s %s attempt %s %.99s!",
+    "translation": "%.99sの%s攻撃は%s %.99s！"
+  },
+  {
+    "file": "src/mhitm.c",
+    "literal": "are subjected to a freakish metamorphosis.",
+    "translation": "奇怪な変身を強いられた。"
+  },
+  {
+    "file": "src/mhitm.c",
+    "literal": "an unnatural urge coming on.",
+    "translation": "不自然な衝動がこみあげてくるのを感じた。"
+  },
+  {
+    "file": "src/mhitm.c",
+    "literal": "a natural urge coming on.",
+    "translation": "自然な衝動がこみあげてくるのを感じた。"
+  },
+  {
+    "file": "src/mhitm.c",
+    "literal": "%s shudders!",
+    "translation": "%sは身震いした！"
+  },
+  {
+    "file": "src/mhitm.c",
+    "literal": "%s%s%s turns into %s.",
+    "translation": "%s%s%s %sに変わった。"
+  },
+  {
+    "file": "src/mhitu.c",
+    "literal": "Someone seems overdue for a serpent cut.",
+    "translation": "誰かさんは蛇の散髪の時期をとうに過ぎているようだ。"
+  },
+  {
+    "file": "src/mhitu.c",
+    "literal": "Well, then you owe me %s%s!",
+    "translation": "では、%s%sを払ってもらおう！"
+  },
+  {
+    "file": "src/mhitu.c",
+    "literal": "No charge.",
+    "translation": "お代は結構だ。"
+  },
+  {
+    "file": "src/minion.c",
+    "literal": "tension building.",
+    "translation": "緊張が高まっていくのを感じた。"
+  },
+  {
+    "file": "src/mkmaze.c",
+    "literal": "bubble xmin: x = %d, xmin = %d",
+    "translation": "泡 xmin: x = %d, xmin = %d"
+  },
+  {
+    "file": "src/mkmaze.c",
+    "literal": "bubble ymin: y = %d, ymin = %d",
+    "translation": "泡 ymin: y = %d, ymin = %d"
+  },
+  {
+    "file": "src/mkmaze.c",
+    "literal": "bubble xmax: x = %d, xmax = %d",
+    "translation": "泡 xmax: x = %d, xmax = %d"
+  },
+  {
+    "file": "src/mkmaze.c",
+    "literal": "bubble ymax: y = %d, ymax = %d",
+    "translation": "泡 ymax: y = %d, ymax = %d"
+  },
+  {
+    "file": "src/mkobj.c",
+    "literal": "%s %s%s lighter.",
+    "translation": "%sは%s%s軽くなった。"
+  },
+  {
+    "file": "src/mkobj.c",
+    "literal": "%s fades away.",
+    "translation": "%sは消えていった。"
+  },
+  {
+    "file": "src/mkobj.c",
+    "literal": "%%s boulder@<%d,%d> %%s %%s: not on top",
+    "translation": "%%s 岩@<%d,%d> %%s %%s: 一番上にない"
+  },
+  {
+    "file": "src/mkobj.c",
+    "literal": "%%s boulder@<%d,%d> %%s %%s: on/in %s",
+    "translation": "%%s 岩@<%d,%d> %%s %%s: %sの上/中"
+  },
+  {
+    "file": "src/mkobj.c",
+    "literal": "how_lost=%d obj in inventory!",
+    "translation": "how_lost=%dの物体が持ち物にある！"
+  },
+  {
+    "file": "src/mkobj.c",
+    "literal": "worn mask 0x%08lx",
+    "translation": "装着マスク 0x%08lx"
+  },
+  {
+    "file": "src/mkobj.c",
+    "literal": "leashmon=%u no monst,",
+    "translation": "leashmon=%u 怪物なし,"
+  },
+  {
+    "file": "src/mkobj.c",
+    "literal": "leashmon=%u %s not leashed,",
+    "translation": "leashmon=%u %sはつながれていない,"
+  },
+  {
+    "file": "src/mkobj.c",
+    "literal": "leashmon:%u %s leashed by %s leash,",
+    "translation": "leashmon:%u %sは%s引き綱でつながれている,"
+  },
+  {
+    "file": "src/mkobj.c",
+    "literal": "leashmon:%u no monst for %s leash,",
+    "translation": "leashmon:%u %s引き綱の怪物なし,"
+  },
+  {
+    "file": "src/mkobj.c",
+    "literal": "flagged%s%s%s%s",
+    "translation": "フラグ%s%s%s%s"
+  },
+  {
+    "file": "src/mkobj.c",
+    "literal": "unknown[%d]",
+    "translation": "不明[%d]"
+  },
+  {
+    "file": "src/mkobj.c",
+    "literal": " glob %d,quan=%ld,owt=%u ",
+    "translation": " 塊 %d,quan=%ld,owt=%u "
+  },
+  {
+    "file": "src/mkobj.c",
+    "literal": "worn mask (multiple) 0x%08lx",
+    "translation": "装着マスク(複数) 0x%08lx"
+  },
+  {
+    "file": "src/mkobj.c",
+    "literal": "worn mask (bogus)) 0x%08lx",
+    "translation": "装着マスク(不正) 0x%08lx"
+  },
+  {
+    "file": "src/mkobj.c",
+    "literal": "worn mask 0x%08lx != %s",
+    "translation": "装着マスク 0x%08lx != %s"
+  },
+  {
+    "file": "src/mkobj.c",
+    "literal": "worn (%s %s)",
+    "translation": "装着 (%s %s)"
+  },
+  {
+    "file": "src/mon.c",
+    "literal": "a masticating sound.",
+    "translation": "咀嚼する音を聞いた。"
+  },
+  {
+    "file": "src/mon.c",
+    "literal": "door is smashed%s",
+    "translation": "扉は粉砕された%s"
+  },
+  {
+    "file": "src/mon.c",
+    "literal": " (%d%s time)",
+    "translation": " (%d%s回目)"
+  },
+  {
+    "file": "src/mon.c",
+    "literal": "And then starts to flee.",
+    "translation": "そして逃げ出した。"
+  },
+  {
+    "file": "src/mon.c",
+    "literal": "Change %s",
+    "translation": "%sを変化させる"
+  },
+  {
+    "file": "src/mon.c",
+    "literal": " @ %s into what?",
+    "translation": " @ %sを何に？"
+  },
+  {
+    "file": "src/mon.c",
+    "literal": "It can't become that.",
+    "translation": "それにはなれない。"
+  },
+  {
+    "file": "src/monmove.c",
+    "literal": "%s mutters %s.",
+    "translation": "%sは%sをつぶやいた。"
+  },
+  {
+    "file": "src/monmove.c",
+    "literal": "boulder falls apart.",
+    "translation": "岩は砕け散った。"
+  },
+  {
+    "file": "src/mthrowu.c",
+    "literal": " but passes harmlessly through %.9s.",
+    "translation": "が、無害に%.9sを通り抜けた。"
+  },
+  {
+    "file": "src/mthrowu.c",
+    "literal": "%s %s onto the sink.",
+    "translation": "%sは流し台に%s。"
+  },
+  {
+    "file": "src/mthrowu.c",
+    "literal": "a loud snap!",
+    "translation": "大きくパキッという音を聞いた！"
+  },
+  {
+    "file": "src/mthrowu.c",
+    "literal": "a dry rattle nearby.",
+    "translation": "近くで乾いたガラガラという音を聞いた。"
+  },
+  {
+    "file": "src/mthrowu.c",
+    "literal": "break the bars apart!",
+    "translation": "鉄格子を壊した！"
+  },
+  {
+    "file": "src/muse.c",
+    "literal": "%s %s %s directed at you!",
+    "translation": "あなたに向けて、%s %s %s！"
+  },
+  {
+    "file": "src/muse.c",
+    "literal": "Say cheese!",
+    "translation": "はい、チーズ！"
+  },
+  {
+    "file": "src/muse.c",
+    "literal": "%s takes a picture of you with %s!",
+    "translation": "%sは%sであなたの写真を撮った！"
+  },
+  {
+    "file": "src/muse.c",
+    "literal": "are blinded by the flash of light!",
+    "translation": "閃光で目がくらんだ！"
+  },
+  {
+    "file": "src/muse.c",
+    "literal": "%s removes %s.",
+    "translation": "%sは%sを外した。"
+  },
+  {
+    "file": "src/muse.c",
+    "literal": "%s briefly seems to be transparent.",
+    "translation": "%sは一瞬透明になったようだ。"
+  },
+  {
+    "file": "src/muse.c",
+    "literal": "%s suddenly appears!",
+    "translation": "%sが突然現れた！"
+  },
+  {
+    "file": "src/muse.c",
+    "literal": "%s quaffs a burning %s",
+    "translation": "%sは燃える%sを飲んだ"
+  },
+  {
+    "file": "src/music.c",
+    "literal": "A secret corridor is revealed.",
+    "translation": "隠し通路が現れた。"
+  },
+  {
+    "file": "src/music.c",
+    "literal": "A secret door is revealed.",
+    "translation": "隠し扉が現れた。"
+  },
+  {
+    "file": "src/nhlua.c",
+    "literal": "%s (line %d ",
+    "translation": "%s (%d行目 "
+  },
+  {
+    "file": "src/nhlua.c",
+    "literal": "Resetting time to move #%ld.",
+    "translation": "時間を手番#%ldに戻す。"
+  },
+  {
+    "file": "src/objnam.c",
+    "literal": "long object description%s.",
+    "translation": "長い物体の説明%s。"
+  },
+  {
+    "file": "src/objnam.c",
+    "literal": "Creation of %s failed.",
+    "translation": "%sの生成に失敗した。"
+  },
+  {
+    "file": "src/objnam.c",
+    "literal": "A %sfountain.",
+    "translation": "%s泉。"
+  },
+  {
+    "file": "src/objnam.c",
+    "literal": "A throne.",
+    "translation": "玉座。"
+  },
+  {
+    "file": "src/objnam.c",
+    "literal": "A %s of molten lava.",
+    "translation": "溶岩の%s。"
+  },
+  {
+    "file": "src/objnam.c",
+    "literal": "%s altar.",
+    "translation": "%s祭壇。"
+  },
+  {
+    "file": "src/objnam.c",
+    "literal": "A %sgrave.",
+    "translation": "%s墓。"
+  },
+  {
+    "file": "src/objnam.c",
+    "literal": "Can't place a grave here.",
+    "translation": "ここには墓を置けない。"
+  },
+  {
+    "file": "src/objnam.c",
+    "literal": "Iron bars.",
+    "translation": "鉄格子。"
+  },
+  {
+    "file": "src/objnam.c",
+    "literal": "%s requires door or wall location.",
+    "translation": "%sには扉か壁の位置が必要だ。"
+  },
+  {
+    "file": "src/objnam.c",
+    "literal": "Secret corridor.",
+    "translation": "隠し通路。"
+  },
+  {
+    "file": "src/objnam.c",
+    "literal": "Secret corridor requires corridor location.",
+    "translation": "隠し通路には通路の位置が必要だ。"
+  },
+  {
+    "file": "src/objnam.c",
+    "literal": "Room floor.",
+    "translation": "部屋の床。"
+  },
+  {
+    "file": "src/objnam.c",
+    "literal": "Room|floor|ground not allowed here.",
+    "translation": "Room|floor|groundはここには置けない。"
+  },
+  {
+    "file": "src/objnam.c",
+    "literal": "%s %s the drawbridge.",
+    "translation": "跳ね橋: %s %s。"
+  },
+  {
+    "file": "src/options.c",
+    "literal": "Yes, do a tutorial",
+    "translation": "はい、チュートリアルを行う"
+  },
+  {
+    "file": "src/options.c",
+    "literal": "No, just start play",
+    "translation": "いいえ、すぐにプレイを始める"
+  },
+  {
+    "file": "src/options.c",
+    "literal": "Fruit is now \\\"%s\\\".",
+    "translation": "果物は「%s」になった。"
+  },
+  {
+    "file": "src/options.c",
+    "literal": "%ld (on: highlight status for %ld turns)",
+    "translation": "%ld (on: ステータスを%ldターン強調表示)"
+  },
+  {
+    "file": "src/options.c",
+    "literal": ", handler=%s",
+    "translation": ", ハンドラ=%s"
+  },
+  {
+    "file": "src/options.c",
+    "literal": "There is no underlying support for 'idlecheckpoint'",
+    "translation": "'idlecheckpoint'を支える機能がない"
+  },
+  {
+    "file": "src/options.c",
+    "literal": "'%s' option toggled %s.",
+    "translation": "'%s'オプションを%sに切り替えた。"
+  },
+  {
+    "file": "src/options.c",
+    "literal": "'menustyle' %s \\\"%s\\\".",
+    "translation": "'menustyle': %s「%s」。"
+  },
+  {
+    "file": "src/options.c",
+    "literal": "Select '%.20s' actions:",
+    "translation": "'%.20s'の動作を選択:"
+  },
+  {
+    "file": "src/options.c",
+    "literal": "'msg_window' %.20s \\\"%.20s\\\".",
+    "translation": "'msg_window': %.20s「%.20s」。"
+  },
+  {
+    "file": "src/options.c",
+    "literal": "'%s' option is not supported for '%s'.",
+    "translation": "'%s'オプションは'%s'では対応していない。"
+  },
+  {
+    "file": "src/options.c",
+    "literal": "'perminv_mode' %s '%s' (%s).",
+    "translation": "'perminv_mode': %s '%s' (%s)。"
+  },
+  {
+    "file": "src/options.c",
+    "literal": "compass ('east' or '3s' or '2n,4w')",
+    "translation": "方角 ('east'、'3s'、'2n,4w'など)"
+  },
+  {
+    "file": "src/options.c",
+    "literal": "full compass ('east' or '3south' or '2north,4west')",
+    "translation": "完全な方角 ('east'、'3south'、'2north,4west'など)"
+  },
+  {
+    "file": "src/options.c",
+    "literal": "screen [row,column]",
+    "translation": "画面 [行,列]"
+  },
+  {
+    "file": "src/options.c",
+    "literal": "none (no coordinates displayed)",
+    "translation": "なし (座標を表示しない)"
+  },
+  {
+    "file": "src/options.c",
+    "literal": "map: upper-left: <%d,%d>, lower-right: <%d,%d>%s",
+    "translation": "地図: 左上: <%d,%d>, 右下: <%d,%d>%s"
+  },
+  {
+    "file": "src/options.c",
+    "literal": "screen: upper-left: [%02d,%02d], lower-right: [%d,%d]%s",
+    "translation": "画面: 左上: [%02d,%02d], 右下: [%d,%d]%s"
+  },
+  {
+    "file": "src/options.c",
+    "literal": "no filtering",
+    "translation": "絞り込みなし"
+  },
+  {
+    "file": "src/options.c",
+    "literal": "in view only",
+    "translation": "視界内のみ"
+  },
+  {
+    "file": "src/options.c",
+    "literal": "in same area",
+    "translation": "同じ区域内"
+  },
+  {
+    "file": "src/options.c",
+    "literal": "version number",
+    "translation": "バージョン番号"
+  },
+  {
+    "file": "src/options.c",
+    "literal": "game name",
+    "translation": "ゲーム名"
+  },
+  {
+    "file": "src/options.c",
+    "literal": "development branch",
+    "translation": "開発ブランチ"
+  },
+  {
+    "file": "src/options.c",
+    "literal": " (via alias: %s)",
+    "translation": " (別名経由: %s)"
+  },
+  {
+    "file": "src/options.c",
+    "literal": "\\\"%s\\\" settable only from %s.",
+    "translation": "「%s」は%sからのみ設定できる。"
+  },
+  {
+    "file": "src/options.c",
+    "literal": "%s can be set only from NETHACKOPTIONS or %s.",
+    "translation": "%sはNETHACKOPTIONSか%sからのみ設定できる。"
+  },
+  {
+    "file": "src/options.c",
+    "literal": "out of menu map space.",
+    "translation": "メニュー割り当て領域が足りない。"
+  },
+  {
+    "file": "src/options.c",
+    "literal": "hide help",
+    "translation": "ヘルプを隠す"
+  },
+  {
+    "file": "src/options.c",
+    "literal": "view help for options menu",
+    "translation": "オプションメニューのヘルプを見る"
+  },
+  {
+    "file": "src/o_init.c",
+    "literal": " [%s] called",
+    "translation": " [%s]と呼ばれる"
+  },
+  {
+    "file": "src/pager.c",
+    "literal": "%s currently shown near %s:",
+    "translation": "%s(現在%sの近くに表示中):"
+  },
+  {
+    "file": "src/pager.c",
+    "literal": "All %s currently shown on the map:",
+    "translation": "地図上に現在表示されているすべての%s:"
+  },
+  {
+    "file": "src/pager.c",
+    "literal": "To contact local support, %s",
+    "translation": "ローカルサポートへの連絡は、%s"
+  },
+  {
+    "file": "src/pager.c",
+    "literal": "To contact local support, contact %s.",
+    "translation": "ローカルサポートへの連絡先は%s。"
+  },
+  {
+    "file": "src/pager.c",
+    "literal": "To contact the NetHack development team directly,",
+    "translation": "NetHack開発チームに直接連絡するには、"
+  },
+  {
+    "file": "src/pager.c",
+    "literal": "see the 'Contact' form on our website or email <%s>.",
+    "translation": "ウェブサイトの'Contact'フォームを使うか、<%s>にメールを送ってほしい。"
+  },
+  {
+    "file": "src/pager.c",
+    "literal": "For more information on NetHack, or to report a bug,",
+    "translation": "NetHackの詳細やバグ報告については、"
+  },
+  {
+    "file": "src/pager.c",
+    "literal": "visit our website \\\"%s\\\".",
+    "translation": "ウェブサイト「%s」を訪問してほしい。"
+  },
+  {
+    "file": "src/pickup.c",
+    "literal": "There is %s here.",
+    "translation": "ここには%sがある。"
+  },
+  {
+    "file": "src/pickup.c",
+    "literal": "Just picked up: %s",
+    "translation": "拾ったばかり: %s"
+  },
+  {
+    "file": "src/pickup.c",
+    "literal": "No relevant items selected.",
+    "translation": "該当するアイテムが選ばれていない。"
+  },
+  {
+    "file": "src/pickup.c",
+    "literal": "take %s off of %s.",
+    "translation": "%sを%sから外した。"
+  },
+  {
+    "file": "src/pickup.c",
+    "literal": " here, tip it%s%s?",
+    "translation": "がここにある。%s%sひっくり返しますか？"
+  },
+  {
+    "file": "src/pickup.c",
+    "literal": "Where to tip the contents of %s",
+    "translation": "%sの中身をどこに空ける"
+  },
+  {
+    "file": "src/polyself.c",
+    "literal": "%s can no longer contain you.",
+    "translation": "%sはもうあなたを閉じ込めておけない。"
+  },
+  {
+    "file": "src/polyself.c",
+    "literal": "%s loses its grip on you.",
+    "translation": "%sはあなたをつかんでいられなくなった。"
+  },
+  {
+    "file": "src/potion.c",
+    "literal": "perceive yourself...",
+    "translation": "自分自身を知覚した…"
+  },
+  {
+    "file": "src/potion.c",
+    "literal": "awareness re-normalizes.",
+    "translation": "感覚が正常に戻った。"
+  },
+  {
+    "file": "src/potion.c",
+    "literal": "quickness feels very natural.",
+    "translation": "素早さがとても自然に感じられる。"
+  },
+  {
+    "file": "src/priest.c",
+    "literal": "%s asks you for a contribution for the temple (base %ld).",
+    "translation": "%sは寺院への寄付を求めた(基本 %ld)。"
+  },
+  {
+    "file": "src/quest.c",
+    "literal": "Sorry to say, this is a mere imitation of the true Amulet of Yendor.",
+    "translation": "残念だが、これは本物のイェンダーの魔除けのただの模造品だ。"
+  },
+  {
+    "file": "src/quest.c",
+    "literal": "Ah, I see you've found %s.",
+    "translation": "おお、%sを見つけたのだな。"
+  },
+  {
+    "file": "src/read.c",
+    "literal": "%s on %s background",
+    "translation": "%s(%sの背景)"
+  },
+  {
+    "file": "src/read.c",
+    "literal": "%s features %s.",
+    "translation": "%sには%sが描かれている。"
+  },
+  {
+    "file": "src/read.c",
+    "literal": "%s on the %s.  It reads:  %s.",
+    "translation": "%s(%s)。こう書いてある：%s。"
+  },
+  {
+    "file": "src/read.c",
+    "literal": "\\\"1 Zorkmid.  857 GUE.  In Frobs We Trust.\\\"",
+    "translation": "\\\"1ゾークミド。857 GUE。我らフロブを信ず。\\\""
+  },
+  {
+    "file": "src/read.c",
+    "literal": "The candy bar's wrapper is blank.",
+    "translation": "キャンディバーの包み紙には何も書かれていない。"
+  },
+  {
+    "file": "src/read.c",
+    "literal": "%s feebly%s%s for a moment.",
+    "translation": "%s、一瞬弱々しく%s%s。"
+  },
+  {
+    "file": "src/read.c",
+    "literal": "%s briefly.",
+    "translation": "%s(一瞬)。"
+  },
+  {
+    "file": "src/read.c",
+    "literal": "This is %s!",
+    "translation": "これは%sだ！"
+  },
+  {
+    "file": "src/read.c",
+    "literal": "%s glow of your %s intensifies.",
+    "translation": "%s輝きが強まった(あなたの%s)。"
+  },
+  {
+    "file": "src/read.c",
+    "literal": "Tiny lights sparkle in the air momentarily.",
+    "translation": "小さな光が一瞬宙にきらめいた。"
+  },
+  {
+    "file": "src/read.c",
+    "literal": "Lights appear all around you!",
+    "translation": "あなたの周りに光が現れた！"
+  },
+  {
+    "file": "src/read.c",
+    "literal": "A little %s around you vaporizes.",
+    "translation": "あなたの周りの%sが少し蒸発した。"
+  },
+  {
+    "file": "src/read.c",
+    "literal": "%s of boulders %s %s you!",
+    "translation": "%sの岩が%s(%s あなた)！"
+  },
+  {
+    "file": "src/read.c",
+    "literal": "That was a scroll of mail?",
+    "translation": "今のは郵便の巻物だったのか？"
+  },
+  {
+    "file": "src/region.c",
+    "literal": "gas cloud around you dissipates.",
+    "translation": "あなたの周りのガス雲は消散した。"
+  },
+  {
+    "file": "src/region.c",
+    "literal": "Visible regions",
+    "translation": "可視領域"
+  },
+  {
+    "file": "src/region.c",
+    "literal": "poison gas (%d)",
+    "translation": "毒ガス (%d)"
+  },
+  {
+    "file": "src/region.c",
+    "literal": "are enveloped in a cloud of %s!",
+    "translation": "%sの雲に包まれた！"
+  },
+  {
+    "file": "src/region.c",
+    "literal": "able to breathe.",
+    "translation": "呼吸できるようになったと感じた。"
+  },
+  {
+    "file": "src/report.c",
+    "literal": "%.40s report for NetHack %.40s",
+    "translation": "%.40s報告 (NetHack %.40s)"
+  },
+  {
+    "file": "src/report.c",
+    "literal": "Can't start ",
+    "translation": "開始できない: "
+  },
+  {
+    "file": "src/report.c",
+    "literal": "Unable to send bug report.  Please visit %s instead.",
+    "translation": "バグ報告を送信できない。代わりに%sを訪問してほしい。"
+  },
+  {
+    "file": "src/restore.c",
+    "literal": "Restoring:",
+    "translation": "復元中:"
+  },
+  {
+    "file": "src/restore.c",
+    "literal": "PID (%d) doesn't match saved PID (%d)!",
+    "translation": "PID (%d)が保存されたPID (%d)と一致しない！"
+  },
+  {
+    "file": "src/restore.c",
+    "literal": "This is level %d, not %d!",
+    "translation": "これはレベル%dで、%dではない！"
+  },
+  {
+    "file": "src/rumors.c",
+    "literal": "Error reading \\\"%.80s\\\".",
+    "translation": "「%.80s」の読み込みエラー。"
+  },
+  {
+    "file": "src/rumors.c",
+    "literal": "T start=%06ld (%06lx), end=%06ld (%06lx), size=%06ld (%06lx)",
+    "translation": "T 開始=%06ld (%06lx), 終了=%06ld (%06lx), サイズ=%06ld (%06lx)"
+  },
+  {
+    "file": "src/rumors.c",
+    "literal": "F start=%06ld (%06lx), end=%06ld (%06lx), size=%06ld (%06lx)",
+    "translation": "F 開始=%06ld (%06lx), 終了=%06ld (%06lx), サイズ=%06ld (%06lx)"
+  },
+  {
+    "file": "src/rumors.c",
+    "literal": "rumors not accessible.",
+    "translation": "噂にアクセスできない。"
+  },
+  {
+    "file": "src/rumors.c",
+    "literal": "error; can't read comment line",
+    "translation": "エラー; コメント行を読めない"
+  },
+  {
+    "file": "src/rumors.c",
+    "literal": "malformed; first line is not a comment line:",
+    "translation": "不正な形式; 1行目がコメント行ではない:"
+  },
+  {
+    "file": "src/rumors.c",
+    "literal": "- first line, as is",
+    "translation": "- 1行目(そのまま)"
+  },
+  {
+    "file": "src/rumors.c",
+    "literal": "- xcrypt of first line",
+    "translation": "- 1行目のxcrypt"
+  },
+  {
+    "file": "src/rumors.c",
+    "literal": "can't read first non-comment line",
+    "translation": "最初の非コメント行を読めない"
+  },
+  {
+    "file": "src/rumors.c",
+    "literal": "(no second entry)",
+    "translation": "(2番目の項目なし)"
+  },
+  {
+    "file": "src/rumors.c",
+    "literal": "(only two entries)",
+    "translation": "(項目は2つのみ)"
+  },
+  {
+    "file": "src/rumors.c",
+    "literal": "Capitalized monster type names normally preceded by \\\"the\\\":",
+    "translation": "通常\\\"the\\\"が前に付く大文字始まりの怪物種名:"
+  },
+  {
+    "file": "src/save.c",
+    "literal": "Cannot open save file.",
+    "translation": "セーブファイルを開けない。"
+  },
+  {
+    "file": "src/save.c",
+    "literal": "Probably someone removed it.",
+    "translation": "おそらく誰かが削除したのだろう。"
+  },
+  {
+    "file": "src/save.c",
+    "literal": "Level #0 pid (%d) doesn't match ours (%d)!",
+    "translation": "レベル#0のpid (%d)がこちらのpid (%d)と一致しない！"
+  },
+  {
+    "file": "src/sfstruct.c",
+    "literal": "Read %d instead of %u bytes.",
+    "translation": "%dバイト読み込んだ(本来は%uバイト)。"
+  },
+  {
+    "file": "src/shk.c",
+    "literal": "Back again, %s?  I've got my %s on you.",
+    "translation": "また来たのか、%s？ %sを光らせているぞ。"
+  },
+  {
+    "file": "src/shk.c",
+    "literal": "atmosphere at %s %s seems unwelcoming.",
+    "translation": "%s %sの雰囲気は歓迎していないようだ。"
+  },
+  {
+    "file": "src/shk.c",
+    "literal": "%s returns to %s shop.",
+    "translation": "%sは%s店に戻った。"
+  },
+  {
+    "file": "src/shk.c",
+    "literal": "Used up item%s:",
+    "translation": "使用済みアイテム%s:"
+  },
+  {
+    "file": "src/shk.c",
+    "literal": "Unpaid item%s:",
+    "translation": "未払いアイテム%s:"
+  },
+  {
+    "file": "src/shk.c",
+    "literal": "You need to remove any unpaid items from",
+    "translation": "未払いの品物は全部取り出してもらおう、"
+  },
+  {
+    "file": "src/shknam.c",
+    "literal": "Room at (%d,%d),(%d,%d).",
+    "translation": "部屋 (%d,%d),(%d,%d)。"
+  },
+  {
+    "file": "src/shknam.c",
+    "literal": "door [%d,%d]",
+    "translation": "扉 [%d,%d]"
+  },
+  {
+    "file": "src/sit.c",
+    "literal": "have a very strange feeling in your %s.",
+    "translation": "%sにとても奇妙な感覚を覚えた。"
+  },
+  {
+    "file": "src/sit.c",
+    "literal": "throne disintegrates, having spent its power.",
+    "translation": "玉座は力を使い果たし、崩れ去った。"
+  },
+  {
+    "file": "src/sit.c",
+    "literal": "Sitting on the throne was a terrible experience.",
+    "translation": "玉座に座るのはひどい体験だった。"
+  },
+  {
+    "file": "src/sit.c",
+    "literal": "A greasy liquid sprays all over you!",
+    "translation": "油っぽい液体が全身に降りかかった！"
+  },
+  {
+    "file": "src/sit.c",
+    "literal": "throne somehow seems to be amused.",
+    "translation": "玉座はなぜか面白がっているようだ。"
+  },
+  {
+    "file": "src/sit.c",
+    "literal": "extremely disoriented for a moment.",
+    "translation": "一瞬ひどく方向感覚を失った。"
+  },
+  {
+    "file": "src/sit.c",
+    "literal": "throne seeems to be calling for help!",
+    "translation": "玉座は助けを呼んでいるようだ！"
+  },
+  {
+    "file": "src/sit.c",
+    "literal": "unworthy.",
+    "translation": "自分がふさわしくないと感じた。"
+  },
+  {
+    "file": "src/sit.c",
+    "literal": "This throne was not meant for those such as you!",
+    "translation": "この玉座はおまえのような者のためのものではない！"
+  },
+  {
+    "file": "src/sit.c",
+    "literal": "a change coming over you.",
+    "translation": "自分に変化が訪れるのを感じた。"
+  },
+  {
+    "file": "src/sit.c",
+    "literal": "The throne is covered in acid!",
+    "translation": "玉座は酸に覆われている！"
+  },
+  {
+    "file": "src/sit.c",
+    "literal": "As you sit on the throne, your body and mind start to warp.",
+    "translation": "玉座に座ると、体と心がゆがみはじめた。"
+  },
+  {
+    "file": "src/sounds.c",
+    "literal": "briefly doff your %s.",
+    "translation": "一瞬%sを脱いだ。"
+  },
+  {
+    "file": "src/sounds.c",
+    "literal": "%s doesn't notice.",
+    "translation": "%sは気づかない。"
+  },
+  {
+    "file": "src/sounds.c",
+    "literal": "There's no one %s there.",
+    "translation": "そこには%s誰もいない。"
+  },
+  {
+    "file": "src/sounds.c",
+    "literal": "lout here doesn't acknowledge you...",
+    "translation": "ここの無作法者はあなたを相手にしない…"
+  },
+  {
+    "file": "src/sounds.c",
+    "literal": "That %screature is ignoring you!",
+    "translation": "その%s生き物はあなたを無視している！"
+  },
+  {
+    "file": "src/sounds.c",
+    "literal": "%s seems not to notice you.",
+    "translation": "%sはあなたに気づいていないようだ。"
+  },
+  {
+    "file": "src/sounds.c",
+    "literal": "%s waves.",
+    "translation": "%sは手を振った。"
+  },
+  {
+    "file": "src/sounds.c",
+    "literal": "%s grasps %s %s but can't remove it.",
+    "translation": "%sは%s %sをつかんだが、外せなかった。"
+  },
+  {
+    "file": "src/sounds.c",
+    "literal": "%s tips %s %s in response.",
+    "translation": "%sは応えて%s %sを傾けた。"
+  },
+  {
+    "file": "src/sounds.c",
+    "literal": "%s doesn't respond.",
+    "translation": "%sは応えない。"
+  },
+  {
+    "file": "src/sounds.c",
+    "literal": "cannot read %.243s",
+    "translation": "%.243sを読めない"
+  },
+  {
+    "file": "src/spell.c",
+    "literal": "That's enough tries.",
+    "translation": "もう十分試した。"
+  },
+  {
+    "file": "src/spell.c",
+    "literal": "You shock %s%s",
+    "translation": "あなたは%sに電撃を与えた%s"
+  },
+  {
+    "file": "src/spell.c",
+    "literal": "%s resists.",
+    "translation": "%sは抵抗した。"
+  },
+  {
+    "file": "src/spell.c",
+    "literal": "You didn't know any spells.",
+    "translation": "あなたは呪文を何も知らなかった。"
+  },
+  {
+    "file": "src/spell.c",
+    "literal": "[sort spells]",
+    "translation": "[呪文を並べ替える]"
+  },
+  {
+    "file": "src/sp_lev.c",
+    "literal": "Expected integer or \\\"random\\\" for \\\"%s\\\", got ",
+    "translation": "「%s」には整数か\\\"random\\\"が必要だが、得られたのは "
+  },
+  {
+    "file": "src/sp_lev.c",
+    "literal": "Unknown level flag %s",
+    "translation": "不明なレベルフラグ %s"
+  },
+  {
+    "file": "src/sp_lev.c",
+    "literal": "Array entry #%i is %s, expected number",
+    "translation": "配列要素#%iは%s、数値が必要"
+  },
+  {
+    "file": "src/stairs.c",
+    "literal": " to level %d",
+    "translation": " (レベル%dへ)"
+  },
+  {
+    "file": "src/stairs.c",
+    "literal": "branch %s %s to %s",
+    "translation": "分岐 %s %s → %s"
+  },
+  {
+    "file": "src/steal.c",
+    "literal": "finish taking off your %s.",
+    "translation": "%sを脱ぎ終えた。"
+  },
+  {
+    "file": "src/steal.c",
+    "literal": "%s takes off your unseen chain.",
+    "translation": "%sは見えない鎖をあなたから外した。"
+  },
+  {
+    "file": "src/steed.c",
+    "literal": "Heal your leg%s?",
+    "translation": "脚%sを治しますか？"
+  },
+  {
+    "file": "src/steed.c",
+    "literal": "aren't stealthy anymore.",
+    "translation": "もう忍び足ではない。"
+  },
+  {
+    "file": "src/steed.c",
+    "literal": "seem less noisy now.",
+    "translation": "少し静かになったようだ。"
+  },
+  {
+    "file": "src/symbols.c",
+    "literal": "Default Symbols",
+    "translation": "既定のシンボル"
+  },
+  {
+    "file": "src/teleport.c",
+    "literal": "materialize in %s location!",
+    "translation": "%s場所に実体化した！"
+  },
+  {
+    "file": "src/teleport.c",
+    "literal": "briefly feel %s.",
+    "translation": "一瞬%sを感じた。"
+  },
+  {
+    "file": "src/teleport.c",
+    "literal": "%sdisoriented.",
+    "translation": "%s方向感覚を失った。"
+  },
+  {
+    "file": "src/teleport.c",
+    "literal": "%s vanishes!",
+    "translation": "%sは消えた！"
+  },
+  {
+    "file": "src/teleport.c",
+    "literal": "and %s teleport together.",
+    "translation": "%sと一緒にテレポートした。"
+  },
+  {
+    "file": "src/teleport.c",
+    "literal": "%s vanishes and reappears%s.",
+    "translation": "%sは消えて再び現れた%s。"
+  },
+  {
+    "file": "src/teleport.c",
+    "literal": "Teleport %s @ <%d,%d> where?",
+    "translation": "%s @ <%d,%d>をどこにテレポートさせる？"
+  },
+  {
+    "file": "src/teleport.c",
+    "literal": "where to teleport %s",
+    "translation": "%sのテレポート先"
+  },
+  {
+    "file": "src/teleport.c",
+    "literal": "<%d,%d> is not considered viable; force anyway?",
+    "translation": "<%d,%d>は適切ではないとみなされる; それでも強制する？"
+  },
+  {
+    "file": "src/teleport.c",
+    "literal": "%s destination.",
+    "translation": "%s移動先。"
+  },
+  {
+    "file": "src/teleport.c",
+    "literal": "A mysterious force prevents you teleporting %s!",
+    "translation": "謎の力があなたが%sをテレポートさせるのを妨げた！"
+  },
+  {
+    "file": "src/timeout.c",
+    "literal": "  %s %s inviting you in.",
+    "translation": "  %s %s 入ってこいと誘っている。"
+  },
+  {
+    "file": "src/timeout.c",
+    "literal": "lose your balance.",
+    "translation": "バランスを崩した。"
+  },
+  {
+    "file": "src/timeout.c",
+    "literal": "timeout  id   kind   call",
+    "translation": "時間切れ  id   種類   呼出"
+  },
+  {
+    "file": "src/timeout.c",
+    "literal": "Current time = %ld.",
+    "translation": "現在時刻 = %ld。"
+  },
+  {
+    "file": "src/timeout.c",
+    "literal": "Active timeout queue:",
+    "translation": "有効なタイムアウトキュー:"
+  },
+  {
+    "file": "src/timeout.c",
+    "literal": "No timed properties.",
+    "translation": "時限特性はない。"
+  },
+  {
+    "file": "src/timeout.c",
+    "literal": "Timed properties:",
+    "translation": "時限特性:"
+  },
+  {
+    "file": "src/timeout.c",
+    "literal": " -- settable via #wizintrinsic only --",
+    "translation": " -- #wizintrinsicでのみ設定可能 --"
+  },
+  {
+    "file": "src/timeout.c",
+    "literal": "Swallow countdown is %u.",
+    "translation": "飲み込みカウントダウンは%u。"
+  },
+  {
+    "file": "src/timeout.c",
+    "literal": "Vault counter is %d.",
+    "translation": "金庫カウンタは%d。"
+  },
+  {
+    "file": "src/timeout.c",
+    "literal": "Level is no-teleport for %ld %s.",
+    "translation": "このレベルは%ld%sの間テレポート不可。"
+  },
+  {
+    "file": "src/timeout.c",
+    "literal": "%s timer (%d)",
+    "translation": "%sタイマー (%d)"
+  },
+  {
+    "file": "src/topten.c",
+    "literal": "Cannot find any %sentries for ",
+    "translation": "%sの記録が見つからない: "
+  },
+  {
+    "file": "src/trap.c",
+    "literal": "%s protects your leg.",
+    "translation": "%sがあなたの脚を守った。"
+  },
+  {
+    "file": "src/trap.c",
+    "literal": "carefully %s into the pit.",
+    "translation": "慎重に落とし穴へ%s。"
+  },
+  {
+    "file": "src/trap.c",
+    "literal": "%s protects you from the sharp iron spikes.",
+    "translation": "%sが鋭い鉄の杭からあなたを守った。"
+  },
+  {
+    "file": "src/trap.c",
+    "literal": "A lethargic aura surrounds %s.",
+    "translation": "けだるいオーラが%sを包んだ。"
+  },
+  {
+    "file": "src/trap.c",
+    "literal": "%s warps strangely.",
+    "translation": "%sは奇妙にゆがんだ。"
+  },
+  {
+    "file": "src/trap.c",
+    "literal": "No boulder was released.",
+    "translation": "岩は放たれなかった。"
+  },
+  {
+    "file": "src/trap.c",
+    "literal": "%s climbs %sout of the pit.",
+    "translation": "%sは%s落とし穴から這い出た。"
+  },
+  {
+    "file": "src/trap.c",
+    "literal": "%s pulls free of the %s.",
+    "translation": "%sは%sから抜け出した。"
+  },
+  {
+    "file": "src/trap.c",
+    "literal": "potion%s %s!",
+    "translation": "薬%s %s！"
+  },
+  {
+    "file": "src/trap.c",
+    "literal": "grease on %s washes off.",
+    "translation": "%sの油は洗い流された。"
+  },
+  {
+    "file": "src/trap.c",
+    "literal": "Fortunately, you don't move %s it.",
+    "translation": "幸い、それ%s移動しなかった。"
+  },
+  {
+    "file": "src/trap.c",
+    "literal": "are no other chests or boxes here.",
+    "translation": "ここには他に箱はない。"
+  },
+  {
+    "file": "src/trap.c",
+    "literal": "A cloud of %s gas billows from %s.",
+    "translation": "%sガスの雲が%sから噴き出した。"
+  },
+  {
+    "file": "src/trap.c",
+    "literal": "%s item%s in your inventory %s been destroyed.",
+    "translation": "持ち物の%sアイテム%sが破壊された(%s)。"
+  },
+  {
+    "file": "src/uhitm.c",
+    "literal": "avoid harm.",
+    "translation": "被害を避けた。"
+  },
+  {
+    "file": "src/uhitm.c",
+    "literal": " named %s",
+    "translation": " (%sという名の)"
+  },
+  {
+    "file": "src/uhitm.c",
+    "literal": "%s is not affected.",
+    "translation": "%sは影響を受けない。"
+  },
+  {
+    "file": "src/uhitm.c",
+    "literal": "are not affected.",
+    "translation": "影響を受けない。"
+  },
+  {
+    "file": "src/uhitm.c",
+    "literal": "barbs stick to %s!",
+    "translation": "棘が%sに刺さった！"
+  },
+  {
+    "file": "src/uhitm.c",
+    "literal": "The barbs stick to you!",
+    "translation": "棘があなたに刺さった！"
+  },
+  {
+    "file": "src/uhitm.c",
+    "literal": "brush against %s.",
+    "translation": "%sに触れた。"
+  },
+  {
+    "file": "src/uhitm.c",
+    "literal": "%s brushes against %s.",
+    "translation": "%sは%sに触れた。"
+  },
+  {
+    "file": "src/uhitm.c",
+    "literal": "escape harm.",
+    "translation": "被害を免れた。"
+  },
+  {
+    "file": "src/uhitm.c",
+    "literal": "%s is not transformed.",
+    "translation": "%sは変化しなかった。"
+  },
+  {
+    "file": "src/uhitm.c",
+    "literal": "aren't transformed.",
+    "translation": "変化しなかった。"
+  },
+  {
+    "file": "src/uhitm.c",
+    "literal": "peculiarly sad",
+    "translation": "もの悲しい"
+  },
+  {
+    "file": "src/uhitm.c",
+    "literal": "%sdon't budge.",
+    "translation": "%sびくともしない。"
+  },
+  {
+    "file": "src/uhitm.c",
+    "literal": "%s doesn't budge.",
+    "translation": "%sはびくともしない。"
+  },
+  {
+    "file": "src/uhitm.c",
+    "literal": "%s %s %s %s with a %s %s!",
+    "translation": "%sは%s %s %s、%s %sで！"
+  },
+  {
+    "file": "src/uhitm.c",
+    "literal": "%s be knocked %s!",
+    "translation": "%sが%s吹き飛ばされたのを感じた！"
+  },
+  {
+    "file": "src/uhitm.c",
+    "literal": "That %s is really %s%c",
+    "translation": "その%sは実は%sだった%c"
+  },
+  {
+    "file": "src/uhitm.c",
+    "literal": "The flash of light shines on %s.",
+    "translation": "閃光が%sを照らした。"
+  },
+  {
+    "file": "src/uhitm.c",
+    "literal": "%s is illuminated.",
+    "translation": "%sが照らし出された。"
+  },
+  {
+    "file": "src/version.c",
+    "literal": "[Configuration '%s' not available?]",
+    "translation": "[設定'%s'は利用できない？]"
+  },
+  {
+    "file": "src/version.c",
+    "literal": "Version mismatch for file \\\"%s\\\".",
+    "translation": "ファイル「%s」のバージョンが一致しない。"
+  },
+  {
+    "file": "src/version.c",
+    "literal": "Configuration incompatibility for file \\\"%s\\\".",
+    "translation": "ファイル「%s」の設定に互換性がない。"
+  },
+  {
+    "file": "src/weapon.c",
+    "literal": "  (%d slot%s available)",
+    "translation": "  (使用可能なスロット %d%s)"
+  },
+  {
+    "file": "src/weapon.c",
+    "literal": "forget %syour training in %s.",
+    "translation": "%s%sの訓練を忘れた。"
+  },
+  {
+    "file": "src/wizcmds.c",
+    "literal": "Kill %.110s?",
+    "translation": "%.110sを殺しますか？"
+  },
+  {
+    "file": "src/wizcmds.c",
+    "literal": "%s own player",
+    "translation": "%s自分のプレイヤー"
+  },
+  {
+    "file": "src/wizcmds.c",
+    "literal": "is no monster there.",
+    "translation": "そこには怪物はいない。"
+  },
+  {
+    "file": "src/wizcmds.c",
+    "literal": "Pick a monster to hurtle.",
+    "translation": "投げ飛ばす怪物を選んでほしい。"
+  },
+  {
+    "file": "src/wizcmds.c",
+    "literal": "The fuzz tester will make NetHack execute random keypresses.",
+    "translation": "ファズテスターはNetHackにランダムなキー入力を実行させる。"
+  },
+  {
+    "file": "src/wizcmds.c",
+    "literal": "is no conventional way out of this mode.",
+    "translation": "このモードから抜ける通常の方法はない。"
+  },
+  {
+    "file": "src/wizcmds.c",
+    "literal": "Flags: 0x%x could see, 0x%x in sight, 0x%x temp lit",
+    "translation": "フラグ: 0x%x 見えた, 0x%x 視界内, 0x%x 一時照明"
+  },
+  {
+    "file": "src/wizcmds.c",
+    "literal": "#terrain encodings:",
+    "translation": "#terrainの符号:"
+  },
+  {
+    "file": "src/wizcmds.c",
+    "literal": "are incapable of detecting odors in your present form.",
+    "translation": "今の姿では匂いを感じ取れない。"
+  },
+  {
+    "file": "src/wizcmds.c",
+    "literal": "can move the cursor to a monster that you want to smell.",
+    "translation": "匂いを嗅ぎたい怪物にカーソルを移動できる。"
+  },
+  {
+    "file": "src/wizcmds.c",
+    "literal": "Pick a monster to smell.",
+    "translation": "匂いを嗅ぐ怪物を選んでほしい。"
+  },
+  {
+    "file": "src/wizcmds.c",
+    "literal": "surreptitiously sniff under your %s.",
+    "translation": "こっそり自分の%sの下を嗅いだ。"
+  },
+  {
+    "file": "src/wizcmds.c",
+    "literal": "%s to not give off any smell.",
+    "translation": "%s 何の匂いもしない。"
+  },
+  {
+    "file": "src/wizcmds.c",
+    "literal": "don't smell any monster there.",
+    "translation": "そこに怪物の匂いはしない。"
+  },
+  {
+    "file": "src/wizcmds.c",
+    "literal": "[Precede any selection with a count to increment by other than %d.]",
+    "translation": "[%d以外ずつ増やすには、選択の前に数を入力する。]"
+  },
+  {
+    "file": "src/wizcmds.c",
+    "literal": "Timeout for %s %s %d.",
+    "translation": "%sのタイムアウト %s %d。"
+  },
+  {
+    "file": "src/wizcmds.c",
+    "literal": "traps, size %ld",
+    "translation": "罠, サイズ %ld"
+  },
+  {
+    "file": "src/wizcmds.c",
+    "literal": "shop damage, size %ld",
+    "translation": "店の損害, サイズ %ld"
+  },
+  {
+    "file": "src/wizcmds.c",
+    "literal": "delayed killer%s, size %ld",
+    "translation": "遅延死因%s, サイズ %ld"
+  },
+  {
+    "file": "src/wizcmds.c",
+    "literal": "bones history, size %ld",
+    "translation": "骨履歴, サイズ %ld"
+  },
+  {
+    "file": "src/wizcmds.c",
+    "literal": "No monsters currently migrating.",
+    "translation": "現在移動中の怪物はいない。"
+  },
+  {
+    "file": "src/wizcmds.c",
+    "literal": "%d mon%s pending for current level, %d for next level, %d for others.",
+    "translation": "現在のレベル行き待ちの怪物%d体%s、次のレベル行き%d、その他%d。"
+  },
+  {
+    "file": "src/wizcmds.c",
+    "literal": "Monster%s migrating to %s:",
+    "translation": "怪物%s (移動先 %s):"
+  },
+  {
+    "file": "src/wizcmds.c",
+    "literal": " named %s",
+    "translation": " (%sという名の)"
+  },
+  {
+    "file": "src/wizcmds.c",
+    "literal": "Current memory statistics:",
+    "translation": "現在のメモリ統計:"
+  },
+  {
+    "file": "src/wizcmds.c",
+    "literal": "  Objects, base size %ld",
+    "translation": "  物体, 基本サイズ %ld"
+  },
+  {
+    "file": "src/wizcmds.c",
+    "literal": "  Obj total",
+    "translation": "  物体合計"
+  },
+  {
+    "file": "src/wizcmds.c",
+    "literal": "  Monsters, base size %ld",
+    "translation": "  怪物, 基本サイズ %ld"
+  },
+  {
+    "file": "src/wizcmds.c",
+    "literal": "  Mon total",
+    "translation": "  怪物合計"
+  },
+  {
+    "file": "src/wizcmds.c",
+    "literal": "  Overview",
+    "translation": "  概観"
+  },
+  {
+    "file": "src/wizcmds.c",
+    "literal": "  Over total",
+    "translation": "  概観合計"
+  },
+  {
+    "file": "src/wizcmds.c",
+    "literal": "  Miscellaneous",
+    "translation": "  その他"
+  },
+  {
+    "file": "src/wizcmds.c",
+    "literal": "  Misc total",
+    "translation": "  その他合計"
+  },
+  {
+    "file": "src/wizcmds.c",
+    "literal": "  Grand total",
+    "translation": "  総計"
+  },
+  {
+    "file": "src/wizcmds.c",
+    "literal": "glyph_is_cmap_zap(glyph=%d) returned non-zap cmap %d",
+    "translation": "glyph_is_cmap_zap(glyph=%d)がzap以外のcmap %dを返した"
+  },
+  {
+    "file": "src/wizcmds.c",
+    "literal": "glyph_to_cmap(glyph=%d) returns %d",
+    "translation": "glyph_to_cmap(glyph=%d)は%dを返す"
+  },
+  {
+    "file": "src/wizcmds.c",
+    "literal": "glyph_to_mon(glyph=%d) returns %d",
+    "translation": "glyph_to_mon(glyph=%d)は%dを返す"
+  },
+  {
+    "file": "src/wizcmds.c",
+    "literal": "glyph_to_obj(glyph=%d) returns %d",
+    "translation": "glyph_to_obj(glyph=%d)は%dを返す"
+  },
+  {
+    "file": "src/wizcmds.c",
+    "literal": "No display macro issues detected.",
+    "translation": "表示マクロの問題は検出されなかった。"
+  },
+  {
+    "file": "src/wizcmds.c",
+    "literal": "The NHUUID for this game is { %s }.",
+    "translation": "このゲームのNHUUIDは{ %s }だ。"
+  },
+  {
+    "file": "src/wizcmds.c",
+    "literal": "No monster difficulty discrepancies were detected.",
+    "translation": "怪物の難易度の不一致は検出されなかった。"
+  },
+  {
+    "file": "src/wizcmds.c",
+    "literal": "Can't get there from here.",
+    "translation": "ここからそこへは行けない。"
+  },
+  {
+    "file": "src/wizcmds.c",
+    "literal": "%s: colorcount=%ld %s",
+    "translation": "%s: 色数=%ld %s"
+  },
+  {
+    "file": "src/wizcmds.c",
+    "literal": ", handler=%s",
+    "translation": ", ハンドラ=%s"
+  },
+  {
+    "file": "src/worn.c",
+    "literal": "%s (%s) not found in invent",
+    "translation": "%s (%s)が持ち物にない"
+  },
+  {
+    "file": "src/worn.c",
+    "literal": "%s bit not set in owornmask [0x%08lx]",
+    "translation": "%sビットがowornmask [0x%08lx]に設定されていない"
+  },
+  {
+    "file": "src/worn.c",
+    "literal": "%s wrong bit set in owornmask [0x%08lx]",
+    "translation": "%s owornmask [0x%08lx]に誤ったビットが設定されている"
+  },
+  {
+    "file": "src/worn.c",
+    "literal": "%s [0x%08lx] has %s mask 0x%08lx bit set",
+    "translation": "%s [0x%08lx]に%sマスク0x%08lxのビットが設定されている"
+  },
+  {
+    "file": "src/worn.c",
+    "literal": "%s bits not set in owornmask [0x%08lx]",
+    "translation": "%sビットがowornmask [0x%08lx]に設定されていない"
+  },
+  {
+    "file": "src/worn.c",
+    "literal": "%s (%s) %s not dragon scales",
+    "translation": "%s (%s) %s ドラゴンの鱗ではない"
+  },
+  {
+    "file": "src/worn.c",
+    "literal": "%s, hero is not %s",
+    "translation": "%s、主人公は%sではない"
+  },
+  {
+    "file": "src/worn.c",
+    "literal": "without %s%s%s",
+    "translation": "%s%s%sなし"
+  },
+  {
+    "file": "src/zap.c",
+    "literal": "%s vanishes!",
+    "translation": "%sは消えた！"
+  },
+  {
+    "file": "src/zap.c",
+    "literal": "%s is knocked back!",
+    "translation": "%sは押し戻された！"
+  },
+  {
+    "file": "src/zap.c",
+    "literal": "%s doesn't budge.",
+    "translation": "%sはびくともしない。"
+  },
+  {
+    "file": "src/zap.c",
+    "literal": "release %s.",
+    "translation": "%sを放した。"
+  },
+  {
+    "file": "src/zap.c",
+    "literal": "from %s grasp",
+    "translation": "%sのつかみから"
+  },
+  {
+    "file": "src/zap.c",
+    "literal": "are released %s.",
+    "translation": "%s解放された。"
+  },
+  {
+    "file": "src/zap.c",
+    "literal": "%s trapped!",
+    "translation": "%s 罠が仕掛けられている！"
+  },
+  {
+    "file": "src/zap.c",
+    "literal": "aren't able to zap anything in your current form.",
+    "translation": "今の姿では何も振れない。"
+  },
+  {
+    "file": "src/zap.c",
+    "literal": "fall asleep!",
+    "translation": "眠りに落ちた！"
+  },
+  {
+    "file": "src/zap.c",
+    "literal": "Probing reveals a secret door.",
+    "translation": "探査で隠し扉が見つかった。"
+  },
+  {
+    "file": "src/zap.c",
+    "literal": "Probing exposes a secret corridor.",
+    "translation": "探査で隠し通路が見つかった。"
+  },
+  {
+    "file": "src/zap.c",
+    "literal": "find %s%c",
+    "translation": "%sを見つけた%c"
+  },
+  {
+    "file": "src/zap.c",
+    "literal": "%s gets stuck in a web!",
+    "translation": "%sは蜘蛛の巣にかかった！"
+  },
+  {
+    "file": "src/zap.c",
+    "literal": " by your %.40s",
+    "translation": " (あなたの%.40sによって)"
+  },
+  {
+    "file": "src/zap.c",
+    "literal": "blast of %s",
+    "translation": "%sの爆風"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "(not applicable)",
+    "translation": "(該当なし)"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "treat \\\"ESC c\\\" as M-c (Meta+c, 8th bit set)",
+    "translation": "\\\"ESC c\\\"をM-c(Meta+c、第8ビット設定)として扱う"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "treat ALT+c as M-c (Meta+c, 8th bit set)",
+    "translation": "ALT+cをM-c(Meta+c、第8ビット設定)として扱う"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "describe terrain under cursor",
+    "translation": "カーソル下の地形を説明する"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "dig if moving and wielding a digging tool",
+    "translation": "掘削道具を装備して移動すると掘る"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "walking into a door attempts to open it",
+    "translation": "扉に向かって歩くと開けようとする"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "automatically pick up objects",
+    "translation": "自動的に物を拾う"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "edit autopickup exceptions",
+    "translation": "自動拾いの例外を編集する"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "fill empty quiver automatically when firing",
+    "translation": "発射時に空の矢筒を自動で満たす"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "action to take when encountering locked door or chest",
+    "translation": "鍵のかかった扉や箱に出会ったときの行動"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "use background color for some map hilighting",
+    "translation": "一部の地図強調に背景色を使う"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "edit key binds",
+    "translation": "キー割り当てを編集する"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "use IBM ROM BIOS calls",
+    "translation": "IBM ROM BIOSコールを使う"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "your character is permanently blind",
+    "translation": "キャラクターが常に盲目になる"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "allow loading bones files",
+    "translation": "骨ファイルの読み込みを許可する"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "name of your starting pet if it is a kitten",
+    "translation": "最初のペットが子猫の場合の名前"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "save game state after each level change",
+    "translation": "レベル移動ごとにゲーム状態を保存する"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "give help for errors on direction input",
+    "translation": "方向入力の誤りに対してヘルプを出す"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "use color in map",
+    "translation": "地図に色を使う"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "ask before hitting tame or peaceful monsters",
+    "translation": "ペットや友好的な怪物を攻撃する前に確認する"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "email address for reporting",
+    "translation": "報告用のメールアドレス"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "your name for reporting",
+    "translation": "報告用のあなたの名前"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "length of longest url we can generate",
+    "translation": "生成できるURLの最大長"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "use custom colors in map",
+    "translation": "地図にカスタム色を使う"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "use custom utf8 symbols in map",
+    "translation": "地図にカスタムUTF-8シンボルを使う"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "show floor outside line of sight differently",
+    "translation": "視界外の床を区別して表示する"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "your character is permanently deaf",
+    "translation": "キャラクターが常に耳が聞こえなくなる"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "no hunger",
+    "translation": "空腹にならない"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "no random monster generation",
+    "translation": "怪物がランダムに発生しない"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "level generation can overwrite stairs",
+    "translation": "レベル生成で階段を上書きできる"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "name of your starting pet if it is a little dog",
+    "translation": "最初のペットが子犬の場合の名前"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "don't autopickup dropped items",
+    "translation": "置いた物を自動で拾わない"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "send 8-bit characters directly to terminal",
+    "translation": "8ビット文字を端末に直接送る"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "use menu for getting extended commands",
+    "translation": "拡張コマンドの入力にメニューを使う"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "deprecated; use gender:female",
+    "translation": "非推奨; gender:femaleを使うこと"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "fire-command tries to be helpful",
+    "translation": "発射コマンドで補助を行う"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "inventory items keep their letters",
+    "translation": "持ち物の文字を固定する"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "toggle fullscreen",
+    "translation": "全画面表示を切り替える"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "set representation of a glyph to a unicode value and color",
+    "translation": "グリフの表示をUnicode値と色で設定する"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "classify gold as unknown or uncursed",
+    "translation": "金貨を未知または呪われていないものとして分類する"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "use color for UI",
+    "translation": "UIに色を使う"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "show all available info when using whatis-command",
+    "translation": "whatisコマンドで利用可能な情報をすべて表示する"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "show commands available in this location",
+    "translation": "この場所で使えるコマンドを表示する"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "use highlight for pets",
+    "translation": "ペットを強調表示する"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "highlight piles of items",
+    "translation": "物の山を強調表示する"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "a status highlighting rule (can occur multiple times)",
+    "translation": "ステータス強調表示のルール(複数指定可)"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "(not available)",
+    "translation": "(利用不可)"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "show colored bar for hit points",
+    "translation": "HPを色付きバーで表示する"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "name of your starting pet if it is a pony",
+    "translation": "最初のペットが子馬の場合の名前"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "update checkpoint file if input is idle for 10 seconds",
+    "translation": "入力が10秒間ないとチェックポイントファイルを更新する"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "ignore interrupt signals",
+    "translation": "割り込みシグナルを無視する"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "omit \\\"uncursed\\\" from inventory",
+    "translation": "持ち物の表示から\\\"呪われていない\\\"を省く"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "show introductory message",
+    "translation": "導入メッセージを表示する"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "show dark corridors as lit if in sight",
+    "translation": "視界内の暗い通路を明るく表示する"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "use a/b/c rather than o/i/c when looting",
+    "translation": "物を取り出すときo/i/cではなくa/b/cを使う"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "enable the mail daemon",
+    "translation": "郵便デーモンを有効にする"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "give feedback when walking over interesting features",
+    "translation": "興味深い地形の上を歩いたときに知らせる"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "give feedback when interesting map locations change",
+    "translation": "興味深い地図上の場所が変化したときに知らせる"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "give feedback when walking into walls",
+    "translation": "壁に向かって歩いたときに知らせる"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "show object symbols in menus",
+    "translation": "メニューに物体のシンボルを表示する"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "menus overlay and align to right",
+    "translation": "メニューを重ねて右寄せする"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "pan current menu page left",
+    "translation": "現在のメニューページを左にスクロールする"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "pan current menu page right",
+    "translation": "現在のメニューページを右にスクロールする"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "menu formatting",
+    "translation": "メニューの書式"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "use colors in menus",
+    "translation": "メニューに色を使う"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "change colors used in menus",
+    "translation": "メニューで使う色を変更する"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "experimental behavior of menu inverts",
+    "translation": "メニュー反転の実験的動作"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "edit message types",
+    "translation": "メッセージの種類を編集する"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "message when hero sees monster movement",
+    "translation": "主人公が怪物の動きを見たときのメッセージ"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "control monster polymorphs",
+    "translation": "怪物の変化を制御する"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "control monster teleport destinations",
+    "translation": "怪物のテレポート先を制御する"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "control of \\\"view previous message(s)\\\" (^P) behavior",
+    "translation": "\\\"前のメッセージを見る\\\"(^P)の動作を制御する"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "show any news at game start",
+    "translation": "ゲーム開始時にニュースを表示する"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "start your character without armor",
+    "translation": "鎧なしでキャラクターを始める"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "allow nulls to be sent to terminal",
+    "translation": "端末へのNUL送信を許可する"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "start your character without any items",
+    "translation": "アイテムなしでキャラクターを始める"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "show persistent inventory window",
+    "translation": "持ち物ウィンドウを常時表示する"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "what to show in persistent inventory window",
+    "translation": "常時表示の持ち物ウィンドウに表示する内容"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "autopickup stolen items",
+    "translation": "盗まれた物を自動で拾う"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "autopickup thrown items",
+    "translation": "投げた物を自動で拾う"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "display prices you have seen for unidentified objects",
+    "translation": "未識別の物について見た価格を表示する"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "previous weapon goes to secondary slot",
+    "translation": "前の武器を予備の武器にする"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "use a menu for yes/no queries",
+    "translation": "はい/いいえの問いにメニューを使う"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "skip map browse when forced to looked at map",
+    "translation": "地図を強制的に見せられるとき地図閲覧を省く"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "allow use to raw I/O",
+    "translation": "raw I/Oの使用を許可する"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "allow rerolling of starting inventory and items",
+    "translation": "初期持ち物の振り直しを許可する"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "space bar is bound to the rest-command",
+    "translation": "スペースキーを休憩コマンドに割り当てる"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "prevent you from hitting pets",
+    "translation": "ペットを攻撃しないようにする"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "prevent waiting next to hostiles",
+    "translation": "敵の隣で待機しないようにする"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "perform data sanity checks",
+    "translation": "データの整合性チェックを行う"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "show damage hero takes in message line",
+    "translation": "主人公が受けたダメージをメッセージ行に表示する"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "show experience points in status line",
+    "translation": "経験値をステータス行に表示する"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "show your character by race rather than role",
+    "translation": "職業ではなく種族でキャラクターを表示する"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "show current score in status line",
+    "translation": "現在のスコアをステータス行に表示する"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "show version info on status line",
+    "translation": "バージョン情報をステータス行に表示する"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "don't use terminal bell",
+    "translation": "端末のベルを使わない"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "preferred order when displaying discovered objects",
+    "translation": "発見済みの物を表示する際の並び順"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "group inventory items by type",
+    "translation": "持ち物を種類ごとにまとめる"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "preferred order when displaying vanquished monsters",
+    "translation": "倒した怪物を表示する際の並び順"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "soundlib interface to use (if any)",
+    "translation": "使用するサウンドライブラリ(あれば)"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "use integrated sound effects",
+    "translation": "組み込みの効果音を使う"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "use sounds",
+    "translation": "音を使う"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "display sparkly effect when resisting magic",
+    "translation": "魔法に抵抗したときにきらめく効果を表示する"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "message when hero spots a monster",
+    "translation": "主人公が怪物を見つけたときのメッセージ"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "use standout for --more--",
+    "translation": "--more--を強調表示する"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "number of columns",
+    "translation": "列数"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "number of rows",
+    "translation": "行数"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "show hero's location as a status field",
+    "translation": "主人公の位置をステータス欄に表示する"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "display game turns in status line",
+    "translation": "ゲームのターン数をステータス行に表示する"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "use delay when pausing for display effects",
+    "translation": "表示効果の一時停止に遅延を使う"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "show some helpful tips during gameplay",
+    "translation": "プレイ中に役立つヒントを表示する"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "show tombstone when your character dies",
+    "translation": "キャラクターが死んだとき墓石を表示する"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "show top scores in window",
+    "translation": "上位スコアをウィンドウに表示する"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "enable traveling via mouse click",
+    "translation": "マウスクリックによる移動を有効にする"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "ask if you want the tutorial",
+    "translation": "チュートリアルをするか尋ねる"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "use bold black color instead of blue",
+    "translation": "青の代わりに太字の黒を使う"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "display detected monsters in inverse",
+    "translation": "探知した怪物を反転表示する"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "video width",
+    "translation": "画面の幅"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "video height",
+    "translation": "画面の高さ"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "output special escape codes",
+    "translation": "特殊なエスケープコードを出力する"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "output sound data in special escape codes",
+    "translation": "音声データを特殊なエスケープコードで出力する"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "display characters for warnings",
+    "translation": "警告の表示文字"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "show currently wielded weapon in a status field",
+    "translation": "現在装備中の武器をステータス欄に表示する"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "show menu when getting a map location",
+    "translation": "地図上の位置を指定するときメニューを表示する"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "skip same glyph when getting map location",
+    "translation": "地図上の位置を指定するとき同じグリフを飛ばす"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "0 (off), 1 (on), 2 (auto)",
+    "translation": "0 (オフ), 1 (オン), 2 (自動)"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "prefix for cond_ options",
+    "translation": "cond_オプションの接頭辞"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "prefix for font options",
+    "translation": "フォントオプションの接頭辞"
+  },
+  {
+    "file": "include/optlist.h",
+    "literal": "prefix for old micro IBM_ options",
+    "translation": "旧micro IBM_オプションの接頭辞"
+  },
+  {
+    "file": "src/options.c",
+    "literal": "Use command '#optionsfull' to get the complete options list.",
+    "translation": "すべての設定を見るには '#optionsfull' を使ってください。"
+  }
+]
