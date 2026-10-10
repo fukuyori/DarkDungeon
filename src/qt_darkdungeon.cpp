@@ -163,29 +163,73 @@ const QImage& heroSheet() {
     static QHash<QString,QImage> composites;
     auto found=composites.constFind(key);
     if(found!=composites.constEnd())return *found;
+    // Back to front; the shield layer exists only for roles that start with one.
     const QString layers[]={"hero/body_"+race+"_"+gender,"hero/hair_"+gender,"hero/outfit_"+role,"hero/cape",
-                            "hero/weapon_longsword","hero/shield_round"};
+                            "hero/weapon_"+role,"hero/shield_"+role};
     QImage composite(192,192,QImage::Format_ARGB32_Premultiplied);composite.fill(Qt::transparent);
     QPainter p(&composite);
     for(const QString& layer:layers) {
         const QImage& sheet=spriteSheet(layer);
+        if(sheet.isNull() && layer.startsWith("hero/shield_"))continue;
         if(role.isEmpty() || race.isEmpty() || sheet.isNull()){p.end();return *composites.insert(key,QImage());}
         const QColor cape=alignment>0?QColor("#3a6fd8"):alignment<0?QColor("#c83a3a"):QColor("#3a9a4a");
         p.drawImage(0,0,layer=="hero/cape"?tinted(sheet,cape):sheet);
     }
     p.end();return *composites.insert(key,composite);
 }
+// NetHack's color for a species, applied to the gray body of a class sheet.
+QColor speciesColor(int color) {
+    static const QColor colors[CLR_MAX]={QColor("#3b3b52"),QColor("#c23a2e"),QColor("#3f9a3a"),QColor("#9a6a32"),
+        QColor("#3a5fc8"),QColor("#a33aa8"),QColor("#2e9fa6"),QColor(),QColor(),QColor("#e8862a"),
+        QColor("#6fdc4a"),QColor("#e8d13a"),QColor("#5a8cff"),QColor("#e05ae0"),QColor("#5ae0e0"),QColor()};
+    return color>=0 && color<CLR_MAX?colors[color]:QColor(); // invalid: gray, no color or white stay as drawn
+}
+QImage tintedClass(const QImage& gray,const QColor& tint) {
+    QImage image=gray.convertToFormat(QImage::Format_ARGB32);
+    for(int y=0;y<image.height();++y) {
+        auto* row=reinterpret_cast<QRgb*>(image.scanLine(y));
+        for(int x=0;x<image.width();++x) {
+            const QRgb c=row[x];
+            if(!qAlpha(c) || QColor(c).hsvSaturation()>24)continue; // keep colored accents
+            const int value=qGray(c);
+            if(value<48)continue; // keep outlines
+            row[x]=qRgba(std::min(255,tint.red()*value/170),std::min(255,tint.green()*value/170),
+                         std::min(255,tint.blue()*value/170),qAlpha(c));
+        }
+    }
+    return image.convertToFormat(QImage::Format_ARGB32_Premultiplied);
+}
 const QImage& monsterSheet(int monster) {
     static const QImage none;
     if(monster<0 || monster>=NUMMONS)return none;
-    switch(monster) {
+    switch(monster) { // species with their own artwork
     case PM_LITTLE_DOG: case PM_DOG: case PM_LARGE_DOG:return spriteSheet("monster/dog");
     case PM_JACKAL: case PM_COYOTE:return spriteSheet("monster/jackal");
     case PM_NEWT:return spriteSheet("monster/newt");
+    case PM_GNOME:return spriteSheet("monster/gnome");
     default:break;
     }
-    if(mons[monster].mlet==S_GNOME)return spriteSheet("monster/gnome");
-    return none;
+    static const QHash<int,QString> classes{
+        {S_ANT,"ant"},{S_BLOB,"blob"},{S_COCKATRICE,"cockatrice"},{S_DOG,"dog"},{S_EYE,"eye"},{S_FELINE,"feline"},
+        {S_GREMLIN,"gremlin"},{S_HUMANOID,"humanoid"},{S_IMP,"imp"},{S_JELLY,"jelly"},{S_KOBOLD,"kobold"},
+        {S_LEPRECHAUN,"leprechaun"},{S_MIMIC,"mimic"},{S_NYMPH,"nymph"},{S_ORC,"orc"},{S_PIERCER,"piercer"},
+        {S_QUADRUPED,"quadruped"},{S_RODENT,"rodent"},{S_SPIDER,"spider"},{S_TRAPPER,"trapper"},{S_UNICORN,"unicorn"},
+        {S_VORTEX,"vortex"},{S_WORM,"worm"},{S_XAN,"xan"},{S_LIGHT,"light"},{S_ZRUTY,"zruty"},{S_ANGEL,"angel"},
+        {S_BAT,"bat"},{S_CENTAUR,"centaur"},{S_DRAGON,"dragon"},{S_ELEMENTAL,"elemental"},{S_FUNGUS,"fungus"},
+        {S_GNOME,"gnome"},{S_GIANT,"giant"},{S_JABBERWOCK,"jabberwock"},{S_KOP,"kop"},{S_LICH,"lich"},
+        {S_MUMMY,"mummy"},{S_NAGA,"naga"},{S_OGRE,"ogre"},{S_PUDDING,"pudding"},{S_QUANTMECH,"quantmech"},
+        {S_RUSTMONST,"rustmonst"},{S_SNAKE,"snake"},{S_TROLL,"troll"},{S_UMBER,"umber"},{S_VAMPIRE,"vampire"},
+        {S_WRAITH,"wraith"},{S_XORN,"xorn"},{S_YETI,"yeti"},{S_ZOMBIE,"zombie"},{S_HUMAN,"human"},
+        {S_GHOST,"ghost"},{S_GOLEM,"golem"},{S_DEMON,"demon"},{S_EEL,"eel"},{S_LIZARD,"lizard"}};
+    const QString name=classes.value(mons[monster].mlet);
+    if(name.isEmpty())return none;
+    const QImage& gray=spriteSheet("monster/class_"+name);
+    if(gray.isNull())return none;
+    const QColor tint=speciesColor(mons[monster].mcolor);
+    if(!tint.isValid())return gray;
+    static QHash<int,QImage> tintedSheets;
+    auto found=tintedSheets.constFind(monster);
+    return found!=tintedSheets.constEnd()?*found:*tintedSheets.insert(monster,tintedClass(gray,tint));
 }
 
 // Short walk and attack animations, started when the hero or a monster
@@ -961,10 +1005,19 @@ void darkdungeon_start_hooks() {
         }
         {
         // Sprite sheets, and a temporary pet's walk animation on the real Qt map.
-        for(const char* name:{"hero/body_human_female","hero/hair_female","hero/outfit_valkyrie","hero/cape",
-                               "hero/weapon_longsword","hero/shield_round","monster/dog","monster/jackal",
-                               "monster/newt","monster/gnome"})
+        // Every role, race and gender combination has a complete hero, and every class a sheet.
+        for(const char* race:{"human","elf","dwarf","gnome","orc"})for(const char* gender:{"male","female"})
+            if(spriteSheet(QString("hero/body_%1_%2").arg(race,gender)).isNull())std::exit(90);
+        for(const char* role:{"archeologist","barbarian","caveman","healer","knight","monk","priest","ranger","rogue",
+                              "samurai","tourist","valkyrie","wizard"})
+            if(spriteSheet(QString("hero/outfit_%1").arg(role)).isNull() || spriteSheet(QString("hero/weapon_%1").arg(role)).isNull())std::exit(90);
+        for(const char* name:{"hero/hair_male","hero/hair_female","hero/cape","hero/shield_valkyrie","monster/dog",
+                               "monster/jackal","monster/newt","monster/gnome"})
             if(spriteSheet(QString::fromLatin1(name)).isNull())std::exit(90);
+        if(heroSheet().isNull())std::exit(90);
+        for(int monster=0;monster<NUMMONS;++monster)
+            if(mons[monster].mlet!=S_invisible && mons[monster].mlet!=S_WORM_TAIL && mons[monster].mlet!=S_MIMIC_DEF
+                    && monsterSheet(monster).isNull()){darkdungeon_trace(mons[monster].pmnames[NEUTRAL]);std::exit(90);}
         int petX=0,petY=0;
         for(int dy=-1;dy<=1 && !petX;++dy)for(int dx=-1;dx<=1;++dx) {
             const int x=u.ux+dx,y=u.uy+dy;

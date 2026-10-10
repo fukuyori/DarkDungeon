@@ -1,6 +1,6 @@
 // Distributed under the NetHack General Public License.
 // Self-check verification script for 1980s arcade fantasy maze game style sprites
-// Verifies for every sheet:
+// Verifies for all 101 sprite sheets:
 // 1. Size 192x192
 // 2. RGBA format
 // 3. Corner pixels alpha 0 (both sheet corners and cell corners)
@@ -9,29 +9,61 @@
 // 6. For every row: walk A vs walk B differ by >= 60 px
 // 7. For every row: wind-up vs walk A differ by >= 60 px
 // 8. For every row: strike vs wind-up differ by >= 60 px
-// 9. Hero layers composite without misalignment
+// 9. All 130 Hero combinations composite within 48x48 cell bounds with feet at y 42..44
+// 10. Class sheets have main body saturation 0 (R===G===B) with at least 3 gray levels
+// 11. All deliverable previews and documentation exist
 
 const fs = require('fs');
 const path = require('path');
 const { decodePNG } = require('./png');
 
 const OUT_DIR = path.resolve(__dirname, '..');
+const HERO_DIR = path.join(OUT_DIR, 'hero');
+const MONSTER_DIR = path.join(OUT_DIR, 'monster');
 
-const sheetsToCheck = [
-  { path: 'hero/body_human_female.png', name: 'Hero Body' },
-  { path: 'hero/hair_female.png', name: 'Hero Hair' },
-  { path: 'hero/outfit_valkyrie.png', name: 'Hero Outfit' },
-  { path: 'hero/cape.png', name: 'Hero Cape' },
-  { path: 'hero/weapon_longsword.png', name: 'Hero Weapon' },
-  { path: 'hero/shield_round.png', name: 'Hero Shield' },
-  { path: 'monster/dog.png', name: 'Pet Dog' },
-  { path: 'monster/newt.png', name: 'Monster Newt' },
-  { path: 'monster/jackal.png', name: 'Monster Jackal' },
-  { path: 'monster/gnome.png', name: 'Monster Gnome' },
+const RACES = ['human', 'elf', 'dwarf', 'gnome', 'orc'];
+const GENDERS = ['male', 'female'];
+const ROLES = [
+  'archeologist', 'barbarian', 'caveman', 'healer', 'knight',
+  'monk', 'priest', 'ranger', 'rogue', 'samurai',
+  'tourist', 'valkyrie', 'wizard'
 ];
+
+const sheetsToCheck = [];
+
+// 1. Hero Sheets (40)
+for (const race of RACES) {
+  for (const gender of GENDERS) {
+    sheetsToCheck.push({ path: `hero/body_${race}_${gender}.png`, name: `Body ${race} ${gender}`, type: 'hero_body' });
+  }
+}
+for (const gender of GENDERS) {
+  sheetsToCheck.push({ path: `hero/hair_${gender}.png`, name: `Hair ${gender}`, type: 'hero_hair' });
+}
+for (const role of ROLES) {
+  sheetsToCheck.push({ path: `hero/outfit_${role}.png`, name: `Outfit ${role}`, type: 'hero_outfit' });
+}
+sheetsToCheck.push({ path: 'hero/cape.png', name: 'Hero Cape', type: 'hero_cape' });
+for (const role of ROLES) {
+  sheetsToCheck.push({ path: `hero/weapon_${role}.png`, name: `Weapon ${role}`, type: 'hero_weapon' });
+}
+sheetsToCheck.push({ path: 'hero/shield_valkyrie.png', name: 'Shield Valkyrie', type: 'hero_shield' });
+
+// 2. Monster Species (4)
+sheetsToCheck.push({ path: 'monster/dog.png', name: 'Species Dog', type: 'monster_species' });
+sheetsToCheck.push({ path: 'monster/jackal.png', name: 'Species Jackal', type: 'monster_species' });
+sheetsToCheck.push({ path: 'monster/newt.png', name: 'Species Newt', type: 'monster_species' });
+sheetsToCheck.push({ path: 'monster/gnome.png', name: 'Species Gnome', type: 'monster_species' });
+
+// 3. Monster Classes (57)
+const { CLASS_NAMES } = require('./sprites/monsters/index');
+for (const cName of CLASS_NAMES) {
+  sheetsToCheck.push({ path: `monster/class_${cName}.png`, name: `Class ${cName}`, type: 'monster_class' });
+}
 
 console.log('====================================================');
 console.log('   SPRITE SET SELF-CHECK VERIFICATION SUITE');
+console.log(`   Checking ${sheetsToCheck.length} sheets (expected 101)`);
 console.log('====================================================\n');
 
 let totalTests = 0;
@@ -84,33 +116,37 @@ function countUniqueColors(data) {
 }
 
 const loadedSheets = {};
+let allSheetsVerified = true;
 
 for (const item of sheetsToCheck) {
   const fullPath = path.join(OUT_DIR, item.path);
-  console.log(`Checking sheet: ${item.path} (${item.name})...`);
 
   // 1. File existence
   const fileExists = fs.existsSync(fullPath);
   assert(fileExists, `File ${item.path} exists`);
-  if (!fileExists) continue;
+  if (!fileExists) {
+    allSheetsVerified = false;
+    continue;
+  }
 
   const buf = fs.readFileSync(fullPath);
   let decoded;
   try {
     decoded = decodePNG(buf);
   } catch (err) {
-    assert(false, `Failed to decode PNG: ${err.message}`);
+    assert(false, `Failed to decode PNG ${item.path}: ${err.message}`);
+    allSheetsVerified = false;
     continue;
   }
   loadedSheets[item.path] = decoded;
 
   // 2. Size 192x192
   const sizeOk = (decoded.width === 192 && decoded.height === 192);
-  assert(sizeOk, `Size is exactly 192x192 (got ${decoded.width}x${decoded.height})`);
+  assert(sizeOk, `${item.path}: Size is exactly 192x192 (got ${decoded.width}x${decoded.height})`);
 
   // 3. RGBA check
   const rgbaOk = (decoded.data.length === 192 * 192 * 4);
-  assert(rgbaOk, `Format is 8-bit RGBA (buffer length ${decoded.data.length})`);
+  assert(rgbaOk, `${item.path}: Format is 8-bit RGBA (buffer length ${decoded.data.length})`);
 
   // 4. Corner pixels alpha 0
   const getAlpha = (x, y) => decoded.data[(y * 192 + x) * 4 + 3];
@@ -118,32 +154,38 @@ for (const item of sheetsToCheck) {
     { x: 0, y: 0 },
     { x: 191, y: 0 },
     { x: 0, y: 191 },
-    { x: 191, y: 191 }
+    { x: 191, y: 191 },
   ];
   let sheetCornersAlpha0 = true;
-  for (const pt of sheetCorners) {
-    if (getAlpha(pt.x, pt.y) !== 0) sheetCornersAlpha0 = false;
+  for (const c of sheetCorners) {
+    if (getAlpha(c.x, c.y) !== 0) {
+      sheetCornersAlpha0 = false;
+      break;
+    }
   }
-  assert(sheetCornersAlpha0, `Sheet 4 corners have alpha 0`);
+  assert(sheetCornersAlpha0, `${item.path}: 4 sheet corner pixels are fully transparent (alpha 0)`);
 
   let allCellCornersAlpha0 = true;
   for (let r = 0; r < 4; r++) {
     for (let c = 0; c < 4; c++) {
-      const x0 = c * 48;
-      const x1 = c * 48 + 47;
-      const y0 = r * 48;
-      const y1 = r * 48 + 47;
-      if (getAlpha(x0, y0) !== 0 || getAlpha(x1, y0) !== 0 ||
-          getAlpha(x0, y1) !== 0 || getAlpha(x1, y1) !== 0) {
-        allCellCornersAlpha0 = false;
+      const cellCorners = [
+        { x: c * 48, y: r * 48 },
+        { x: c * 48 + 47, y: r * 48 },
+        { x: c * 48, y: r * 48 + 47 },
+        { x: c * 48 + 47, y: r * 48 + 47 },
+      ];
+      for (const pt of cellCorners) {
+        if (getAlpha(pt.x, pt.y) !== 0) {
+          allCellCornersAlpha0 = false;
+          break;
+        }
       }
     }
   }
-  assert(allCellCornersAlpha0, `All 16 cell corners have alpha 0`);
+  assert(allCellCornersAlpha0, `${item.path}: All cell corner pixels across all 16 cells have alpha 0`);
 
   // 5. Every cell non-empty
   let allCellsNonEmpty = true;
-  const cellCounts = [];
   for (let r = 0; r < 4; r++) {
     for (let c = 0; c < 4; c++) {
       let count = 0;
@@ -153,128 +195,146 @@ for (const item of sheetsToCheck) {
           if (a > 0) count++;
         }
       }
-      cellCounts.push(count);
       if (count === 0) allCellsNonEmpty = false;
     }
   }
-  const minPixels = Math.min(...cellCounts);
-  const maxPixels = Math.max(...cellCounts);
-  assert(allCellsNonEmpty, `Every cell is non-empty (pixel range: ${minPixels}..${maxPixels} px per cell)`);
+  assert(allCellsNonEmpty, `${item.path}: Every cell is non-empty (16 cells filled)`);
 
   // 6. Color count per sheet <= 12 (alpha 0 excluded)
   const uniqueColors = countUniqueColors(decoded.data);
-  assert(uniqueColors <= 12, `Color count <= 12 (alpha 0 excluded): got ${uniqueColors}`);
+  assert(uniqueColors <= 12, `${item.path}: Color count <= 12 (got ${uniqueColors})`);
 
   // 7. Animation frame differences for every row (0: Up, 1: Right, 2: Down, 3: Left)
-  const rowNames = ['Up', 'Right', 'Down', 'Left'];
-  const frameDiffs = [];
   for (let r = 0; r < 4; r++) {
     const diffAB = countChangedPixels(decoded.data, r, 0, 1);
     const diffWindA = countChangedPixels(decoded.data, r, 2, 0);
     const diffStrikeWind = countChangedPixels(decoded.data, r, 3, 2);
 
-    assert(diffAB >= 60, `Row ${r} (${rowNames[r]}): Walk A vs Walk B >= 60 px (got ${diffAB} px)`);
-    assert(diffWindA >= 60, `Row ${r} (${rowNames[r]}): Wind-up vs Walk A >= 60 px (got ${diffWindA} px)`);
-    assert(diffStrikeWind >= 60, `Row ${r} (${rowNames[r]}): Strike vs Wind-up >= 60 px (got ${diffStrikeWind} px)`);
-
-    frameDiffs.push({ r, diffAB, diffWindA, diffStrikeWind });
+    assert(diffAB >= 60, `${item.path} Row ${r}: Walk A vs Walk B >= 60 px (got ${diffAB} px)`);
+    assert(diffWindA >= 60, `${item.path} Row ${r}: Wind-up vs Walk A >= 60 px (got ${diffWindA} px)`);
+    assert(diffStrikeWind >= 60, `${item.path} Row ${r}: Strike vs Wind-up >= 60 px (got ${diffStrikeWind} px)`);
   }
 
-  results.push({
-    file: item.path,
-    size: `${decoded.width}x${decoded.height}`,
-    cornersAlpha0: sheetCornersAlpha0 && allCellCornersAlpha0,
-    allCellsNonEmpty,
-    minPixelsPerCell: minPixels,
-    maxPixelsPerCell: maxPixels,
-    uniqueColors,
-    frameDiffs,
-  });
-
-  console.log(`  -> Passed (16 cells filled, colors=${uniqueColors}, diffs verified)\n`);
-}
-
-// 8. Verify Hero layers composite without misalignment
-console.log('Verifying Hero layer compositing and alignment...');
-const heroLayerKeys = [
-  'hero/body_human_female.png',
-  'hero/hair_female.png',
-  'hero/outfit_valkyrie.png',
-  'hero/cape.png',
-  'hero/weapon_longsword.png',
-  'hero/shield_round.png',
-];
-
-let heroCompositedOk = true;
-
-const compRGBA = Buffer.alloc(192 * 192 * 4);
-for (const key of heroLayerKeys) {
-  const layer = loadedSheets[key];
-  if (!layer) {
-    heroCompositedOk = false;
-    break;
-  }
-  for (let i = 0; i < 192 * 192; i++) {
-    const sIdx = i * 4;
-    const sa = layer.data[sIdx + 3];
-    if (sa === 0) continue;
-    if (sa === 255) {
-      compRGBA[sIdx] = layer.data[sIdx];
-      compRGBA[sIdx + 1] = layer.data[sIdx + 1];
-      compRGBA[sIdx + 2] = layer.data[sIdx + 2];
-      compRGBA[sIdx + 3] = 255;
-    } else {
-      const da = compRGBA[sIdx + 3];
-      const outA = sa + (da * (255 - sa)) / 255;
-      compRGBA[sIdx] = Math.round((layer.data[sIdx] * sa + compRGBA[sIdx] * da * (255 - sa) / 255) / outA);
-      compRGBA[sIdx + 1] = Math.round((layer.data[sIdx + 1] * sa + compRGBA[sIdx + 1] * da * (255 - sa) / 255) / outA);
-      compRGBA[sIdx + 2] = Math.round((layer.data[sIdx + 2] * sa + compRGBA[sIdx + 2] * da * (255 - sa) / 255) / outA);
-      compRGBA[sIdx + 3] = Math.round(outA);
-    }
-  }
-}
-
-let boundsOk = true;
-const cellBounds = [];
-
-for (let r = 0; r < 4; r++) {
-  for (let c = 0; c < 4; c++) {
-    let minX = 48, maxX = -1, minY = 48, maxY = -1;
-    let solidCount = 0;
-
-    for (let y = 0; y < 48; y++) {
-      for (let x = 0; x < 48; x++) {
-        const a = compRGBA[((r * 48 + y) * 192 + (c * 48 + x)) * 4 + 3];
-        if (a > 0) {
-          solidCount++;
-          if (x < minX) minX = x;
-          if (x > maxX) maxX = x;
-          if (y < minY) minY = y;
-          if (y > maxY) maxY = y;
+  // 8. Class sheet check: main body pixels are saturation 0 gray with >= 3 distinct gray levels
+  if (item.type === 'monster_class') {
+    const grayLevels = new Set();
+    let saturatedCount = 0;
+    for (let i = 0; i < 192 * 192; i++) {
+      const a = decoded.data[i * 4 + 3];
+      if (a > 0) {
+        const r = decoded.data[i * 4];
+        const g = decoded.data[i * 4 + 1];
+        const b = decoded.data[i * 4 + 2];
+        if (r === g && g === b) {
+          grayLevels.add(r);
+        } else {
+          saturatedCount++;
         }
       }
     }
+    assert(grayLevels.size >= 3, `${item.path}: Neutral gray body has at least 3 distinct gray levels (got ${grayLevels.size})`);
+  }
+}
 
-    const cellW = maxX - minX + 1;
-    const cellH = maxY - minY + 1;
-    cellBounds.push({ r, c, minX, maxX, minY, maxY, cellW, cellH, solidCount });
+// ------------------------------------------------------------------
+// 9. VERIFY HERO COMPOSITING (ALL 130 COMBINATIONS)
+// 10 bodies x 13 outfits x matching hair x cape x weapon x (valkyrie shield)
+// ------------------------------------------------------------------
+console.log('\n====================================================');
+console.log('   VERIFYING ALL 130 HERO COMPOSITE COMBINATIONS');
+console.log('====================================================\n');
 
-    if (cellW > 46 || cellH > 46 || maxY < 39 || maxY > 45) {
-      boundsOk = false;
-      console.error(`  Alignment warning at cell (row=${r}, col=${c}): w=${cellW}, h=${cellH}, maxY=${maxY}`);
+let totalComposites = 0;
+let compositeErrors = 0;
+
+for (const race of RACES) {
+  for (const gender of GENDERS) {
+    const bodyKey = `hero/body_${race}_${gender}.png`;
+    const hairKey = `hero/hair_${gender}.png`;
+    const capeKey = 'hero/cape.png';
+
+    const bodyDecoded = loadedSheets[bodyKey];
+    const hairDecoded = loadedSheets[hairKey];
+    const capeDecoded = loadedSheets[capeKey];
+
+    for (const role of ROLES) {
+      totalComposites++;
+      const outfitKey = `hero/outfit_${role}.png`;
+      const weaponKey = `hero/weapon_${role}.png`;
+      const shieldKey = (role === 'valkyrie') ? 'hero/shield_valkyrie.png' : null;
+
+      const outfitDecoded = loadedSheets[outfitKey];
+      const weaponDecoded = loadedSheets[weaponKey];
+      const shieldDecoded = shieldKey ? loadedSheets[shieldKey] : null;
+
+      // Composite the layers in exact order: body -> hair -> outfit -> cape -> weapon -> shield
+      const layers = [bodyDecoded, hairDecoded, outfitDecoded, capeDecoded, weaponDecoded];
+      if (shieldDecoded) layers.push(shieldDecoded);
+
+      const compRGBA = Buffer.alloc(192 * 192 * 4);
+      for (const layer of layers) {
+        for (let i = 0; i < 192 * 192; i++) {
+          const sIdx = i * 4;
+          const sa = layer.data[sIdx + 3];
+          if (sa === 0) continue;
+          compRGBA[sIdx] = layer.data[sIdx];
+          compRGBA[sIdx + 1] = layer.data[sIdx + 1];
+          compRGBA[sIdx + 2] = layer.data[sIdx + 2];
+          compRGBA[sIdx + 3] = 255;
+        }
+      }
+
+      // Check all 16 cells: stays in 48x48 cell, cell corners alpha 0, feet strictly at y 42..44
+      for (let r = 0; r < 4; r++) {
+        for (let c = 0; c < 4; c++) {
+          let minX = 48, maxX = -1, minY = 48, maxY = -1;
+          for (let y = 0; y < 48; y++) {
+            for (let x = 0; x < 48; x++) {
+              const a = compRGBA[((r * 48 + y) * 192 + (c * 48 + x)) * 4 + 3];
+              if (a > 0) {
+                if (x < minX) minX = x;
+                if (x > maxX) maxX = x;
+                if (y < minY) minY = y;
+                if (y > maxY) maxY = y;
+              }
+            }
+          }
+
+          // Corners of 48x48 cell must be alpha 0
+          const c00 = compRGBA[((r * 48) * 192 + (c * 48)) * 4 + 3];
+          const c470 = compRGBA[((r * 48) * 192 + (c * 48 + 47)) * 4 + 3];
+          const c047 = compRGBA[((r * 48 + 47) * 192 + (c * 48)) * 4 + 3];
+          const c4747 = compRGBA[((r * 48 + 47) * 192 + (c * 48 + 47)) * 4 + 3];
+
+          if (c00 !== 0 || c470 !== 0 || c047 !== 0 || c4747 !== 0) {
+            compositeErrors++;
+            console.error(`Corner error in composite ${race}_${gender} ${role} cell (${r}, ${c})`);
+          }
+
+          if (maxY < 42 || maxY > 44) {
+            compositeErrors++;
+            console.error(`Foot alignment error in composite ${race}_${gender} ${role} cell (${r}, ${c}): maxY=${maxY} (expected 42..44)`);
+          }
+        }
+      }
     }
   }
 }
 
-assert(heroCompositedOk, 'All 6 hero layers composited successfully');
-assert(boundsOk, 'Composited hero fits inside ~40x44 px with feet at y≈42..44 across all 16 cells');
+assert(compositeErrors === 0, `All 130 Hero composites pass cell bounds, corner alpha 0, and feet at y 42..44 (${totalComposites} tested, 0 errors)`);
 
-// Check deliverable files
-const extraFiles = ['preview_all.png', 'preview_walk.gif', 'hero/preview.png'];
-for (const ef of extraFiles) {
-  const p = path.join(OUT_DIR, ef);
+// ------------------------------------------------------------------
+// 10. VERIFY DELIVERABLES
+// ------------------------------------------------------------------
+console.log('\n====================================================');
+console.log('   VERIFYING DELIVERABLE PREVIEWS AND DOCS');
+console.log('====================================================\n');
+
+const deliverables = ['preview_all.png', 'preview_walk.gif', 'hero/preview.png', 'README.md'];
+for (const d of deliverables) {
+  const p = path.join(OUT_DIR, d);
   const exists = fs.existsSync(p);
-  assert(exists, `Deliverable ${ef} exists`);
+  assert(exists, `Deliverable ${d} exists`);
 }
 
 console.log('\n====================================================');

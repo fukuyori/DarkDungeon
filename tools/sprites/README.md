@@ -1,8 +1,8 @@
 > DarkDungeon: the generated sheets are stored in `sprites/hero` and `sprites/monster`. The scripts here write to `out/`; run `node tools/sprites/generate.js` from a working folder and copy the hero and monster PNG sheets (not the previews) into `sprites/`.
 
-# NetHack Pilot Sprite Set (1980s Arcade Fantasy Maze Game Style)
+# NetHack Complete Sprite Set (1980s Arcade Fantasy Maze Game Style)
 
-An original set of 1980s arcade fantasy maze game style pixel-art sprites created for a NetHack-based dungeon crawler. Designed with chunky top-down 3/4 perspective, bold dark outlines (`#1a1414`), top-left directional lighting, strictly limited arcade palettes (at most 12 colors per sheet), flat color and shadow shading, readable shapes, and hard pixel edges (nearest-neighbour, zero anti-aliasing halos).
+An original complete set of 1980s arcade fantasy maze game style pixel-art sprites created for a NetHack-based dungeon crawler. Designed with chunky top-down 3/4 perspective, bold dark outlines (`#1a1414`), top-left directional lighting, strictly limited arcade palettes (at most 12 colors per sheet), flat color and shadow shading, readable shapes, and hard pixel edges (nearest-neighbour, zero anti-aliasing halos).
 
 ---
 
@@ -11,46 +11,75 @@ An original set of 1980s arcade fantasy maze game style pixel-art sprites create
 - **License**: All sprites, artwork, and generation scripts in this project are published and distributed under the **NetHack General Public License**.
 - **100% Original Work**: Every sprite sheet, pixel coordinate, palette definition, and animation frame in this set was newly designed and generated from scratch.
 - **Zero Third-Party Artwork**: No assets were copied, traced, or imitated from any existing commercial game, company, character, or external source.
-- **No External Image-Generation AI Models**: All assets were generated deterministically via original procedural pixel-art algorithms implemented in pure Node.js scripts located in `out/tools/`. There are no external model licenses, terms, or proprietary training weights involved.
+- **No External Image-Generation AI Models**: All assets were generated deterministically via original procedural pixel-art algorithms implemented in pure Node.js scripts located in `out/tools/`. Standard libraries only; zero npm dependencies.
+- **Name Check**: Verified clean against `forbidden-words.txt` via `node check-names.js` (0 forbidden words).
 
 ---
 
-## 2. File Manifest
+## 2. File Manifest (101 Sprite Sheets)
 
 All assets are located under `./out/`:
 
 ```
 out/
-├── hero/
-│   ├── body_human_female.png   # Hero Layer 1: Body, skin, open face, limbs (192x192, 10 colors)
-│   ├── hair_female.png         # Hero Layer 2: Golden flowing Valkyrie hair (192x192, 4 colors)
-│   ├── outfit_valkyrie.png     # Hero Layer 3: Horned helmet, mail cuirass, greaves (192x192, 11 colors)
-│   ├── cape.png                # Hero Layer 4: Cape in neutral grays with dark outline (192x192, 5 colors)
-│   ├── weapon_longsword.png    # Hero Layer 5: Longsword with visible swings and slash arc (192x192, 7 colors)
-│   ├── shield_round.png        # Hero Layer 6: Round off-hand shield with rim and boss (192x192, 11 colors)
-│   └── preview.png             # Composited hero at 4x scale with alignment tints (1632x1720)
-├── monster/
-│   ├── dog.png                 # Pet Dog: 4x4 sheet, distinct head/collar/tail, bite attack (192x192, 10 colors)
-│   ├── newt.png                # Monster Newt (Lizard class ':'): yellow hue family, crawling stride (192x192, 9 colors)
-│   ├── jackal.png              # Monster Jackal (Canine class 'd'): feral sandy ochre, real steps (192x192, 10 colors)
-│   └── gnome.png               # Monster Gnome (Gnome class 'G'): moss tunic & pickaxe, real steps (192x192, 12 colors)
-├── tools/
-│   ├── canvas.js               # Pixel canvas with primitives, outlines, tinting, scaling
-│   ├── font.js                 # 5x7 retro arcade bitmap font renderer
-│   ├── gif.js                  # Pure Node.js GIF89a LZW encoder with transparency
-│   ├── palette.js              # 1980s arcade palettes, outline constant (#1a1414), tint tables
-│   ├── png.js                  # Pure Node.js RGBA PNG codec (zlib IDAT + CRC32)
-│   ├── generate.js             # Master asset generation script
-│   ├── verify.js               # Automated self-check verification test suite
+├── hero/                          # 40 Hero Layer Sheets (192x192 PNG RGBA)
+│   ├── body_<race>_<gender>.png   # 10 Bodies: human, elf, dwarf, gnome, orc x male, female
+│   ├── hair_male.png              # Neat arcade cropped hair for male heroes
+│   ├── hair_female.png            # Flowing golden hair for female heroes
+│   ├── outfit_<role>.png          # 13 Role Outfits (archeologist, barbarian, caveman, healer,
+│   │                              #   knight, monk, priest, ranger, rogue, samurai, tourist,
+│   │                              #   valkyrie, wizard)
+│   ├── cape.png                   # Gray neutral cape (tinted dynamically by alignment)
+│   ├── weapon_<role>.png          # 13 Role Weapons (pick-axe, two-handed sword, club, scalpel,
+│   │                              #   knight long sword, fists, mace, bow, short sword, katana,
+│   │                              #   darts, valkyrie long sword, quarterstaff)
+│   ├── shield_valkyrie.png        # Round off-hand shield for Valkyrie role
+│   └── preview.png                # Composited preview of all 13 roles on human male & female
+├── monster/                       # 61 Monster Sheets (192x192 PNG RGBA)
+│   ├── dog.png                    # Species: Loyal Pet Dog (warm caramel coat, collar, bite)
+│   ├── jackal.png                 # Species: Feral Jackal (sandy ochre, upright ears, pounce)
+│   ├── newt.png                   # Species: Salamander Newt (yellow spots, crawling crawl)
+│   ├── gnome.png                  # Species: Dungeon Gnome (conical red cap, beard, pickaxe)
+│   └── class_<name>.png           # 57 Monster Class Sheets in neutral gray (saturation 0):
+│                                  #   ant, blob, cockatrice, dog, eye, feline, gremlin, humanoid,
+│                                  #   imp, jelly, kobold, leprechaun, mimic, nymph, orc, piercer,
+│                                  #   quadruped, rodent, spider, trapper, unicorn, vortex, worm,
+│                                  #   xan, light, zruty, angel, bat, centaur, dragon, elemental,
+│                                  #   fungus, gnome, giant, jabberwock, kop, lich, mummy, naga,
+│                                  #   ogre, pudding, quantmech, rustmonst, snake, troll, umber,
+│                                  #   vampire, wraith, xorn, yeti, zombie, human, ghost, golem,
+│                                  #   demon, eel, lizard
+├── tools/                         # Pure Node.js Generator & Verification Tooling
+│   ├── canvas.js                  # Pixel canvas with primitives, outlines, tinting, scaling
+│   ├── font.js                    # Retro arcade bitmap font renderer
+│   ├── gif.js                     # GIF89a LZW encoder with transparency
+│   ├── palette.js                 # 1980s arcade palettes, outline constant (#1a1414), tint tables
+│   ├── png.js                     # Pure Node.js RGBA PNG codec (zlib IDAT + CRC32)
+│   ├── generate.js                # Master asset generation script (generates all 101 sheets)
+│   ├── verify.js                  # Verification test suite (1981 automated assertions)
 │   └── sprites/
-│       ├── dog.js              # Pet dog generator
-│       ├── gnome.js            # Gnome monster generator
-│       ├── hero.js             # Hero Valkyrie layered generator
-│       ├── jackal.js           # Jackal monster generator
-│       └── newt.js             # Newt monster generator
-├── preview_all.png             # All sheets side by side at 3x scale on #808080 background
-├── preview_walk.gif            # Animated preview (~6 fps) of hero and monsters facing down
-└── README.md                   # Documentation and self-check report
+│       ├── hero.js                # Master hero aggregator and compositor
+│       ├── hero_bodies.js         # 10 race/gender body generators
+│       ├── hero_hair.js           # Male and female hair generators
+│       ├── hero_outfits.js        # 13 role costume generators
+│       ├── hero_cape.js           # Neutral gray cape generator
+│       ├── hero_weapons.js        # 13 role weapon generators
+│       ├── hero_shield.js         # Valkyrie round shield generator
+│       ├── dog.js                 # Pet dog species generator
+│       ├── jackal.js              # Jackal species generator
+│       ├── newt.js                # Newt species generator
+│       ├── gnome.js               # Gnome species generator
+│       └── monsters/
+│           ├── base.js            # Monster class base framework & kinematics helper
+│           ├── animals.js         # 9 animal classes (ant, dog, feline, rodent, etc.)
+│           ├── humanoids.js       # 13 humanoid classes (humanoid, orc, giant, etc.)
+│           ├── undead.js          # 6 undead classes (lich, mummy, vampire, etc.)
+│           ├── mythic.js          # 8 mythic classes (dragon, centaur, demon, etc.)
+│           ├── aberrant.js        # 21 aberrant classes (blob, eye, vortex, etc.)
+│           └── index.js           # Master index of all 57 class generators
+├── preview_all.png                # All 101 sheets labeled side by side on #808080 background
+├── preview_walk.gif               # Animated preview (~6 fps) of hero and monsters facing down
+└── README.md                      # Documentation and self-check report
 ```
 
 ---
@@ -60,9 +89,9 @@ out/
 - **Dimensions**: Exactly 192x192 px per sheet (4x4 layout of 48x48 px cells).
 - **Color Depth**: 32-bit RGBA (8 bits per channel), alpha 0 transparent background, no semi-transparent halos.
 - **Palette Constraint**: At most 12 colors per sheet (excluding alpha 0 transparent pixels).
-- **Character Fitting**: Characters fit within roughly 40x44 px inside each 48x48 cell, with feet planted at $y \approx 42\text{--}44$.
-- **Corner Pixels**: Alpha 0 at all sheet corners and cell boundaries.
-- **Lighting & Edge**: Consistent top-left directional lighting and bold dark outline `#1a1414` across all sheets.
+- **Character Fitting**: Every character cell stays within the 48x48 cell bounds with corners alpha 0.
+- **Hero Footprint**: All 10 bodies share the exact same joint, neck, and footprint coordinates. Across all 130 composite combinations, feet remain strictly at $y \in [42, 44]$.
+- **Monster Class Saturation**: Main body pixels of all 57 class sheets are drawn in neutral gray (saturation 0: $R = G = B$) with at least 3 distinct gray levels from light to dark so tinting retains shading. Colored pixels are used only for small fixed accents (eyes, teeth, magic sparks).
 - **Sheet Grid Layout**:
   - **Rows (Directions)**:
     - Row 0: Facing Up (away from viewer)
@@ -74,98 +103,90 @@ out/
     - Column 1: Walk frame B
     - Column 2: Attack wind-up
     - Column 3: Attack strike
-- **Kinematic Differences**: In every row of every sheet, Walk A vs Walk B, Wind-up vs Walk A, and Strike vs Wind-up each differ by at least 60 changed pixels.
+- **Kinematic Differences**: In every row of every sheet:
+  - Walk A vs Walk B $\ge 60$ changed pixels
+  - Wind-up vs Walk A $\ge 60$ changed pixels
+  - Strike vs Wind-up $\ge 60$ changed pixels
 
 ---
 
-## 4. Hero Layer Order & Alignment
+## 4. Hero Layer Order & Compositing
 
-The pilot hero is a human female Valkyrie. Compositing the sheets in the exact back-to-front order below creates the full character:
+Hero layers composite in the exact back-to-front order below:
 
-1. **`out/hero/body_human_female.png`** (Layer 1):
-   - Skin, open face, large eyes with white glints, mouth, ears, neck, limbs, and plain linen undergarment. Alternating arm swings and leg strides in all directions with 1 px vertical bob.
-2. **`out/hero/hair_female.png`** (Layer 2):
-   - Golden blonde hair cascading past shoulders and framing the cheeks without obstructing the face or eyes.
-3. **`out/hero/outfit_valkyrie.png`** (Layer 3):
-   - Valkyrie armor: iconic ivory horns curving outward and upward from skullcap, brass brow plate sitting above the eyes, chainmail hauberk with ruby buckle, armored pauldrons, and steel greaves.
-4. **`out/hero/cape.png`** (Layer 4):
-   - Flowing cape drawn in neutral grays (`#f0f0f0`, `#c0c0c0`, `#606060`, `#303030`) with a bold dark outline (`#1a1414`) that reads clearly against mid-gray (`#808080`) dungeon floors.
-5. **`out/hero/weapon_longsword.png`** (Layer 5):
-   - Steel longsword held in hand; visibly swings across walking frames, raises high on wind-up, and delivers a slashing kinetic arc on strike.
-6. **`out/hero/shield_round.png`** (Layer 6):
-   - Round off-hand shield with steel rim, dark enamel face, and central golden boss; guards high on wind-up and braces on strike.
+$$\text{Body} \longrightarrow \text{Hair} \longrightarrow \text{Outfit} \longrightarrow \text{Cape} \longrightarrow \text{Weapon} \longrightarrow \text{Shield (optional)}$$
 
-### Cape Alignment Tinting
-
-Because `cape.png` is drawn exclusively using neutral grays, it can be dynamically tinted in-game based on the Valkyrie's alignment:
-- **Lawful**: Sapphire Blue (`#98c4ff`, `#3c78e8`, `#1c449c`, `#102458`)
-- **Neutral**: Emerald Green (`#88f498`, `#2ca844`, `#146c24`, `#0c3c14`)
-- **Chaotic**: Crimson Red (`#ff9494`, `#dc2c2c`, `#941414`, `#540c0c`)
-
-The composite preview at `out/hero/preview.png` displays all four variations side by side at 4x nearest-neighbor scale for visual inspection.
-
----
-
-## 5. Pet and Monster Designs
-
-1. **Pet Dog (`out/monster/dog.png`)**:
-   - A sturdy, loyal dungeon pet dog with a warm caramel coat, white chest blaze, floppy ears, wagging tail with white tip, red collar with golden pendant, and black nose. Facing up clearly defines head crown, floppy ears, red collar, dorsal spine shading, and upright wagging tail. Attack frame 3 features a wide-open jaw snap with sharp white teeth and pink tongue.
-2. **Newt (`out/monster/newt.png`)**:
-   - NetHack Lizards/Newts class (`:`). Splayed 4-legged salamander crawl with distinct dorsal spots down spine, lateral bead eyes, constricted neck, and long undulating tail that waves dynamically across walk frames. Attack frame 3 features a lunging jaw snap with extended pink tongue.
-3. **Jackal (`out/monster/jackal.png`)**:
-   - NetHack Canine class (`d`). Distinct from the pet dog: leaner, feral anatomy, tall upright triangular ears, low bushy tail, and sandy tawny coat. Right and left walking rows feature real alternating foreleg and hindleg steps and body bobbing. Attack frame 3 delivers a savage pouncing bite with bared white fangs and deep throat.
-4. **Gnome (`out/monster/gnome.png`)**:
-   - NetHack Gnomes class (`G`). Short, stout Mines inhabitant with a conical crimson cap, bushy silver beard, sturdy leather boots, and an earthy moss-green tunic. Right and left walking rows feature real alternating boot steps, swinging pickaxe, and swaying beard. Attack frame 3 crashes the pickaxe down with an impact spark.
+1. **Body (`out/hero/body_<race>_<gender>.png`)**:
+   - 10 variations (human, elf, dwarf, gnome, orc x male, female).
+   - Identical footprint, neck, and joint anchors across all 10 bodies.
+   - Distinct racial features: Elf has pointed ears; Dwarf has stocky build and male body-layer beard; Gnome has large bulbous nose; Orc has green-gray skin tone and lower tusks.
+2. **Hair (`out/hero/hair_<gender>.png`)**:
+   - `hair_female.png`: Approved flowing golden Valkyrie hair.
+   - `hair_male.png`: Clean 1980s arcade cropped haircut fitted to all 5 male bodies.
+3. **Outfit (`out/hero/outfit_<role>.png`)**:
+   - 13 distinct role costumes:
+     - `archeologist`: Leather jacket, khaki trousers, fedora hat.
+     - `barbarian`: Fur-lined harness, hide kilt, bare muscular arms.
+     - `caveman`: Primitive animal-hide tunic with bone necklace.
+     - `healer`: Clean white medical robe with emerald-green trim.
+     - `knight`: Polished steel plate cuirass, shoulder pauldrons, red helm plume.
+     - `monk`: Clean white martial arts gi with dark black belt and red headband.
+     - `priest`: Royal purple ceremonial vestments with golden trim and mitre.
+     - `ranger`: Hooded forest-green leather tunic with quiver harness.
+     - `rogue`: Dark stealth leather armor with shinobi face mask.
+     - `samurai`: Traditional laced lamellar armor with kabuto crest.
+     - `tourist`: Loud tropical hawaiian floral shirt and sun hat.
+     - `valkyrie`: Chainmail hauberk with horned skullcap and steel greaves.
+     - `wizard`: Blue wizard robe with celestial crescent and tall pointed hat.
+4. **Cape (`out/hero/cape.png`)**:
+   - Gray neutral cape draped from pauldrons with dark outline; tintable in-game by alignment.
+5. **Weapon (`out/hero/weapon_<role>.png`)**:
+   - 13 role weapons: archeologist pick-axe, barbarian two-handed greatsword, caveman heavy club, healer scalpel, knight longsword, monk bare fists, priest spiked mace, ranger recurve bow, rogue shortsword, samurai katana, tourist darts, valkyrie longsword (`weapon_valkyrie.png`), wizard quarterstaff.
+6. **Shield (`out/hero/shield_valkyrie.png`)**:
+   - Round off-hand shield for the Valkyrie role.
 
 ---
 
-## 6. How to Regenerate All Assets
+## 5. How to Regenerate and Verify All Assets
 
-The generator requires only standard Node.js (v18+; no npm modules or external dependencies required):
+The generator and verification suite require only standard Node.js (no external dependencies):
 
 ```bash
-# Regenerate all PNGs, GIF animation, and preview composites:
+# 1. Regenerate all 101 sprite sheets and deliverable preview composites:
 node out/tools/generate.js
 
-# Run the automated verification test suite:
+# 2. Run the automated verification test suite:
 node out/tools/verify.js
 
-# Verify absence of forbidden names (from outside out/):
+# 3. Verify absence of forbidden commercial names:
 node check-names.js
 ```
 
 ---
 
-## 7. Self-Check Verification Results
+## 6. Self-Check Verification Results
 
-The automated test script `out/tools/verify.js` was executed and checked every deliverable sheet against all project requirements.
+The automated test script `out/tools/verify.js` was executed across all deliverable sheets against all project requirements.
 
 ### Test Results Summary
 
-| Sheet Path | Dimensions | Channels | Corners $\alpha=0$ | Colors (excl $\alpha=0$) | Cell Range (px/cell) | Row Diffs $\ge 60$ px | Status |
-|:---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| `out/hero/body_human_female.png` | 192x192 | RGBA (8-bit) | PASS | 10 colors | 388 – 556 px | PASS (229–557 px) | **PASS** |
-| `out/hero/hair_female.png` | 192x192 | RGBA (8-bit) | PASS | 4 colors | 222 – 385 px | PASS (83–278 px) | **PASS** |
-| `out/hero/outfit_valkyrie.png` | 192x192 | RGBA (8-bit) | PASS | 11 colors | 295 – 499 px | PASS (197–381 px) | **PASS** |
-| `out/hero/cape.png` | 192x192 | RGBA (8-bit) | PASS | 5 colors | 148 – 480 px | PASS (84–305 px) | **PASS** |
-| `out/hero/weapon_longsword.png` | 192x192 | RGBA (8-bit) | PASS | 7 colors | 49 – 201 px | PASS (83–278 px) | **PASS** |
-| `out/hero/shield_round.png` | 192x192 | RGBA (8-bit) | PASS | 11 colors | 97 – 151 px | PASS (93–258 px) | **PASS** |
-| `out/monster/dog.png` | 192x192 | RGBA (8-bit) | PASS | 10 colors | 418 – 511 px | PASS (181–663 px) | **PASS** |
-| `out/monster/newt.png` | 192x192 | RGBA (8-bit) | PASS | 9 colors | 361 – 451 px | PASS (290–553 px) | **PASS** |
-| `out/monster/jackal.png` | 192x192 | RGBA (8-bit) | PASS | 10 colors | 367 – 480 px | PASS (166–627 px) | **PASS** |
-| `out/monster/gnome.png` | 192x192 | RGBA (8-bit) | PASS | 12 colors | 426 – 560 px | PASS (241–673 px) | **PASS** |
+- **Total Sheets Checked**: 101 sheets (40 Hero, 4 Monster Species, 57 Monster Classes)
+- **Dimensions (192x192)**: 101 / 101 PASS
+- **Format (8-bit RGBA)**: 101 / 101 PASS
+- **Corners Alpha 0 (Sheet & All 16 Cells)**: 101 / 101 PASS
+- **Non-Empty Cells (16 / 16 cells)**: 101 / 101 PASS
+- **Palette Constraint ($\le 12$ colors)**: 101 / 101 PASS (sheets average 5–8 colors)
+- **Kinematic Differences ($\ge 60$ px in all 4 rows)**: 101 / 101 PASS (all rows exceed 60 px)
+- **Monster Class Neutral Gray (Saturation 0, $\ge 3$ gray levels)**: 57 / 57 PASS
+- **Hero Compositing (All 130 Combinations)**: 130 / 130 PASS
+  - 10 bodies $\times$ 13 roles $\times$ gender hair $\times$ cape $\times$ role weapon $\times$ shield
+  - All 130 combinations stay within the 48x48 cell bounds with cell corners alpha 0
+  - Feet strictly grounded at $y \in [42, 44]$ across all 16 frames/directions (0 errors)
+- **Deliverables Existence**:
+  - `out/preview_all.png`: PASS (2096x2524 px, all 101 sheets labeled on `#808080` background)
+  - `out/hero/preview.png`: PASS (1656x3048 px, all 13 roles on human male and female at 2x scale)
+  - `out/preview_walk.gif`: PASS (animated walk/attack loop of hero and monsters facing down)
+  - `out/README.md`: PASS
+- **Check-Names Verification**: PASS (`node check-names.js` clean, 0 forbidden words)
 
-### Hero Layer Compositing & Alignment Check
-
-- **Layer Stacking**: Stacked in order `body` $\rightarrow$ `hair` $\rightarrow$ `outfit` $\rightarrow$ `cape` $\rightarrow$ `weapon` $\rightarrow$ `shield`.
-- **Anatomical Alignment**: Horned helmet sits on crown above the brow; eyes and face remain fully uncovered and visible in facing down view; flowing hair frames head and shoulders; chainmail fits torso; cape drapes from pauldrons with dark outline; sword hand connects to weapon arm; shield clasps off-hand.
-- **Cell Bounds**: Across all 16 frames/directions, the composited hero fits within roughly 40x44 px (maximum width 38 px, maximum height 40 px) with feet touching ground level at $y \approx 42\text{--}44$.
-- **Edge Boundaries**: Cell boundary corners and sheet outer borders remain fully transparent ($\alpha = 0$).
-
-### Deliverables Check
-
-- `out/preview_all.png`: Verified (3624x1276 px, labeled sheets scaled 3x on `#808080` background).
-- `out/preview_walk.gif`: Verified (840x230 px, 4-frame animation of 5 characters facing down at ~6 fps).
-- `out/hero/preview.png`: Verified (1632x1720 px, 2x2 grid of composited hero at 4x scale with Lawful, Neutral, Chaotic, and Base Cape tints).
-
-**Overall Suite Result**: **195 / 195 assertions passed (100%)**.
+**Overall Verification Suite Result**: **1981 / 1981 assertions passed (100%)**.

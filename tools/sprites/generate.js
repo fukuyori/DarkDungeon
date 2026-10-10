@@ -1,5 +1,9 @@
 // Distributed under the NetHack General Public License.
 // Master generator script for 1980s arcade fantasy maze game style sprites
+// Generates all 101 sheets:
+// - 40 Hero layer sheets in out/hero/
+// - 61 Monster sheets (4 species + 57 classes) in out/monster/
+// - Deliverable previews: out/hero/preview.png, out/preview_all.png, out/preview_walk.gif
 
 const fs = require('fs');
 const path = require('path');
@@ -7,11 +11,23 @@ const Canvas = require('./canvas');
 const { encodePNG } = require('./png');
 const { encodeGIF, quantizeRGBA } = require('./gif');
 const { OUTLINE, Palettes } = require('./palette');
-const { createHeroLayers } = require('./sprites/hero');
+const {
+  RACES,
+  GENDERS,
+  ROLES,
+  createBodySheet,
+  createHairSheet,
+  createOutfitSheet,
+  createCapeSheet,
+  createWeaponSheet,
+  createShieldSheet,
+  compositeHeroLayers,
+} = require('./sprites/hero');
 const { createDogSheet } = require('./sprites/dog');
 const { createNewtSheet } = require('./sprites/newt');
 const { createJackalSheet } = require('./sprites/jackal');
 const { createGnomeSheet } = require('./sprites/gnome');
+const { CLASS_NAMES, createClassSheet } = require('./sprites/monsters/index');
 
 const OUT_DIR = path.resolve(__dirname, '..');
 const HERO_DIR = path.join(OUT_DIR, 'hero');
@@ -21,188 +37,293 @@ const MONSTER_DIR = path.join(OUT_DIR, 'monster');
 fs.mkdirSync(HERO_DIR, { recursive: true });
 fs.mkdirSync(MONSTER_DIR, { recursive: true });
 
-console.log('Generating sprite sheets...');
+// Remove obsolete pilot filenames if present
+const obsoleteFiles = [
+  path.join(HERO_DIR, 'weapon_longsword.png'),
+  path.join(HERO_DIR, 'shield_round.png'),
+];
+for (const of of obsoleteFiles) {
+  if (fs.existsSync(of)) {
+    fs.unlinkSync(of);
+    console.log(`Removed obsolete file: ${path.basename(of)}`);
+  }
+}
 
-// 1. Generate Hero Layers
-console.log('1. Generating Hero Valkyrie layers...');
-const heroLayers = createHeroLayers();
+console.log('====================================================');
+console.log('   GENERATING COMPLETE SPRITE SET (ROUND 3)');
+console.log('====================================================\n');
 
-const layerFiles = {
-  body: 'body_human_female.png',
-  hair: 'hair_female.png',
-  outfit: 'outfit_valkyrie.png',
-  cape: 'cape.png',
-  weapon: 'weapon_longsword.png',
-  shield: 'shield_round.png',
-};
+const allGeneratedSheets = []; // { key, category, label, canvas, filePath }
 
-for (const [key, filename] of Object.entries(layerFiles)) {
+// ------------------------------------------------------------------
+// 1. GENERATE HERO LAYERS (40 SHEETS)
+// ------------------------------------------------------------------
+console.log('1. Generating 40 Hero Layer sheets...');
+
+// 1.1 Bodies (10: 5 races x 2 genders)
+const cachedBodies = {};
+for (const race of RACES) {
+  for (const gender of GENDERS) {
+    const filename = `body_${race}_${gender}.png`;
+    const filePath = path.join(HERO_DIR, filename);
+    const canvas = createBodySheet(race, gender);
+    fs.writeFileSync(filePath, encodePNG(192, 192, canvas.data));
+    cachedBodies[`${race}_${gender}`] = canvas;
+    allGeneratedSheets.push({
+      key: `hero/${filename}`,
+      category: 'HERO BODY',
+      label: `body_${race}_${gender}`,
+      canvas,
+      filePath,
+    });
+  }
+}
+console.log('  -> 10 Bodies generated');
+
+// 1.2 Hair (2: male, female)
+const cachedHair = {};
+for (const gender of GENDERS) {
+  const filename = `hair_${gender}.png`;
   const filePath = path.join(HERO_DIR, filename);
-  const pngData = encodePNG(192, 192, heroLayers[key].data);
-  fs.writeFileSync(filePath, pngData);
-  console.log(`  -> Saved ${filePath}`);
+  const canvas = createHairSheet(gender);
+  fs.writeFileSync(filePath, encodePNG(192, 192, canvas.data));
+  cachedHair[gender] = canvas;
+  allGeneratedSheets.push({
+    key: `hero/${filename}`,
+    category: 'HERO HAIR',
+    label: `hair_${gender}`,
+    canvas,
+    filePath,
+  });
 }
+console.log('  -> 2 Hair sheets generated');
 
-// 2. Composite Hero Layers
-console.log('2. Compositing Hero layers & alignments...');
-function compositeHero(capeCanvas) {
-  const comp = new Canvas(192, 192);
-  // Layer order: body -> hair -> outfit -> cape -> weapon -> shield
-  comp.blit(heroLayers.body);
-  comp.blit(heroLayers.hair);
-  comp.blit(heroLayers.outfit);
-  comp.blit(capeCanvas);
-  comp.blit(heroLayers.weapon);
-  comp.blit(heroLayers.shield);
-  return comp;
+// 1.3 Outfits (13 roles)
+const cachedOutfits = {};
+for (const role of ROLES) {
+  const filename = `outfit_${role}.png`;
+  const filePath = path.join(HERO_DIR, filename);
+  const canvas = createOutfitSheet(role);
+  fs.writeFileSync(filePath, encodePNG(192, 192, canvas.data));
+  cachedOutfits[role] = canvas;
+  allGeneratedSheets.push({
+    key: `hero/${filename}`,
+    category: 'HERO OUTFIT',
+    label: `outfit_${role}`,
+    canvas,
+    filePath,
+  });
 }
+console.log('  -> 13 Outfits generated');
 
-const heroDefault = compositeHero(heroLayers.cape);
-const heroLawful = compositeHero(heroLayers.cape.tintGrays(Palettes.capeLawfulBlue));
-const heroNeutral = compositeHero(heroLayers.cape.tintGrays(Palettes.capeNeutralGreen));
-const heroChaotic = compositeHero(heroLayers.cape.tintGrays(Palettes.capeChaoticRed));
+// 1.4 Cape (1)
+const capeCanvas = createCapeSheet();
+const capePath = path.join(HERO_DIR, 'cape.png');
+fs.writeFileSync(capePath, encodePNG(192, 192, capeCanvas.data));
+allGeneratedSheets.push({
+  key: 'hero/cape.png',
+  category: 'HERO CAPE',
+  label: 'cape',
+  canvas: capeCanvas,
+  filePath: capePath,
+});
+console.log('  -> 1 Cape generated');
 
-// 3. Hero Preview (2x2 grid, scaled 4x)
-console.log('3. Generating Hero preview (preview.png)...');
+// 1.5 Weapons (13 roles)
+const cachedWeapons = {};
+for (const role of ROLES) {
+  const filename = `weapon_${role}.png`;
+  const filePath = path.join(HERO_DIR, filename);
+  const canvas = createWeaponSheet(role);
+  fs.writeFileSync(filePath, encodePNG(192, 192, canvas.data));
+  cachedWeapons[role] = canvas;
+  allGeneratedSheets.push({
+    key: `hero/${filename}`,
+    category: 'HERO WEAPON',
+    label: `weapon_${role}`,
+    canvas,
+    filePath,
+  });
+}
+console.log('  -> 13 Weapons generated');
+
+// 1.6 Shield (1: shield_valkyrie.png)
+const shieldCanvas = createShieldSheet();
+const shieldPath = path.join(HERO_DIR, 'shield_valkyrie.png');
+fs.writeFileSync(shieldPath, encodePNG(192, 192, shieldCanvas.data));
+allGeneratedSheets.push({
+  key: 'hero/shield_valkyrie.png',
+  category: 'HERO SHIELD',
+  label: 'shield_valkyrie',
+  canvas: shieldCanvas,
+  filePath: shieldPath,
+});
+console.log('  -> 1 Shield generated');
+console.log(`Total Hero sheets generated: 40\n`);
+
+// ------------------------------------------------------------------
+// 2. GENERATE MONSTER SHEETS (61 SHEETS)
+// ------------------------------------------------------------------
+console.log('2. Generating 61 Monster sheets...');
+
+// 2.1 Species-specific sheets (4)
+const speciesMonsters = [
+  { name: 'dog', gen: createDogSheet, label: 'dog (species)' },
+  { name: 'jackal', gen: createJackalSheet, label: 'jackal (species)' },
+  { name: 'newt', gen: createNewtSheet, label: 'newt (species)' },
+  { name: 'gnome', gen: createGnomeSheet, label: 'gnome (species)' },
+];
+
+for (const sm of speciesMonsters) {
+  const filename = `${sm.name}.png`;
+  const filePath = path.join(MONSTER_DIR, filename);
+  const canvas = sm.gen();
+  fs.writeFileSync(filePath, encodePNG(192, 192, canvas.data));
+  allGeneratedSheets.push({
+    key: `monster/${filename}`,
+    category: 'SPECIES',
+    label: sm.label,
+    canvas,
+    filePath,
+  });
+}
+console.log('  -> 4 Species sheets generated');
+
+// 2.2 Monster Class sheets (57 classes)
+for (const cName of CLASS_NAMES) {
+  const filename = `class_${cName}.png`;
+  const filePath = path.join(MONSTER_DIR, filename);
+  const canvas = createClassSheet(cName);
+  fs.writeFileSync(filePath, encodePNG(192, 192, canvas.data));
+  allGeneratedSheets.push({
+    key: `monster/${filename}`,
+    category: 'CLASS',
+    label: `class_${cName}`,
+    canvas,
+    filePath,
+  });
+}
+console.log(`  -> 57 Class sheets generated`);
+console.log(`Total Monster sheets generated: 61`);
+console.log(`Total Sprite sheets generated: ${allGeneratedSheets.length} (expected 101)\n`);
+
+// ------------------------------------------------------------------
+// 3. GENERATE HERO PREVIEW (out/hero/preview.png)
+// Showing all 13 roles on Human Male & Human Female
+// ------------------------------------------------------------------
+console.log('3. Generating out/hero/preview.png (every role on Human Male and Female)...');
 {
-  const scale = 4;
-  const sheetScaled = 192 * scale; // 768 px
-  const pad = 32;
-  const headerH = 28;
-  const totalW = pad + sheetScaled + pad + sheetScaled + pad; // 1632 px
-  const totalH = pad + (headerH + sheetScaled) + pad + (headerH + sheetScaled) + pad; // 1720 px
+  const scale = 2;
+  const sheetScaled = 192 * scale; // 384 px
+  const pad = 24;
+  const headerH = 24;
+  const cols = 4; // 2 pairs of (Male, Female) per row
+  const rows = Math.ceil(ROLES.length / 2); // 7 rows (14 slots, 13 roles)
 
-  const preview = new Canvas(totalW, totalH);
-  // Fill dark background
-  preview.fillRect(0, 0, totalW, totalH, [0x22, 0x22, 0x28, 255]);
+  const totalW = pad + cols * (sheetScaled + pad); // 24 + 4*(384+24) = 1656 px
+  const totalH = pad + rows * (headerH + sheetScaled + pad); // 24 + 7*(24+384+24) = 3048 px
 
-  const panels = [
-    { title: 'LAWFUL ALIGNMENT (BLUE CAPE)', canvas: heroLawful, col: 0, row: 0 },
-    { title: 'NEUTRAL ALIGNMENT (GREEN CAPE)', canvas: heroNeutral, col: 1, row: 0 },
-    { title: 'CHAOTIC ALIGNMENT (RED CAPE)', canvas: heroChaotic, col: 0, row: 1 },
-    { title: 'BASE NEUTRAL-GRAY CAPE (TINT SOURCE)', canvas: heroDefault, col: 1, row: 1 },
-  ];
+  const heroPreview = new Canvas(totalW, totalH);
+  heroPreview.fillRect(0, 0, totalW, totalH, [0x22, 0x22, 0x28, 255]);
 
-  for (const p of panels) {
-    const x = pad + p.col * (sheetScaled + pad);
-    const y = pad + p.row * (headerH + sheetScaled + pad);
+  const humanMaleBody = cachedBodies['human_male'];
+  const humanFemaleBody = cachedBodies['human_female'];
+  const hairMale = cachedHair['male'];
+  const hairFemale = cachedHair['female'];
 
-    // Label
-    preview.drawText(p.title, x + 8, y + 6, [240, 240, 240, 255], 2, [0, 0, 0, 255]);
+  let slotIdx = 0;
+  for (const role of ROLES) {
+    const outfit = cachedOutfits[role];
+    const weapon = cachedWeapons[role];
+    const shield = (role === 'valkyrie') ? shieldCanvas : null;
 
-    // Box border & inner fill
-    preview.fillRect(x - 2, y + headerH - 2, sheetScaled + 4, sheetScaled + 4, [0x33, 0x33, 0x40, 255]);
-    preview.fillRect(x, y + headerH, sheetScaled, sheetScaled, [0x18, 0x18, 0x20, 255]);
+    const maleComp = compositeHeroLayers(humanMaleBody, hairMale, outfit, capeCanvas, weapon, shield);
+    const femaleComp = compositeHeroLayers(humanFemaleBody, hairFemale, outfit, capeCanvas, weapon, shield);
 
-    // Scaled sheet
-    const scaled = p.canvas.scaleNearest(scale);
-    preview.blit(scaled, x, y + headerH);
+    const pairs = [
+      { label: `${role.toUpperCase()} (HUMAN MALE)`, canvas: maleComp },
+      { label: `${role.toUpperCase()} (HUMAN FEMALE)`, canvas: femaleComp },
+    ];
+
+    for (const p of pairs) {
+      const col = slotIdx % cols;
+      const row = Math.floor(slotIdx / cols);
+      const x = pad + col * (sheetScaled + pad);
+      const y = pad + row * (headerH + sheetScaled + pad);
+
+      heroPreview.drawText(p.label, x + 4, y + 4, [240, 240, 240, 255], 2, [0, 0, 0, 255]);
+      heroPreview.fillRect(x - 2, y + headerH - 2, sheetScaled + 4, sheetScaled + 4, [0x33, 0x33, 0x40, 255]);
+      heroPreview.fillRect(x, y + headerH, sheetScaled, sheetScaled, [0x18, 0x18, 0x20, 255]);
+
+      const scaled = p.canvas.scaleNearest(scale);
+      heroPreview.blit(scaled, x, y + headerH);
+
+      slotIdx++;
+    }
   }
 
-  const previewPath = path.join(HERO_DIR, 'preview.png');
-  fs.writeFileSync(previewPath, encodePNG(totalW, totalH, preview.data));
-  console.log(`  -> Saved ${previewPath}`);
+  const heroPreviewPath = path.join(HERO_DIR, 'preview.png');
+  fs.writeFileSync(heroPreviewPath, encodePNG(totalW, totalH, heroPreview.data));
+  console.log(`  -> Saved ${heroPreviewPath} (${totalW}x${totalH})\n`);
 }
 
-// 4. Generate Pet & Monsters
-console.log('4. Generating Pet and Monsters...');
-const dogSheet = createDogSheet();
-fs.writeFileSync(path.join(MONSTER_DIR, 'dog.png'), encodePNG(192, 192, dogSheet.data));
-console.log(`  -> Saved ${path.join(MONSTER_DIR, 'dog.png')}`);
-
-const newtSheet = createNewtSheet();
-fs.writeFileSync(path.join(MONSTER_DIR, 'newt.png'), encodePNG(192, 192, newtSheet.data));
-console.log(`  -> Saved ${path.join(MONSTER_DIR, 'newt.png')}`);
-
-const jackalSheet = createJackalSheet();
-fs.writeFileSync(path.join(MONSTER_DIR, 'jackal.png'), encodePNG(192, 192, jackalSheet.data));
-console.log(`  -> Saved ${path.join(MONSTER_DIR, 'jackal.png')}`);
-
-const gnomeSheet = createGnomeSheet();
-fs.writeFileSync(path.join(MONSTER_DIR, 'gnome.png'), encodePNG(192, 192, gnomeSheet.data));
-console.log(`  -> Saved ${path.join(MONSTER_DIR, 'gnome.png')}`);
-
-// 5. Generate preview_all.png (every sheet side by side, scaled 3x, #808080 background, labeled)
-console.log('5. Generating preview_all.png...');
+// ------------------------------------------------------------------
+// 4. GENERATE COMPLETE PREVIEW (out/preview_all.png)
+// Showing all 101 sheets labeled side by side on #808080 background
+// ------------------------------------------------------------------
+console.log('4. Generating out/preview_all.png (all 101 sheets)...');
 {
-  const scale = 3;
-  const scaledSize = 192 * scale; // 576 px
-  const pad = 24;
-  const labelH = 26;
+  const scale = 1;
+  const sheetScaled = 192 * scale; // 192 px
+  const pad = 16;
+  const labelH = 20;
+  const cols = 10;
+  const rows = Math.ceil(allGeneratedSheets.length / cols); // 11 rows
 
-  const sheetsToPreview = [
-    { label: 'HERO: BODY (SKIN/UNDERGARMENT)', canvas: heroLayers.body },
-    { label: 'HERO: HAIR', canvas: heroLayers.hair },
-    { label: 'HERO: OUTFIT (VALKYRIE)', canvas: heroLayers.outfit },
-    { label: 'HERO: CAPE (GRAY)', canvas: heroLayers.cape },
-    { label: 'HERO: WEAPON (LONGSWORD)', canvas: heroLayers.weapon },
-    { label: 'HERO: SHIELD (ROUND)', canvas: heroLayers.shield },
-    { label: 'HERO: ALL LAYERS COMPOSITED', canvas: heroDefault },
-    { label: 'PET: DOG', canvas: dogSheet },
-    { label: 'MONSTER: NEWT (LIZARDS)', canvas: newtSheet },
-    { label: 'MONSTER: JACKAL (CANINES)', canvas: jackalSheet },
-    { label: 'MONSTER: GNOME (GNOMES)', canvas: gnomeSheet },
-  ];
-
-  // Arrange in 2 neat rows: Hero row (7 sheets), Monsters/Pet row (4 sheets)
-  const cols = 6;
-  const numSheets = sheetsToPreview.length;
-  // Let's do 2 rows: row 0 has 6 sheets, row 1 has 5 sheets
-  const rowCount = 2;
-  const colCount = 6;
-
-  const totalW = pad + colCount * (scaledSize + pad); // 24 + 6*(576+24) = 3624 px
-  const totalH = pad + rowCount * (labelH + scaledSize + pad); // 24 + 2*(26+576+24) = 1276 px
+  const totalW = pad + cols * (sheetScaled + pad); // 16 + 10*(192+16) = 2096 px
+  const totalH = pad + rows * (labelH + sheetScaled + pad); // 16 + 11*(20+192+16) = 2524 px
 
   const canvasAll = new Canvas(totalW, totalH);
-  // Fill mid-gray (#808080)
-  canvasAll.fillRect(0, 0, totalW, totalH, [0x80, 0x80, 0x80, 255]);
+  canvasAll.fillRect(0, 0, totalW, totalH, [0x80, 0x80, 0x80, 255]); // #808080 background
 
-  for (let i = 0; i < numSheets; i++) {
-    const item = sheetsToPreview[i];
-    const r = Math.floor(i / colCount);
-    const c = i % colCount;
+  for (let i = 0; i < allGeneratedSheets.length; i++) {
+    const item = allGeneratedSheets[i];
+    const c = i % cols;
+    const r = Math.floor(i / cols);
 
-    const x = pad + c * (scaledSize + pad);
-    const y = pad + r * (labelH + scaledSize + pad);
+    const x = pad + c * (sheetScaled + pad);
+    const y = pad + r * (labelH + sheetScaled + pad);
 
     // Label text
-    canvasAll.drawText(item.label, x + 4, y + 6, [255, 255, 255, 255], 2, [30, 30, 30, 255]);
+    canvasAll.drawText(item.label, x + 2, y + 4, [255, 255, 255, 255], 1, [20, 20, 20, 255]);
 
-    // Subtle dark frame for contrast against #808080
-    canvasAll.fillRect(x - 2, y + labelH - 2, scaledSize + 4, scaledSize + 4, [0x50, 0x50, 0x50, 255]);
-    // Checkerboard or transparent backing
-    for (let by = 0; by < scaledSize; by += 24) {
-      for (let bx = 0; bx < scaledSize; bx += 24) {
+    // Border frame & checkerboard
+    canvasAll.fillRect(x - 1, y + labelH - 1, sheetScaled + 2, sheetScaled + 2, [0x50, 0x50, 0x50, 255]);
+    for (let by = 0; by < sheetScaled; by += 24) {
+      for (let bx = 0; bx < sheetScaled; bx += 24) {
         const isDark = ((bx / 24 + by / 24) % 2 === 0);
         const col = isDark ? [0x70, 0x70, 0x70, 255] : [0x90, 0x90, 0x90, 255];
         canvasAll.fillRect(x + bx, y + labelH + by, 24, 24, col);
       }
     }
 
-    // Blit scaled sprite sheet
-    const scaled = item.canvas.scaleNearest(scale);
-    canvasAll.blit(scaled, x, y + labelH);
+    // Blit sheet
+    canvasAll.blit(item.canvas, x, y + labelH);
   }
 
   const allPath = path.join(OUT_DIR, 'preview_all.png');
   fs.writeFileSync(allPath, encodePNG(totalW, totalH, canvasAll.data));
-  console.log(`  -> Saved ${allPath}`);
+  console.log(`  -> Saved ${allPath} (${totalW}x${totalH})\n`);
 }
 
-// 6. Generate preview_walk.gif (~6 fps, walk A/B then attack frames, composited hero and each monster facing down, scaled 3x)
-console.log('6. Generating preview_walk.gif...');
+// ------------------------------------------------------------------
+// 5. GENERATE ANIMATED WALK PREVIEW (out/preview_walk.gif)
+// ------------------------------------------------------------------
+console.log('5. Generating out/preview_walk.gif...');
 {
   const scale = 3;
   const cellSize = 48;
   const scaledCell = cellSize * scale; // 144 px
-  const characters = [
-    { name: 'HERO', getCell: (frame) => getCellCanvas(heroDefault, 2, frame) },
-    { name: 'PET DOG', getCell: (frame) => getCellCanvas(dogSheet, 2, frame) },
-    { name: 'NEWT', getCell: (frame) => getCellCanvas(newtSheet, 2, frame) },
-    { name: 'JACKAL', getCell: (frame) => getCellCanvas(jackalSheet, 2, frame) },
-    { name: 'GNOME', getCell: (frame) => getCellCanvas(gnomeSheet, 2, frame) },
-  ];
 
   function getCellCanvas(sheetCanvas, dir, frame) {
     const c = new Canvas(cellSize, cellSize);
@@ -214,62 +335,82 @@ console.log('6. Generating preview_walk.gif...');
     return c;
   }
 
+  const valkComp = compositeHeroLayers(
+    cachedBodies['human_female'],
+    cachedHair['female'],
+    cachedOutfits['valkyrie'],
+    capeCanvas,
+    cachedWeapons['valkyrie'],
+    shieldCanvas
+  );
+  const wizComp = compositeHeroLayers(
+    cachedBodies['human_male'],
+    cachedHair['male'],
+    cachedOutfits['wizard'],
+    capeCanvas,
+    cachedWeapons['wizard'],
+    null
+  );
+  const dragonSheet = createClassSheet('dragon');
+  const lichSheet = createClassSheet('lich');
+  const dogSheet = createDogSheet();
+
+  const characters = [
+    { name: 'VALKYRIE', getCell: (frame) => getCellCanvas(valkComp, 2, frame) },
+    { name: 'WIZARD', getCell: (frame) => getCellCanvas(wizComp, 2, frame) },
+    { name: 'PET DOG', getCell: (frame) => getCellCanvas(dogSheet, 2, frame) },
+    { name: 'DRAGON', getCell: (frame) => getCellCanvas(dragonSheet, 2, frame) },
+    { name: 'LICH', getCell: (frame) => getCellCanvas(lichSheet, 2, frame) },
+  ];
+
   const pad = 20;
   const topBarH = 24;
   const labelH = 22;
-  const totalW = pad + characters.length * (scaledCell + pad); // 20 + 5*(144+20) = 840 px
-  const totalH = pad + topBarH + labelH + scaledCell + pad; // 230 px
+  const totalW = pad + characters.length * (scaledCell + pad);
+  const totalH = pad + topBarH + labelH + scaledCell + pad;
 
-  // Frames sequence: Walk A (0), Walk B (1), Attack Wind-Up (2), Attack Strike (3)
   const frameIndices = [0, 1, 2, 3];
   const gifFrames = [];
   const { getTextWidth } = require('./font');
 
   for (const fIdx of frameIndices) {
     const frameCanvas = new Canvas(totalW, totalH);
-    // Background: arcade dungeon slate #282830
     frameCanvas.fillRect(0, 0, totalW, totalH, [0x28, 0x28, 0x30, 255]);
 
-    // Top status bar
-    frameCanvas.drawText('PILOT SPRITES (FACING DOWN, 3X)', pad, pad, [180, 190, 210, 255], 2, [0, 0, 0, 255]);
+    frameCanvas.drawText('NETHACK COMPLETE SPRITE SET (3X)', pad, pad, [180, 190, 210, 255], 2, [0, 0, 0, 255]);
 
-    // Action indicator in top-right
     const actionNames = ['WALK A', 'WALK B', 'WIND-UP', 'STRIKE!'];
     const actText = `[ ${actionNames[fIdx]} ]`;
     frameCanvas.drawText(actText, totalW - 140, pad, [255, 220, 40, 255], 2, [0, 0, 0, 255]);
 
-    // Draw characters
     for (let i = 0; i < characters.length; i++) {
       const char = characters[i];
       const x = pad + i * (scaledCell + pad);
       const y = pad + topBarH + labelH;
 
-      // Character name label centered over sprite
       const nameW = getTextWidth(char.name, 2);
       const nameX = x + Math.round((scaledCell - nameW) / 2);
       frameCanvas.drawText(char.name, nameX, pad + topBarH + 2, [240, 240, 240, 255], 2, [20, 20, 20, 255]);
 
-      // Ground platform shadow
       for (let sx = 0; sx < scaledCell; sx += 3) {
         frameCanvas.fillRect(x + sx, y + scaledCell - 9, 3, 6, [0x1c, 0x1c, 0x22, 255]);
       }
 
-      // Character cell scaled 3x
       const rawCell = char.getCell(fIdx);
       const scaled = rawCell.scaleNearest(scale);
       frameCanvas.blit(scaled, x, y);
     }
 
-    // Quantize frame for GIF
     const qFrame = quantizeRGBA(totalW, totalH, frameCanvas.data);
     gifFrames.push(qFrame);
   }
 
-  // 6 fps corresponds to ~16.6 centiseconds (delay = 16)
   const gifData = encodeGIF(totalW, totalH, gifFrames, 16);
   const gifPath = path.join(OUT_DIR, 'preview_walk.gif');
   fs.writeFileSync(gifPath, gifData);
-  console.log(`  -> Saved ${gifPath}`);
+  console.log(`  -> Saved ${gifPath}\n`);
 }
 
-console.log('All sprite assets generated successfully!');
+console.log('====================================================');
+console.log('ALL ASSETS AND PREVIEWS GENERATED SUCCESSFULLY!');
+console.log('====================================================\n');
