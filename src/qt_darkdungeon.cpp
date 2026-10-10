@@ -697,6 +697,11 @@ void darkdungeon_layout_toolbars(QMainWindow* main) {
 void darkdungeon_start_hooks() {
     // Characters are drawn over the remembered terrain on every platform.
     iflags.use_background_glyph=TRUE;
+    // Character selection: outline the chosen role and race in red. The list class
+    // has no Q_OBJECT, so the rule is scoped through the selector dialog.
+    qApp->setStyleSheet(qApp->styleSheet()+
+        "nethack_qt_--NetHackQtPlayerSelector QTableWidget::item:selected{border:2px solid #e0453a;border-radius:3px;"
+        "background:#2a1d1d;color:#ffffff;}");
     animationClock.start();
     auto* animationTimer=new QTimer(qApp);
     QObject::connect(animationTimer,&QTimer::timeout,qApp,refreshAnimations);
