@@ -449,35 +449,28 @@ public:
         containerScroll->setMinimumHeight(doll->height());
         layout->addWidget(containerScroll);
         containerScroll->setVisible(openContainer()!=nullptr);
-        // Inventory changes arrive from the core between commands; poll cheaply.
-        connect(&timer,&QTimer::timeout,this,[this]{refresh();});
-        timer.start(250);
+        // Core notifications and input-wait entries request refreshes. A hidden
+        // window must not poll live objects or sample glyphs on a UI timer.
     }
     void refresh() {
+        ++refreshCount;
         const bool showContainer=openContainer()!=nullptr;
         if(!showContainer)openContainerId=0; // walked away or the container is gone
-        if(containerScroll->isVisible()!=showContainer){containerScroll->setVisible(showContainer);adjustSize();}
-        const QByteArray now=signature();
-        if(now==last)return;
-        last=now;grid->refreshSize();container->refreshSize();doll->update();grid->update();container->update();
-    }
-    static QByteArray signature() {
-        QByteArray s;
-        auto add=[&s](struct obj* item) {
-            s+=QByteArray::number(item->o_id)+","+QByteArray::number(item->quan)+","+QByteArray::number(qulonglong(item->owornmask))
-               +","+QByteArray(1,item->invlet)+","+QByteArray::number(obj_to_glyph(item,rn2_on_display_rng))+";";
-        };
-        for(struct obj* item=gi.invent;item;item=item->nobj)add(item);
-        s+="|"+QByteArray::number(openContainerId)+"|";
-        for(struct obj* item:containerItems(openContainer()))add(item);
-        return s+QByteArray::number(u.ualign.type);
+        if(containerScroll->isHidden()==showContainer){containerScroll->setVisible(showContainer);adjustSize();}
+        grid->refreshSize();container->refreshSize();doll->update();grid->update();container->update();
     }
     DollPanel* doll=nullptr;InventoryGrid* grid=nullptr;ContainerGrid* container=nullptr;QScrollArea* containerScroll=nullptr;
-private:
-    QTimer timer;QByteArray last;
+    quint64 refreshCount=0; // UI-only scheduling diagnostic, not a core observer
 };
 QPointer<InventoryWindow> inventoryWindow;
 bool containerWindowInSmoke=false; // automated runs keep NetHack's container menus
+}
+
+void darkdungeon_refresh_inventory_view() {
+    // An input-wait entry can also be a nested prompt. This is a view refresh
+    // request, never a command-ready marker or an additional core dispatch.
+    if(inventoryWindow && program_state.in_moveloop && !program_state.gameover)
+        inventoryWindow->refresh();
 }
 
 void darkdungeon_show_inventory() {
@@ -500,46 +493,72 @@ extern "C" int darkdungeon_container_window(struct obj* box) {
 
 // Automated check: window contents and the command keys for drags.
 bool darkdungeon_inventory_smoke(const QString& output) {
+    const auto fail=[&](int line) {
+        QFile log(output+"/inventory-smoke-failure.txt");
+        if(log.open(QIODevice::WriteOnly|QIODevice::Text)) {
+            QTextStream stream(&log);
+            stream << "line=" << line << " in_moveloop=" << int(program_state.in_moveloop)
+                   << " gameover=" << int(program_state.gameover)
+                   << " suppress_map_output=" << int(suppress_map_output())
+                   << " refresh_count=" << (inventoryWindow?inventoryWindow->refreshCount:0) << '\n';
+        }
+        return false;
+    };
     darkdungeon_show_inventory();QCoreApplication::processEvents();
-    if(!inventoryWindow || !inventoryWindow->isVisible())return false;
+    if(!inventoryWindow || !inventoryWindow->isVisible())return fail(__LINE__);
     const int items=int(carriedItems().size());
-    if(!items || inventoryWindow->grid->indexAt(inventoryWindow->grid->cellRect(items-1).center())!=items-1)return false;
-    if(inventoryWindow->doll->slotAt(inventoryWindow->doll->slotRect(SlotWeapon).center())!=SlotWeapon)return false;
+    if(!items || inventoryWindow->grid->indexAt(inventoryWindow->grid->cellRect(items-1).center())!=items-1)return fail(__LINE__);
+    if(inventoryWindow->doll->slotAt(inventoryWindow->doll->slotRect(SlotWeapon).center())!=SlotWeapon)return fail(__LINE__);
     // Taking off body armor names the item only when NetHack will ask for it.
     if(uarm) {
         const QByteArray expected=wornArmorPieces()!=1 || ParanoidRemove?key(dotakeoff)+QByteArray(1,uarm->invlet):key(dotakeoff);
-        if(removeKeys(SlotSuit)!=expected)return false;
+        if(removeKeys(SlotSuit)!=expected)return fail(__LINE__);
     }
-    if(uwep && placeKeys(uwep,SlotSwap)!=key(doswapweapon))return false;
-    if(uwep && !placeKeys(uwep,SlotHelmet).isEmpty())return false; // a weapon is not a helmet
-    if(uwep && removeKeys(SlotWeapon)!=key(dowield)+"-")return false;
+    if(uwep && placeKeys(uwep,SlotSwap)!=key(doswapweapon))return fail(__LINE__);
+    if(uwep && !placeKeys(uwep,SlotHelmet).isEmpty())return fail(__LINE__); // a weapon is not a helmet
+    if(uwep && removeKeys(SlotWeapon)!=key(dowield)+"-")return fail(__LINE__);
     inventoryWindow->grab().save(output+"/inventory-window.png");
     inventoryWindow->close();QCoreApplication::processEvents();
+    const quint64 closedRefreshCount=inventoryWindow->refreshCount;
+    // Earlier synthetic key tests call qApp->exit(). A nested exec() can
+    // therefore return immediately. Pump events for measured elapsed time.
+    QElapsedTimer closedWait;closedWait.start();
+    while(closedWait.elapsed()<550) {
+        QCoreApplication::processEvents(QEventLoop::AllEvents,10);
+        QThread::msleep(1);
+    }
+    if(inventoryWindow->refreshCount!=closedRefreshCount)return fail(__LINE__);
+    update_inventory();
+    if(inventoryWindow->refreshCount!=closedRefreshCount+1)return fail(__LINE__);
 
     // Container: a chest on the hero's square opens beside the inventory, and one
     // carried stack moves in and back out through darkdungeon_container_move().
     struct obj* chest=mksobj_at(LARGE_BOX,u.ux,u.uy,FALSE,FALSE);
     struct obj* moved=nullptr;
     for(struct obj* item=gi.invent;item && !moved;item=item->nobj)if(!inUse(item) && !Is_container(item))moved=item;
-    if(!chest || !moved)return false;
+    if(!chest || !moved)return fail(__LINE__);
     const unsigned movedId=moved->o_id;const long movedCount=moved->quan;const int movedType=moved->otyp;
     containerWindowInSmoke=true;
     const int shown=darkdungeon_container_window(chest);
     containerWindowInSmoke=false;
     QCoreApplication::processEvents();
-    if(!shown || !inventoryWindow || !inventoryWindow->containerScroll->isVisible() || openContainer()!=chest)return false;
+    if(!shown || !inventoryWindow || !inventoryWindow->containerScroll->isVisible() || openContainer()!=chest)return fail(__LINE__);
     darkdungeon_move_container=chest->o_id;darkdungeon_move_object=movedId;darkdungeon_move_into=1;
-    if(darkdungeon_container_move()!=ECMD_TIME || carriedById(movedId) || containerItems(chest).size()!=1)return false;
-    inventoryWindow->refresh();QCoreApplication::processEvents();
+    if(darkdungeon_container_move()!=ECMD_TIME || carriedById(movedId) || containerItems(chest).size()!=1)return fail(__LINE__);
+    QCoreApplication::processEvents();
     inventoryWindow->grab().save(output+"/container-window.png");
     darkdungeon_move_object=chest->cobj->o_id;darkdungeon_move_into=0;
-    if(darkdungeon_container_move()!=ECMD_TIME || !containerItems(chest).isEmpty())return false;
+    if(darkdungeon_container_move()!=ECMD_TIME || !containerItems(chest).isEmpty())return fail(__LINE__);
     struct obj* back=nullptr;
     for(struct obj* item=gi.invent;item;item=item->nobj)if(item->otyp==movedType && item->quan>=movedCount)back=item;
-    if(!back)return false;
+    if(!back)return fail(__LINE__);
+    // A closed parent must not hide a stale, explicitly enabled child panel.
+    inventoryWindow->close();QCoreApplication::processEvents();
     obj_extract_self(chest);obfree(chest,nullptr);newsym(u.ux,u.uy);
-    inventoryWindow->refresh();
-    if(inventoryWindow->containerScroll->isVisible())return false;
+    update_inventory();
+    if(!inventoryWindow->containerScroll->isHidden())return fail(__LINE__);
+    darkdungeon_show_inventory();QCoreApplication::processEvents();
+    if(inventoryWindow->containerScroll->isVisible())return fail(__LINE__);
     inventoryWindow->close();QCoreApplication::processEvents();
     return true;
 }

@@ -1,0 +1,955 @@
+{
+  "schema": "darkdungeon-rendering-scope-baseline-v1",
+  "snapshot_date": "2026-10-28",
+  "purpose": "Legacy image snapshot is immutable. Hero role registry changes require an explicit scope decision; never scan delivered files.",
+  "hero_layer_roles": [
+    {
+      "key": "hero.layer.body_dwarf_female",
+      "visual_role": "body_dwarf_female"
+    },
+    {
+      "key": "hero.layer.body_dwarf_male",
+      "visual_role": "body_dwarf_male"
+    },
+    {
+      "key": "hero.layer.body_elf_female",
+      "visual_role": "body_elf_female"
+    },
+    {
+      "key": "hero.layer.body_elf_male",
+      "visual_role": "body_elf_male"
+    },
+    {
+      "key": "hero.layer.body_gnome_female",
+      "visual_role": "body_gnome_female"
+    },
+    {
+      "key": "hero.layer.body_gnome_male",
+      "visual_role": "body_gnome_male"
+    },
+    {
+      "key": "hero.layer.body_human_female",
+      "visual_role": "body_human_female"
+    },
+    {
+      "key": "hero.layer.body_human_male",
+      "visual_role": "body_human_male"
+    },
+    {
+      "key": "hero.layer.body_orc_female",
+      "visual_role": "body_orc_female"
+    },
+    {
+      "key": "hero.layer.body_orc_male",
+      "visual_role": "body_orc_male"
+    },
+    {
+      "key": "hero.layer.cape",
+      "visual_role": "cape"
+    },
+    {
+      "key": "hero.layer.hair_female",
+      "visual_role": "hair_female"
+    },
+    {
+      "key": "hero.layer.hair_male",
+      "visual_role": "hair_male"
+    },
+    {
+      "key": "hero.layer.outfit_archeologist",
+      "visual_role": "outfit_archeologist"
+    },
+    {
+      "key": "hero.layer.outfit_barbarian",
+      "visual_role": "outfit_barbarian"
+    },
+    {
+      "key": "hero.layer.outfit_caveman",
+      "visual_role": "outfit_caveman"
+    },
+    {
+      "key": "hero.layer.outfit_healer",
+      "visual_role": "outfit_healer"
+    },
+    {
+      "key": "hero.layer.outfit_knight",
+      "visual_role": "outfit_knight"
+    },
+    {
+      "key": "hero.layer.outfit_monk",
+      "visual_role": "outfit_monk"
+    },
+    {
+      "key": "hero.layer.outfit_priest",
+      "visual_role": "outfit_priest"
+    },
+    {
+      "key": "hero.layer.outfit_ranger",
+      "visual_role": "outfit_ranger"
+    },
+    {
+      "key": "hero.layer.outfit_rogue",
+      "visual_role": "outfit_rogue"
+    },
+    {
+      "key": "hero.layer.outfit_samurai",
+      "visual_role": "outfit_samurai"
+    },
+    {
+      "key": "hero.layer.outfit_tourist",
+      "visual_role": "outfit_tourist"
+    },
+    {
+      "key": "hero.layer.outfit_valkyrie",
+      "visual_role": "outfit_valkyrie"
+    },
+    {
+      "key": "hero.layer.outfit_wizard",
+      "visual_role": "outfit_wizard"
+    },
+    {
+      "key": "hero.layer.shield_valkyrie",
+      "visual_role": "shield_valkyrie"
+    },
+    {
+      "key": "hero.layer.weapon_archeologist",
+      "visual_role": "weapon_archeologist"
+    },
+    {
+      "key": "hero.layer.weapon_barbarian",
+      "visual_role": "weapon_barbarian"
+    },
+    {
+      "key": "hero.layer.weapon_caveman",
+      "visual_role": "weapon_caveman"
+    },
+    {
+      "key": "hero.layer.weapon_healer",
+      "visual_role": "weapon_healer"
+    },
+    {
+      "key": "hero.layer.weapon_knight",
+      "visual_role": "weapon_knight"
+    },
+    {
+      "key": "hero.layer.weapon_monk",
+      "visual_role": "weapon_monk"
+    },
+    {
+      "key": "hero.layer.weapon_priest",
+      "visual_role": "weapon_priest"
+    },
+    {
+      "key": "hero.layer.weapon_ranger",
+      "visual_role": "weapon_ranger"
+    },
+    {
+      "key": "hero.layer.weapon_rogue",
+      "visual_role": "weapon_rogue"
+    },
+    {
+      "key": "hero.layer.weapon_samurai",
+      "visual_role": "weapon_samurai"
+    },
+    {
+      "key": "hero.layer.weapon_tourist",
+      "visual_role": "weapon_tourist"
+    },
+    {
+      "key": "hero.layer.weapon_valkyrie",
+      "visual_role": "weapon_valkyrie"
+    },
+    {
+      "key": "hero.layer.weapon_wizard",
+      "visual_role": "weapon_wizard"
+    },
+    {
+      "key": "hero.layer.shield_knight",
+      "visual_role": "shield_knight"
+    },
+    {
+      "key": "hero.layer.shield_priest",
+      "visual_role": "shield_priest"
+    }
+  ],
+  "legacy_sprites": [
+    {
+      "path": "sprites/hero/body_dwarf_female.png",
+      "sha256": "6adc0a30569b09065f4f0e6d9cef08ee51e8d7a492902e745a1bae82349c52d5",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/hero/body_dwarf_male.png",
+      "sha256": "589a0fa032e9ce37298d4a45a41a848a3b59d836c36f77a5fd9dde51824a168c",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/hero/body_elf_female.png",
+      "sha256": "6343bdec6e0c28fe6683bd7d951ec8fd45867e73d1c802d3ddd8b2300f739f05",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/hero/body_elf_male.png",
+      "sha256": "79872f82e00bf94652bbc7a8eccff8c85a564b1bc4d1e91210f45375605624c6",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/hero/body_gnome_female.png",
+      "sha256": "61488de72463413ab217a2c7d9901784e812a14d8a6188d682985492b77c4d44",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/hero/body_gnome_male.png",
+      "sha256": "ed24f76c225e500f85a4ce361c7cabfdb7678fa765b7b9f0f79e090287579033",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/hero/body_human_female.png",
+      "sha256": "c1046aacfe2afdb89e15e10eeecfa8c392b633bdf974f74c87418f3abb59bda6",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/hero/body_human_male.png",
+      "sha256": "94dee29ecce51feea7958ae2b81fcbefd71a3b7318903a8c547aa3637494b0a7",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/hero/body_orc_female.png",
+      "sha256": "cd47bff58b67d1d650c20e90559a6cd5c490c81fc5d168ea395fe05c843989de",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/hero/body_orc_male.png",
+      "sha256": "a8f8d0f6fe743dd1c53d25927f566ade6dcf1aaf2263f112558bfe107907a058",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/hero/cape.png",
+      "sha256": "785a7e03f68e82a8eddb57c94a55b9a4ae64ce974e537e09b8c3df2822c5bc14",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/hero/hair_female.png",
+      "sha256": "9b4a8c853d56a172c80b944919b010d00d7149d8bbf2fd39e74122562885df7c",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/hero/hair_male.png",
+      "sha256": "291f6aaf1a7ec4ab03affc3a7293c4a92f96f9972bf01c5738357127bc86e61d",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/hero/outfit_archeologist.png",
+      "sha256": "65d8c813f0ec32144b0b0496424d13ead17d32c3fda3db9b139fc09ac42917c4",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/hero/outfit_barbarian.png",
+      "sha256": "837851aac98b6a5f4dd62bc03f4dd39be67995dea0d688fc97de1952bf526937",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/hero/outfit_caveman.png",
+      "sha256": "1264cdf56212e5a01614548085fa08d13ffe3d363c0370d36abd775a60394f92",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/hero/outfit_healer.png",
+      "sha256": "d9a37e0f75204b073be3aeecf6d3600542cf3dd5e73986d04eb636882b6e8025",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/hero/outfit_knight.png",
+      "sha256": "ad6b4e95e34b7c98c4b9c668bdcb2d2b95e26b8cfef73f331baa3050ae45c101",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/hero/outfit_monk.png",
+      "sha256": "ead4bda51affe5e05e7ed38834ee4f0c878d07078542d09a1d1f83e8c8b5cb36",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/hero/outfit_priest.png",
+      "sha256": "2959520a2aa847325d3bc26c250b2626f47cdc8fc460a4a81eea8bd5c4a0116f",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/hero/outfit_ranger.png",
+      "sha256": "b51aa97c738db73fd7d61cbce061be86110259d781004799408dcced714947f1",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/hero/outfit_rogue.png",
+      "sha256": "b6f4c26ddad5e9585144b5657debfb5108e4b9d1585c87a7c9ad062f83cbe692",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/hero/outfit_samurai.png",
+      "sha256": "82f97550cde7d70b2932cdec1a8b4660c09dd1a8341ab05cb9f556e8cd0d1ef0",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/hero/outfit_tourist.png",
+      "sha256": "b220da0a66f5c29e24095c38cd597c6b2f21ad58d1bdf8358b668ae54279b051",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/hero/outfit_valkyrie.png",
+      "sha256": "ecd10bb668c70db1b86f09d92c2990294ae5509d7c6a8bb0d8919d2cd8c82c72",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/hero/outfit_wizard.png",
+      "sha256": "abdfed65a9323a0f63316463a796d2869ea4b960ebec4d5b4ee0543aa05d0eee",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/hero/shield_valkyrie.png",
+      "sha256": "de81b29e21eb3e10c30d1c184776c3591e4fc4e28aae53bb1d02bd6f1716e26c",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/hero/weapon_archeologist.png",
+      "sha256": "6a3048830da11218d2a35c53c05a50e6eb6d9a584fa32f88bdd4d84941479f18",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/hero/weapon_barbarian.png",
+      "sha256": "d2d0351a31d944dc91a13646ce2e0a51593e2b09e84a607c72f5aa8116c4a07b",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/hero/weapon_caveman.png",
+      "sha256": "c63936c207d503e61c986b63524a48170caf3d4f0c19d5e0b5e6d5c47c7be369",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/hero/weapon_healer.png",
+      "sha256": "6f80fc546d2adeabe233bcf5b7c46177e4b8e9fab2c35b2500961e7ae36622aa",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/hero/weapon_knight.png",
+      "sha256": "bdd1facad058eb7188da7a8acc583a5f3de6f50455b7b04f9a5d02d744cd0171",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/hero/weapon_monk.png",
+      "sha256": "f079926291303cee1c4f7e685e885d15a9d16d6767f22e2325bd21a955a25800",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/hero/weapon_priest.png",
+      "sha256": "24887852d354526b5fa8cded7425e2b1c83a9f2557d000bd13c2e493ca5843ef",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/hero/weapon_ranger.png",
+      "sha256": "c4161fb086159f3144a54f6de1f4103d24ca36f04e85fc8aebd8021adc3911e6",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/hero/weapon_rogue.png",
+      "sha256": "0c49f0d874dd5e5af3885977575c794313e071336b9666c83c5f02cbbce7acf2",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/hero/weapon_samurai.png",
+      "sha256": "2e9ad6dd12a255e9a7f7dc48b2257245a8dd118d1bee0c3093d7507a5330183a",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/hero/weapon_tourist.png",
+      "sha256": "de431129734babc9ccedd1afdfd5d2f4df277fab1986ec5d665a0d9833017879",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/hero/weapon_valkyrie.png",
+      "sha256": "bdd1facad058eb7188da7a8acc583a5f3de6f50455b7b04f9a5d02d744cd0171",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/hero/weapon_wizard.png",
+      "sha256": "d745da46cecce415bf4ebc391cf42a5277c13e7828f72d73e34904ea82df3941",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/class_angel.png",
+      "sha256": "4950050ce9ad1b86802a15c80a60c5ef4974ce181214bd12b9522c43c22a0e17",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/class_ant.png",
+      "sha256": "0921e3d7fcf3741001f57add2e373dc74faf144f33b06b4b23220a9add68e8a1",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/class_bat.png",
+      "sha256": "2667076b29adc613814f2a19e5cc0192b53bb7587b31736f62339faec21898d4",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/class_blob.png",
+      "sha256": "8f6d6434910236621d72408e551aba18385f08949030a68503835a808a5c95ad",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/class_centaur.png",
+      "sha256": "f7cd157ba3e43304719f562b43b6b0cf35ce0cf537136e5fc35764c292997f9a",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/class_cockatrice.png",
+      "sha256": "1751dd36853f7486d1443a7b8bb2e5ff5d0dfe581d552498d10cd3953b39f6b5",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/class_demon.png",
+      "sha256": "1855a1eab66ddb998483432d53112378e487516540de6cbba956d5dae3a80f3e",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/class_dog.png",
+      "sha256": "74be819b29d668cf953c216df3dc1494a47ffaccbf31e33b2fadc34e8e46d5e3",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/class_dragon.png",
+      "sha256": "01f78f60ea11cf6b0aa538f95df5f65c15447296c2dbb0501d2cc517bcabcbd2",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/class_eel.png",
+      "sha256": "0a04ddd08e5b59857ebc8a784c8e52504d8e6db60c3f50a4b34316a0cc584bb6",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/class_elemental.png",
+      "sha256": "7952c4ae4a4014e8d1231758d5200e6b9f95303c670e5e914389ad260ecbd20f",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/class_eye.png",
+      "sha256": "440ed8a515b8a6e1d20480d85b1c13672c0c59320b7264d5b06bc5aca0304f3c",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/class_feline.png",
+      "sha256": "734417240b6fc861d6fb4d41c508c77c45e6315b93856990b00d1f9107a34aa7",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/class_fungus.png",
+      "sha256": "1134d2ecd5b06fdb272d69e0d367e605a1e5d69edd7cb18c51db603f8972bbe5",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/class_ghost.png",
+      "sha256": "b906f7d2c717baaeaf2626be4d21767bdf40631756be60820477a75db7ad9f97",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/class_giant.png",
+      "sha256": "3d5f1dc5f0cf07e6c1a30698ec47f89f3e5d08feb00064c7ff934574845214e5",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/class_gnome.png",
+      "sha256": "4c65c41edbc3239de80dbef834b60b4b770d4e81ac8d0fbefcea2b9c05d05bc8",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/class_golem.png",
+      "sha256": "7b10aff37cafc568744c6777f058eaff6aacfa1a3ab397dc8b2b1ee464b39837",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/class_gremlin.png",
+      "sha256": "8ea41aa756f6d36fd0fa8ab626db1a657147b685b3a4bcad514e3361c4ad846d",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/class_human.png",
+      "sha256": "2e6421c9cee5dc1f87049b782300d921c86af3006c0d491d80cbb944e1482394",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/class_humanoid.png",
+      "sha256": "0c610e70e01334f61bb4793cdcca9174a3fad8607e30cba94dcd6c43597819c9",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/class_imp.png",
+      "sha256": "4f72fb9c5346cbb4433497277fe1626acd0adb9847b3b308778a80861098dd65",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/class_jabberwock.png",
+      "sha256": "b7b31be869f780698d75db7483562b512c59fea3c5fc29c25e6f898a4b392706",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/class_jelly.png",
+      "sha256": "0d6c440a072705338ac0969d5996e6bbd1a5fa81a66029f66e85ee7323883ee8",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/class_kobold.png",
+      "sha256": "3e8023067cb1da452284ba78cd17bcdb217809a3da12b2203ded6ac24adc6327",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/class_kop.png",
+      "sha256": "b74dd193bfc090d7031d4c1d323d9cdd2048e87053d93b327da3ab0db7ab956f",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/class_leprechaun.png",
+      "sha256": "951685be6e5c03efc39159417c4aed2d88f9dd4ee9bffceb0088721474f06182",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/class_lich.png",
+      "sha256": "fa6af9c4fd60b0516dd0d0403c8b14889080e863289280e0d3874faa41298e12",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/class_light.png",
+      "sha256": "92a0aff7a57cd549fa484974f550f8c2a0720da069f08aaccaf96964f2406110",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/class_lizard.png",
+      "sha256": "f938b9740aa3b2185a47120aff2540dc749f0f0fea3c38acd3c7378e898b052f",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/class_mimic.png",
+      "sha256": "10196d18889ed2dae664ebbb1637ba3516e71ba8018efac393381edacb9d29a2",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/class_mummy.png",
+      "sha256": "2d6e6b4a289691b02563e7d473bba585e4d3767715aa4ad32605406a4d88ada5",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/class_naga.png",
+      "sha256": "d955d54c729609add478138e016a221e6b7cdd720e9512e15fe1a23d21717ee4",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/class_nymph.png",
+      "sha256": "f437df1bd1e6b93cab5e81dd630d263ea2984269b11dcc1d6a897e229c131e87",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/class_ogre.png",
+      "sha256": "f3c97f5bc990dfa17e72067330f6cbd4df3d898803b48c48c18a3d4957a18cde",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/class_orc.png",
+      "sha256": "51d814c0b6cca80dce8522f180f4c7f53c867a72a16508cdde2ebcbc9088255d",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/class_piercer.png",
+      "sha256": "52a89e52f2b71f2227fe11c933b8041868ae4d519555a3ed76f00a34c8bb9628",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/class_pudding.png",
+      "sha256": "3eef6ce4825c708453758da1e7c7cd60906c645a3a34e0483b1e571a74270e22",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/class_quadruped.png",
+      "sha256": "64f8b9de008e7ad8d036ef800ab7637aaa0d0e694d936cb52e5f6362e363141f",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/class_quantmech.png",
+      "sha256": "eee0415a2a7b93f5ee174baf20d2c89efb9f25bce1e71383769550c934024c8e",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/class_rodent.png",
+      "sha256": "e7a41b70614d87ed70265a14e7d1c5e030fe4f9788bafde886c730c666bd5f78",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/class_rustmonst.png",
+      "sha256": "04b1ce5bdda576591d134a137d439d1d83e0cca36a2939091c97cdc20e66e1a4",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/class_snake.png",
+      "sha256": "8b21b39cca7680494483c1dc88a4e0c7149c45595d18a853b3af22d416391231",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/class_spider.png",
+      "sha256": "3c0df87fc302f71f7ee7b7b61d81d499ff5c0ad724330732b5fabda41cc28c61",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/class_trapper.png",
+      "sha256": "c54902fa5541601403bd2fd5f74d399511b815f850268203b84cbf7076e717f5",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/class_troll.png",
+      "sha256": "0c95201df609df968589ecc3e7eb3b17f45f13a84e871110a589f62aa5518316",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/class_umber.png",
+      "sha256": "45aadf534da1b4d92445f5addd7a19608333405b633c4e11dc6da8cada045835",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/class_unicorn.png",
+      "sha256": "a42ad7d82e10927979f4b3c4a2715d1e0dc3c074adeea8dbcbe7b47796c62a13",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/class_vampire.png",
+      "sha256": "0dc9be9ea14c34d2341e01ec30d95dab1461fd8f008cfcb051d82b8387078bd9",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/class_vortex.png",
+      "sha256": "7a756bcb0d5a9e840f1bdfcc008981c0464c388b74197b7864834112b3820c47",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/class_worm.png",
+      "sha256": "d309e0a6486b2a3cd7dfe381c8e4fa3ebd283fb7a77d345853382eba13a12309",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/class_wraith.png",
+      "sha256": "fb471557328774502439acc6cfdc891b58884f38b643e416965be51db9579016",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/class_xan.png",
+      "sha256": "9752087fb705069e1afb8f27024368f59206b25257ef80a4039ad2e54349af47",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/class_xorn.png",
+      "sha256": "2c2b0da1727c7008fcbdb0ca21b04e6c99ddd3de35226d4e79dc48ab76944434",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/class_yeti.png",
+      "sha256": "e576de2300e3dc308006e071d847f4adc0ee05813b9517d46678209b67c9205e",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/class_zombie.png",
+      "sha256": "6417662f5985a6c6bd2dcf0623fd792b7dbaf0fb704cb47e0b3f9ba521c59c79",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/class_zruty.png",
+      "sha256": "80e47e78c27599f04fbe45db05e9abb9c32ec369f40af4abc57438a9c6a247df",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/dog.png",
+      "sha256": "fd22a9fef04d488af9b6d951c739957c5457ee6c14b83f0bbe5afb4d1743096d",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/gnome.png",
+      "sha256": "7124cdbeceed165d10f9923ab48255d9065275ac32d9620081fd0aae8fd34bfa",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/jackal.png",
+      "sha256": "3493f2fece24f49cca60c0648bf9d9292226d9517f2aa65b9a2f7cf2455896e4",
+      "policy": "replace-or-remove-before-final"
+    },
+    {
+      "path": "sprites/monster/newt.png",
+      "sha256": "d930034afa920421d01bbe583ae16a1d7092b85b07e10aebbb14a711acdb40fc",
+      "policy": "replace-or-remove-before-final"
+    }
+  ],
+  "legacy_external_images": [
+    {
+      "path": "build/nethack/win/share/nhsplash.xpm",
+      "sha256": "d3516b93ace19786ff2317301912dd7e393622d049e828c28492eb32e81c9367"
+    },
+    {
+      "path": "build/nethack/win/X11/rip.xpm",
+      "sha256": "11e160a40aec08cea2e35585abca3397930e0ec30ca33cedb7f20656368248d0"
+    }
+  ],
+  "scope_decisions": {
+    "approved_by": "Lemon delegated recommended choices on 2026-10-28",
+    "riding": "mount and authorized self composite",
+    "shield_roles": [
+      "Kni",
+      "Pri",
+      "Val"
+    ],
+    "hero_layers": 42,
+    "evidence": "build/nethack/src/u_init.c:Knight/Priest/Valkyrie initial SMALL_SHIELD; current PNG snapshot remains unchanged"
+  },
+  "ui_sources": {
+    "status_icons": [
+      {
+        "name": "blank_xpm",
+        "source": "win/Qt/qt_xpms.h",
+        "definition_sha256": "6dd69ffd8d0e2eca3d12ded2620611a4d9758a90972bf6da9482b3990b776041",
+        "hash_basis": "UTF-8 C declaration with LF line endings",
+        "ja_definition_sha256": "6dd69ffd8d0e2eca3d12ded2620611a4d9758a90972bf6da9482b3990b776041"
+      },
+      {
+        "name": "blind_xpm",
+        "source": "win/Qt/qt_xpms.h",
+        "definition_sha256": "4daee6c4b7b07baa27b8195bc8dd9690c4f6bb86ce6fea80085fb5e80577355e",
+        "hash_basis": "UTF-8 C declaration with LF line endings",
+        "ja_definition_sha256": "4daee6c4b7b07baa27b8195bc8dd9690c4f6bb86ce6fea80085fb5e80577355e"
+      },
+      {
+        "name": "cha_xpm",
+        "source": "win/Qt/qt_xpms.h",
+        "definition_sha256": "9a70be6c5f34fc9dc050b3ed326315ae8389ae233a7fd07c8bc840fb90324edf",
+        "hash_basis": "UTF-8 C declaration with LF line endings",
+        "ja_definition_sha256": "9a70be6c5f34fc9dc050b3ed326315ae8389ae233a7fd07c8bc840fb90324edf"
+      },
+      {
+        "name": "chaotic_xpm",
+        "source": "win/Qt/qt_xpms.h",
+        "definition_sha256": "1bc9dbb46445e4c49443c0e015f58d75c3feedfbf9e4752e23842c67caa4f3aa",
+        "hash_basis": "UTF-8 C declaration with LF line endings",
+        "ja_definition_sha256": "1bc9dbb46445e4c49443c0e015f58d75c3feedfbf9e4752e23842c67caa4f3aa"
+      },
+      {
+        "name": "cns_xpm",
+        "source": "win/Qt/qt_xpms.h",
+        "definition_sha256": "e81d4a40605ef1c45e9b5ac271f86e0e5b9a632233b979667f2c7b33d8dde86d",
+        "hash_basis": "UTF-8 C declaration with LF line endings",
+        "ja_definition_sha256": "e81d4a40605ef1c45e9b5ac271f86e0e5b9a632233b979667f2c7b33d8dde86d"
+      },
+      {
+        "name": "confused_xpm",
+        "source": "win/Qt/qt_xpms.h",
+        "definition_sha256": "e9f6519e7ec6c73d973fd06dba6913d2483d0f7877e4bc22bb99d7ac9756aa6c",
+        "hash_basis": "UTF-8 C declaration with LF line endings",
+        "ja_definition_sha256": "e9f6519e7ec6c73d973fd06dba6913d2483d0f7877e4bc22bb99d7ac9756aa6c"
+      },
+      {
+        "name": "deaf_xpm",
+        "source": "win/Qt/qt_xpms.h",
+        "definition_sha256": "6480ae0eb0709ad2b2335b6c0369e7bc55a5a53b3a8f1472c835c9961e439797",
+        "hash_basis": "UTF-8 C declaration with LF line endings",
+        "ja_definition_sha256": "6480ae0eb0709ad2b2335b6c0369e7bc55a5a53b3a8f1472c835c9961e439797"
+      },
+      {
+        "name": "dex_xpm",
+        "source": "win/Qt/qt_xpms.h",
+        "definition_sha256": "d2aa7584e77f60ef1b39925f7a700e92397d942ddc1fee9f53b833d07952ed53",
+        "hash_basis": "UTF-8 C declaration with LF line endings",
+        "ja_definition_sha256": "d2aa7584e77f60ef1b39925f7a700e92397d942ddc1fee9f53b833d07952ed53"
+      },
+      {
+        "name": "ext_enc_xpm",
+        "source": "win/Qt/qt_xpms.h",
+        "definition_sha256": "acce29c963224df2bebeec6e33d0418e569ce88a4a392541b22c204c88b13a50",
+        "hash_basis": "UTF-8 C declaration with LF line endings",
+        "ja_definition_sha256": "acce29c963224df2bebeec6e33d0418e569ce88a4a392541b22c204c88b13a50"
+      },
+      {
+        "name": "fly_xpm",
+        "source": "win/Qt/qt_xpms.h",
+        "definition_sha256": "7ed8b1624c238577c7727dcc2f6d664341af5b16e4431fb30c6a56e8f992b5f5",
+        "hash_basis": "UTF-8 C declaration with LF line endings",
+        "ja_definition_sha256": "7ed8b1624c238577c7727dcc2f6d664341af5b16e4431fb30c6a56e8f992b5f5"
+      },
+      {
+        "name": "hallu_xpm",
+        "source": "win/Qt/qt_xpms.h",
+        "definition_sha256": "4683aecc19db1f7b03c6dcc6b32d3a96547652ebc9b127b7b4371c43791b92ae",
+        "hash_basis": "UTF-8 C declaration with LF line endings",
+        "ja_definition_sha256": "4683aecc19db1f7b03c6dcc6b32d3a96547652ebc9b127b7b4371c43791b92ae"
+      },
+      {
+        "name": "hungry_xpm",
+        "source": "win/Qt/qt_xpms.h",
+        "definition_sha256": "76881fc329d500a397e4c32c5dec0a270ef612ea0ea7c67882e5d3406f57b0a4",
+        "hash_basis": "UTF-8 C declaration with LF line endings",
+        "ja_definition_sha256": "76881fc329d500a397e4c32c5dec0a270ef612ea0ea7c67882e5d3406f57b0a4"
+      },
+      {
+        "name": "hvy_enc_xpm",
+        "source": "win/Qt/qt_xpms.h",
+        "definition_sha256": "81a0fa007dd1cf1c535f41f359cfece955d7b254e137bb8364dd63160bc95cc5",
+        "hash_basis": "UTF-8 C declaration with LF line endings",
+        "ja_definition_sha256": "81a0fa007dd1cf1c535f41f359cfece955d7b254e137bb8364dd63160bc95cc5"
+      },
+      {
+        "name": "int_xpm",
+        "source": "win/Qt/qt_xpms.h",
+        "definition_sha256": "8039fec0339acb03d78bdfff168ffed53f5d2d5e2bdb58ae0909348492e40f41",
+        "hash_basis": "UTF-8 C declaration with LF line endings",
+        "ja_definition_sha256": "8039fec0339acb03d78bdfff168ffed53f5d2d5e2bdb58ae0909348492e40f41"
+      },
+      {
+        "name": "lawful_xpm",
+        "source": "win/Qt/qt_xpms.h",
+        "definition_sha256": "a5c7920eec62e30d57bab705450c001bbb8e79242f26eb3a60014b9f49480805",
+        "hash_basis": "UTF-8 C declaration with LF line endings",
+        "ja_definition_sha256": "a5c7920eec62e30d57bab705450c001bbb8e79242f26eb3a60014b9f49480805"
+      },
+      {
+        "name": "lev_xpm",
+        "source": "win/Qt/qt_xpms.h",
+        "definition_sha256": "94c180a875829999425fce03cb1eda5907c8b67c4229416880320bc28d82542a",
+        "hash_basis": "UTF-8 C declaration with LF line endings",
+        "ja_definition_sha256": "94c180a875829999425fce03cb1eda5907c8b67c4229416880320bc28d82542a"
+      },
+      {
+        "name": "mod_enc_xpm",
+        "source": "win/Qt/qt_xpms.h",
+        "definition_sha256": "cfcfeb072909a7d2570347f628bb2cbfaac83b840f8c433cc49c185a15bc8407",
+        "hash_basis": "UTF-8 C declaration with LF line endings",
+        "ja_definition_sha256": "cfcfeb072909a7d2570347f628bb2cbfaac83b840f8c433cc49c185a15bc8407"
+      },
+      {
+        "name": "neutral_xpm",
+        "source": "win/Qt/qt_xpms.h",
+        "definition_sha256": "d23cfa1762e6f1ed4d7d7185d3fe242a6d653e4f4a8dabcf09cc7aea2dd5bdc7",
+        "hash_basis": "UTF-8 C declaration with LF line endings",
+        "ja_definition_sha256": "d23cfa1762e6f1ed4d7d7185d3fe242a6d653e4f4a8dabcf09cc7aea2dd5bdc7"
+      },
+      {
+        "name": "ovr_enc_xpm",
+        "source": "win/Qt/qt_xpms.h",
+        "definition_sha256": "14edf8f03241749edbef7683b2f9a5e90d8f66ee8d0ecd18b0d3b7860a9cb667",
+        "hash_basis": "UTF-8 C declaration with LF line endings",
+        "ja_definition_sha256": "14edf8f03241749edbef7683b2f9a5e90d8f66ee8d0ecd18b0d3b7860a9cb667"
+      },
+      {
+        "name": "ride_xpm",
+        "source": "win/Qt/qt_xpms.h",
+        "definition_sha256": "5f2c4993d1ab38db973ac8aa04c7e55061db5298cf2a5d76ec90cce34c7827a6",
+        "hash_basis": "UTF-8 C declaration with LF line endings",
+        "ja_definition_sha256": "5f2c4993d1ab38db973ac8aa04c7e55061db5298cf2a5d76ec90cce34c7827a6"
+      },
+      {
+        "name": "satiated_xpm",
+        "source": "win/Qt/qt_xpms.h",
+        "definition_sha256": "a1f202904efcd2b75b00a9488437be8235df05fae22cd6ee219c4ea48d6d5c3c",
+        "hash_basis": "UTF-8 C declaration with LF line endings",
+        "ja_definition_sha256": "a1f202904efcd2b75b00a9488437be8235df05fae22cd6ee219c4ea48d6d5c3c"
+      },
+      {
+        "name": "sick_fp_xpm",
+        "source": "win/Qt/qt_xpms.h",
+        "definition_sha256": "078794b4925f244c562106646d77be88dddd43898389eaed6ddf7058168cbc14",
+        "hash_basis": "UTF-8 C declaration with LF line endings",
+        "ja_definition_sha256": "078794b4925f244c562106646d77be88dddd43898389eaed6ddf7058168cbc14"
+      },
+      {
+        "name": "sick_il_xpm",
+        "source": "win/Qt/qt_xpms.h",
+        "definition_sha256": "e2596f5354f3dfb142e862c5bb0b12b9099d4424194ba27819ecf5667fe3750d",
+        "hash_basis": "UTF-8 C declaration with LF line endings",
+        "ja_definition_sha256": "e2596f5354f3dfb142e862c5bb0b12b9099d4424194ba27819ecf5667fe3750d"
+      },
+      {
+        "name": "slime_xpm",
+        "source": "win/Qt/qt_xpms.h",
+        "definition_sha256": "d9a5e0f985feaf69122e6822e65f21c404edf44619c85295deed7d95398bdebf",
+        "hash_basis": "UTF-8 C declaration with LF line endings",
+        "ja_definition_sha256": "d9a5e0f985feaf69122e6822e65f21c404edf44619c85295deed7d95398bdebf"
+      },
+      {
+        "name": "slt_enc_xpm",
+        "source": "win/Qt/qt_xpms.h",
+        "definition_sha256": "5c3fcff85437671bbb5bc06139f979ee6273fb835a9bb93f24a3978b00206e1c",
+        "hash_basis": "UTF-8 C declaration with LF line endings",
+        "ja_definition_sha256": "5c3fcff85437671bbb5bc06139f979ee6273fb835a9bb93f24a3978b00206e1c"
+      },
+      {
+        "name": "stone_xpm",
+        "source": "win/Qt/qt_xpms.h",
+        "definition_sha256": "26b4358e6f0091c4429546898547befd89c62922ec056be4a1d3924ece915504",
+        "hash_basis": "UTF-8 C declaration with LF line endings",
+        "ja_definition_sha256": "26b4358e6f0091c4429546898547befd89c62922ec056be4a1d3924ece915504"
+      },
+      {
+        "name": "str_xpm",
+        "source": "win/Qt/qt_xpms.h",
+        "definition_sha256": "b21afaa245a90576c03c7a48577ee51a1da4efa86b052de0327c981c8dc769e2",
+        "hash_basis": "UTF-8 C declaration with LF line endings",
+        "ja_definition_sha256": "b21afaa245a90576c03c7a48577ee51a1da4efa86b052de0327c981c8dc769e2"
+      },
+      {
+        "name": "strngl_xpm",
+        "source": "win/Qt/qt_xpms.h",
+        "definition_sha256": "d3b92ab47946755f98314ec50488aadf8e275c3c517ad020cc72d276b9d8fa8a",
+        "hash_basis": "UTF-8 C declaration with LF line endings",
+        "ja_definition_sha256": "d3b92ab47946755f98314ec50488aadf8e275c3c517ad020cc72d276b9d8fa8a"
+      },
+      {
+        "name": "stunned_xpm",
+        "source": "win/Qt/qt_xpms.h",
+        "definition_sha256": "3961d8d4413b7bc5b9e3b9a673748c2b96af38c330ba1c7214a8aa1601cc3b06",
+        "hash_basis": "UTF-8 C declaration with LF line endings",
+        "ja_definition_sha256": "3961d8d4413b7bc5b9e3b9a673748c2b96af38c330ba1c7214a8aa1601cc3b06"
+      },
+      {
+        "name": "wis_xpm",
+        "source": "win/Qt/qt_xpms.h",
+        "definition_sha256": "2a55b025066f771a1c6902fd70eb15e9bbd40199d26572f8d4c03202ba5ff003",
+        "hash_basis": "UTF-8 C declaration with LF line endings",
+        "ja_definition_sha256": "2a55b025066f771a1c6902fd70eb15e9bbd40199d26572f8d4c03202ba5ff003"
+      }
+    ],
+    "map_marks": [
+      {
+        "name": "pet_mark_xpm",
+        "source": "win/Qt/qt_map.cpp",
+        "definition_sha256": "6d6e661fe3872ff992a08118093275242d1fa1eaef8574cd627f183bf3f6262b",
+        "hash_basis": "UTF-8 C declaration with LF line endings",
+        "ja_definition_sha256": "6d6e661fe3872ff992a08118093275242d1fa1eaef8574cd627f183bf3f6262b"
+      },
+      {
+        "name": "pet_mark_small_xpm",
+        "source": "win/Qt/qt_map.cpp",
+        "definition_sha256": "340224b57ac350e091ede484a60069cd9dfac9038b7e6cf17374e9ea51788693",
+        "hash_basis": "UTF-8 C declaration with LF line endings",
+        "ja_definition_sha256": "340224b57ac350e091ede484a60069cd9dfac9038b7e6cf17374e9ea51788693"
+      },
+      {
+        "name": "pile_mark_xpm",
+        "source": "win/Qt/qt_map.cpp",
+        "definition_sha256": "87155492e7152f1641695e39cd19c4d5805857c72cf80e627ad99de54d3edc94",
+        "hash_basis": "UTF-8 C declaration with LF line endings",
+        "ja_definition_sha256": "87155492e7152f1641695e39cd19c4d5805857c72cf80e627ad99de54d3edc94"
+      }
+    ],
+    "source_files": [
+      {
+        "path": "win/Qt/qt_stat.cpp",
+        "sha256": "36f0364c89f4305d2b55f7676de8512e49ff8cf9c0f09c555bfa658e166968bb"
+      },
+      {
+        "path": "win/Qt/qt_xpms.h",
+        "sha256": "f3f6ebb9ef65d59cf889c48041d42eda4e1bda36812277b0d97171b33ce42cd5"
+      },
+      {
+        "path": "win/Qt/qt_map.cpp",
+        "sha256": "6bf8d533192394823f9d36d3842f7ca9b680184e731f569a8b451bceba9b6da8"
+      }
+    ],
+    "en_ja_definitions_match": true
+  }
+}

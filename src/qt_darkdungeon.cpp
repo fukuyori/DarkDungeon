@@ -4,6 +4,7 @@ extern "C" {
 #include "dlb.h"
 #include "context_action.h"
 #include "func_tab.h"
+#include "app_runtime.h"
 extern glyph_map glyphmap[MAX_GLYPH]; // Same tile.c mapping used by the Qt map.
 }
 #include "qt_pre.h"
@@ -53,6 +54,147 @@ QString languageText(const char* english,const char* japanese) {
 QString smokePlayerName() {
     const QString name=qEnvironmentVariable("DARKDUNGEON_SMOKE_PLAYER");
     return name.isEmpty()?languageText("Hero","勇者"):name;
+}
+
+// Phase0 diagnostics only. No game-state traversal or command dispatch here.
+QJsonArray comparisonRect(const QRect& r) {
+    return {r.x(),r.y(),r.width(),r.height()};
+}
+void comparisonTileSize(int width,int height) {
+    // Transient dimensions: keep saved settings, spinboxes and alternate zoom intact.
+    auto* settings=nethack_qt_::qt_settings;
+    settings->tileWidth=width;settings->tileHeight=height;
+    settings->glyphs().setSize(width,height);
+    settings->setProperty("comparisonChangingTiles",true);settings->tilesChanged();
+    settings->setProperty("comparisonChangingTiles",false);
+}
+void comparisonGeometry(QPointer<nethack_qt_::NetHackQtMapWindow2> map, int remaining=4) {
+    if(!map || !map->property("comparisonGeometryActive").toBool())return;
+    const QSize wanted(864,432);
+    if(map->viewport()->size()==wanted){map->centerOnCursor();return;}
+    map->setFixedSize(map->size()+wanted-map->viewport()->size());
+    if(remaining>0)QTimer::singleShot(0,map,[map,remaining]{comparisonGeometry(map,remaining-1);});
+}
+bool comparisonCapture(QMainWindow* main,const QString& directory,QString* error) {
+    auto* map=main->findChild<nethack_qt_::NetHackQtMapWindow2*>();
+    auto* settings=nethack_qt_::qt_settings;
+    const int tile=main->property("comparisonTile").toInt();
+    if(!map || (tile!=36 && tile!=48) || map->viewport()->size()!=QSize(864,432)
+       || settings->tileWidth!=tile || settings->tileHeight!=tile || settings->glyphs().no_tiles) {
+        *error=languageText("Select G36/G48 and wait for the viewport to settle.","G36/G48を選択し、迷宮の寸法が確定してから記録してください。");return false;
+    }
+    QDir dir(directory);
+    // UUID directory is new; never overwrite a previous capture.
+    if(dir.exists() || !QDir().mkpath(directory)){*error="Cannot create new capture directory";return false;}
+    const auto client=main->grab();
+    const auto viewport=map->viewport()->grab();
+    const auto writePng=[&](const QString& name,const QPixmap& image) {
+        return !image.isNull() && image.save(dir.filePath(name),"PNG");
+    };
+    if(!writePng("client.png",client) || !writePng("map.png",viewport)){
+        *error="Cannot write capture PNG";return false;
+    }
+    const auto sha=[](const QString& path) {
+        QFile file(path);if(!file.open(QIODevice::ReadOnly))return QString();
+        QCryptographicHash hash(QCryptographicHash::Sha256);
+        if(!hash.addData(&file))return QString();
+        return QString::fromLatin1(hash.result().toHex());
+    };
+    const QString id=dir.dirName();
+    const auto pixelRect=[](const QPixmap& pixmap){return QJsonArray{0,0,pixmap.width(),pixmap.height()};};
+    const auto* screen=main->screen();
+    const int scrollX=map->horizontalScrollBar()->value(),scrollY=map->verticalScrollBar()->value();
+    const auto complete=[tile](int start,int length){return (start+length)/tile-(start+tile-1)/tile;};
+    QJsonObject record{
+        {"schema","darkdungeon-geometry-capture-v1"},{"capture_id",id},
+        {"created_utc",QDateTime::currentDateTimeUtc().toString(Qt::ISODateWithMs)},
+        {"case_kind",darkdungeon_runtime.manual_data?"manual-profile":"assisted-smoke"},
+        {"language",languageText("en","ja")},{"suite",QString("G%1").arg(tile)},
+        {"capture_backend","QWidget::grab (rendered widget, not desktop presentation)"},
+        {"executable",QCoreApplication::applicationFilePath()},
+        {"executable_sha256",sha(QCoreApplication::applicationFilePath())},
+        {"client_rect_logical",comparisonRect(main->rect())},
+        {"window_frame_logical",comparisonRect(main->frameGeometry())},
+        {"map_rect_in_client_logical",comparisonRect(QRect(map->viewport()->mapTo(main,QPoint()),map->viewport()->size()))},
+        {"map_rect_logical",comparisonRect(map->viewport()->rect())},
+        {"client_pixels",pixelRect(client)},{"map_pixels",pixelRect(viewport)},
+        {"qt_dpr",main->devicePixelRatioF()},{"map_pixmap_dpr",viewport.devicePixelRatio()},
+        {"os_scale_percent",QJsonValue::Null},{"os_scale_reason","Not measured; Qt DPR is not OS scale evidence"},
+        {"screen_available_logical",screen?comparisonRect(screen->availableGeometry()):QJsonArray()},
+        {"maximized",main->isMaximized()},{"tile_logical",QJsonArray{tile,tile}},
+        {"aligned_cell_capacity",QJsonArray{864/tile,432/tile}},
+        {"complete_cells",QJsonArray{complete(scrollX,864),complete(scrollY,432)}},
+        {"partial_edge_pixels_ltrb",QJsonArray{scrollX%tile?tile-scrollX%tile:0,scrollY%tile?tile-scrollY%tile:0,(scrollX+864)%tile,(scrollY+432)%tile}},
+        {"scroll_pixels",QJsonArray{scrollX,scrollY}},
+        {"scroll_maximum",QJsonArray{map->horizontalScrollBar()->maximum(),map->verticalScrollBar()->maximum()}},
+        {"raw_media",QJsonObject{{"client.png",sha(dir.filePath("client.png"))},{"map.png",sha(dir.filePath("map.png"))}}},
+        {"source_binding_verified",false},{"r5_r6_verified",false},{"runtime_ready",false},
+        {"body_measurements",QJsonValue::Null},{"body_measurement_reason","Not measured"}
+    };
+    record["unmeasured"]=QJsonObject{{"phase_build_session_input_checkpoint","Not linked to R5/R6 record"},
+        {"source_generation_and_dirty_diff","Source-to-build binding pending"},
+        {"data_asset_settings_sha256","Manifest binding pending"},
+        {"public_display_generation","Public snapshot integration pending"},
+        {"input_publication_presentation_timing","No presentation timing instrumentation"}};
+    QJsonObject classification{{"schema","darkdungeon-capture-classification-v1"},{"capture_id",id},
+        {"comparison_class","layout-only"},{"conformance","non-conforming-reference"},{"role","geometry"},
+        {"reason","Widget-rendered geometry diagnostic; source binding, R5/R6 and desktop presentation not verified"},
+        {"approval_record",QJsonObject{{"status","pending"},{"author",QJsonValue::Null},{"date",QJsonValue::Null},
+            {"style_guide_version",QJsonValue::Null},{"style_guide_sha256",QJsonValue::Null},
+            {"scope","geometry-measurement"},{"reason","Not reviewed"}}}};
+    for(const auto& item:{qMakePair(QString("classification.json"),classification),qMakePair(QString("geometry.json"),record)}) {
+        QSaveFile file(dir.filePath(item.first));
+        const auto data=QJsonDocument(item.second).toJson();
+        if(!file.open(QIODevice::WriteOnly) || file.write(data)!=data.size() || !file.commit()){
+            *error="Cannot write capture metadata";return false;
+        }
+    }
+    return true;
+}
+void installComparisonMenu(QMainWindow* main) {
+    if(!darkdungeon_runtime.manual_data)return;
+    auto* menu=main->menuBar()->addMenu(languageText("Comparison","表示比較"));
+    QObject::connect(nethack_qt_::qt_settings,&nethack_qt_::NetHackQtSettings::tilesChanged,main,[main] {
+        if(!main->property("comparisonTile").isValid() || nethack_qt_::qt_settings->property("comparisonChangingTiles").toBool())return;
+        // A user's normal zoom/settings action wins; do not restore stale tile values.
+        if(auto* map=main->findChild<nethack_qt_::NetHackQtMapWindow2*>()) {
+            map->setProperty("comparisonGeometryActive",false);
+            map->setMinimumSize(main->property("comparisonMin").toSize());
+            map->setMaximumSize(main->property("comparisonMax").toSize());
+        }
+        main->setProperty("comparisonTile",QVariant());
+    });
+    for(int tile:{36,48}) {
+        auto* action=menu->addAction(QString("G%1 (864 x 432)").arg(tile));
+        QObject::connect(action,&QAction::triggered,main,[main,tile] {
+            auto* map=main->findChild<nethack_qt_::NetHackQtMapWindow2*>();if(!map)return;
+            if(!main->property("comparisonTile").isValid()) {
+                main->setProperty("comparisonMin",map->minimumSize());main->setProperty("comparisonMax",map->maximumSize());
+                main->setProperty("comparisonOldTile",QSize(nethack_qt_::qt_settings->tileWidth,nethack_qt_::qt_settings->tileHeight));
+            }
+            main->setProperty("comparisonTile",tile);
+            map->setProperty("comparisonGeometryActive",true);
+            comparisonTileSize(tile,tile);
+            comparisonGeometry(map);
+        });
+    }
+    auto* reset=menu->addAction(languageText("Restore flexible layout","通常の配置に戻す"));
+    QObject::connect(reset,&QAction::triggered,main,[main] {
+        auto* map=main->findChild<nethack_qt_::NetHackQtMapWindow2*>();
+        if(!map || !main->property("comparisonTile").isValid())return;
+        map->setProperty("comparisonGeometryActive",false);
+        map->setMinimumSize(main->property("comparisonMin").toSize());map->setMaximumSize(main->property("comparisonMax").toSize());
+        const auto tile=main->property("comparisonOldTile").toSize();
+        comparisonTileSize(tile.width(),tile.height());main->setProperty("comparisonTile",QVariant());
+    });
+    auto* capture=menu->addAction(languageText("Record geometry reference","寸法の参考記録を保存"));
+    QObject::connect(capture,&QAction::triggered,main,[main] {
+        QDir data(QString::fromLatin1(darkdungeon_runtime.manual_data));data.cdUp();
+        const QString path=data.filePath("captures/"+QUuid::createUuid().toString(QUuid::WithoutBraces));
+        QString error;
+        const bool ok=comparisonCapture(main,path,&error);
+        QMessageBox::information(main,languageText("Comparison","表示比較"),ok?path:error);
+    });
 }
 
 // Original stonework, cached at the map's default resolution. Use only the
@@ -232,80 +374,8 @@ const QImage& monsterSheet(int monster) {
     return found!=tintedSheets.constEnd()?*found:*tintedSheets.insert(monster,tintedClass(gray,tint));
 }
 
-// Short walk and attack animations, started when the hero or a monster
-// moves one square or attacks. Display only: game state is never changed.
-struct ActorAnimation { int facing=2,kind=0; qint64 start=-1; };
-enum { AnimationIdle,AnimationWalk,AnimationAttack };
-constexpr int animationFrameMs=90;
-QHash<unsigned,ActorAnimation> actorAnimations; // 0 is the hero; others are m_id.
-QElapsedTimer animationClock;
-int facingFor(int dx,int dy) {return dx>0?1:dx<0?3:dy<0?0:2;}
-void startAnimation(unsigned id,int kind,int dx,int dy) {
-    if(!dx && !dy)return;
-    auto& animation=actorAnimations[id];
-    animation.facing=facingFor(dx,dy);animation.kind=kind;animation.start=-1; // Starts on the next map refresh.
-}
-int animationColumn(unsigned id) {
-    auto found=actorAnimations.find(id);
-    if(found==actorAnimations.end() || found->kind==AnimationIdle || found->start<0)return 0;
-    const int step=int((animationClock.elapsed()-found->start)/animationFrameMs);
-    static const int walk[]={0,1,0},attack[]={2,3,0};
-    if(step>=3){found->kind=AnimationIdle;return 0;}
-    return found->kind==AnimationWalk?walk[step]:attack[step];
-}
-int animationFacing(unsigned id) {auto found=actorAnimations.constFind(id);return found==actorAnimations.constEnd()?2:found->facing;}
-bool drawActorSprite(QPainter& painter,int glyph,unsigned flags,const QRect& cell) {
-    if(Hallucination || u.uswallow)return false;
-    const QImage* sheet=nullptr;unsigned id=0;
-    if(flags & MG_HERO) {
-        if(Upolyd)return false;
-        sheet=&heroSheet();
-    } else {
-        if(!glyph_is_monster(glyph) || glyph_is_invisible(glyph))return false;
-        const int x=cell.x()/std::max(1,cell.width()),y=cell.y()/std::max(1,cell.height());
-        struct monst* monster=isok(x,y)?m_at(x,y):nullptr;
-        if(!monster || !canspotmon(monster))return false;
-        id=monster->m_id;sheet=&monsterSheet(glyph_to_mon(glyph));
-    }
-    if(sheet->isNull())return false;
-    painter.drawImage(cell,*sheet,QRect(animationColumn(id)*48,animationFacing(id)*48,48,48));
-    return true;
-}
-// Compare positions while Qt waits for input; queued attacks start here too.
-void refreshAnimations() {
-    static QPoint hero;static int level=-1;static QHash<unsigned,QPoint> monsters;
-    if(!program_state.in_moveloop || program_state.gameover || !u.ux)return;
-    const int currentLevel=ledger_no(&u.uz);
-    QHash<unsigned,QPoint> seen;
-    for(struct monst* monster=fmon;monster;monster=monster->nmon)
-        if(!DEADMONSTER(monster))seen.insert(monster->m_id,QPoint(monster->mx,monster->my));
-    if(currentLevel==level) {
-        auto walked=[](unsigned id,QPoint from,QPoint to) {
-            const QPoint step=to-from;
-            if(std::abs(step.x())<=1 && std::abs(step.y())<=1 && step!=QPoint())
-                if(actorAnimations.value(id).kind!=AnimationAttack || actorAnimations.value(id).start>=0)
-                    startAnimation(id,AnimationWalk,step.x(),step.y());
-        };
-        walked(0,hero,QPoint(u.ux,u.uy));
-        for(auto it=seen.cbegin();it!=seen.cend();++it)if(monsters.contains(it.key()))walked(it.key(),monsters.value(it.key()),it.value());
-    } else actorAnimations.clear();
-    level=currentLevel;hero=QPoint(u.ux,u.uy);monsters=seen;
-    bool active=false;
-    for(auto it=actorAnimations.begin();it!=actorAnimations.end();) {
-        if(it.key() && !seen.contains(it.key())){it=actorAnimations.erase(it);continue;}
-        if(it->kind!=AnimationIdle) {
-            if(it->start<0)it->start=animationClock.elapsed();
-            if(animationClock.elapsed()-it->start<=3*animationFrameMs+animationFrameMs)active=true;
-            else it->kind=AnimationIdle;
-        }
-        ++it;
-    }
-    static bool wasActive=false;
-    if(active || wasActive)
-        if(auto* main=nethack_qt_::NetHackQtBind::mainWidget())
-            for(auto* map:main->findChildren<nethack_qt_::NetHackQtMapWindow2*>())if(map->widget())map->widget()->update();
-    wasActive=active;
-}
+// R6 phase 0 uses stationary core-provided glyph tiles.
+// New public movement/attack notifications are integrated in phases 3/4.
 
 // Player-chosen toolbar. The built-in buttons stay in place and are only shown
 // or hidden; Gear, Action, Magic and Info menu entries become extra buttons that
@@ -464,10 +534,6 @@ QImage darkdungeon_hero_image() {
     return heroSheet().copy(0,2*48,48,48); // facing down, idle frame
 }
 
-extern "C" void darkdungeon_note_attack(unsigned id,int dx,int dy) {
-    startAnimation(id,AnimationAttack,dx,dy);
-}
-
 bool darkdungeon_draw(QPainter& painter,int glyph,unsigned flags,const QRect& cell) {
     const int x=cell.x()/std::max(1,cell.width()),y=cell.y()/std::max(1,cell.height());
     if(!(flags & MG_HERO) && glyph_is_cmap(glyph)) {
@@ -511,7 +577,6 @@ void darkdungeon_draw_map_cell(QPainter& painter,int glyph,int tileidx,unsigned 
     if(overlay && background>=0 && background<MAX_GLYPH && glyph_is_cmap(background))
         terrain(background,::glyphmap[background].tileidx);
     if(darkdungeon_draw(painter,glyph,flags,cell))return;
-    if(overlay && drawActorSprite(painter,glyph,flags,cell))return;
     if(overlay)glyphs.drawForegroundCell(painter,glyph,tileidx,x,y);
     else terrain(glyph,tileidx);
 }
@@ -702,10 +767,6 @@ void darkdungeon_start_hooks() {
     qApp->setStyleSheet(qApp->styleSheet()+
         "nethack_qt_--NetHackQtPlayerSelector QTableWidget::item:selected{border:2px solid #e0453a;border-radius:3px;"
         "background:#2a1d1d;color:#ffffff;}");
-    animationClock.start();
-    auto* animationTimer=new QTimer(qApp);
-    QObject::connect(animationTimer,&QTimer::timeout,qApp,refreshAnimations);
-    animationTimer->start(30);
     auto* main=qobject_cast<QMainWindow*>(nethack_qt_::NetHackQtBind::mainWidget());
     if(main) {
         for(auto* toolbar:main->findChildren<QToolBar*>()) {
@@ -767,6 +828,7 @@ void darkdungeon_start_hooks() {
             });
         }
         installToolbarCustomization(main);
+        installComparisonMenu(main);
     }
     // Disabled during normal play. Dedicated smoke launches use separate data files.
     QString output=qEnvironmentVariable("DARKDUNGEON_SMOKE_OUTPUT");
@@ -902,6 +964,7 @@ void darkdungeon_start_hooks() {
             sheet.end();room.save(output+"/wall-room.png");
         }
         {
+        // Layer checks use stationary core glyphs; no legacy motion is started.
         auto renderLayer=[&](int glyph,unsigned flags,int background) {
             QImage image(48,48,QImage::Format_RGB32);image.fill(Qt::magenta);
             QPainter p(&image);
@@ -968,9 +1031,7 @@ void darkdungeon_start_hooks() {
         const QImage heroFloor=renderLayer(heroGlyph,MG_HERO,roomGlyph);
         int uncoveredStairs=0;
         const QImage heroTile=nethack_qt_::qt_settings->glyphs().glyph(heroGlyph,::glyphmap[heroGlyph].tileidx).toImage();
-        const QImage heroSprite=heroSheet().isNull()?QImage():heroSheet().copy(0,animationFacing(0)*48,48,48);
         auto heroTransparent=[&](int x,int y) {
-            if(!heroSprite.isNull())return qAlpha(heroSprite.pixel(x,y))==0;
             return (heroTile.pixel(x*heroTile.width()/48,y*heroTile.height()/48)|0xff000000)==qRgb(71,108,108);
         };
         for(int y=0;y<48;++y)for(int x=0;x<48;++x)
@@ -1009,7 +1070,7 @@ void darkdungeon_start_hooks() {
         levl[u.ux][u.uy]=heroCell;newsym(u.ux,u.uy);flush_screen(0);QCoreApplication::processEvents();
         }
         {
-        // Sprite sheets, and a temporary pet's walk animation on the real Qt map.
+        // Legacy asset loading only. Retired walk/attack tests must not report pass.
         // Every role, race and gender combination has a complete hero, and every class a sheet.
         for(const char* race:{"human","elf","dwarf","gnome","orc"})for(const char* gender:{"male","female"})
             if(spriteSheet(QString("hero/body_%1_%2").arg(race,gender)).isNull())std::exit(90);
@@ -1023,34 +1084,6 @@ void darkdungeon_start_hooks() {
         for(int monster=0;monster<NUMMONS;++monster)
             if(mons[monster].mlet!=S_invisible && mons[monster].mlet!=S_WORM_TAIL && mons[monster].mlet!=S_MIMIC_DEF
                     && monsterSheet(monster).isNull()){darkdungeon_trace(mons[monster].pmnames[NEUTRAL]);std::exit(90);}
-        int petX=0,petY=0;
-        for(int dy=-1;dy<=1 && !petX;++dy)for(int dx=-1;dx<=1;++dx) {
-            const int x=u.ux+dx,y=u.uy+dy;
-            if((dx || dy) && isok(x,y) && ACCESSIBLE(levl[x][y].typ) && !m_at(x,y) && cansee(x,y)){petX=x;petY=y;break;}
-        }
-        if(!petX)std::exit(91);
-        struct monst* dog=makemon(&mons[PM_LITTLE_DOG],petX,petY,NO_MINVENT|MM_NOMSG);
-        if(!dog)std::exit(92);
-        newsym(petX,petY);flush_screen(0);QCoreApplication::processEvents();
-        auto* map=main->findChild<nethack_qt_::NetHackQtMapWindow2*>();
-        if(!map || !map->widget())std::exit(93);
-        const QRect petCell(petX*48,petY*48,48,48);
-        auto grabPet=[&]{return map->widget()->grab(petCell).toImage();};
-        const QImage idle=grabPet();
-        startAnimation(dog->m_id,AnimationWalk,1,0);refreshAnimations();
-        QList<QImage> frames;QElapsedTimer elapsed;elapsed.start();
-        while(elapsed.elapsed()<4*animationFrameMs+60) {
-            frames.append(grabPet());
-            QEventLoop loop;QTimer::singleShot(20,&loop,&QEventLoop::quit);loop.exec();
-        }
-        refreshAnimations();
-        const QImage settled=grabPet();
-        bool moved=false;for(const QImage& frame:frames)if(frame!=frames.first())moved=true;
-        if(!moved || animationFacing(dog->m_id)!=1 || settled!=frames.first())std::exit(94);
-        QImage strip(48*std::min<qsizetype>(frames.size(),12),48,QImage::Format_RGB32);
-        {QPainter p(&strip);for(int i=0;i<std::min<qsizetype>(frames.size(),12);++i)p.drawImage(i*48,0,frames[i]);}
-        idle.save(output+"/pet-idle.png");strip.save(output+"/pet-walk-frames.png");
-        mongone(dog);newsym(petX,petY);flush_screen(0);QCoreApplication::processEvents();
         }
         const QString objectName=QString::fromUtf8(OBJ_NAME(objects[LONG_SWORD]));
         if(objectName!=languageText("long sword","長剣"))std::exit(23);
@@ -1448,6 +1481,24 @@ void darkdungeon_start_hooks() {
         if(main->findChild<QToolButton*>("customToolbarButton") || !hidden->builtin->isVisible())std::exit(97);
         }
         if(!darkdungeon_inventory_smoke(output))std::exit(98);
+        if(qEnvironmentVariableIntValue("DARKDUNGEON_SMOKE_GEOMETRY")==1) {
+            const QSize oldMin=map->minimumSize(),oldMax=map->maximumSize();
+            const QSize oldTile(viewSettings->tileWidth,viewSettings->tileHeight);
+            for(int tile:{36,48}) {
+                main->setProperty("comparisonTile",tile);comparisonTileSize(tile,tile);
+                map->setProperty("comparisonGeometryActive",true);
+                comparisonGeometry(map);
+                QElapsedTimer settle;settle.start();
+                while(settle.elapsed()<2000 && (settle.elapsed()<100 || map->viewport()->size()!=QSize(864,432))){QCoreApplication::processEvents(QEventLoop::AllEvents,10);QThread::msleep(1);}
+                QString error;
+                if(!comparisonCapture(qobject_cast<QMainWindow*>(main),output+QString("/geometry-g%1-").arg(tile)+QUuid::createUuid().toString(QUuid::WithoutBraces),&error)) {
+                    darkdungeon_trace(error.toUtf8().constData());std::exit(99);
+                }
+            }
+            map->setProperty("comparisonGeometryActive",false);
+            map->setMinimumSize(oldMin);map->setMaximumSize(oldMax);
+            comparisonTileSize(oldTile.width(),oldTile.height());main->setProperty("comparisonTile",QVariant());
+        }
         main->resize(originalSize);QCoreApplication::processEvents();
         QCoreApplication::processEvents();
         if (!main->grab().save(output+"/nethack-qt.png")) std::exit(5);
@@ -1468,7 +1519,9 @@ void darkdungeon_start_hooks() {
             localized.write("Solid rock: main-map S_stone uses gray masonry; unexplored remains black=pass\n");
             localized.write("Toolbar customization: hide a standard button, add a Magic menu entry, restore defaults=pass\n");
             localized.write("Equipment and inventory window: slots, item grid and drag command keys=pass\n");
-            localized.write("Sprites: all sheets load; pet walk animation changes frames on the Qt map and returns to idle=pass\n");
+            localized.write("Inventory refresh scheduling: no refresh during closed 550ms; core notification and closed-container reopen=pass\n");
+            localized.write("Legacy sprite files load=pass\n");
+            localized.write("Walk/attack notifications and interpolation=not-run (retired for R6 phase 0)\n");
             localized.write("Again toolbar button executed prior contextual wait; empty container selection ended without animal looting=pass\n");
             localized.write("Space map input and one-turn wait, auto-repeat guard, container look/lock/choice, pickup, stair priority, doors and text input=pass\n");
 #ifdef DARKDUNGEON_JAPANESE

@@ -20,6 +20,9 @@ foreach($lang in $languages) {
     $base = if($lang -eq 'ja'){Join-Path $projectRoot 'build\japanese-source'}else{$NetHackSource}
     $snapshot = Join-Path $projectRoot $(if($lang -eq 'ja'){'build\nethack-ja'}else{'build\nethack'})
     if(!(Test-Path (Join-Path $snapshot 'win\Qt\qt_darkdungeon.cpp'))) { throw "Run prepare-source.ps1 -Language $lang first." }
+    if(Select-String -LiteralPath (Join-Path $snapshot 'src\Makefile') -Pattern '^DD_CORELIB\s*=') {
+        throw 'C1 common-core snapshots need a matching Unix build migration. The legacy exporter cannot include the new runtime files; existing Unix patches are retained.'
+    }
     # Outside the repository so its line-ending settings do not apply.
     $work = Join-Path ([IO.Path]::GetTempPath()) "darkdungeon-unix-patch-$lang"
     if(Test-Path -LiteralPath $work) { Remove-Item -LiteralPath $work -Recurse -Force }

@@ -1,0 +1,231 @@
+{
+  "schema_version": 1,
+  "language": "ja",
+  "status": "Static port inventory; no game executed by this tool",
+  "branches": [
+    {
+      "path": "include/config.h",
+      "ordinal": 1,
+      "line": 102,
+      "condition": "#ifdef DARKDUNGEON_APP",
+      "route": "split_common_capabilities_from_gui_defaults",
+      "source_sha256": "BF7C5B38D8FD95EFAD396809B2AA1B861F5AE070B72AA4F83AA9BD556D0624E9"
+    },
+    {
+      "path": "include/config.h",
+      "ordinal": 2,
+      "line": 112,
+      "condition": "#ifdef QT_GRAPHICS",
+      "route": "split_common_capabilities_from_gui_defaults",
+      "source_sha256": "BF7C5B38D8FD95EFAD396809B2AA1B861F5AE070B72AA4F83AA9BD556D0624E9"
+    },
+    {
+      "path": "include/extern.h",
+      "ordinal": 1,
+      "line": 3063,
+      "condition": "#if defined(WIN32) || defined(QT_GRAPHICS)",
+      "route": "common_sound_capability_hook",
+      "source_sha256": "E88053484661CDF75546A0C10B739A3658C30EBCE20685175AF16A4C9EF1DD74"
+    },
+    {
+      "path": "include/global.h",
+      "ordinal": 1,
+      "line": 270,
+      "condition": "#if defined(DARKDUNGEON_APP) || defined(X11_GRAPHICS) || defined(QT_GRAPHICS) || defined(GNOME_GRAPHICS) || defined(MSWIN_GRAPHICS)",
+      "route": "common_glyph_layout",
+      "source_sha256": "308DDCEC644E91FA48E1EC7020A1E1C319B84637697C17F46354F99AB230D34A"
+    },
+    {
+      "path": "include/optlist.h",
+      "ordinal": 1,
+      "line": 466,
+      "condition": "#if defined(TTY_GRAPHICS) || defined(DARKDUNGEON_APP)",
+      "route": "preserve_application_option_catalogue",
+      "source_sha256": "A9B74EC6C657FD26081FF452FF89755CCF472AB4285F38E36A759EE11F5251AE"
+    },
+    {
+      "path": "include/optlist.h",
+      "ordinal": 2,
+      "line": 748,
+      "condition": "#if defined(WIN32CON) || defined(DARKDUNGEON_APP)",
+      "route": "preserve_application_option_catalogue",
+      "source_sha256": "A9B74EC6C657FD26081FF452FF89755CCF472AB4285F38E36A759EE11F5251AE"
+    },
+    {
+      "path": "src/allmain.c",
+      "ordinal": 1,
+      "line": 503,
+      "condition": "#if defined(MICRO) || defined(WIN32CON) || defined(DARKDUNGEON_APP)",
+      "route": "shared_occupation_keyboard_interrupt",
+      "source_sha256": "6249F7B455F378D1AC31A9CB514D2E97A935E82B4B33416CAC5ABBE9883B4949"
+    },
+    {
+      "path": "src/cfgfiles.c",
+      "ordinal": 1,
+      "line": 1270,
+      "condition": "#ifdef DARKDUNGEON_APP",
+      "route": "shared_plain_c_view_configuration",
+      "source_sha256": "A1E922D37F0A6F6FA4E9FDB2439BBDF5C46B3A75CB51333B30314F62825DDD0C"
+    },
+    {
+      "path": "src/cfgfiles.c",
+      "ordinal": 2,
+      "line": 1283,
+      "condition": "#ifdef DARKDUNGEON_APP",
+      "route": "shared_plain_c_view_configuration",
+      "source_sha256": "A1E922D37F0A6F6FA4E9FDB2439BBDF5C46B3A75CB51333B30314F62825DDD0C"
+    },
+    {
+      "path": "src/cfgfiles.c",
+      "ordinal": 3,
+      "line": 1296,
+      "condition": "#ifdef DARKDUNGEON_APP",
+      "route": "shared_plain_c_view_configuration",
+      "source_sha256": "A1E922D37F0A6F6FA4E9FDB2439BBDF5C46B3A75CB51333B30314F62825DDD0C"
+    },
+    {
+      "path": "src/cfgfiles.c",
+      "ordinal": 4,
+      "line": 1309,
+      "condition": "#ifdef DARKDUNGEON_APP",
+      "route": "shared_plain_c_view_configuration",
+      "source_sha256": "A1E922D37F0A6F6FA4E9FDB2439BBDF5C46B3A75CB51333B30314F62825DDD0C"
+    },
+    {
+      "path": "src/core_check.c",
+      "ordinal": 1,
+      "line": 5,
+      "condition": "#ifdef QT_GRAPHICS",
+      "route": "shared_core_qt_macro_rejection",
+      "source_sha256": "5D2BCFA0CFFFE3DEC6EB3D42BC504932C7585A5DA90FB0DE0792BCA3FB57C49A"
+    },
+    {
+      "path": "src/files.c",
+      "ordinal": 1,
+      "line": 3499,
+      "condition": "#if defined(WIN32) && !defined(WIN32CON) && !defined(DARKDUNGEON_APP)",
+      "route": "preserve_config_diagnostic_wait_behavior",
+      "source_sha256": "F34AF68C3A706620802BF4BA6725D00D65D24E91869D2898BCCD4BB35BEAB9E2"
+    },
+    {
+      "path": "src/mdlib.c",
+      "ordinal": 1,
+      "line": 141,
+      "condition": "#ifdef DARKDUNGEON_APP",
+      "route": "runtime_port_metadata",
+      "source_sha256": "C3FDC0591C2592D544BD28179933285B7948B3D5E3C1F6C8D71EAD26F9455171"
+    },
+    {
+      "path": "src/mdlib.c",
+      "ordinal": 2,
+      "line": 638,
+      "condition": "#if defined(DARKDUNGEON_APP) && defined(FOR_RUNTIME) && !defined(MAKEDEFS_C)",
+      "route": "runtime_port_metadata",
+      "source_sha256": "C3FDC0591C2592D544BD28179933285B7948B3D5E3C1F6C8D71EAD26F9455171"
+    },
+    {
+      "path": "src/mdlib.c",
+      "ordinal": 3,
+      "line": 724,
+      "condition": "#ifdef DARKDUNGEON_APP",
+      "route": "runtime_port_metadata",
+      "source_sha256": "C3FDC0591C2592D544BD28179933285B7948B3D5E3C1F6C8D71EAD26F9455171"
+    },
+    {
+      "path": "src/options.c",
+      "ordinal": 1,
+      "line": 30,
+      "condition": "#if defined(TTY_GRAPHICS) || defined(CURSES_GRAPHICS) || defined(DARKDUNGEON_APP)",
+      "route": "runtime_status_capabilities",
+      "source_sha256": "439A1CA648AB352A7AA7BF87EEB6C8C73B538F452C5CA97D19E9D7CB6B5730EA"
+    },
+    {
+      "path": "src/options.c",
+      "ordinal": 2,
+      "line": 4285,
+      "condition": "#if defined(WIN32CON) || defined(DARKDUNGEON_APP)",
+      "route": "runtime_status_capabilities",
+      "source_sha256": "439A1CA648AB352A7AA7BF87EEB6C8C73B538F452C5CA97D19E9D7CB6B5730EA"
+    },
+    {
+      "path": "src/options.c",
+      "ordinal": 3,
+      "line": 5570,
+      "condition": "#ifdef DARKDUNGEON_APP",
+      "route": "runtime_status_capabilities",
+      "source_sha256": "439A1CA648AB352A7AA7BF87EEB6C8C73B538F452C5CA97D19E9D7CB6B5730EA"
+    },
+    {
+      "path": "src/options.c",
+      "ordinal": 4,
+      "line": 7519,
+      "condition": "#if defined(TTY_GRAPHICS) || defined(DARKDUNGEON_APP)",
+      "route": "runtime_status_capabilities",
+      "source_sha256": "439A1CA648AB352A7AA7BF87EEB6C8C73B538F452C5CA97D19E9D7CB6B5730EA"
+    },
+    {
+      "path": "src/report.c",
+      "ordinal": 1,
+      "line": 193,
+      "condition": "# if defined(WIN32) && !defined(WIN32CON) && !defined(DARKDUNGEON_APP)",
+      "route": "nonmodal_application_diagnostics",
+      "source_sha256": "24158B852EA09C9A6686D7F96A8897AC5CF8499DF53FED256CCCC2AE38799782"
+    },
+    {
+      "path": "src/windows.c",
+      "ordinal": 1,
+      "line": 21,
+      "condition": "#ifdef QT_GRAPHICS",
+      "route": "frontend_port_registry",
+      "source_sha256": "E34EDC8BB289F9DB62CB7708DB35809236D6C03FBC9BEDB6AA8A85549C1C8790"
+    },
+    {
+      "path": "src/windows.c",
+      "ordinal": 2,
+      "line": 95,
+      "condition": "#ifdef DARKDUNGEON_APP",
+      "route": "frontend_port_registry",
+      "source_sha256": "E34EDC8BB289F9DB62CB7708DB35809236D6C03FBC9BEDB6AA8A85549C1C8790"
+    },
+    {
+      "path": "src/windows.c",
+      "ordinal": 3,
+      "line": 115,
+      "condition": "#ifdef QT_GRAPHICS",
+      "route": "frontend_port_registry",
+      "source_sha256": "E34EDC8BB289F9DB62CB7708DB35809236D6C03FBC9BEDB6AA8A85549C1C8790"
+    },
+    {
+      "path": "sys/windows/windmain.c",
+      "ordinal": 1,
+      "line": 84,
+      "condition": "#ifdef DARKDUNGEON_APP",
+      "route": "frontend_entry_no_console_tty",
+      "source_sha256": "417071DEAF929D136FD186095FC558DD8A84F617F36EF0E75D8494A9DEFB90CF"
+    },
+    {
+      "path": "sys/windows/windmain.c",
+      "ordinal": 2,
+      "line": 259,
+      "condition": "#ifndef DARKDUNGEON_APP",
+      "route": "frontend_entry_no_console_tty",
+      "source_sha256": "417071DEAF929D136FD186095FC558DD8A84F617F36EF0E75D8494A9DEFB90CF"
+    },
+    {
+      "path": "sys/windows/windsys.c",
+      "ordinal": 1,
+      "line": 770,
+      "condition": "#ifdef DARKDUNGEON_APP",
+      "route": "shared_storage_and_test_seed_runtime",
+      "source_sha256": "0D96E8FB63E1EDA4E0ABDA5CABCE2E6B28B792F9B17451EC34AFE8BDA8E24DBC"
+    },
+    {
+      "path": "sys/windows/windsys.c",
+      "ordinal": 2,
+      "line": 1065,
+      "condition": "#if defined(DARKDUNGEON_APP) && !defined(SFCTOOL)",
+      "route": "shared_storage_and_test_seed_runtime",
+      "source_sha256": "0D96E8FB63E1EDA4E0ABDA5CABCE2E6B28B792F9B17451EC34AFE8BDA8E24DBC"
+    }
+  ]
+}

@@ -186,32 +186,17 @@ int darkdungeon_container_move(void) {
 }
 '@
 }
-# Attack events for the Qt map's sprite animations. Display only; no game rules change.
-Update-Source 'src\uhitm.c' {
-    param($s)
-    $pattern='(\r?\n)(    if \(Upolyd\)\r?\n        \(void\) hmonas\(mtmp\);\r?\n    else\r?\n        \(void\) hitum\(mtmp, gy\.youmonst\.data->mattk\);)'
-    if(![regex]::IsMatch($s,$pattern)){throw 'Hero attack animation anchor missing.'}
-    [regex]::Replace($s,$pattern,'$1    { extern void darkdungeon_note_attack(unsigned, int, int); darkdungeon_note_attack(0, mtmp->mx - u.ux, mtmp->my - u.uy); }$1$2')
-}
-Update-Source 'src\mhitu.c' {
-    param($s)
-    $pattern='(    calc_mattacku_vars\(mtmp, &ranged, &range2, &foundyou, &youseeit\);)(\r?\n)'
-    if(![regex]::IsMatch($s,$pattern)){throw 'Monster attack animation anchor missing.'}
-    [regex]::Replace($s,$pattern,'$1$2    { extern void darkdungeon_note_attack(unsigned, int, int); darkdungeon_note_attack(mtmp->m_id, u.ux - mtmp->mx, u.uy - mtmp->my); }$2')
-}
-Update-Source 'src\mhitm.c' {
-    param($s)
-    $pattern='(\r?\n)(    /\* Calculate the armour class differential\. \*/)'
-    if(![regex]::IsMatch($s,$pattern)){throw 'Monster-versus-monster animation anchor missing.'}
-    [regex]::Replace($s,$pattern,'$1    { extern void darkdungeon_note_attack(unsigned, int, int); darkdungeon_note_attack(magr->m_id, mdef->mx - magr->mx, mdef->my - magr->my); }$1$2')
-}
+# R6 phase 0: old attack injections are retired; new notifications come in phase 4.
 Update-Source 'win\Qt\qt_bind.cpp' {
     param($s)
     foreach($pattern in @('(int NetHackQtBind::qt_nhgetch\(\)\s*\{)',
         '(int NetHackQtBind::qt_nh_poskey\(coordxy \*x, coordxy \*y, int \*mod\)\s*\{)')) {
         if(![regex]::IsMatch($s,$pattern)){throw 'Toolbar request reset anchor missing.'}
-        $s=[regex]::Replace($s,$pattern,'$1'+"`n    if (!qt_kbhit()) (void)darkdungeon_take_toolbar_command();")
+        $s=[regex]::Replace($s,$pattern,'$1'+"`n    darkdungeon_refresh_inventory_view();`n    if (!qt_kbhit()) (void)darkdungeon_take_toolbar_command();")
     }
+    $inventoryPattern='(void NetHackQtBind::qt_update_inventory\(int arg UNUSED\)\s*\{)'
+    if([regex]::Matches($s,$inventoryPattern).Count -ne 1){throw 'Inventory notification refresh anchor changed.'}
+    $s=[regex]::Replace($s,$inventoryPattern,'$1'+"`n    darkdungeon_refresh_inventory_view();")
     $anchor="int NetHackQtBind::qt_get_ext_cmd()`r`n{"
     if(!$s.Contains($anchor)){$anchor="int NetHackQtBind::qt_get_ext_cmd()`n{"}
     if(!$s.Contains($anchor)){throw 'Toolbar extended command dispatch anchor missing.'}
@@ -292,6 +277,7 @@ Update-Source 'win\Qt\qt_map.cpp' {
     $anchor='glyphs.drawCell(painter, g, tileidx, i, j);'
     if(!$s.Contains($anchor)){throw 'Qt map layered drawing anchor missing.'}
     $s=$s.Replace($anchor,'darkdungeon_draw_map_cell(painter,g,tileidx,special,background[j][i],QRect(i*gW,j*gH,gW,gH));')
+    # R6 phase 0: no private-state actor overlay or walk-dependent cursor.
     $anchor='Glyph(i, j) = GLYPH_UNEXPLORED;'
     if(!$s.Contains($anchor)){throw 'Qt map background clear anchor missing.'}
     $s=$s.Replace($anchor,$anchor+"`r`n            background[j][i] = GLYPH_UNEXPLORED;")
@@ -638,6 +624,9 @@ Update-Source 'sys\windows\windsys.c' {
     }
 #endif
 '@
+    # Keep the reviewed C0 storage bytes stable regardless of this script's
+    # physical line endings; the surrounding upstream source uses CRLF.
+    $storage=$storage.Replace("`r`n","`n")
     if($Language -eq 'en') {
         $storage=[regex]::Replace($storage,'(?s)            strcat_s\(darkdungeon_data, sizeof\(darkdungeon_data\), "ja"\);.*?            append_slash\(darkdungeon_data\);\r?\n','')
     }
@@ -719,4 +708,7 @@ foreach ($header in Get-ChildItem (Join-Path $snapshot 'win\Qt') -Filter '*.h') 
 New-Item -ItemType Directory -Force -Path (Join-Path $projectRoot 'docs') | Out-Null
 $sourceCommit = & git -C $originalSource rev-parse HEAD
 [IO.File]::WriteAllText((Join-Path $snapshot 'upstream-commit.txt'), "$sourceCommit`n",[Text.UTF8Encoding]::new($false))
-Write-Host "Prepared Qt source snapshot: $snapshot"
+& python (Join-Path $projectRoot 'tools\agent-cli\prepare-core.py') $snapshot --upstream $NetHackSource
+if ($LASTEXITCODE) { throw 'Common core/frontend preparation failed.' }
+& (Join-Path $projectRoot 'tools\agent-cli\Export-CorePortBranches.ps1') -Language $Language -OutputPath (Join-Path $projectRoot "build\core-port-$Language.json") -ReferencePath (Join-Path $projectRoot "docs\data\agent-core-port-branches.c1-$Language.json")
+Write-Host "Prepared common core and Qt source snapshot: $snapshot"

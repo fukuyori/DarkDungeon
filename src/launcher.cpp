@@ -1,8 +1,52 @@
 // DarkDungeon is distributed under the NetHack General Public License; see LICENSE.
 #include <QtWidgets/QtWidgets>
 #include <QtCore/QProcess>
+#include "manual_profile.h"
 
 int main(int argc,char** argv) {
+    const QStringList rawArguments=ddprofile::arguments(argc,argv);
+    if(rawArguments.size()==2 && rawArguments[1]=="--capabilities") {
+        ddprofile::printCapabilities("launcher");return 0;
+    }
+    const int rawSeparator=rawArguments.indexOf("--");
+    const QStringList options=rawSeparator>=0?rawArguments.mid(0,rawSeparator):rawArguments;
+    const int profileFlag=options.indexOf("--manual-profile");
+    QString manualRoot;
+    if(profileFlag>=0) {
+        const int languageFlag=options.indexOf("--language");
+        if(options.count("--manual-profile")!=1 || profileFlag+1>=options.size() ||
+           options.count("--language")!=1 || languageFlag+1>=options.size() || options.contains("--smoke") ||
+           options.contains("--launcher-test"))return ddprofile::reject("manual profile requires --language en|ja and forbids smoke");
+        const QString selected=options[languageFlag+1];
+        if(selected!="en" && selected!="ja")return ddprofile::reject("invalid language");
+        const QString base=QFileInfo(ddprofile::executablePath(argv[0])).absolutePath();
+#ifdef Q_OS_WIN
+        const QString engine=base+'/'+selected+"/DarkDungeon-"+selected+".exe";
+#else
+        const QString engine=base+'/'+selected+"/DarkDungeon-"+selected;
+#endif
+        manualRoot=QDir::fromNativeSeparators(options[profileFlag+1]);
+        QString error=ddprofile::testEnvironmentError();
+        if(error.isEmpty())error=ddprofile::validatePath(manualRoot,base);
+        if(error.isEmpty())error=ddprofile::verifiedDeployment(engine,"qt-engine",selected);
+        if(!error.isEmpty())return ddprofile::reject(error);
+        // Do not start an old engine that could ignore profile isolation.
+        QProcess query;query.setProgram(engine);query.setArguments({"--capabilities"});query.start();
+        if(!query.waitForStarted(5000) || !query.waitForFinished(5000) ||
+           query.exitStatus()!=QProcess::NormalExit || query.exitCode()!=0)
+            return ddprofile::reject("engine capability query failed");
+        const auto capability=QJsonDocument::fromJson(query.readAllStandardOutput()).object();
+        if(capability["schema"]!="darkdungeon-capabilities-v1" || capability["frontend"]!="qt-engine" ||
+           capability["manual_profile"].toInt()!=1 || capability["language"]!=selected)
+            return ddprofile::reject("engine does not support this manual profile protocol");
+        ddprofile::isolateSettings(manualRoot+'/'+selected+"/settings");
+    }
+    for(int i=1;i<options.size();++i)
+        if((options[i].startsWith("--manual-") && options[i]!="--manual-profile") || options[i]=="--capabilities")
+            return ddprofile::reject("invalid profile or capability arguments");
+    if(rawSeparator>=0)for(const auto &argument:rawArguments.mid(rawSeparator+1))
+        if(argument.startsWith("--manual-") || argument=="--capabilities")
+            return ddprofile::reject("profile flags belong before --");
     QApplication app(argc,argv);
     app.setOrganizationName("DarkDungeon");app.setApplicationName("DarkDungeon");
     const QStringList arguments=app.arguments();
@@ -70,11 +114,24 @@ int main(int argc,char** argv) {
     }
     QStringList engineArguments;
     if(separator>=0)engineArguments=arguments.mid(separator+1);
+    if(!manualRoot.isEmpty())engineArguments.prepend(manualRoot),engineArguments.prepend("--manual-profile");
     QProcessEnvironment environment=QProcessEnvironment::systemEnvironment();
 #ifndef Q_OS_WIN
     // Unix engines read ~/.nethackrc by default; use the engine's own options file instead.
     environment.insert("NETHACKOPTIONS",directory+"/darkdungeonrc");
 #endif
+    if(!manualRoot.isEmpty()) {
+        // Own the child until it exits. This keeps startup rejection diagnostics
+        // available without detaching, timing out, or killing a manual game.
+        QProcess engine;engine.setProgram(executable);engine.setArguments(engineArguments);
+        engine.setWorkingDirectory(directory);engine.setProcessEnvironment(environment);
+        engine.start();
+        if(!engine.waitForStarted(10000))return ddprofile::reject("cannot start game process");
+        engine.waitForFinished(-1);
+        const auto diagnostic=engine.readAllStandardError();
+        std::fwrite(diagnostic.constData(),1,diagnostic.size(),stderr);
+        return engine.exitStatus()==QProcess::NormalExit?engine.exitCode():6;
+    }
     if(smoke) {
         QProcess engine;engine.setProgram(executable);engine.setArguments(engineArguments);engine.setWorkingDirectory(directory);
         engine.setProcessEnvironment(environment);

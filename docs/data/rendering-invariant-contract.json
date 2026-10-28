@@ -1,0 +1,105 @@
+{
+  "schema": "darkdungeon-invariant-contract-v1",
+  "source_audit_sha256": "e9de4de75ccf6716a7a900844958c34ae3c62d1724c10c9853f9b8e5d070a602",
+  "fixture_plan_sha256": "6bf384402408a83551e04ce266e26097ee547ffc43e8d82327105adef73a10b8",
+  "invariants": {
+    "INV01": "paint reads an immutable published generation; no core calls or live entity pointers",
+    "INV02": "only core-authorized appearances, positions, layers and effects enter presentation",
+    "INV03": "display sampling is owned by core preparation; repeat paint and UI timers consume no RNG",
+    "INV04": "events describe selected legal attempts/results, never infer success from legacy entry hooks",
+    "INV05": "projectile/beam/explosion paths contain only explicitly authorized public samples",
+    "INV06": "level/session/entity/view generations invalidate stale motion and hidden actors",
+    "INV07": "animation adds no command, turn, rule delay, input gate or nested core dispatch",
+    "INV08": "one monotonic presentation timestamp per frame drives actor and camera; no core calendar read",
+    "INV09": "typed private projections protect all rule state, knowledge, control and both RNG streams",
+    "INV10": "record/control every core clock and seed source throughout process lifetime without state injection",
+    "INV11": "fresh post-improvement fixtures; ordinary save format and default loader remain authoritative",
+    "INV12": "metadata/file bindings, full semantic differences and predeclared normalization only",
+    "INV13": "native EN and JA source/field/notification maps audited separately",
+    "INV14": "idle checkpoint/save writes are explicit core operations, never counted as pure painting"
+  },
+  "protected_domains": [
+    "hero",
+    "rule_flags",
+    "context",
+    "objects",
+    "monsters",
+    "world",
+    "memory",
+    "knowledge",
+    "progress",
+    "control",
+    "rng",
+    "clock",
+    "auxiliary"
+  ],
+  "source_counts": {
+    "en": {
+      "files": 318,
+      "references": 685,
+      "route_groups": 12,
+      "struct_union_groups": 366,
+      "member_declarations": 2951
+    },
+    "ja": {
+      "files": 318,
+      "references": 686,
+      "route_groups": 12,
+      "struct_union_groups": 367,
+      "member_declarations": 2959
+    }
+  },
+  "boundary_kinds": [
+    "command-ready",
+    "prompt-paused",
+    "core-suspended"
+  ],
+  "projection_coverage": {
+    "statuses": [
+      "complete",
+      "partial",
+      "unsupported"
+    ],
+    "per_domain": [
+      "status",
+      "unbound_paths",
+      "reason"
+    ],
+    "required_bindings": [
+      "field_map_sha256",
+      "normalization_registry_sha256",
+      "sampling_contract_id"
+    ],
+    "verdicts": [
+      "equal",
+      "different",
+      "unconfirmed"
+    ],
+    "paint_normalization": false
+  },
+  "route_groups": [
+    "N01",
+    "N02",
+    "N03",
+    "N04",
+    "N05",
+    "N06",
+    "N07",
+    "N08",
+    "N09",
+    "N10",
+    "N11",
+    "N12"
+  ],
+  "field_binding_policy": "every active rule field and private mutable rule static must be bound or explicitly reviewed; no silent omission",
+  "view_exclusions": "presentation-only fields require an exact predeclared path/source/reason; no heuristic wildcard exclusions",
+  "event_payload": "copied public values and opaque generation-scoped display handles; no true entity/object id or pointer",
+  "legacy_save_policy": "discard-pre-improvement-saves; no migration requirement",
+  "legacy_animation_policy": "phase0 removes production legacy attack hooks and live-position inference before accepted baseline; never run alongside new notifications",
+  "readiness": {
+    "runtime_ready": false,
+    "core_observer_implemented": false,
+    "notification_adapter_implemented": false,
+    "actual_field_bindings_verified": 0
+  }
+}

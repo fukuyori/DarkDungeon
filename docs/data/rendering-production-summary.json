@@ -1,0 +1,34 @@
+{
+  "monsters": 383,
+  "object_entries": 481,
+  "glyphs": 9624,
+  "atlas_slots": 2307,
+  "unreferenced_slots": 50,
+  "public_name_entries": 140,
+  "creation_combinations": 73,
+  "hero_support_matrix": 390,
+  "hero_layers": 42,
+  "assets_by_category": {
+    "actor": 766,
+    "environment": 122,
+    "hero-layer": 42,
+    "item": 438,
+    "mark": 3,
+    "special": 120,
+    "statue": 766,
+    "status-icon": 29,
+    "ui-illustration": 1
+  },
+  "slot_dispositions": {
+    "clear-reserved-slot": 47,
+    "environment-style-audit": 122,
+    "preserve-empty-sentinel": 3,
+    "replace-with-new-asset": 2135
+  },
+  "new_or_derived_targets": 2165,
+  "unrequested_targets": 2165,
+  "existing_sprite_files_to_replace_or_remove": 101,
+  "en_ja_match": true,
+  "game_executed": false,
+  "art_created": false
+}

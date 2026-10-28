@@ -1,0 +1,24 @@
+{
+  "new_or_derived_targets": 2165,
+  "environment_audits": 122,
+  "quality_targets": 2287,
+  "rider_shape_candidate_species": 143,
+  "rider_shape_candidate_views": 286,
+  "rider_shape_excluded_views": 480,
+  "rider_shape_candidates_with_polyok_flag": 64,
+  "rider_shape_candidates_slithy": 1,
+  "actual_riding_reachability_verified": false,
+  "owned_by_phase": {
+    "5-1": 42,
+    "5-2": 766,
+    "5-3": 1204,
+    "5-4": 153
+  },
+  "phase_5_1_early_role_views": 26,
+  "phase_5_1_early_mount_views": 6,
+  "phase_5_1_required_views_and_layers": 74,
+  "final_required_with_environment": 2287,
+  "this_tool_assesses_art": false,
+  "this_tool_runs_game": false,
+  "this_tool_requests_images": false
+}

@@ -1,0 +1,4387 @@
+{
+  "schema": "darkdungeon-item-briefs-v1",
+  "purpose": "appearance-only input for Antigravity; no image request sent",
+  "format_contract": "docs/rendering-asset-contract.md",
+  "items": [
+    {
+      "key": "item.appearance.amulet.0d9521f1f0427dbbe8f86ddd17e11ab1aec88d1ec4abc942fb8cac18fd331b91",
+      "visible_brief": "octagonal",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.amulet.129a25f529fc4bde9f5d79839b35b6cf27acaa13edc4965b9f365c9d1f06e7e2",
+      "visible_brief": "circular",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.amulet.13ab90b5912244434627444a65a482f201e951e46e7dda7b9307e7abf87794d9",
+      "visible_brief": "hexagonal",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.amulet.4035d72b38cecd0f391ebaefa7e2df08fb9df9755db48d437e1c542a30529470",
+      "visible_brief": "square",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.amulet.632755ba69e1f4eecdf7c83746b8206e2c4008a3bd0fb269cb8d6ab861205e45",
+      "visible_brief": "spherical",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.amulet.68cca9c0de844cfc9092022db6825f8392041a53837851ccffdc3cdf7598796f",
+      "visible_brief": "cubical",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.amulet.71779dacadbf7b407ed0260ce5d7c3280c185ccdb49f01db149baed70ab4eba6",
+      "visible_brief": "Amulet of Yendor",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.amulet.7ae9c0fb48dd17529bdc6a87934517ce3983dedbcbdfa65468b7cf1f03e78b16",
+      "visible_brief": "perforated",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.amulet.7f2f7b5c993c417bbb0b56f260d5d716902cdf5ac3dd58907a0d2b8768b8a22c",
+      "visible_brief": "triangular",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.amulet.84be797f247ff7fc3ad7a82319caa7d78e7a260b8740a53658d8553758a3c82c",
+      "visible_brief": "oval",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.amulet.97c739b8fd3814615929b5dab7cf5c8d96ac2e9a18f4df088d6b70feaff2df9b",
+      "visible_brief": "amulet",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.amulet.c73bf494236b725a1ebfba74ac307f4e916448343b9cd51bb7898d2a7b0434a6",
+      "visible_brief": "pyramidal",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.amulet.e35f73870cc619b5ac59946b28d84b098d5fcd68d80796a65711076f34b7a165",
+      "visible_brief": "concave",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.046a8170b6098a06de5ffd13ddd4c1f8089c36d4958aeb3de46cfade232dce89",
+      "visible_brief": "orange dragon scales",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.07a8d29b2a7863a683793ab24f318e228342ed8dcfdc671cb36b4addcdec98ad",
+      "visible_brief": "gray dragon scales",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.0fe637bdc19454cc006aea43ee2d571f6f92329be5c91efe3de24b7297d06518",
+      "visible_brief": "gold dragon scale mail",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.1043f57f96e97e611544cd7b585b67da4582c81fd874308d597a600e7fe536e1",
+      "visible_brief": "faded pall",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.18ce7807d596c1f3afb268a40a0a61d1e3d1ba7354f18b37c60242e7667439c2",
+      "visible_brief": "leather jacket",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.1979306df63d9ca5b07fcf5b7fba69770e17ff859f62a502788b6c54c261bed7",
+      "visible_brief": "wooden shield",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.1a4016f98dafe2a9b433eb91ee20999bce2d5760311379f162719a61e50a4ff1",
+      "visible_brief": "crude ring mail",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.1e83c146fd90dbb5c1cbb450b9acdc72ab6e3f07ea13fa2295872868f8aa31a9",
+      "visible_brief": "leather hat",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.1f12f5ea49c2c98f82eb14f66b616bcc0042c5e47c87c753bd266cd9114f9a61",
+      "visible_brief": "silver dragon scale mail",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.20c21422faf23da447fd86d8337671bee7352debcbdfbbb860255bfe70ac5ac1",
+      "visible_brief": "splint mail",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.25a753245889be95237f705443876ef66fa8a43a0498d6a6e12c8aeec2231b99",
+      "visible_brief": "ring mail",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.26692bdb27277bbe7adeb58195a1b97fca032e6fb16b2be71a20d1c095c12f80",
+      "visible_brief": "bronze plate mail",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.27f4605ccaa2926ce8075ee0049a8fd2f8b54bb03e3a69393ca3e72064bcdb30",
+      "visible_brief": "combat boots",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.2a7612fd8b68a86209fe3df6261d30880f82368c0f8558cfeb7a6f0a9c72b399",
+      "visible_brief": "black dragon scales",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.2b4d3b223cd963486db1c4cb32acd438ab7b84bf4bddef9e78f929d501ff1d1f",
+      "visible_brief": "mummy wrapping",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.2eeac31cb06fe5aef7870c9f01f76aa56499563b57df9ec47c648357e5303f1b",
+      "visible_brief": "plumed helmet",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.2fe2d2c989f563305f746cb1706ef11e794d9ddadf1d48f643b9f403c182f5bb",
+      "visible_brief": "fencing gloves",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.3ecb52e021fa9aec9c2de557e74b375e15f2d0fb5b18e84bfb6f505b82992172",
+      "visible_brief": "armor",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.40a181f9286592b1713226bff9d4a22c338721abd25d680fb46ec9554e05d5c2",
+      "visible_brief": "hooded cloak",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.42c06ec16d521d52930170b9324c00ac785a5d37d33c053376bbe940875feea4",
+      "visible_brief": "large shield",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.491b9fcb833fc0d2be4340a9829d21efe49c634a1b70bffd3e0cef0d8a1bd209",
+      "visible_brief": "buckled boots",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.49ce722af374d109f5f2b74e9453032a50b5f781538e16c0bb5453a7f70105e8",
+      "visible_brief": "banded mail",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.4a67c34fdd51a41bc7f7201c51fc77647dede8f1355e01f995b3669d0139d0f3",
+      "visible_brief": "visored helmet",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.4df733a3caf0ad22d46673470ce97fda87036f6b9e12558f465a58710a62c39c",
+      "visible_brief": "elven mithril-coat",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.50785098370859c320f55ab45fdf4b82971d9286f4759dd3dad7c77420f95835",
+      "visible_brief": "crystal helmet",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.52043ebe223b2a245014afa1a37fb05c0d02dd4ab79496cd77d496d894085caa",
+      "visible_brief": "red-eyed shield",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.57d332abaac1052d570be337341952cc5044835f3d5ff30334739d045128dca2",
+      "visible_brief": "riding boots",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.58aa602e12d645044b1b988aef3486d11165caf6b8de6ff8bb2d8992b49ead33",
+      "visible_brief": "chain mail",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.5a0fc0658da9673f17b97cce9a6c9d51a776f7fa768a761bebdb8b4e7ceb33e2",
+      "visible_brief": "red dragon scales",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.5b029e7e82be18bb118f840ba3332aa497f6bf9dd2b1757e90e7bfbc5e0c579a",
+      "visible_brief": "scale mail",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.5ee6ee12293e7fd27f368ea8b42e556e80f8713ad9bbcb0ee4c9b2bd4c792b20",
+      "visible_brief": "fedora",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.5f0594dc506e4a434ed401094d09be378849ab67d9a42e15c473fe19bdda457d",
+      "visible_brief": "apron",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.5f994ace294ff1d87f33c37456d91c39ea1d62c1b6ada65924bec052f0a526aa",
+      "visible_brief": "blue and green shield",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.619d11e1e40e81fb6cb79bf280ad2c00fd67393d992a32c6ed86f3670ece7786",
+      "visible_brief": "T-shirt",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.669a55cbaa2c8d4998003a0328769329afc967fd0f96586b2e170fe8640db180",
+      "visible_brief": "blue dragon scale mail",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.67b813833feedc519c63e83763a7ab2160ec4009b717aab90deb95bb54b03d0a",
+      "visible_brief": "snow boots",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.73ed070b2957417e05b93d28aa94568de86792a9ae059f51b0872c2b64f30d6f",
+      "visible_brief": "crude chain mail",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.7864e2bc34f25fd2dcec49e0d99b8bb4a1ef852ed24e5a94123eb2992bea8348",
+      "visible_brief": "green dragon scale mail",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.80a4da78208818ce2480d526051540367f17fe62f8959346fcfcc28f863a5b70",
+      "visible_brief": "large round shield",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.82cda6ab07360f054cf26eddfb827015dce808a7b09cde9d20090d6380c44013",
+      "visible_brief": "riding gloves",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.82e9339d634edefa268107306f3959e824b31a93e236bdcb3d0b7d0df98fcec0",
+      "visible_brief": "padded gloves",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.8303c6b680114e6091f93509221f36a2113a90e029fa283c94377b347c428a4e",
+      "visible_brief": "jackboots",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.83c2641e46b73b3a06e7c85e253f53494eb76ae8fd26a26ce2419d971b7a62e6",
+      "visible_brief": "leather armor",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.8487887f1de972b99bcb041a952f0ec380aed961e7c6a8241786a3b897daefed",
+      "visible_brief": "tattered cape",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.84fdc46668f2b94950e7c74d300d6b1f14e0a78fa8bfc772b9349e405f2af5b1",
+      "visible_brief": "orange dragon scale mail",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.851e2bcfdfba0b741b099cbbaa6cb054747a97fef2a5a5ca3df562e6aec0ee7e",
+      "visible_brief": "silver dragon scales",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.8cc18808a3cfd21fdbdfc820475c52d7f32a15e1ed026eee861f57e4cc4f837c",
+      "visible_brief": "white dragon scale mail",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.8d8f0143b31a3265d41e015b70f8b12ce03d0844cd022230642c7af91eca9829",
+      "visible_brief": "dwarvish mithril-coat",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.921464c0b6222ddb48111a2a9b886902d250c3ddaf2faa3744fcdb31d013e105",
+      "visible_brief": "hard hat",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.9347a3eadc40e94ff1ec636f55e77bbe3e4799dde74d7361181f0354c6811318",
+      "visible_brief": "leather cloak",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.94322ff56a5bf9cf1cbe9dad4302089b0e1c413c99d259f1d08ed50a54d792fe",
+      "visible_brief": "studded leather armor",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.98039a1a13010961ae01b5b30b96d6c5e00f7afcca71820b5661a3aeef89e581",
+      "visible_brief": "hard shoes",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.9835b4e03475cf69b2c05d9c0cdbbbc90cd6359db0c4c8994ef3fb7297785910",
+      "visible_brief": "old gloves",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.9ae1a8cd9c3601371517f848c9cf7d26c5651bce5133599f5875065d9819a861",
+      "visible_brief": "robe",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.a2beede7e36898ed2a34471fd08dcb6aa3484fdd4e43af9a80c7505718234502",
+      "visible_brief": "yellow dragon scales",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.a2c2e828516d58546353d88432bd149d43a8172ecdac2e43403b2416ffdd532d",
+      "visible_brief": "red dragon scale mail",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.aa7d9e2e454e21ee3d8c98ec6d03d8c908a2e6709166f0e2b68c55953ea32be4",
+      "visible_brief": "conical hat",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.ad8ad3e6d9ec3c98501c1a08376f333772f716e85bfdbbb46ec57425f12dfffa",
+      "visible_brief": "black dragon scale mail",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.ae7fd1257632506d21d91d65aa151499e0e9339d905653424f4265d345cf513f",
+      "visible_brief": "crested helmet",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.b26485efd8f08c5e674f166fbae269bc6c4a6bb30a64dc750da48859258d1476",
+      "visible_brief": "walking shoes",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.b2f4e02f2f13b2f1176617f4f5f0da6825ee066f1e7b8865feb170b8d0e23343",
+      "visible_brief": "green dragon scales",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.b393fe6e33c269cbd715f3513f98071da021120694187a212debd9ca87915c0f",
+      "visible_brief": "ornamental cope",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.b66c87fad5d8edfbbd40e4deb6d6a436a43aefd53a899618d63aaf552edd350a",
+      "visible_brief": "blue dragon scales",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.b7a37d08cdaa05a38b9430514e68db9dc39911a43659b22a98aefc51198c7a07",
+      "visible_brief": "gold dragon scales",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.b82f32f156e6311e02498c57352bf1a9acf95a2a5902ad0b20222504e2a290c1",
+      "visible_brief": "plate mail",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.b9027af8374a6eb939c5997614356bd9941930161bd569cd2b5722d06dd00683",
+      "visible_brief": "yellow dragon scale mail",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.bb39c2fabee49d33f27718b5a6df08c586f1b04c6a577f018acc6716721f8e67",
+      "visible_brief": "white dragon scales",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.bc23d5eaea9806500cf0eefb334d7c047552f95712f7e0721b41fee1cd7a1104",
+      "visible_brief": "opera cloak",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.c41c23b9e16f04119645e85b684d50697fe9a7e14f1c1d24191e1c45ed187b4e",
+      "visible_brief": "mud boots",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.c4f0a7b454dfc6c5d5e1705976a2e3c2b27794e4164f56ee422f7ef280f9ee57",
+      "visible_brief": "polished silver shield",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.cc2e6ed62ca7a34f3b910457df84311686b1b527d36779ff8aa9b27321b6d6a4",
+      "visible_brief": "Hawaiian shirt",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.cf500e555c28256162417ee8d842ea9b941100a7a2d4f333f8d1da1b61d5e2db",
+      "visible_brief": "coarse mantelet",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.d20f534b8cb6546a9db7790f9e13b96ebb65dc7a1f2b9837c4b4e8694251dbc7",
+      "visible_brief": "piece of cloth",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.d91c1ef03fe91d47209a78e3645e440c6c4a031f57b41b4a740d6d8d34ef1706",
+      "visible_brief": "crystal plate mail",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.e54bdfaac39bb18d856da410876d9e03933b061da706087bea9b033da7121bb9",
+      "visible_brief": "dented pot",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.e665563be88776ffa448c67ffa86620903420d6f4f9c4c1f620ae6b38f6f8170",
+      "visible_brief": "gray dragon scale mail",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.e906060acc5641504d074485f2816a1fac9a0b58efe8267b4dfc7087abc1f0da",
+      "visible_brief": "iron skull cap",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.eb34f124f5b33422f263760ee37b80c3371c7f3e28ab219781a0a8e241e7fe7d",
+      "visible_brief": "etched helmet",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.f44b4cd0443e089615d01e3d876e8eaaad9f42252a74ee90264bd50ce48dcccf",
+      "visible_brief": "white-handed shield",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.f8975ffe6b4ccaaa0ec8f59f2547125fbd043708a3c2b61e816118d7edbc692c",
+      "visible_brief": "slippery cloak",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.f95980f3f4a8973ff7948b687d1d4ed5d71b09fdf065511df053579bcc93e25c",
+      "visible_brief": "jungle boots",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.armor.f97f7007a276dd78774107748bce4b638e96a0ef84c49a21762f8b8df80a8eb7",
+      "visible_brief": "hiking boots",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.ball.04685d1a91b68b1b9669ae8e91d5c5abd81f3a875a78676fdd12de7f96e18cb1",
+      "visible_brief": "iron ball",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.ball.c3275bc6a1aa9e4ceeb29ffb36a6cff21e183e4e4ea80f3df280ca6f8c02357f",
+      "visible_brief": "heavy iron ball",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.chain.759361c102c7de83d36a3b2455cadbe10ac80e0a3d4654ba870c88a80de51754",
+      "visible_brief": "iron chain",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.chain.8ade9706f651fcc40951c23860d33e85ab2e4ba2e4fdc465545088791c4ebcfa",
+      "visible_brief": "iron chain",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.coin.770caa0080c012e57c526973ff42dcf7936d5cd058f4f7e0aaba58183ea01da7",
+      "visible_brief": "gold piece",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.coin.ca3b79a11b055ff36d46e3d9ea1a64d3df10c8f53d1b528d4f99b4a73d3cfc74",
+      "visible_brief": "coin",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.food.0f1b3a4b0b9528e52a54fdecbdfa5668c355a84eaf1b088faaae227ff08652d2",
+      "visible_brief": "glob of green slime",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.food.0f879dfdffa22450f020f1ac7c1e2eca4e907869774bb9fb3bc7838df32c0dc2",
+      "visible_brief": "kelp frond",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.food.19c120342ffcacbd2ce72cde8f5c07f82b2452a1de56069cb2e5d09406eeb783",
+      "visible_brief": "egg; no species or viability cues",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.food.1b9e38c42106a994a0628a4d298ab9a209e2975477770153243cdf4df4379749",
+      "visible_brief": "cream pie",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.food.229bb7183856fd7b3c480a1195bba6f76b5800249a8cb6609f57deb3a13ffa5b",
+      "visible_brief": "candy bar",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.food.22f75b1485e934e753810f8e69953e5c10c3c4551778db1770ef54f2124064a3",
+      "visible_brief": "generic corpse; no species or sex cues",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.food.2492c5ee9dd68a3b3f2ff182b598125416bdcb605fec6a4d9ab674a08f1a7eb6",
+      "visible_brief": "generic fruit; no custom fruit identity",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.food.36864a2f26daea6fe6f5a2453adacb180f852288d85ff102e8055a2ef86d08b9",
+      "visible_brief": "tin",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.food.4041d5603286daa724ae09218980a415322a389130335d84b5564f43d5533a33",
+      "visible_brief": "K-ration",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.food.4920929c36d8c1d371cb81e836cf3c434c1a16b720ba7a3683ec5278e921e4f9",
+      "visible_brief": "clove of garlic",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.food.4ca50e556e217e826fc110d700a452dcfb3321e41cae0089a9d6725ceabfe20c",
+      "visible_brief": "meat stick",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.food.573665fb6f5a8045d29d5502c6fe1f6d595dd925884b9696380b2f58e1810220",
+      "visible_brief": "banana",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.food.5d0e6989480f3ea17be31e6b72b6c69e7d565cd590eda8ba75e8ef5a51a3b33f",
+      "visible_brief": "food",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.food.5d36530258b4a837bb17797b910c4ac184bc93aa961ca9b8f50e9bdc6464f45a",
+      "visible_brief": "glob of black pudding",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.food.5f020187d717bf4333e3ab7613d28ac0b11979e0b0f86267cc68a774ff0daa61",
+      "visible_brief": "meat ring",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.food.61749f47adfaa2bec9ddca602fe7c7aeaea3537fdd1ea5389ba0ae4c565ba60b",
+      "visible_brief": "sprig of wolfsbane",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.food.663692d498f467d40e2c9f463020470aeca2aa8c08568c9809bf0e9c94e08b59",
+      "visible_brief": "tripe ration",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.food.6d1f75fb93f38e255f33005f850bb03e03b379b7159a8cbff06c4e349e1174cc",
+      "visible_brief": "apple",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.food.7a6e996a15df7eca4ae5a8a7dae19e66ba7b591cb7f0db5341091e7b2ec2d521",
+      "visible_brief": "C-ration",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.food.7a9c20e112e9a1ae6881a51f073802cd33dbf39f6437d670283f9fcd963c0e41",
+      "visible_brief": "melon",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.food.8dda1eece804a0d82e3da77a04fc252d1ab617f17782c4731e82de32a49dc581",
+      "visible_brief": "enormous meatball",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.food.8ff794dce77813b504817081451864aadfb713c934082d3545886e0cafa44ce0",
+      "visible_brief": "food ration",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.food.960491930e156babbd6a4dad8cf56dff5fba6bb1595791cf0a0351e7630d5030",
+      "visible_brief": "glob of gray ooze",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.food.963a8c7f01363c07cb3be7ddc137239523ed1b76886a2e0060293fe023a41fd7",
+      "visible_brief": "orange",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.food.982b4e1a4c999576b2adcd8bcf744c1227d6143ebe053b359987cba6bffcb8d2",
+      "visible_brief": "eucalyptus leaf",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.food.9a171aee6909bec06a6119e8b3cfd4643da30215894a05ece4b5e80d102a4aba",
+      "visible_brief": "lump of royal jelly",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.food.9be97fd6beeff8fb7214bfa4c8b3822d085d37bb45ca7c639e56154a230f4d5e",
+      "visible_brief": "pancake",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.food.bef19c8821c2dac2ff734f4424de1bfc1afb3e577951e53651962002bcc88f1e",
+      "visible_brief": "lembas wafer",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.food.c86365ca105469cf0d348f0c0b4db86e3fe7eff0e23ea81a1abcc0116fc23c3b",
+      "visible_brief": "pear",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.food.de455c9f1023ac36ec780f2ffe42a830c73f416e1d7aa0e3b93bcee6abf8f09a",
+      "visible_brief": "cram ration",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.food.e0e3f87660eccf00edf4b08c5870296de90f8713164c01ce950d618722ca6724",
+      "visible_brief": "fortune cookie",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.food.e5a8f73518b5dae90aac6a2d7b9be3942cfa424f9ac98a4eb31fa5f4b055e846",
+      "visible_brief": "glob of brown pudding",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.food.ecbf6b82756a820813fd850f5fc1c033cf2d9253f60c9b4656170b29d8b7a168",
+      "visible_brief": "carrot",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.food.fd8cbfd7f71acd15bae731bf5124d0cca556f6389b495e248c69b2aa28cac770",
+      "visible_brief": "meatball",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.gem.22ca46768a6fbb761bb880cbe5df3e6cacd40b999c69ee583509862459cb239e",
+      "visible_brief": "orange",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.gem.5195e5cc4b0680d9ed2298cd4edb7c91d5ee3d6e14434d5cf2b6eabde410e3d6",
+      "visible_brief": "red",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.gem.52f72cad02a6c830996d825453e0a49322d2279967273cca2b46e04055535e60",
+      "visible_brief": "green",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.gem.67363b42f8a66ef40f7488e7a277d5f3ffb26ac0f09a05048519a68398a07e69",
+      "visible_brief": "yellow",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.gem.75329a1f63f190050843c1728365992032330102f8018bc8792ab15cf4217f4d",
+      "visible_brief": "gem",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.gem.75b6387565cb9aea8cafdc234a982db6618423153cbe3d6efcb369faa0571116",
+      "visible_brief": "blue",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.gem.89fb070a9e51386daecc1d0cd1751a2136569b5b08c6f1b3a38dea374bae1df0",
+      "visible_brief": "gray",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.gem.8cf99422acb42ab7e45c16069c5e7398e72b1fe64b37b117e35e4d961ec331bb",
+      "visible_brief": "white",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.gem.8d6d55d5d22e580e89d371d7c5363a589839bd3da44c32036a10ff97da52d7cc",
+      "visible_brief": "black",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.gem.a79ae68812bda7fcb869ecdf35f3b85f12bff403707f277a802835c1c2b7d9d1",
+      "visible_brief": "rock",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.gem.f00aa2342d4b0c4cb7d8da05c92e25ba0024eaa8dca10f705a25fab0ab62352e",
+      "visible_brief": "yellowish brown",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.gem.f66ce646d2d75b4e1580d3adf7c69a8c70606c7db297ab0ed580559d95202a90",
+      "visible_brief": "violet",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.illobj.19b8c403e76bcb0f3f92758c434b2e05fa16a0f9e4115acdd1f356553a34fe7b",
+      "visible_brief": "strange",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.illobj.2a77fe4d73b8906086f49db56613efe66a392e97cf3650b832e3c8ec8b640c3b",
+      "visible_brief": "strange object",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.potion.01a11bde6459eaff2acbdf8fb5f7260affe11d90247d9a68b783d7c7a8ca9a05",
+      "visible_brief": "dark green",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.potion.0807f464574119f93fc52c9beb3682bef29d4793b880b6b22a3c8ca6c17bc2aa",
+      "visible_brief": "brown",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.potion.0b651f152f5b975ea740555185aeccc5ed71bd4d85b98634807c6ad472796e1b",
+      "visible_brief": "fizzy",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.potion.0eee997b07d8b545cdf2862608f031a12bba6991a719404a7de7d79b91c14e77",
+      "visible_brief": "brilliant blue",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.potion.179c847a7e5675f4e3528948184436d0f9b47227d979b88383663c8cf4823957",
+      "visible_brief": "swirly",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.potion.196bd5a3aa1f7e497192ac4a69add84764295135a4af8a06c777221c35f945e5",
+      "visible_brief": "milky",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.potion.20e7ddd353d99fdae00c08e7deeb5f285bc3de233dbfcd9b8f11f0505bb9ecfc",
+      "visible_brief": "dark",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.potion.2a4ec63358cfa408453b0da57b23358a836c5b0193f3605a020184717d089e5b",
+      "visible_brief": "black",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.potion.2cf89ff6532075893610127f5ed1519e0b50aef28f1e9368701793a188b9b2b1",
+      "visible_brief": "clear",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.potion.2d703a65c241991425d58dfab1d133598198450a7de682fc2ce3b1d0634852f6",
+      "visible_brief": "puce",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.potion.2ecbe5c1f2bbb30192a70befde0361b454a1d5f4082bf9d3ddd3b5b0bca04d73",
+      "visible_brief": "yellow",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.potion.4969dca27d504c3831e16f8ebf78ad48b415423cedbcd8169d9c45ee33dfebcf",
+      "visible_brief": "sky blue",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.potion.51934975e27cfc3c5191189dc4cdb58dbaf4c55d286d46272254baaefceebe6f",
+      "visible_brief": "magenta",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.potion.5ca9b057d1a37d2d36c42c1f8e732f9c627c2b3cef5980f9294e2cfc33214606",
+      "visible_brief": "effervescent",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.potion.64470faad48d880fbe35d5ded09cf2a172949b8b6fe81fbb4de5ba0a3d40c1e4",
+      "visible_brief": "emerald",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.potion.6c3431832929d6cf95d3d66decfc4d8c0941b279a411d6c840080097e6a0addb",
+      "visible_brief": "cyan",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.potion.6d4e01713390904e3e76d18f4adb26273c50746d67c8cbd57a5e29d00465a901",
+      "visible_brief": "pink",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.potion.7f2029bf53daff74ef36a255e7d2aec5d4df8ecf64e85629f1cee99511bf9e13",
+      "visible_brief": "potion",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.potion.8a5ecd09f103a68e6573820a4949f583c6290b56baf72b9e5a66dd230af41928",
+      "visible_brief": "murky",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.potion.9d11c49ae897c3983a215046efc5ae36f35d4ade70f91738d7482d6eb3260e6f",
+      "visible_brief": "white",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.potion.aac0cfa4de849a423c19cdadc58330794e5f9b50749e3defbaf059e67cc7f47a",
+      "visible_brief": "bubbly",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.potion.b6577e6927174cebfe51aa18c118b52fa55c38fb5d6d89a8c82e2a811d8d2b99",
+      "visible_brief": "purple-red",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.potion.c4cb8cdd4eaefebb2b69ab9ccd69e7c7efbdf7bdf266e1c872dac4a37211581b",
+      "visible_brief": "cloudy",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.potion.c517dcbd62576ab3033594a322c0c89651d846e756f21c371b3b488207b39822",
+      "visible_brief": "smoky",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.potion.d1b9a26fb60ef48839f97b4193808735284f99332eef87f8ad6f3ce3146efe8f",
+      "visible_brief": "ruby",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.potion.d70df3d686158de8b666a9a5c129a9f8440153f9f8b558f9ef963fbdfc08588a",
+      "visible_brief": "golden",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.potion.d9e243ef370a42d4e29cbc26c57275eacb879accde2343ea8664361292d002ae",
+      "visible_brief": "orange",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.ring.0221b6882d83448f5a66c952f5359da102d87ba4772bdc3c52c5cd41351bad60",
+      "visible_brief": "jade",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.ring.03d4ece2ea532676a6c3db54b16fa2450c8bfa156e9aff1e4d198883e3fa6a27",
+      "visible_brief": "opal",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.ring.0a6c8991d1294d2c941f6a9d2980a59f723881e797a408c2becca177e0ea4602",
+      "visible_brief": "engagement",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.ring.0a82a12c65983a9c53034a61837434b5c2ad2e7832f32d66f7c8262abc3dd2c4",
+      "visible_brief": "black onyx",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.ring.0f194a40eabca740cdfd4abfdd9b5accc199f0cd51fedde2a54697eff429b522",
+      "visible_brief": "moonstone",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.ring.11c765244a39a463b19d60a3038c11ed459005491155aa5b88f9187031818f6b",
+      "visible_brief": "diamond",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.ring.1cef78e950b9b18cf9bb5e7adc656a1ed0a959398ffcd486ce56894946312467",
+      "visible_brief": "bronze",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.ring.21595878db5ba26e77d0f9af2d87f082d2ea9c870c548d886bf2a8dc0f93e3e4",
+      "visible_brief": "clay",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.ring.285461b5490789b9ff24e9641ffe7e69379a33d13a93b626ecb4df0801a0c053",
+      "visible_brief": "shiny",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.ring.30767078da18b3c29592549f435ed26016f19f3be0bc712a108f097924503d45",
+      "visible_brief": "gold",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.ring.35d71b1166a59bdb30a9860dd161e2650405d44e1508e41eb78221f4d79dd63e",
+      "visible_brief": "ivory",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.ring.78c019327b0d31f5d4af0e1be9738dc5a626c709c9e23c59fae813423a6d4544",
+      "visible_brief": "copper",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.ring.793a3c95e094ef00dde42a53967d4fb2df12cc9115956d3aad4cde3668771705",
+      "visible_brief": "twisted",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.ring.7df0511d7a9c85be17f18f551591a1393fb74e577a4eca09d0217f82377eb944",
+      "visible_brief": "ruby",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.ring.895c5fcd2ee714ee6762580237dcdc9082f5bab52b9f694215c996f525f88c56",
+      "visible_brief": "agate",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.ring.8b3f1c2e849fbc2869e4d584a7dfb8a9cf17f31a9db42fb2026067e06a336ba9",
+      "visible_brief": "wire",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.ring.934f81d557668c1f79a4ce93fd47b5839452b18bdca782e9100667126f0183e7",
+      "visible_brief": "emerald",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.ring.9b2ef29ce6924e6cc773dab73e64ea61b7c1b4880a450fa1727f06368d97599c",
+      "visible_brief": "ring",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.ring.a92d27e50dc95cb1b88c2705d999c1b98d1fcf7280df5c5dd000dd2cd62cee0a",
+      "visible_brief": "pearl",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.ring.a9d50327243a3ada0d6c26515f6c6b2d9e4e0b49bcf84197bc82aa2537277350",
+      "visible_brief": "tiger eye",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.ring.abf1a2e35461964a63d9916163fe903b6c9dd8c22581389d6a1d195c2ce3b67e",
+      "visible_brief": "sapphire",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.ring.b5051d849fa095d81b727cdd714ae9a9e0f20670f3535718973ad7e73515f840",
+      "visible_brief": "granite",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.ring.bad40ac698cb6d89203bef82d99fb5e438ba06d4b570c23aec8ad7153f0d2174",
+      "visible_brief": "silver",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.ring.be19c847d7d361acab404521211c13c4368b62514fd0c15767372faf8c7a859d",
+      "visible_brief": "coral",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.ring.c4c1eabf36320d3ba36f34850a62c79c6fb024e74950486195f90319c010aec6",
+      "visible_brief": "iron",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.ring.d9f1f4df3d867a26de216f9747a17dd784c83e6b9f049ecb7123a9d16704e246",
+      "visible_brief": "topaz",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.ring.ddd0ccfe34dc9c87ff3e757a4da00ce38359aaaf77b8bbb3b745d4dea0086f15",
+      "visible_brief": "brass",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.ring.e1bc0038acbc3edad56928daca33de34f760ef372fcbd33a57bb3f554a6739bc",
+      "visible_brief": "wooden",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.ring.ec171463bef795bffc89561a0f3fb1af8841fd397b71ef66a79a4bb4a4bed825",
+      "visible_brief": "steel",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.rock.1323bd8aa5e49cc803514de5a5b6ec6fb2c8ff83edcbb43ff8eb03e9ebcf507b",
+      "visible_brief": "large rock",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.rock.a7519fa44d7d8759769121d93fa574d020fe07ce788d40cb1a9da20a87ad26f0",
+      "visible_brief": "generic statue; species-specific statues use separate visible glyphs",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.rock.d4caf8c5ad2d1f39c270a0413b8c1e19611fb834dd658a18e55db79381d611a5",
+      "visible_brief": "boulder",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.scroll.0510373e49307d067f7cd7f4a04dfe7f4632a21eca92f8af4d2b390302437246",
+      "visible_brief": "VENZAR BORGAVVE",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.scroll.108d3bc33aed04bacdaade936c4a4e8d8a826107aa4b7f61847e47ca7735f7af",
+      "visible_brief": "PHOL ENDE WODAN",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.scroll.1292d207fc203bcae2a617b2268e4141ea7048cf941fa41508622b3e2f35e2cc",
+      "visible_brief": "unlabeled",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.scroll.13c131e21e267b195c91fdec5b747e8917a323d6bf2a86d9b4e6a4d7d821cf07",
+      "visible_brief": "DAIYEN FOOELS",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.scroll.1b4c6f82b19764a6844c2d7493e6a46e4909eb932cddb7f9ed34fb3ba42d27d7",
+      "visible_brief": "NR 9",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.scroll.2142713377261a2e5555599abee6316b0f985065b8ec57aa5c0c18fa43354b5d",
+      "visible_brief": "YUM YUM",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.scroll.257b46d1e654a5ba1343691cd19a749543a08bc28e37589941443adf5a298b2a",
+      "visible_brief": "GHOTI",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.scroll.26e1a2265a42e0ec77cae9e8a84323f6770bdef9a93f7d861b636eb1bba850cb",
+      "visible_brief": "GARVEN DEH",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.scroll.294e5b9e87e6d1cb2ce82dd64029f7f6b68007221acbb4defdeeee3a78d79405",
+      "visible_brief": "PRATYAVAYAH",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.scroll.301e592dc4441a448cb84b93d40e2eb0e2111e220b5c43f3102c28d10fc20581",
+      "visible_brief": "VERR YED HORRE",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.scroll.361a5dffa38840a7eb462b8f0ae5ea64dfd79d4d465b94ca591fd9a598ad1d8e",
+      "visible_brief": "EIRIS SAZUN IDISI",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.scroll.3872398922ff45082486819fdf181da6c5d352e95c24fb3cee6c787285dd7bd9",
+      "visible_brief": "ELBIB YLOH",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.scroll.3e513bcde5ccc5701d36d8c9346bb15c0bac717f4d9f1717130aae029b4d39d2",
+      "visible_brief": "ABRA KA DABRA",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.scroll.4513e83438ca6c8bed018e0633405e3bcbf80055a1b652f65dcb39661c9de31a",
+      "visible_brief": "ETAOIN SHRDLU",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.scroll.511df5f885e72b0997546f144d3906207303fde0cad8cd6a0363d4f299aeb906",
+      "visible_brief": "FOOBIE BLETCH",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.scroll.58d61da7dc41f4e3464165ecb45672dd01c66375726c6a9a79117b328850562e",
+      "visible_brief": "HAPAX LEGOMENON",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.scroll.5aeac81cf40e9184f213ea445d1d17db2ba5c441a723897fa701aacbb498bbe8",
+      "visible_brief": "THARR",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.scroll.64ace1dc5c38546dadc075f82d09784e4063a9bc9e7ed74424759aae8937dd1f",
+      "visible_brief": "LEP GEX VEN ZEA",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.scroll.6ec0645fa2484e3d080feea5e57eaa6be42a200a41b6fe02f48b4e8d1a652a41",
+      "visible_brief": "JUYED AWK YACC",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.scroll.76bb81a118d79d35d78caa4353dc370008ed0f23af9e63753b6588beb0adba4b",
+      "visible_brief": "scroll",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.scroll.7a72c0635ef104a9533a08ccba58c17fcf03106f8fa90c774e0b23618292bf73",
+      "visible_brief": "ELAM EBOW",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.scroll.7bfb8ea5956b535211b8c78e3ba7c4e2dc54c6c7b878d56e1f911eb221085f22",
+      "visible_brief": "ZLORFIK",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.scroll.8071bec744729d7e08f584e65df36318e0562acf2468ac700aef94dc2482513d",
+      "visible_brief": "MAPIRO MAHAMA DIROMAT",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.scroll.907f3a0b68c96ad1f30aaa407ab038db180686765634a1926b97a91002fdfde7",
+      "visible_brief": "KERNOD WEL",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.scroll.a306460e0c1286a0ea47cc7d5a33fa7344bd47229b83412550f4f7c5d092bd7d",
+      "visible_brief": "READ ME",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.scroll.ac1b3c47be8e38ee749eace435b2bb4f21fe56f9d0c0fc77d36a4877dc45479d",
+      "visible_brief": "ASHPD SODALG",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.scroll.b276418cc241bfd7e749626825994c3ad32e21a683962ba98081365328e07a7e",
+      "visible_brief": "XIXAXA XOXAXA XUXAXA",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.scroll.b856973c4a1b4441c23a0141c68fb004df2e0dacd0ec44197540cca4c4bff85d",
+      "visible_brief": "FNORD",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.scroll.c19d62b76c6466ab60a581a026cd3b6a99ca90d72e9c2478064a612ea6cb4d2e",
+      "visible_brief": "VE FORBRYDERNE",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.scroll.c1f794513c129e5e180db7139049002e36324b6e8a716146d7cc3b9ce2deae87",
+      "visible_brief": "GNIK SISI VLE",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.scroll.ca991fd629fe932237bf0c905c422be2b8eeca05fb6060709963f751e4d06627",
+      "visible_brief": "ANDOVA BEGARIN",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.scroll.d1ab57dcc3896f2526d4026568c3acbf57e5d08135c1810e6bba4e29a021b44b",
+      "visible_brief": "DUAM XNAHT",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.scroll.d564d356a06da221d25faa5f7632da07a0499677827ff32ab61b82d2012ae6c1",
+      "visible_brief": "TEMOV",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.scroll.d7eb5ab64745ceb740ff06f6c235938490a6e0acf8b5a25f573463bc73ff17fa",
+      "visible_brief": "KIRJE",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.scroll.d87a18986be11eb69bf3b3edb5b63e943ed516b17089c170620092877edfe045",
+      "visible_brief": "PRIRUTSENIE",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.scroll.da7c61d24a57b612a23269d2e5a734c1ea862ba97f7f38762588ff7016128b63",
+      "visible_brief": "KO BATE",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.scroll.deba073152ac08fe0b757f871f0e5ba1da6523cfa0d38414426d3897019e5ada",
+      "visible_brief": "VELOX NEB",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.scroll.e01e256178bcfbb10e598bcf15c3b737d2cddf0426e69a8918b6e3221b9dea40",
+      "visible_brief": "HACKEM MUCHE",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.scroll.e298732af86969a415c8db41632de04e986070562c09b601b0d07241cec380e0",
+      "visible_brief": "ZELGO MER",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.scroll.e9638c957e50fa30613bb0b46a85fd07cbd79c042e6271578463ba6101322a2f",
+      "visible_brief": "VAS CORP BET MANI",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.scroll.ec1d1d96bf4c02d5de68dc609f38ee29b95b966e985e4b6a329c85774282e6ac",
+      "visible_brief": "XOR OTA",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.scroll.f70dbd88e3892b27bcfbbebc84761f8907d537f7030c76020e88989300aaa6fc",
+      "visible_brief": "STRC PRST SKRZ KRK",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.scroll.fa9d434981cf87c2ae5f040807e8a549d86a95435cb5b55ff45eb17c4d256497",
+      "visible_brief": "stamped",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.scroll.fbdffefe992961742b42d0281a2a6d36600a4207b392305b73da7b3f00d5ec6c",
+      "visible_brief": "LOREM IPSUM",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.spellbook.1136ff3b0f974671e8bd6e9298d6b863bf6872624e4c4d8e8dfa5afbe8b7b948",
+      "visible_brief": "dog eared",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.spellbook.16361b07179c98d15b1a5fb7dd451cf9afa37f8a373455cc94383ce0e81e7b8b",
+      "visible_brief": "tan",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.spellbook.1c38115c581018787fd5730f81928a9cd48d174cffa569366967075c0f0a42f3",
+      "visible_brief": "red",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.spellbook.1c6b455f1494e1eb8554ccd3576a6933a2ea79aeb598f61141cb0522a858b9cf",
+      "visible_brief": "cloth",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.spellbook.1c744469574c96a741a84d5a02d4b71595ca72d3745912af7591283c92fd98eb",
+      "visible_brief": "light green",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.spellbook.21006d3edbbfd81ff33b7b9d773de9addd58512f6b47d8cd3444b9679622e25a",
+      "visible_brief": "plaid",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.spellbook.379af3828186e1cf8b3f49bd42f76ef103d69663cd3bdaa5251081b0c51e15ac",
+      "visible_brief": "light blue",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.spellbook.3c2065d357b4107b27e55b62e527b24982c32c7216931e143efc6c09305c280f",
+      "visible_brief": "dull",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.spellbook.414c802a070fba7c3f74e31a5d048f86bab85e9e9bf1169f3dd3719cc818f2a5",
+      "visible_brief": "shining",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.spellbook.42c3f2ec2c39ce945157732a7a8da5e75ee47414e1566cada6ac8c254eb86392",
+      "visible_brief": "thick",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.spellbook.4b8d4a6721c49e9969c764a93663b6845b5ffaf7e25092be09e2c382203d6f8c",
+      "visible_brief": "vellum",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.spellbook.4cc5fdd67d09fe7dfd43f3b377896b06d4387bf0cbacee38963532ce062b2f16",
+      "visible_brief": "yellow",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.spellbook.4efd5494faa7ef49b500f1496cd00975f8d315a9513d8b3a1bec4e7e42c84175",
+      "visible_brief": "glittering",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.spellbook.57265f8e463c88bacd81bb68e90a9548740456287e6c5b7f18735e5e2c0f55d4",
+      "visible_brief": "stained",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.spellbook.5c35864b488e38d94bcc69f1b079e7f8431342f3784676ec30a78fb144857432",
+      "visible_brief": "papyrus",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.spellbook.694c4383dc4eee6f96ef0fbc06b1ba054b5020f9861dfe4ef87c3f342dcb2471",
+      "visible_brief": "bronze",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.spellbook.6f43d23a5ddd82ef89c76a513b0f9873cdf59c7b4c709bdd51b1946b780ecee4",
+      "visible_brief": "mottled",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.spellbook.7023fa479fdb744fff02ab5369bc71700c991ff01e5f186ab24277a3e63ae098",
+      "visible_brief": "wrinkled",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.spellbook.79337883636cad02d1481e0589982ab2af77c5de52e11665554ea26858e4815d",
+      "visible_brief": "leathery",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.spellbook.7d18ba526447c3b62fcece922d93f59933e125103b53258d4e82f91829690860",
+      "visible_brief": "thin",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.spellbook.80dc9592e3d6833b3f7182189afef5b401ae0c016cd299478dacbb7d21526a3b",
+      "visible_brief": "dark blue",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.spellbook.866f60a44faaae407cc6ad490e610a4afc869f2f466ba4bd63390adde9970db0",
+      "visible_brief": "gray",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.spellbook.8a8aa6e1da426e81a73c3f2ae55df2c06db55769f9a3b0dd8affd2e1501b4299",
+      "visible_brief": "copper",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.spellbook.8aaeeeed6e619a350108b08200acc088bca9764eaacd4f2f7b15e0480950b54d",
+      "visible_brief": "velvet",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.spellbook.92197f4ab84c6fc3c1c9be585f777c0c55a1b7f2f3ca2c31bfbd363f4bd12e0c",
+      "visible_brief": "violet",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.spellbook.9da5581ab8bd1b8670136a8e9d68b7061ff1c571b92d53577a3f915f07a48e51",
+      "visible_brief": "dusty",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.spellbook.a04d81f6671ea29e8dbe8792388716041ce98e387a0d0020def417980bcd6d64",
+      "visible_brief": "paperback",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.spellbook.a1c976fb5161f7295bf04f921fdbdf613f3d2970d593c3a1f3a17d476410af51",
+      "visible_brief": "gold",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.spellbook.a462ead9cce40fb1f245e4de8d1c8f8b7dda5538a8f2630b2f088ff96abe7ec8",
+      "visible_brief": "ragged",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.spellbook.a6c2691e4dcc90d5ca82066472a2c4a03bfc7e2a634a1b1f506650b0f5fd9226",
+      "visible_brief": "plain",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.spellbook.a90cbd25224f6c74b1cf36ec74f8d1ee15c94a9488b23a90bd4aff01239425b3",
+      "visible_brief": "magenta",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.spellbook.a997cad98b78953f0cc9ea7983325e3d4148cfd885c16df995d9c7abb8d1f0e2",
+      "visible_brief": "pink",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.spellbook.af8ab5e5f09e996f51219a258ca797eca0f6f86e6f4b569364a2adb185d01466",
+      "visible_brief": "orange",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.spellbook.b603e8bfe51eef040f0a51180b76f6fa3a1e0a9832866d0ca15047042af03446",
+      "visible_brief": "dark green",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.spellbook.c6d4e98908a56fd525e7c9e85d52cb8a6109587302746f79c1d1a82e825ad0c7",
+      "visible_brief": "white",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.spellbook.c9ad2e4535a8824d1004d70c79e7dc6e8ecfe6779b7812ea43bc5f030604c3fb",
+      "visible_brief": "spellbook",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.spellbook.cad409d9847e7e6fc4fa06275cc2ea23f04f9084150253cdea331c19a79d6e5d",
+      "visible_brief": "checkered",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.spellbook.cf4f7430d3d3ddc679fad35b9fc85bfcbd5b696125cd17860313a9e8322e9d78",
+      "visible_brief": "cyan",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.spellbook.d4bf453e06bba5d43d20a612cc808331d7221a3777e5a6be4edac217243baabd",
+      "visible_brief": "parchment",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.spellbook.de71d31dc9a6ec55774330fdf26e2ae6ec127d91b02d8638696f83d3f456af1c",
+      "visible_brief": "indigo",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.spellbook.e83e10dee49bc8fc1923b545bb76e6bafa104ea7c311f8b0eb92f509462896a7",
+      "visible_brief": "purple",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.spellbook.eea6da75af4bc1ed3b60c0816943e1f3130ee142828adeea56c22e3e51aef317",
+      "visible_brief": "turquoise",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.spellbook.f0759547857ee2bfda336cbf42f07154cb9ab7a3a84f5bdb81f20202ac900206",
+      "visible_brief": "light brown",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.spellbook.f38846728e0cbc5a15d2ab4c276f569ff0db86c543331efff6d43d79802570fc",
+      "visible_brief": "dark brown",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.spellbook.fa93d54e8d24ee4cb501d9214f052e9d099b534200ef348a782013f532d72e30",
+      "visible_brief": "silver",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.tool.02242d79d935d5dd58ba70c0323ac43903399b1172a44b55be3d7175be99c75f",
+      "visible_brief": "silver bell",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.tool.04e5cf5e45702b11c37029e66e572fac8994407cb05e74c021d78a9fe12ffe45",
+      "visible_brief": "credit card",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.tool.0a86fc2a838a776babb929f937e133d9648aa356d62e41f116f27274c77e686c",
+      "visible_brief": "drum",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.tool.11143f47c71083e8ee2d614daae15dbb37dc5600c8e607bb68c684ee1e369eda",
+      "visible_brief": "saddle",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.tool.17d8e0e549bdb2497f69b17d0bc0121d486c681eb5705a662968cce599eb24d8",
+      "visible_brief": "pick-axe",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.tool.220fe21815c3934882e9347d51a6ff50e7b5959790db44278d3527318df5c862",
+      "visible_brief": "leash",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.tool.34e66436357d902478ff32848b7252d5608bf6a342a7aceeb9a17aaef01e6b0c",
+      "visible_brief": "magic marker",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.tool.35c6cf24d59edd87199348ffdd971dfe1a7da8e68ac01fbb62f28d50410aa99a",
+      "visible_brief": "land mine",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.tool.3b5701d2b6cb4727229a10697cd8573ff51f3ea3f942bb406b27497c46946760",
+      "visible_brief": "looking glass",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.tool.3b7456e250c816e20434ba15348f0161fcbdf1624951a0ad6643224bde13f82a",
+      "visible_brief": "large box",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.tool.444dc84480a8f33857fcf9348bd4ad5c042b3456eac92df3f09a56f4a1866c64",
+      "visible_brief": "harp",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.tool.4acaadb9e78f807bda24f6fc82096d00aa0e7b5c9d390b55b0fc5db7ce910ab9",
+      "visible_brief": "can of grease",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.tool.534364cd4dd09ba638aee3936d3ce07dc5f6cb311406269ece91e10ad8997416",
+      "visible_brief": "whistle",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.tool.57ce3e1eeed081c9cd8f0af79fb1604445e3952b8681174cf656234bb6806e9a",
+      "visible_brief": "lock pick",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.tool.5a4ac899f004245afeb2e2dcffd98f1fd53a6a9d8ce74e766c752eb2746dde14",
+      "visible_brief": "beartrap",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.tool.6313a965841605fb1b6d160ac6cc5e92f79c26c5d9e4b0c6cd85629762031fd0",
+      "visible_brief": "flute",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.tool.6f8970374d3d78f7d22d9d66e20beaa134176a97ef65a0626377857b0da0a5bb",
+      "visible_brief": "bugle",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.tool.872b7de5c464251d2d4d12554cdea7a0a43f7207b007db4f7c240f7813405d33",
+      "visible_brief": "blindfold",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.tool.8b755117bf545135f42f547405f38c9fa0d25610e97b038936883d1af8bee5cc",
+      "visible_brief": "figurine; no hidden monster species",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.tool.8ef660c09e3c60f47e81bdacfd8f1b82d6154144618807f020092999b8e232ee",
+      "visible_brief": "tin opener",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.tool.9030fb0506a8bcd1c8b2b2f6e70e023a08a8f9ff7adfd647829c6043d75431bc",
+      "visible_brief": "towel",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.tool.998dc905a56c3804c12f901c983b312bb2d6ab93c86ccaa7cd041c9378572cd5",
+      "visible_brief": "key",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.tool.9b30618438f3c2e5b3128f4103de4dbac9932386d07e59dc95205a8d19acdc51",
+      "visible_brief": "expensive camera",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.tool.9ce4fcdf193063ada89e35189975677f813bfcfa5d0126616e381507fb67caa5",
+      "visible_brief": "grappling hook",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.tool.9f38a78003607400017a4a0f8ca973122e7fd1ae6fb532f0a8228a8f4bf323e5",
+      "visible_brief": "chest",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.tool.a8a9152799261c2e50183ce1f07628d7280b724af30079855755f7d0366d0fe6",
+      "visible_brief": "candle",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.tool.b9352f75c2ae7d799e9e8b5fbbc0ec698a5a350f24d0bfa3b3c4871e578a5c7e",
+      "visible_brief": "candelabrum",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.tool.bc09d7c2234121aa5acf247275aa883ca817db7a62f2ffb875b7f017db0ab0fa",
+      "visible_brief": "stethoscope",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.tool.c0818e65349b5249ff652c2afc73d6699612599f8c9a1b262fe271236b422249",
+      "visible_brief": "ice box",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.tool.c30931cad99c3cfc628e07d1b4a94d54e37840b98bf01ce3dcaa4ef87bfee32d",
+      "visible_brief": "unicorn horn",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.tool.c8cd4685a9d691f92cdceb352007968bcde88613adbe15d8f96ce83ecb063a2a",
+      "visible_brief": "lenses",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.tool.c9c762724293be0b90689e1d775503dc8c4ec9081d112bc5281a6b06b892478b",
+      "visible_brief": "lamp",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.tool.d2797d6911806c99fed395ac7b8417855cf2d6f53adbf5fca90c6118d130c7e5",
+      "visible_brief": "tinning kit",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.tool.d7c6ae7ffe9164caa528e57a8557699c023d80b8dc5f8188bb8775e05c0f4513",
+      "visible_brief": "brass lantern",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.tool.db7a78646fe6cdba9b7d98a8802cb5e42c129ae354cb42ab6c94ad4a4c1947dc",
+      "visible_brief": "bag",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.tool.e3114a953ec64ce487bf02b02566f818d6c0b56870caab20589d232744369cc9",
+      "visible_brief": "bell",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.tool.e5a74c03424571a3aefd18ccf3a4eef5f85797838318849310718d338728ee44",
+      "visible_brief": "glass orb",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.tool.ed38825f173682c0c75a945902f8b3ca7b27c291a1cebc31df747fe989411e13",
+      "visible_brief": "tool",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.tool.f75e68458dfb82f12f8cba91d383ee42bbbc9017065899391fada4fc9e0eb895",
+      "visible_brief": "horn",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.venom.ae8d0ed7d9362f9d26022f135f035284640d7e22d3c2bd1881f044af0c771bef",
+      "visible_brief": "splash of venom",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.venom.e9b84754f3de65dd05afc991c186c00bfefede2b0e94c6fefd22fee2559effdb",
+      "visible_brief": "venom",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.wand.12222b8dfa3ccc4637f31e574306527595a307ab6a5cf82ae22f3b409eb97b70",
+      "visible_brief": "short",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.wand.1736761e11aae4999b57953deec08e96945eb188606bf54951e76d63fd8e01e7",
+      "visible_brief": "forked",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.wand.267014cbf3e9e635f1e1d13fd6bbfe42a0efc77bfcccc99bc4897122e83c4778",
+      "visible_brief": "runed",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.wand.2724640421926fbe015e95ed89e06470e2038ec8dde1fd6962c5a872512a861a",
+      "visible_brief": "hexagonal",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.wand.2b5ba00c8965253bde325b8c64eca7c307cb73b07c50b848c0b1a8fb1ace5682",
+      "visible_brief": "crystal",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.wand.2d5ae0ac24f27d51286d9f53a063bc08a1f55dcb469d9b3e50e1b1ea707b2a3b",
+      "visible_brief": "platinum",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.wand.2f83c154bb1ebd77e320105d4cdc55abb262670af267473f1632e1d25ff9d1ad",
+      "visible_brief": "jeweled",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.wand.4a4c23a0722ee44329226ec5aa7cde6659a89083943d84dbb83eb91452fdc2e0",
+      "visible_brief": "zinc",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.wand.4bddc6eb84957269c4b0d5c53b05fdf59911c49b10fab82eddfd3779724b96a1",
+      "visible_brief": "curved",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.wand.50bbed27aee93f37e4ee94e1c77d5a38e487f00c918f85fb45b1b4881261c018",
+      "visible_brief": "iron",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.wand.50c59068225b6ad23b058c590b117af0bdefe7a982249d824d4c32a9574dd08e",
+      "visible_brief": "marble",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.wand.64fd514bdc130864fbf11067e387e3406df2dac487dc435d58b66f7a5e9e1fe0",
+      "visible_brief": "steel",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.wand.6a773d327bf865fa86366c1f5dae0fe4311953467945c9636f423da855039580",
+      "visible_brief": "wand",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.wand.763213247b52db7136f6d519fe73b835bc6519a94e4f09035c5ef4cbb36eab98",
+      "visible_brief": "tin",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.wand.7aff597b2194db11d6e246f3e61d5b5fd360f2177f5093da6249b69ef8e6e433",
+      "visible_brief": "copper",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.wand.7d90496d1fd92f383d2f503696bb4a300d2a8c1916d9ad52a8ef465fe145eb91",
+      "visible_brief": "spiked",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.wand.8101b25f0cdc02e72c0172a18c8ee0618d1ee49e86ee8cf2a195a60b57a06a65",
+      "visible_brief": "balsa",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.wand.93201b2b18f24481b3002e4e4bfbee04ab4731b046d11d8f38962457843ad9b4",
+      "visible_brief": "long",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.wand.af40ce8ae4efc532111e4a010915dd4f1b187f12184f9bd4e54295cb374adbf7",
+      "visible_brief": "silver",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.wand.b533e5d7751500abe6c6585b6c6d81403713f430f3c37ab6a3e1b7469c8691c7",
+      "visible_brief": "aluminum",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.wand.baaf859e74cdc09ae1f103a25a7b0545767c2696ba07598483782f94ea6cfe03",
+      "visible_brief": "ebony",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.wand.bb45e0125d0f5f6062c501ad96108f9d0c608674a204b8d6ffcb9199741c1de7",
+      "visible_brief": "uranium",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.wand.c2f83706ebf9bab185072a4a6d2412cbf4c86d9d859c826fef25de133ec7feea",
+      "visible_brief": "brass",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.wand.c65dac591b3045c21488ff31215455199432584a0932dc9ce9a0d4da15c3ba40",
+      "visible_brief": "glass",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.wand.cc6ad926455c6820189150ec4fc424dbf10e21e96778accbda8d894e72ffcb2a",
+      "visible_brief": "oak",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.wand.d66a52638de8d1e023397a8b48f912f75e06a012df9607de0f496e2e4206aa9d",
+      "visible_brief": "pine",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.wand.e4737a6ac433c505162ecd64f77284e9939f0186cd1450c5e281004ca000a20b",
+      "visible_brief": "iridium",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.wand.f8389ec5720bd91b07d9404fa43ed1f5cf1196f8fba504e72ae8863c96d48258",
+      "visible_brief": "maple",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.wand.fc5179e205ddda17fd32f9ab7bbcb37947f8043c9b2b4d32087777b1cdce0c56",
+      "visible_brief": "redwood",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.0042f275afffddb62f73b63a66981ecbb99dfedf6df032e442c81198d710db2d",
+      "visible_brief": "silver arrow",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.00577464e43f8b0b62ac720dc429febd5bde4d39d5390f0ce550532876f44cb1",
+      "visible_brief": "boomerang",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.03da5beb9731ed0b47786b6c381ac13b862db40da9f068f9a30ebdc454888f5e",
+      "visible_brief": "athame",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.042291346f643e4d87c0d5ad022bc5c49327a4f9f76dadce5defa799c38d8a93",
+      "visible_brief": "samurai sword",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.06936d6d53abfe5905aed3a63037b8bb1050b94f7214f55b9a20d045e51601b3",
+      "visible_brief": "hooked polearm",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.0c2c6af3ee7583d7b3fb90df8916a78b79249d7c1e1b029884d03576d8592fff",
+      "visible_brief": "stiletto",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.15d8127cbb08a0623bba69c77c604d0bcdc9aecaca4b5d6ed3188de675eb701d",
+      "visible_brief": "runed broadsword",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.1819060ee7a4bfa22ace2321f097676a0ebecf9a176837a3408c4aa300b76f99",
+      "visible_brief": "silver saber",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.1e0980b197029b3328071a377ddcc02e380e4394a5f564deb0d65a860d068b6a",
+      "visible_brief": "pole cleaver",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.1f9c0aaaeb0b41be43b74b5225f8b753c1951533ed3d86dcd9368625f8a0b549",
+      "visible_brief": "flail",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.1fefbb5c91f0e476e59d42621d1c29f5cb81369a8645d176386897de51c87fb1",
+      "visible_brief": "short sword",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.22f1adc85ed7d8012eb308ab2e4ecc22d077d58656aea814d32aabd48dcd5b57",
+      "visible_brief": "crysknife",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.24fdc55b057b2b185dabee78c01c12cc79fe09a71dc830f04c26dd5db92ad20f",
+      "visible_brief": "knife",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.27313469e32c568faf7933ed91c7c6ce808f6bb5d224bac78cca73eb3f6bc2b2",
+      "visible_brief": "vulgar polearm",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.2ba46321ad06c00cdfad04e76023b048ba33386871506cfb4e7602cc55c1aa1a",
+      "visible_brief": "long poleaxe",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.2c1b0225dc55cd65144c64489588e4451118bdd59869804910dc3bae58158cc8",
+      "visible_brief": "morning star",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.2e4e22b2954d5039ab12119a5e5ba473a64c9ca9e700fa34fa1183cd5b4e53e9",
+      "visible_brief": "forked polearm",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.389aabdf4e15740cfe097b146d4ba531b7fd6c74c1a9da1918dc5ab4efc72f54",
+      "visible_brief": "weapon",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.3ef33df49337a098d60f703fa85bd066f8c6ee0f8de749eeeb08ee00329bea00",
+      "visible_brief": "axe",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.3f5094e40f92af53e5d153b4170f84e7b14129ffd909f27ae60f055ea09c3aee",
+      "visible_brief": "single-edged polearm",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.4689677274911d99b775e21f1d03d9cfa504772e2f0d2e27dfb01e12b86e29ea",
+      "visible_brief": "crude spear",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.48cff6e9b2629d9abff799900423294432d8165be6a3c073516111b9fd1aee2b",
+      "visible_brief": "silver dagger",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.48d147910f90d60505165647916b72d07a26283545b34d183a5a04be343c34c1",
+      "visible_brief": "runed short sword",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.533cf53b384c9166387d2bdcd4f58d57882d0b4f5cf5058c1e7bc77647e05604",
+      "visible_brief": "silver mace",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.54d9d9d4cd9c4aab617ffc41a618beaeaa3004cd24790637d01086c25f80b6fa",
+      "visible_brief": "throwing spear",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.5689886c1172494b8c3de1e345a1ffbea2bab55f86fc2b318eb3b61c6d12948a",
+      "visible_brief": "staff",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.5a82a9182bcce79b6251def4008f8a8457035f777f67d6e0ef1312aac6ff42dc",
+      "visible_brief": "crude dagger",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.5b5c11677393c0d49488df206a6054e56f5cec2c0f25eafe4d756fe871be7dd9",
+      "visible_brief": "thonged club",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.5bea101000866ef7d17bbe1619b0acffe3d33e4f58b29f4b74cebc25db16b51e",
+      "visible_brief": "curved sword",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.5fe4bbb940e62a6f945067b37078228af465750bb434de7575d6c622bff501f5",
+      "visible_brief": "scalpel",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.64c6b57ae4037ea07ee5e1aa7f4c835a2f41da92e8d76577fafdf225bce1e6ae",
+      "visible_brief": "crossbow bolt",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.6653f41d88f430b68ef3ef784d23cb482f4408cb60abb13d6d0c388b392ce259",
+      "visible_brief": "runed spear",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.68723cfda8ce6e045672d54e3a943a85e0256e6985af977e86e66c07500ad1df",
+      "visible_brief": "throwing star",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.6c8686331aca145df5a635695254c4a6fae7d07ecb552c6c35963d794fe5d6f3",
+      "visible_brief": "long samurai sword",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.711dba1bfd1379f130d627d4e162819a2866e9da9c1c6d7b34aa66c84eff8dc2",
+      "visible_brief": "broad short sword",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.7314421d2e7547a3cc12f5713c670957730a04fa06596e8eb1ef0450e8d859b4",
+      "visible_brief": "long sword",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.76b2c25f590b998e1f56d1267a629b84d3b2460989aef235ffcb0d390acfa5e0",
+      "visible_brief": "dagger",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.79fe57dbbf88a902243649b1c34becf8e357b9de7bc80e78f231c2568690506f",
+      "visible_brief": "long bow",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.7a8c8f038b75107d1208c767a0b1a7b42e61a79190a65cbb4c7ce5e9cb80efb2",
+      "visible_brief": "stout spear",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.8341db065bd18d74949cf1b858de11f53f93cb110e9de104790f3b602703e101",
+      "visible_brief": "bullwhip",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.84632ed00e468e77144cc194f7b4185a3b5d37b6fed45c16147efe1b4b5a3d1c",
+      "visible_brief": "rubber hose",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.8c499e24fd1892b9a65629ed7aa67c27cdf86139dd1cc8abaae772bfa20055e5",
+      "visible_brief": "angled poleaxe",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.909c0071d5a40b72ce07a5a8eb3cd1c149f4344bfbef94d68b7e6bdc7033e77b",
+      "visible_brief": "two-handed sword",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.a0414edf4281ea4025dfdc997d832e3d867480d221ab3192f4778fcf67522045",
+      "visible_brief": "silver spear",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.a1e02536378bfff830942ebf0dbb25194147a276799f48fc78500e88c146cb22",
+      "visible_brief": "bamboo arrow",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.a9537a439eb99c1450de30376f62280f5f42dec3bb0b9c0268ecf9384bfa7feb",
+      "visible_brief": "pronged polearm",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.b036ca8d835aea858a4db5f5226641678c502dab51120525a052da50d7aaa43a",
+      "visible_brief": "lance",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.b550b89b4ea9aec839518d0c91b121ea2c448e60a284f3b2fa3e776cf9c6d39e",
+      "visible_brief": "trident",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.bb74bc0bf1f6a08f00b876053ee8f3fc4e5078c85b3b505fc7e0de85b73d644f",
+      "visible_brief": "hilted polearm",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.bc3f1b25d72626f6e8fdb487d82a5c88032320376c4fd490ff7f01d133eb5dab",
+      "visible_brief": "crude short sword",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.bfb390fa28f5a4659b1cfe69e94da42119458b9f3bcf890e607831584fcfe994",
+      "visible_brief": "crude arrow",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.bffab6057a12b96576bb0eafec29b1296b351ccab7051fd090a9136e90064bd0",
+      "visible_brief": "spear",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.c0c02a669aa993e3c08733e45e6acae94f076363a1fc5223303d990aa7ff995d",
+      "visible_brief": "broadsword",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.c31a5da7e1ccc8b2d4f39e25deecf6bf0007de170dcc4ad6998e5cf9e340ae1a",
+      "visible_brief": "club",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.c3a8d7425b3de9342acdacdb8d36b3cced38ea9add218b61435499a9e6f971cb",
+      "visible_brief": "pole sickle",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.c3b80a1736edfdec6520769ce8e17df3e8c5f3bd37f477483ffbf1d74bb054ec",
+      "visible_brief": "worm tooth",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.c8f09a36b6b8964b76d9d2450fc91f04f5f90de17826f6cb0d51b97cbc7156b2",
+      "visible_brief": "crossbow",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.c951a504ab135b841e32be63d66a03584dbe2adc129d072eb138ba3bb67eb431",
+      "visible_brief": "pruning hook",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.cace24d740db4d7d3bc2373db7245e5a7f1a200eee17565cf4161ae26ecfd11a",
+      "visible_brief": "bow",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.cc347861b7ce1c5350b5ea951dbb82a3f1448ea85de83755f1e3219c66e8bcc1",
+      "visible_brief": "arrow",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.cf66c6bc86eeff4aefa972cf1240bc1af93cc5b4965f60061bb054b7d4acefdb",
+      "visible_brief": "runed bow",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.d31aba2093e581f29fa37e03d553033dd9b153701a71d6a877dd745db2edfaaa",
+      "visible_brief": "mace",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.e1e0a4f93bb7b6ace736f92fc3a23335113022aa019c6a86cf4f87799c2a059e",
+      "visible_brief": "war hammer",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.e47bdd8cf72b963f4833a4911260c8cd308b102f05249e1ab51d6c3ee335ac15",
+      "visible_brief": "beaked polearm",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.e80fc144e3e4c8b7597c77e194f4d14674ad7269e7daf476e711b6ccab9ac018",
+      "visible_brief": "dart",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.ea2b703c622ca0a3caf88085bcb9618d54c77302fb6c5d4151923775ecdb81e0",
+      "visible_brief": "sling",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.f0ce79e6b47570f48c9f96660a8a578d863e55a488d275332b1d778f65c757e1",
+      "visible_brief": "runed dagger",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.f4d8cf9cbb8a8aa3d8debc29638dfa2a68cf57b80ac9b92d7e1f9e11d897ac37",
+      "visible_brief": "double-headed axe",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.f6531e0a53f4b217b0594b9b9a589ee72b73bff7ea16af1c4890a678c7d04a2a",
+      "visible_brief": "runed arrow",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.f655536c43fdb607d8f98840ab22965266d687cd18e0d836dfd5da39ac5f3d57",
+      "visible_brief": "broad pick",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    },
+    {
+      "key": "item.appearance.weapon.fe6f5cc5af465022ff8881a1cd08654423ffb6dfb8999e64615941e10fef0158",
+      "visible_brief": "crude bow",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "binary RGBA8 PNG",
+      "phase": "5-3"
+    }
+  ]
+}

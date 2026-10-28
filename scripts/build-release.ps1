@@ -1,4 +1,5 @@
 # DarkDungeon is distributed under the NetHack General Public License; see LICENSE.
+#Requires -Version 7
 param(
     [string]$NetHackSource = (Join-Path $PSScriptRoot '..\..\NetHack'),
     [string]$QtRoot = 'C:\Qt\6.11.2\msvc2022_64',
@@ -116,4 +117,8 @@ if ($LASTEXITCODE) { throw 'Qt deployment failed.' }
 $crt=(Get-ChildItem (Join-Path $vsPath 'VC\Redist\MSVC') -Directory | Where-Object Name -Match '^\d+\.\d+\.\d+$' | Sort-Object {[version]$_.Name} -Descending | ForEach-Object {Get-ChildItem (Join-Path $_.FullName 'x64') -Directory -Filter 'Microsoft.VC*.CRT'} | Select-Object -First 1)
 if(!$crt) { throw 'Visual C++ redistributable CRT files are missing.' }
 Copy-Item (Join-Path $crt.FullName '*.dll') $appDirectory -Force
-Write-Host "Release engine: $appDirectory\DarkDungeon-$Language.exe"
+$enginePath=Join-Path $appDirectory "DarkDungeon-$Language.exe"
+$linkedMap=Join-Path $snapshot 'src\objtty\x64\NetHack.MAP'
+if(!(Test-Path -LiteralPath $linkedMap -PathType Leaf)){throw 'The linked executable map is missing.'}
+[ordered]@{schema='darkdungeon-deployment-capabilities-v1';frontend='qt-engine';language=$Language;manual_profile=1;executable_sha256=(Get-FileHash -LiteralPath $enginePath).Hash.ToLowerInvariant();linked_map_sha256=(Get-FileHash -LiteralPath $linkedMap).Hash.ToLowerInvariant()} | ConvertTo-Json | Set-Content -LiteralPath ($enginePath+'.capabilities.json') -Encoding utf8
+Write-Host "Release engine: $enginePath"

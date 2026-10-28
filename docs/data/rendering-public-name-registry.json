@@ -1,0 +1,847 @@
+{
+  "schema": "darkdungeon-public-name-registry-v1",
+  "internal_audit_only": true,
+  "evidence": "Compiled English objects[] has initial oc_name_known=true and obj_descr.oc_descr=NULL for each listed entry; include/objects.h enum identifies the definition. src/o_init.c checks this invariant. R2 permits a public shape/name only for an explicitly registered entry. No runtime otyp lookup is authorized.",
+  "entries": [
+    {
+      "symbol": "STRANGE_OBJECT",
+      "public_name": "strange object",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:STRANGE_OBJECT; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "ARROW",
+      "public_name": "arrow",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:ARROW; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "SILVER_ARROW",
+      "public_name": "silver arrow",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:SILVER_ARROW; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "CROSSBOW_BOLT",
+      "public_name": "crossbow bolt",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:CROSSBOW_BOLT; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "DART",
+      "public_name": "dart",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:DART; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "BOOMERANG",
+      "public_name": "boomerang",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:BOOMERANG; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "SPEAR",
+      "public_name": "spear",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:SPEAR; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "SILVER_SPEAR",
+      "public_name": "silver spear",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:SILVER_SPEAR; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "TRIDENT",
+      "public_name": "trident",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:TRIDENT; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "DAGGER",
+      "public_name": "dagger",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:DAGGER; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "SILVER_DAGGER",
+      "public_name": "silver dagger",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:SILVER_DAGGER; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "ATHAME",
+      "public_name": "athame",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:ATHAME; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "SCALPEL",
+      "public_name": "scalpel",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:SCALPEL; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "KNIFE",
+      "public_name": "knife",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:KNIFE; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "STILETTO",
+      "public_name": "stiletto",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:STILETTO; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "WORM_TOOTH",
+      "public_name": "worm tooth",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:WORM_TOOTH; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "CRYSKNIFE",
+      "public_name": "crysknife",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:CRYSKNIFE; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "AXE",
+      "public_name": "axe",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:AXE; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "SHORT_SWORD",
+      "public_name": "short sword",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:SHORT_SWORD; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "SILVER_SABER",
+      "public_name": "silver saber",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:SILVER_SABER; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "BROADSWORD",
+      "public_name": "broadsword",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:BROADSWORD; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "LONG_SWORD",
+      "public_name": "long sword",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:LONG_SWORD; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "TWO_HANDED_SWORD",
+      "public_name": "two-handed sword",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:TWO_HANDED_SWORD; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "LANCE",
+      "public_name": "lance",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:LANCE; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "MACE",
+      "public_name": "mace",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:MACE; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "SILVER_MACE",
+      "public_name": "silver mace",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:SILVER_MACE; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "MORNING_STAR",
+      "public_name": "morning star",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:MORNING_STAR; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "WAR_HAMMER",
+      "public_name": "war hammer",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:WAR_HAMMER; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "CLUB",
+      "public_name": "club",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:CLUB; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "RUBBER_HOSE",
+      "public_name": "rubber hose",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:RUBBER_HOSE; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "FLAIL",
+      "public_name": "flail",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:FLAIL; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "BULLWHIP",
+      "public_name": "bullwhip",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:BULLWHIP; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "BOW",
+      "public_name": "bow",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:BOW; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "SLING",
+      "public_name": "sling",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:SLING; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "CROSSBOW",
+      "public_name": "crossbow",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:CROSSBOW; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "FEDORA",
+      "public_name": "fedora",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:FEDORA; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "DENTED_POT",
+      "public_name": "dented pot",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:DENTED_POT; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "GRAY_DRAGON_SCALE_MAIL",
+      "public_name": "gray dragon scale mail",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:GRAY_DRAGON_SCALE_MAIL; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "GOLD_DRAGON_SCALE_MAIL",
+      "public_name": "gold dragon scale mail",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:GOLD_DRAGON_SCALE_MAIL; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "SILVER_DRAGON_SCALE_MAIL",
+      "public_name": "silver dragon scale mail",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:SILVER_DRAGON_SCALE_MAIL; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "RED_DRAGON_SCALE_MAIL",
+      "public_name": "red dragon scale mail",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:RED_DRAGON_SCALE_MAIL; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "WHITE_DRAGON_SCALE_MAIL",
+      "public_name": "white dragon scale mail",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:WHITE_DRAGON_SCALE_MAIL; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "ORANGE_DRAGON_SCALE_MAIL",
+      "public_name": "orange dragon scale mail",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:ORANGE_DRAGON_SCALE_MAIL; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "BLACK_DRAGON_SCALE_MAIL",
+      "public_name": "black dragon scale mail",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:BLACK_DRAGON_SCALE_MAIL; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "BLUE_DRAGON_SCALE_MAIL",
+      "public_name": "blue dragon scale mail",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:BLUE_DRAGON_SCALE_MAIL; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "GREEN_DRAGON_SCALE_MAIL",
+      "public_name": "green dragon scale mail",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:GREEN_DRAGON_SCALE_MAIL; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "YELLOW_DRAGON_SCALE_MAIL",
+      "public_name": "yellow dragon scale mail",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:YELLOW_DRAGON_SCALE_MAIL; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "GRAY_DRAGON_SCALES",
+      "public_name": "gray dragon scales",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:GRAY_DRAGON_SCALES; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "GOLD_DRAGON_SCALES",
+      "public_name": "gold dragon scales",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:GOLD_DRAGON_SCALES; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "SILVER_DRAGON_SCALES",
+      "public_name": "silver dragon scales",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:SILVER_DRAGON_SCALES; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "RED_DRAGON_SCALES",
+      "public_name": "red dragon scales",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:RED_DRAGON_SCALES; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "WHITE_DRAGON_SCALES",
+      "public_name": "white dragon scales",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:WHITE_DRAGON_SCALES; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "ORANGE_DRAGON_SCALES",
+      "public_name": "orange dragon scales",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:ORANGE_DRAGON_SCALES; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "BLACK_DRAGON_SCALES",
+      "public_name": "black dragon scales",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:BLACK_DRAGON_SCALES; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "BLUE_DRAGON_SCALES",
+      "public_name": "blue dragon scales",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:BLUE_DRAGON_SCALES; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "GREEN_DRAGON_SCALES",
+      "public_name": "green dragon scales",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:GREEN_DRAGON_SCALES; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "YELLOW_DRAGON_SCALES",
+      "public_name": "yellow dragon scales",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:YELLOW_DRAGON_SCALES; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "PLATE_MAIL",
+      "public_name": "plate mail",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:PLATE_MAIL; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "CRYSTAL_PLATE_MAIL",
+      "public_name": "crystal plate mail",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:CRYSTAL_PLATE_MAIL; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "BRONZE_PLATE_MAIL",
+      "public_name": "bronze plate mail",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:BRONZE_PLATE_MAIL; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "SPLINT_MAIL",
+      "public_name": "splint mail",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:SPLINT_MAIL; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "BANDED_MAIL",
+      "public_name": "banded mail",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:BANDED_MAIL; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "DWARVISH_MITHRIL_COAT",
+      "public_name": "dwarvish mithril-coat",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:DWARVISH_MITHRIL_COAT; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "ELVEN_MITHRIL_COAT",
+      "public_name": "elven mithril-coat",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:ELVEN_MITHRIL_COAT; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "CHAIN_MAIL",
+      "public_name": "chain mail",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:CHAIN_MAIL; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "SCALE_MAIL",
+      "public_name": "scale mail",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:SCALE_MAIL; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "STUDDED_LEATHER_ARMOR",
+      "public_name": "studded leather armor",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:STUDDED_LEATHER_ARMOR; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "RING_MAIL",
+      "public_name": "ring mail",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:RING_MAIL; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "LEATHER_ARMOR",
+      "public_name": "leather armor",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:LEATHER_ARMOR; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "LEATHER_JACKET",
+      "public_name": "leather jacket",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:LEATHER_JACKET; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "HAWAIIAN_SHIRT",
+      "public_name": "Hawaiian shirt",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:HAWAIIAN_SHIRT; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "T_SHIRT",
+      "public_name": "T-shirt",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:T_SHIRT; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "MUMMY_WRAPPING",
+      "public_name": "mummy wrapping",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:MUMMY_WRAPPING; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "ROBE",
+      "public_name": "robe",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:ROBE; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "LEATHER_CLOAK",
+      "public_name": "leather cloak",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:LEATHER_CLOAK; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "LARGE_SHIELD",
+      "public_name": "large shield",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:LARGE_SHIELD; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "LARGE_BOX",
+      "public_name": "large box",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:LARGE_BOX; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "CHEST",
+      "public_name": "chest",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:CHEST; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "ICE_BOX",
+      "public_name": "ice box",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:ICE_BOX; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "LOCK_PICK",
+      "public_name": "lock pick",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:LOCK_PICK; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "CREDIT_CARD",
+      "public_name": "credit card",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:CREDIT_CARD; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "BRASS_LANTERN",
+      "public_name": "brass lantern",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:BRASS_LANTERN; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "EXPENSIVE_CAMERA",
+      "public_name": "expensive camera",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:EXPENSIVE_CAMERA; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "LENSES",
+      "public_name": "lenses",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:LENSES; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "BLINDFOLD",
+      "public_name": "blindfold",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:BLINDFOLD; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "TOWEL",
+      "public_name": "towel",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:TOWEL; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "SADDLE",
+      "public_name": "saddle",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:SADDLE; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "LEASH",
+      "public_name": "leash",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:LEASH; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "STETHOSCOPE",
+      "public_name": "stethoscope",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:STETHOSCOPE; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "TINNING_KIT",
+      "public_name": "tinning kit",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:TINNING_KIT; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "TIN_OPENER",
+      "public_name": "tin opener",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:TIN_OPENER; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "CAN_OF_GREASE",
+      "public_name": "can of grease",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:CAN_OF_GREASE; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "FIGURINE",
+      "public_name": "figurine",
+      "policy": "generic-figurine",
+      "evidence": "include/objects.h:FIGURINE; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "MAGIC_MARKER",
+      "public_name": "magic marker",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:MAGIC_MARKER; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "LAND_MINE",
+      "public_name": "land mine",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:LAND_MINE; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "BEARTRAP",
+      "public_name": "beartrap",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:BEARTRAP; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "BELL",
+      "public_name": "bell",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:BELL; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "BUGLE",
+      "public_name": "bugle",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:BUGLE; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "PICK_AXE",
+      "public_name": "pick-axe",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:PICK_AXE; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "GRAPPLING_HOOK",
+      "public_name": "grappling hook",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:GRAPPLING_HOOK; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "UNICORN_HORN",
+      "public_name": "unicorn horn",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:UNICORN_HORN; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "TRIPE_RATION",
+      "public_name": "tripe ration",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:TRIPE_RATION; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "CORPSE",
+      "public_name": "corpse",
+      "policy": "generic-corpse",
+      "evidence": "include/objects.h:CORPSE; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "EGG",
+      "public_name": "egg",
+      "policy": "generic-egg",
+      "evidence": "include/objects.h:EGG; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "MEATBALL",
+      "public_name": "meatball",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:MEATBALL; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "MEAT_STICK",
+      "public_name": "meat stick",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:MEAT_STICK; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "ENORMOUS_MEATBALL",
+      "public_name": "enormous meatball",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:ENORMOUS_MEATBALL; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "MEAT_RING",
+      "public_name": "meat ring",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:MEAT_RING; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "GLOB_OF_GRAY_OOZE",
+      "public_name": "glob of gray ooze",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:GLOB_OF_GRAY_OOZE; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "GLOB_OF_BROWN_PUDDING",
+      "public_name": "glob of brown pudding",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:GLOB_OF_BROWN_PUDDING; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "GLOB_OF_GREEN_SLIME",
+      "public_name": "glob of green slime",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:GLOB_OF_GREEN_SLIME; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "GLOB_OF_BLACK_PUDDING",
+      "public_name": "glob of black pudding",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:GLOB_OF_BLACK_PUDDING; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "KELP_FROND",
+      "public_name": "kelp frond",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:KELP_FROND; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "EUCALYPTUS_LEAF",
+      "public_name": "eucalyptus leaf",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:EUCALYPTUS_LEAF; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "APPLE",
+      "public_name": "apple",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:APPLE; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "ORANGE",
+      "public_name": "orange",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:ORANGE; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "PEAR",
+      "public_name": "pear",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:PEAR; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "MELON",
+      "public_name": "melon",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:MELON; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "BANANA",
+      "public_name": "banana",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:BANANA; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "CARROT",
+      "public_name": "carrot",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:CARROT; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "SPRIG_OF_WOLFSBANE",
+      "public_name": "sprig of wolfsbane",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:SPRIG_OF_WOLFSBANE; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "CLOVE_OF_GARLIC",
+      "public_name": "clove of garlic",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:CLOVE_OF_GARLIC; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "SLIME_MOLD",
+      "public_name": "slime mold",
+      "policy": "generic-fruit",
+      "evidence": "include/objects.h:SLIME_MOLD; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "LUMP_OF_ROYAL_JELLY",
+      "public_name": "lump of royal jelly",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:LUMP_OF_ROYAL_JELLY; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "CREAM_PIE",
+      "public_name": "cream pie",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:CREAM_PIE; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "CANDY_BAR",
+      "public_name": "candy bar",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:CANDY_BAR; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "FORTUNE_COOKIE",
+      "public_name": "fortune cookie",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:FORTUNE_COOKIE; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "PANCAKE",
+      "public_name": "pancake",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:PANCAKE; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "LEMBAS_WAFER",
+      "public_name": "lembas wafer",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:LEMBAS_WAFER; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "CRAM_RATION",
+      "public_name": "cram ration",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:CRAM_RATION; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "FOOD_RATION",
+      "public_name": "food ration",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:FOOD_RATION; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "K_RATION",
+      "public_name": "K-ration",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:K_RATION; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "C_RATION",
+      "public_name": "C-ration",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:C_RATION; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "TIN",
+      "public_name": "tin",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:TIN; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "GOLD_PIECE",
+      "public_name": "gold piece",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:GOLD_PIECE; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "ROCK",
+      "public_name": "rock",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:ROCK; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "BOULDER",
+      "public_name": "boulder",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:BOULDER; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "STATUE",
+      "public_name": "statue",
+      "policy": "generic-statue",
+      "evidence": "include/objects.h:STATUE; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "HEAVY_IRON_BALL",
+      "public_name": "heavy iron ball",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:HEAVY_IRON_BALL; initial_name_known=true; description=NULL"
+    },
+    {
+      "symbol": "IRON_CHAIN",
+      "public_name": "iron chain",
+      "policy": "public-shape",
+      "evidence": "include/objects.h:IRON_CHAIN; initial_name_known=true; description=NULL"
+    }
+  ]
+}

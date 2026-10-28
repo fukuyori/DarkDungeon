@@ -1,0 +1,1310 @@
+{
+  "schema": "darkdungeon-representative-brief-v1",
+  "purpose": "phase2-planned-not-sent",
+  "producer": "Antigravity",
+  "format_contract": "docs/rendering-asset-contract.md",
+  "style_bootstrap": {
+    "stage": "unapproved-text-direction-before-first-prototype",
+    "style_guide_version": null,
+    "style_guide_sha256": null,
+    "direction": "Original readable top-down pixel art harmonizing with retained stone terrain; propose viewpoint/light/palette, do not copy legacy characters.",
+    "terrain_input": "only separately authorized retained-terrain reference; no historic character screenshots",
+    "metadata_before_images": true
+  },
+  "hero_composition": {
+    "group": "human-knight-prototype",
+    "recipes": [
+      {
+        "role": "Kni",
+        "sex": "male",
+        "actor_key": "actor.knight.male",
+        "recipe": {
+          "role": "Kni",
+          "race": "Hum",
+          "gender": "Mal",
+          "alignment": "Law",
+          "facing": "down",
+          "frame": "idle"
+        }
+      },
+      {
+        "role": "Kni",
+        "sex": "female",
+        "actor_key": "actor.knight.female",
+        "recipe": {
+          "role": "Kni",
+          "race": "Hum",
+          "gender": "Fem",
+          "alignment": "Law",
+          "facing": "down",
+          "frame": "idle"
+        }
+      }
+    ],
+    "parts_by_sex": {
+      "male": [
+        "hero.layer.body_human_male",
+        "hero.layer.hair_male",
+        "hero.layer.outfit_knight",
+        "hero.layer.cape",
+        "hero.layer.weapon_knight",
+        "hero.layer.shield_knight"
+      ],
+      "female": [
+        "hero.layer.body_human_female",
+        "hero.layer.hair_female",
+        "hero.layer.outfit_knight",
+        "hero.layer.cape",
+        "hero.layer.weapon_knight",
+        "hero.layer.shield_knight"
+      ]
+    },
+    "shared_columns_frames_anchors": true,
+    "directional_order_proposal": {
+      "up": null,
+      "right": null,
+      "down": null,
+      "left": null
+    },
+    "delivery_gate": "Antigravity proposes direction-dependent back-to-front order and common anchors; R1/R3 technical metadata is validated before raster generation; visual approval follows prototypes",
+    "cape_tint_conditions": {
+      "Law": "blue",
+      "Neu": "green",
+      "Cha": "red"
+    },
+    "normal_start_alignment": "Law; other combinations require renderer-support/reachability classification"
+  },
+  "metadata_proposal_required_before_images": true,
+  "targets": [
+    {
+      "key": "hero.layer.body_human_female",
+      "visible_brief": "Human body base with a female appearance",
+      "public_class": "hero-part",
+      "layout": "four-direction-variable-column-sheet",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "RGBA8 binary 0/255",
+      "forbidden_opaque_rgb": [
+        71,
+        108,
+        108
+      ],
+      "delivery_phase": "2",
+      "method": "create-new",
+      "derive_from": null,
+      "derivation_owner": null,
+      "output_filename": "sprites/hero/body_human_female.png",
+      "display_targets": [
+        "hero-composite-and-role-preview"
+      ],
+      "columns": 4,
+      "row_order": [
+        "up",
+        "right",
+        "down",
+        "left"
+      ],
+      "frames": {
+        "idle_walk_a": [
+          0
+        ],
+        "walk_b": [
+          1
+        ],
+        "attack_prepare": [
+          2
+        ],
+        "attack_execute": [
+          3
+        ]
+      },
+      "anchor_required": true,
+      "anchor_contract": "declare per-row/per-frame ground contact; hero parts share anchors; pony also proposes seat/overlap",
+      "composition_group": "human-knight-prototype",
+      "layer_order": "resolve all four directional orders in hero_composition before images",
+      "display_px": null,
+      "column_revision_policy": "4 initial on-foot poses; propose additional declared mounted/other poses and revise the shared group metadata before image generation"
+    },
+    {
+      "key": "hero.layer.body_human_male",
+      "visible_brief": "Human body base with a male appearance",
+      "public_class": "hero-part",
+      "layout": "four-direction-variable-column-sheet",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "RGBA8 binary 0/255",
+      "forbidden_opaque_rgb": [
+        71,
+        108,
+        108
+      ],
+      "delivery_phase": "2",
+      "method": "create-new",
+      "derive_from": null,
+      "derivation_owner": null,
+      "output_filename": "sprites/hero/body_human_male.png",
+      "display_targets": [
+        "hero-composite-and-role-preview"
+      ],
+      "columns": 4,
+      "row_order": [
+        "up",
+        "right",
+        "down",
+        "left"
+      ],
+      "frames": {
+        "idle_walk_a": [
+          0
+        ],
+        "walk_b": [
+          1
+        ],
+        "attack_prepare": [
+          2
+        ],
+        "attack_execute": [
+          3
+        ]
+      },
+      "anchor_required": true,
+      "anchor_contract": "declare per-row/per-frame ground contact; hero parts share anchors; pony also proposes seat/overlap",
+      "composition_group": "human-knight-prototype",
+      "layer_order": "resolve all four directional orders in hero_composition before images",
+      "display_px": null,
+      "column_revision_policy": "4 initial on-foot poses; propose additional declared mounted/other poses and revise the shared group metadata before image generation"
+    },
+    {
+      "key": "hero.layer.cape",
+      "visible_brief": "Neutral cloak base suitable for runtime recoloring",
+      "public_class": "hero-part",
+      "layout": "four-direction-variable-column-sheet",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "RGBA8 binary 0/255",
+      "forbidden_opaque_rgb": [
+        71,
+        108,
+        108
+      ],
+      "delivery_phase": "2",
+      "method": "create-new",
+      "derive_from": null,
+      "derivation_owner": null,
+      "output_filename": "sprites/hero/cape.png",
+      "display_targets": [
+        "hero-composite-and-role-preview"
+      ],
+      "columns": 4,
+      "row_order": [
+        "up",
+        "right",
+        "down",
+        "left"
+      ],
+      "frames": {
+        "idle_walk_a": [
+          0
+        ],
+        "walk_b": [
+          1
+        ],
+        "attack_prepare": [
+          2
+        ],
+        "attack_execute": [
+          3
+        ]
+      },
+      "anchor_required": true,
+      "anchor_contract": "declare per-row/per-frame ground contact; hero parts share anchors; pony also proposes seat/overlap",
+      "composition_group": "human-knight-prototype",
+      "layer_order": "resolve all four directional orders in hero_composition before images",
+      "display_px": null,
+      "column_revision_policy": "4 initial on-foot poses; propose additional declared mounted/other poses and revise the shared group metadata before image generation"
+    },
+    {
+      "key": "hero.layer.hair_female",
+      "visible_brief": "Hair layer for the female hero appearance",
+      "public_class": "hero-part",
+      "layout": "four-direction-variable-column-sheet",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "RGBA8 binary 0/255",
+      "forbidden_opaque_rgb": [
+        71,
+        108,
+        108
+      ],
+      "delivery_phase": "2",
+      "method": "create-new",
+      "derive_from": null,
+      "derivation_owner": null,
+      "output_filename": "sprites/hero/hair_female.png",
+      "display_targets": [
+        "hero-composite-and-role-preview"
+      ],
+      "columns": 4,
+      "row_order": [
+        "up",
+        "right",
+        "down",
+        "left"
+      ],
+      "frames": {
+        "idle_walk_a": [
+          0
+        ],
+        "walk_b": [
+          1
+        ],
+        "attack_prepare": [
+          2
+        ],
+        "attack_execute": [
+          3
+        ]
+      },
+      "anchor_required": true,
+      "anchor_contract": "declare per-row/per-frame ground contact; hero parts share anchors; pony also proposes seat/overlap",
+      "composition_group": "human-knight-prototype",
+      "layer_order": "resolve all four directional orders in hero_composition before images",
+      "display_px": null,
+      "column_revision_policy": "4 initial on-foot poses; propose additional declared mounted/other poses and revise the shared group metadata before image generation"
+    },
+    {
+      "key": "hero.layer.hair_male",
+      "visible_brief": "Hair layer for the male hero appearance",
+      "public_class": "hero-part",
+      "layout": "four-direction-variable-column-sheet",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "RGBA8 binary 0/255",
+      "forbidden_opaque_rgb": [
+        71,
+        108,
+        108
+      ],
+      "delivery_phase": "2",
+      "method": "create-new",
+      "derive_from": null,
+      "derivation_owner": null,
+      "output_filename": "sprites/hero/hair_male.png",
+      "display_targets": [
+        "hero-composite-and-role-preview"
+      ],
+      "columns": 4,
+      "row_order": [
+        "up",
+        "right",
+        "down",
+        "left"
+      ],
+      "frames": {
+        "idle_walk_a": [
+          0
+        ],
+        "walk_b": [
+          1
+        ],
+        "attack_prepare": [
+          2
+        ],
+        "attack_execute": [
+          3
+        ]
+      },
+      "anchor_required": true,
+      "anchor_contract": "declare per-row/per-frame ground contact; hero parts share anchors; pony also proposes seat/overlap",
+      "composition_group": "human-knight-prototype",
+      "layer_order": "resolve all four directional orders in hero_composition before images",
+      "display_px": null,
+      "column_revision_policy": "4 initial on-foot poses; propose additional declared mounted/other poses and revise the shared group metadata before image generation"
+    },
+    {
+      "key": "hero.layer.outfit_knight",
+      "visible_brief": "Knight clothing and armor layer",
+      "public_class": "hero-part",
+      "layout": "four-direction-variable-column-sheet",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "RGBA8 binary 0/255",
+      "forbidden_opaque_rgb": [
+        71,
+        108,
+        108
+      ],
+      "delivery_phase": "2",
+      "method": "create-new",
+      "derive_from": null,
+      "derivation_owner": null,
+      "output_filename": "sprites/hero/outfit_knight.png",
+      "display_targets": [
+        "hero-composite-and-role-preview"
+      ],
+      "columns": 4,
+      "row_order": [
+        "up",
+        "right",
+        "down",
+        "left"
+      ],
+      "frames": {
+        "idle_walk_a": [
+          0
+        ],
+        "walk_b": [
+          1
+        ],
+        "attack_prepare": [
+          2
+        ],
+        "attack_execute": [
+          3
+        ]
+      },
+      "anchor_required": true,
+      "anchor_contract": "declare per-row/per-frame ground contact; hero parts share anchors; pony also proposes seat/overlap",
+      "composition_group": "human-knight-prototype",
+      "layer_order": "resolve all four directional orders in hero_composition before images",
+      "display_px": null,
+      "column_revision_policy": "4 initial on-foot poses; propose additional declared mounted/other poses and revise the shared group metadata before image generation"
+    },
+    {
+      "key": "hero.layer.weapon_knight",
+      "visible_brief": "Knight sword layer",
+      "public_class": "hero-part",
+      "layout": "four-direction-variable-column-sheet",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "RGBA8 binary 0/255",
+      "forbidden_opaque_rgb": [
+        71,
+        108,
+        108
+      ],
+      "delivery_phase": "2",
+      "method": "create-new",
+      "derive_from": null,
+      "derivation_owner": null,
+      "output_filename": "sprites/hero/weapon_knight.png",
+      "display_targets": [
+        "hero-composite-and-role-preview"
+      ],
+      "columns": 4,
+      "row_order": [
+        "up",
+        "right",
+        "down",
+        "left"
+      ],
+      "frames": {
+        "idle_walk_a": [
+          0
+        ],
+        "walk_b": [
+          1
+        ],
+        "attack_prepare": [
+          2
+        ],
+        "attack_execute": [
+          3
+        ]
+      },
+      "anchor_required": true,
+      "anchor_contract": "declare per-row/per-frame ground contact; hero parts share anchors; pony also proposes seat/overlap",
+      "composition_group": "human-knight-prototype",
+      "layer_order": "resolve all four directional orders in hero_composition before images",
+      "display_px": null,
+      "column_revision_policy": "4 initial on-foot poses; propose additional declared mounted/other poses and revise the shared group metadata before image generation"
+    },
+    {
+      "key": "hero.layer.shield_knight",
+      "visible_brief": "Knight shield layer",
+      "public_class": "hero-part",
+      "layout": "four-direction-variable-column-sheet",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "RGBA8 binary 0/255",
+      "forbidden_opaque_rgb": [
+        71,
+        108,
+        108
+      ],
+      "delivery_phase": "2",
+      "method": "create-new",
+      "derive_from": null,
+      "derivation_owner": null,
+      "output_filename": "sprites/hero/shield_knight.png",
+      "display_targets": [
+        "hero-composite-and-role-preview"
+      ],
+      "columns": 4,
+      "row_order": [
+        "up",
+        "right",
+        "down",
+        "left"
+      ],
+      "frames": {
+        "idle_walk_a": [
+          0
+        ],
+        "walk_b": [
+          1
+        ],
+        "attack_prepare": [
+          2
+        ],
+        "attack_execute": [
+          3
+        ]
+      },
+      "anchor_required": true,
+      "anchor_contract": "declare per-row/per-frame ground contact; hero parts share anchors; pony also proposes seat/overlap",
+      "composition_group": "human-knight-prototype",
+      "layer_order": "resolve all four directional orders in hero_composition before images",
+      "display_px": null,
+      "column_revision_policy": "4 initial on-foot poses; propose additional declared mounted/other poses and revise the shared group metadata before image generation"
+    },
+    {
+      "key": "actor.soldier.male",
+      "visible_brief": "male soldier",
+      "public_class": "character",
+      "layout": "four-direction-variable-column-sheet",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "RGBA8 binary 0/255",
+      "forbidden_opaque_rgb": [
+        71,
+        108,
+        108
+      ],
+      "delivery_phase": "2",
+      "method": "create-new",
+      "derive_from": null,
+      "derivation_owner": null,
+      "output_filename": "sprites/monster/soldier_male.png",
+      "display_targets": [
+        "map",
+        "inventory-equipment-menu-selection-when-public"
+      ],
+      "columns": 4,
+      "row_order": [
+        "up",
+        "right",
+        "down",
+        "left"
+      ],
+      "frames": {
+        "idle_walk_a": [
+          0
+        ],
+        "walk_b": [
+          1
+        ],
+        "attack_prepare": [
+          2
+        ],
+        "attack_execute": [
+          3
+        ]
+      },
+      "anchor_required": true,
+      "anchor_contract": "declare per-row/per-frame ground contact; hero parts share anchors; pony also proposes seat/overlap",
+      "composition_group": null,
+      "layer_order": null,
+      "display_px": null,
+      "column_revision_policy": "4 initial on-foot poses; propose additional declared mounted/other poses and revise the shared group metadata before image generation"
+    },
+    {
+      "key": "actor.soldier.female",
+      "visible_brief": "female soldier",
+      "public_class": "character",
+      "layout": "four-direction-variable-column-sheet",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "RGBA8 binary 0/255",
+      "forbidden_opaque_rgb": [
+        71,
+        108,
+        108
+      ],
+      "delivery_phase": "2",
+      "method": "create-new",
+      "derive_from": null,
+      "derivation_owner": null,
+      "output_filename": "sprites/monster/soldier_female.png",
+      "display_targets": [
+        "map",
+        "inventory-equipment-menu-selection-when-public"
+      ],
+      "columns": 4,
+      "row_order": [
+        "up",
+        "right",
+        "down",
+        "left"
+      ],
+      "frames": {
+        "idle_walk_a": [
+          0
+        ],
+        "walk_b": [
+          1
+        ],
+        "attack_prepare": [
+          2
+        ],
+        "attack_execute": [
+          3
+        ]
+      },
+      "anchor_required": true,
+      "anchor_contract": "declare per-row/per-frame ground contact; hero parts share anchors; pony also proposes seat/overlap",
+      "composition_group": null,
+      "layer_order": null,
+      "display_px": null,
+      "column_revision_policy": "4 initial on-foot poses; propose additional declared mounted/other poses and revise the shared group metadata before image generation"
+    },
+    {
+      "key": "actor.pony.male",
+      "visible_brief": "male pony",
+      "public_class": "character",
+      "layout": "four-direction-variable-column-sheet",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "RGBA8 binary 0/255",
+      "forbidden_opaque_rgb": [
+        71,
+        108,
+        108
+      ],
+      "delivery_phase": "2",
+      "method": "create-new",
+      "derive_from": null,
+      "derivation_owner": null,
+      "output_filename": "sprites/monster/pony_male.png",
+      "display_targets": [
+        "map",
+        "inventory-equipment-menu-selection-when-public"
+      ],
+      "columns": 4,
+      "row_order": [
+        "up",
+        "right",
+        "down",
+        "left"
+      ],
+      "frames": {
+        "idle_walk_a": [
+          0
+        ],
+        "walk_b": [
+          1
+        ],
+        "attack_prepare": [
+          2
+        ],
+        "attack_execute": [
+          3
+        ]
+      },
+      "anchor_required": true,
+      "anchor_contract": "declare per-row/per-frame ground contact; hero parts share anchors; pony also proposes seat/overlap",
+      "composition_group": null,
+      "layer_order": null,
+      "display_px": null,
+      "column_revision_policy": "4 initial on-foot poses; propose additional declared mounted/other poses and revise the shared group metadata before image generation"
+    },
+    {
+      "key": "actor.pony.female",
+      "visible_brief": "female pony",
+      "public_class": "character",
+      "layout": "four-direction-variable-column-sheet",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "RGBA8 binary 0/255",
+      "forbidden_opaque_rgb": [
+        71,
+        108,
+        108
+      ],
+      "delivery_phase": "2",
+      "method": "create-new",
+      "derive_from": null,
+      "derivation_owner": null,
+      "output_filename": "sprites/monster/pony_female.png",
+      "display_targets": [
+        "map",
+        "inventory-equipment-menu-selection-when-public"
+      ],
+      "columns": 4,
+      "row_order": [
+        "up",
+        "right",
+        "down",
+        "left"
+      ],
+      "frames": {
+        "idle_walk_a": [
+          0
+        ],
+        "walk_b": [
+          1
+        ],
+        "attack_prepare": [
+          2
+        ],
+        "attack_execute": [
+          3
+        ]
+      },
+      "anchor_required": true,
+      "anchor_contract": "declare per-row/per-frame ground contact; hero parts share anchors; pony also proposes seat/overlap",
+      "composition_group": null,
+      "layer_order": null,
+      "display_px": null,
+      "column_revision_policy": "4 initial on-foot poses; propose additional declared mounted/other poses and revise the shared group metadata before image generation"
+    },
+    {
+      "key": "actor.green_slime.male",
+      "visible_brief": "male green slime",
+      "public_class": "character",
+      "layout": "four-direction-variable-column-sheet",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "RGBA8 binary 0/255",
+      "forbidden_opaque_rgb": [
+        71,
+        108,
+        108
+      ],
+      "delivery_phase": "2",
+      "method": "create-new",
+      "derive_from": null,
+      "derivation_owner": null,
+      "output_filename": "sprites/monster/green_slime_male.png",
+      "display_targets": [
+        "map",
+        "inventory-equipment-menu-selection-when-public"
+      ],
+      "columns": 4,
+      "row_order": [
+        "up",
+        "right",
+        "down",
+        "left"
+      ],
+      "frames": {
+        "idle_walk_a": [
+          0
+        ],
+        "walk_b": [
+          1
+        ],
+        "attack_prepare": [
+          2
+        ],
+        "attack_execute": [
+          3
+        ]
+      },
+      "anchor_required": true,
+      "anchor_contract": "declare per-row/per-frame ground contact; hero parts share anchors; pony also proposes seat/overlap",
+      "composition_group": null,
+      "layer_order": null,
+      "display_px": null,
+      "column_revision_policy": "4 initial on-foot poses; propose additional declared mounted/other poses and revise the shared group metadata before image generation"
+    },
+    {
+      "key": "actor.green_slime.female",
+      "visible_brief": "female green slime",
+      "public_class": "character",
+      "layout": "four-direction-variable-column-sheet",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "RGBA8 binary 0/255",
+      "forbidden_opaque_rgb": [
+        71,
+        108,
+        108
+      ],
+      "delivery_phase": "2",
+      "method": "create-new",
+      "derive_from": null,
+      "derivation_owner": null,
+      "output_filename": "sprites/monster/green_slime_female.png",
+      "display_targets": [
+        "map",
+        "inventory-equipment-menu-selection-when-public"
+      ],
+      "columns": 4,
+      "row_order": [
+        "up",
+        "right",
+        "down",
+        "left"
+      ],
+      "frames": {
+        "idle_walk_a": [
+          0
+        ],
+        "walk_b": [
+          1
+        ],
+        "attack_prepare": [
+          2
+        ],
+        "attack_execute": [
+          3
+        ]
+      },
+      "anchor_required": true,
+      "anchor_contract": "declare per-row/per-frame ground contact; hero parts share anchors; pony also proposes seat/overlap",
+      "composition_group": null,
+      "layer_order": null,
+      "display_px": null,
+      "column_revision_policy": "4 initial on-foot poses; propose additional declared mounted/other poses and revise the shared group metadata before image generation"
+    },
+    {
+      "key": "actor.red_dragon.male",
+      "visible_brief": "male red dragon",
+      "public_class": "character",
+      "layout": "four-direction-variable-column-sheet",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "RGBA8 binary 0/255",
+      "forbidden_opaque_rgb": [
+        71,
+        108,
+        108
+      ],
+      "delivery_phase": "2",
+      "method": "create-new",
+      "derive_from": null,
+      "derivation_owner": null,
+      "output_filename": "sprites/monster/red_dragon_male.png",
+      "display_targets": [
+        "map",
+        "inventory-equipment-menu-selection-when-public"
+      ],
+      "columns": 4,
+      "row_order": [
+        "up",
+        "right",
+        "down",
+        "left"
+      ],
+      "frames": {
+        "idle_walk_a": [
+          0
+        ],
+        "walk_b": [
+          1
+        ],
+        "attack_prepare": [
+          2
+        ],
+        "attack_execute": [
+          3
+        ]
+      },
+      "anchor_required": true,
+      "anchor_contract": "declare per-row/per-frame ground contact; hero parts share anchors; pony also proposes seat/overlap",
+      "composition_group": null,
+      "layer_order": null,
+      "display_px": null,
+      "column_revision_policy": "4 initial on-foot poses; propose additional declared mounted/other poses and revise the shared group metadata before image generation"
+    },
+    {
+      "key": "actor.red_dragon.female",
+      "visible_brief": "female red dragon",
+      "public_class": "character",
+      "layout": "four-direction-variable-column-sheet",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "RGBA8 binary 0/255",
+      "forbidden_opaque_rgb": [
+        71,
+        108,
+        108
+      ],
+      "delivery_phase": "2",
+      "method": "create-new",
+      "derive_from": null,
+      "derivation_owner": null,
+      "output_filename": "sprites/monster/red_dragon_female.png",
+      "display_targets": [
+        "map",
+        "inventory-equipment-menu-selection-when-public"
+      ],
+      "columns": 4,
+      "row_order": [
+        "up",
+        "right",
+        "down",
+        "left"
+      ],
+      "frames": {
+        "idle_walk_a": [
+          0
+        ],
+        "walk_b": [
+          1
+        ],
+        "attack_prepare": [
+          2
+        ],
+        "attack_execute": [
+          3
+        ]
+      },
+      "anchor_required": true,
+      "anchor_contract": "declare per-row/per-frame ground contact; hero parts share anchors; pony also proposes seat/overlap",
+      "composition_group": null,
+      "layer_order": null,
+      "display_px": null,
+      "column_revision_policy": "4 initial on-foot poses; propose additional declared mounted/other poses and revise the shared group metadata before image generation"
+    },
+    {
+      "key": "item.appearance.weapon.7314421d2e7547a3cc12f5713c670957730a04fa06596e8eb1ef0450e8d859b4",
+      "visible_brief": "long sword",
+      "public_class": "weapon",
+      "layout": "static-single-cell",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "RGBA8 binary 0/255",
+      "forbidden_opaque_rgb": [
+        71,
+        108,
+        108
+      ],
+      "delivery_phase": "2",
+      "method": "create-new",
+      "derive_from": null,
+      "derivation_owner": null,
+      "output_filename": "sprites/item/weapon/7314421d2e7547a3cc12f5713c670957730a04fa06596e8eb1ef0450e8d859b4.png",
+      "display_targets": [
+        "map",
+        "inventory-equipment-menu-selection-when-public"
+      ],
+      "columns": 1,
+      "row_order": [
+        "static"
+      ],
+      "frames": {
+        "idle": [
+          0
+        ]
+      },
+      "anchor_required": false,
+      "anchor_contract": "declare static alignment",
+      "composition_group": null,
+      "layer_order": null,
+      "display_px": null,
+      "column_revision_policy": null
+    },
+    {
+      "key": "item.appearance.armor.b82f32f156e6311e02498c57352bf1a9acf95a2a5902ad0b20222504e2a290c1",
+      "visible_brief": "plate mail",
+      "public_class": "armor",
+      "layout": "static-single-cell",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "RGBA8 binary 0/255",
+      "forbidden_opaque_rgb": [
+        71,
+        108,
+        108
+      ],
+      "delivery_phase": "2",
+      "method": "create-new",
+      "derive_from": null,
+      "derivation_owner": null,
+      "output_filename": "sprites/item/armor/b82f32f156e6311e02498c57352bf1a9acf95a2a5902ad0b20222504e2a290c1.png",
+      "display_targets": [
+        "map",
+        "inventory-equipment-menu-selection-when-public"
+      ],
+      "columns": 1,
+      "row_order": [
+        "static"
+      ],
+      "frames": {
+        "idle": [
+          0
+        ]
+      },
+      "anchor_required": false,
+      "anchor_contract": "declare static alignment",
+      "composition_group": null,
+      "layer_order": null,
+      "display_px": null,
+      "column_revision_policy": null
+    },
+    {
+      "key": "item.appearance.potion.d1b9a26fb60ef48839f97b4193808735284f99332eef87f8ad6f3ce3146efe8f",
+      "visible_brief": "Ruby-coloured potion bottle",
+      "public_class": "potion",
+      "layout": "static-single-cell",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "RGBA8 binary 0/255",
+      "forbidden_opaque_rgb": [
+        71,
+        108,
+        108
+      ],
+      "delivery_phase": "2",
+      "method": "create-new",
+      "derive_from": null,
+      "derivation_owner": null,
+      "output_filename": "sprites/item/potion/d1b9a26fb60ef48839f97b4193808735284f99332eef87f8ad6f3ce3146efe8f.png",
+      "display_targets": [
+        "map",
+        "inventory-equipment-menu-selection-when-public"
+      ],
+      "columns": 1,
+      "row_order": [
+        "static"
+      ],
+      "frames": {
+        "idle": [
+          0
+        ]
+      },
+      "anchor_required": false,
+      "anchor_contract": "declare static alignment",
+      "composition_group": null,
+      "layer_order": null,
+      "display_px": null,
+      "column_revision_policy": null
+    },
+    {
+      "key": "item.appearance.tool.9f38a78003607400017a4a0f8ca973122e7fd1ae6fb532f0a8228a8f4bf323e5",
+      "visible_brief": "chest",
+      "public_class": "tool",
+      "layout": "static-single-cell",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "RGBA8 binary 0/255",
+      "forbidden_opaque_rgb": [
+        71,
+        108,
+        108
+      ],
+      "delivery_phase": "2",
+      "method": "create-new",
+      "derive_from": null,
+      "derivation_owner": null,
+      "output_filename": "sprites/item/tool/9f38a78003607400017a4a0f8ca973122e7fd1ae6fb532f0a8228a8f4bf323e5.png",
+      "display_targets": [
+        "map",
+        "inventory-equipment-menu-selection-when-public"
+      ],
+      "columns": 1,
+      "row_order": [
+        "static"
+      ],
+      "frames": {
+        "idle": [
+          0
+        ]
+      },
+      "anchor_required": false,
+      "anchor_contract": "declare static alignment",
+      "composition_group": null,
+      "layer_order": null,
+      "display_px": null,
+      "column_revision_policy": null
+    },
+    {
+      "key": "item.appearance.tool.db7a78646fe6cdba9b7d98a8802cb5e42c129ae354cb42ab6c94ad4a4c1947dc",
+      "visible_brief": "bag",
+      "public_class": "tool",
+      "layout": "static-single-cell",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "RGBA8 binary 0/255",
+      "forbidden_opaque_rgb": [
+        71,
+        108,
+        108
+      ],
+      "delivery_phase": "2",
+      "method": "create-new",
+      "derive_from": null,
+      "derivation_owner": null,
+      "output_filename": "sprites/item/tool/db7a78646fe6cdba9b7d98a8802cb5e42c129ae354cb42ab6c94ad4a4c1947dc.png",
+      "display_targets": [
+        "map",
+        "inventory-equipment-menu-selection-when-public"
+      ],
+      "columns": 1,
+      "row_order": [
+        "static"
+      ],
+      "frames": {
+        "idle": [
+          0
+        ]
+      },
+      "anchor_required": false,
+      "anchor_contract": "declare static alignment",
+      "composition_group": null,
+      "layer_order": null,
+      "display_px": null,
+      "column_revision_policy": null
+    },
+    {
+      "key": "item.appearance.tool.c9c762724293be0b90689e1d775503dc8c4ec9081d112bc5281a6b06b892478b",
+      "visible_brief": "lamp",
+      "public_class": "tool",
+      "layout": "static-single-cell",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "RGBA8 binary 0/255",
+      "forbidden_opaque_rgb": [
+        71,
+        108,
+        108
+      ],
+      "delivery_phase": "2",
+      "method": "create-new",
+      "derive_from": null,
+      "derivation_owner": null,
+      "output_filename": "sprites/item/tool/c9c762724293be0b90689e1d775503dc8c4ec9081d112bc5281a6b06b892478b.png",
+      "display_targets": [
+        "map",
+        "inventory-equipment-menu-selection-when-public"
+      ],
+      "columns": 1,
+      "row_order": [
+        "static"
+      ],
+      "frames": {
+        "idle": [
+          0
+        ]
+      },
+      "anchor_required": false,
+      "anchor_contract": "declare static alignment",
+      "composition_group": null,
+      "layer_order": null,
+      "display_px": null,
+      "column_revision_policy": null
+    },
+    {
+      "key": "item.appearance.gem.89fb070a9e51386daecc1d0cd1751a2136569b5b08c6f1b3a38dea374bae1df0",
+      "visible_brief": "Gray stone",
+      "public_class": "gem",
+      "layout": "static-single-cell",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "RGBA8 binary 0/255",
+      "forbidden_opaque_rgb": [
+        71,
+        108,
+        108
+      ],
+      "delivery_phase": "2",
+      "method": "create-new",
+      "derive_from": null,
+      "derivation_owner": null,
+      "output_filename": "sprites/item/gem/89fb070a9e51386daecc1d0cd1751a2136569b5b08c6f1b3a38dea374bae1df0.png",
+      "display_targets": [
+        "map",
+        "inventory-equipment-menu-selection-when-public"
+      ],
+      "columns": 1,
+      "row_order": [
+        "static"
+      ],
+      "frames": {
+        "idle": [
+          0
+        ]
+      },
+      "anchor_required": false,
+      "anchor_contract": "declare static alignment",
+      "composition_group": null,
+      "layer_order": null,
+      "display_px": null,
+      "column_revision_policy": null
+    },
+    {
+      "key": "mark.petmark",
+      "visible_brief": "Friendly companion indicator",
+      "public_class": "UI indicator",
+      "layout": "static-single-cell",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "RGBA8 binary 0/255",
+      "forbidden_opaque_rgb": [
+        71,
+        108,
+        108
+      ],
+      "delivery_phase": "2",
+      "method": "create-new",
+      "derive_from": null,
+      "derivation_owner": null,
+      "output_filename": "sprites/ui/petmark.png",
+      "display_targets": [
+        "map-overlay"
+      ],
+      "columns": 1,
+      "row_order": [
+        "static"
+      ],
+      "frames": {
+        "idle": [
+          0
+        ]
+      },
+      "anchor_required": false,
+      "anchor_contract": "declare static alignment",
+      "composition_group": null,
+      "layer_order": null,
+      "display_px": [
+        8,
+        7
+      ],
+      "column_revision_policy": null
+    },
+    {
+      "key": "mark.petmark-small",
+      "visible_brief": "Small derivative of the friendly companion indicator",
+      "public_class": "UI indicator",
+      "layout": "static-single-cell",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "RGBA8 binary 0/255",
+      "forbidden_opaque_rgb": [
+        71,
+        108,
+        108
+      ],
+      "delivery_phase": "2",
+      "method": "derive-from-new-mark",
+      "derive_from": "mark.petmark",
+      "derivation_owner": "Antigravity",
+      "output_filename": "sprites/ui/petmark-small.png",
+      "display_targets": [
+        "map-overlay"
+      ],
+      "columns": 1,
+      "row_order": [
+        "static"
+      ],
+      "frames": {
+        "idle": [
+          0
+        ]
+      },
+      "anchor_required": false,
+      "anchor_contract": "declare static alignment",
+      "composition_group": null,
+      "layer_order": null,
+      "display_px": [
+        5,
+        5
+      ],
+      "column_revision_policy": null
+    },
+    {
+      "key": "mark.pilemark",
+      "visible_brief": "Indicator for multiple ground items",
+      "public_class": "UI indicator",
+      "layout": "static-single-cell",
+      "frame_px": [
+        48,
+        48
+      ],
+      "alpha": "RGBA8 binary 0/255",
+      "forbidden_opaque_rgb": [
+        71,
+        108,
+        108
+      ],
+      "delivery_phase": "2",
+      "method": "create-new",
+      "derive_from": null,
+      "derivation_owner": null,
+      "output_filename": "sprites/ui/pilemark.png",
+      "display_targets": [
+        "map-overlay"
+      ],
+      "columns": 1,
+      "row_order": [
+        "static"
+      ],
+      "frames": {
+        "idle": [
+          0
+        ]
+      },
+      "anchor_required": false,
+      "anchor_contract": "declare static alignment",
+      "composition_group": null,
+      "layer_order": null,
+      "display_px": [
+        5,
+        5
+      ],
+      "column_revision_policy": null
+    }
+  ]
+}

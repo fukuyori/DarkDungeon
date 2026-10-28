@@ -26,12 +26,13 @@ $text=@"
 call "$vs\VC\Auxiliary\Build\vcvars64.bat"
 if errorlevel 1 exit /b 1
 cd /d "$root\build"
-cl /nologo /EHsc /std:c++17 /utf-8 /Zc:__cplusplus /permissive- /MD /O2 /I"$QtRoot\include" /I"$QtRoot\include\QtCore" /I"$QtRoot\include\QtGui" /I"$QtRoot\include\QtWidgets" "$root\src\launcher.cpp" /Fe:"$output\DarkDungeon.exe" /link /LIBPATH:"$QtRoot\lib" Qt6Core.lib Qt6Gui.lib Qt6Widgets.lib /SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup
+cl /nologo /EHsc /std:c++17 /utf-8 /Zc:__cplusplus /permissive- /MD /O2 /I"$QtRoot\include" /I"$QtRoot\include\QtCore" /I"$QtRoot\include\QtGui" /I"$QtRoot\include\QtWidgets" "$root\src\launcher.cpp" /Fe:"$output\DarkDungeon.exe" /link /LIBPATH:"$QtRoot\lib" Qt6Core.lib Qt6Gui.lib Qt6Widgets.lib shell32.lib /SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup
 exit /b %errorlevel%
 "@
 [IO.File]::WriteAllText($batch,$text,[Text.ASCIIEncoding]::new())
 & $env:ComSpec /d /c $batch
 if($LASTEXITCODE){throw 'Launcher build failed.'}
+[ordered]@{schema='darkdungeon-deployment-capabilities-v1';frontend='launcher';language='';manual_profile=1;executable_sha256=(Get-FileHash (Join-Path $output 'DarkDungeon.exe')).Hash.ToLowerInvariant()} | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $output 'DarkDungeon.exe.capabilities.json') -Encoding utf8
 & (Join-Path $QtRoot 'bin\windeployqt.exe') --release --no-translations --no-compiler-runtime --no-system-d3d-compiler --no-system-dxc-compiler --no-opengl-sw --skip-plugin-types imageformats,iconengines,networkinformation,tls (Join-Path $output 'DarkDungeon.exe')
 if($LASTEXITCODE){throw 'Launcher deployment failed.'}
 $crt=Get-ChildItem (Join-Path $vs 'VC\Redist\MSVC\*\x64\Microsoft.VC*.CRT') -Directory | Sort-Object FullName -Descending | Select-Object -First 1

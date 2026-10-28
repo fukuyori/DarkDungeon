@@ -1,0 +1,119 @@
+{
+  "schema_version": 1,
+  "language": "ja",
+  "status": "C0 migration inventory; game not executed",
+  "branches": [
+    {
+      "path": "include/config.h",
+      "ordinal": 1,
+      "line": 101,
+      "condition": "#ifdef QT_GRAPHICS",
+      "route": "split_common_capabilities_from_gui_defaults",
+      "source_sha256": "98828104DA7E6DC25EA9029F927A8DAD6B2B444D39D52059622F36691E237054"
+    },
+    {
+      "path": "include/extern.h",
+      "ordinal": 1,
+      "line": 3063,
+      "condition": "#if defined(WIN32) || defined(QT_GRAPHICS)",
+      "route": "common_sound_capability_hook",
+      "source_sha256": "E88053484661CDF75546A0C10B739A3658C30EBCE20685175AF16A4C9EF1DD74"
+    },
+    {
+      "path": "include/global.h",
+      "ordinal": 1,
+      "line": 269,
+      "condition": "#if defined(X11_GRAPHICS) || defined(QT_GRAPHICS) || defined(GNOME_GRAPHICS) || defined(MSWIN_GRAPHICS)",
+      "route": "common_glyph_layout",
+      "source_sha256": "BA971265453691AB2D3A0F00F9BD93D16A0E4F6BE6D690CD8B8A1806E770505C"
+    },
+    {
+      "path": "src/cfgfiles.c",
+      "ordinal": 1,
+      "line": 1269,
+      "condition": "#ifdef QT_GRAPHICS",
+      "route": "shared_plain_c_view_configuration",
+      "source_sha256": "9C9E8304AE584E7D1E3D7CA794B5D427C8F880B34E916552296A76F80C88C3B6"
+    },
+    {
+      "path": "src/cfgfiles.c",
+      "ordinal": 2,
+      "line": 1283,
+      "condition": "#ifdef QT_GRAPHICS",
+      "route": "shared_plain_c_view_configuration",
+      "source_sha256": "9C9E8304AE584E7D1E3D7CA794B5D427C8F880B34E916552296A76F80C88C3B6"
+    },
+    {
+      "path": "src/cfgfiles.c",
+      "ordinal": 3,
+      "line": 1297,
+      "condition": "#ifdef QT_GRAPHICS",
+      "route": "shared_plain_c_view_configuration",
+      "source_sha256": "9C9E8304AE584E7D1E3D7CA794B5D427C8F880B34E916552296A76F80C88C3B6"
+    },
+    {
+      "path": "src/cfgfiles.c",
+      "ordinal": 4,
+      "line": 1311,
+      "condition": "#ifdef QT_GRAPHICS",
+      "route": "shared_plain_c_view_configuration",
+      "source_sha256": "9C9E8304AE584E7D1E3D7CA794B5D427C8F880B34E916552296A76F80C88C3B6"
+    },
+    {
+      "path": "src/mdlib.c",
+      "ordinal": 1,
+      "line": 140,
+      "condition": "#ifdef QT_GRAPHICS /* too vague; there are multiple incompatible versions */",
+      "route": "runtime_port_metadata",
+      "source_sha256": "1710E9297BE6EAE5A1B9854341EBB9E129792F59AACCC31B951F622A51FC6C37"
+    },
+    {
+      "path": "src/options.c",
+      "ordinal": 1,
+      "line": 5569,
+      "condition": "#ifdef QT_GRAPHICS",
+      "route": "runtime_status_capabilities",
+      "source_sha256": "1E0F2D8AD02FBBF10020E9C20DDAAC99B907E34AB8B953FC212AD104D59276F7"
+    },
+    {
+      "path": "src/windows.c",
+      "ordinal": 1,
+      "line": 20,
+      "condition": "#ifdef QT_GRAPHICS",
+      "route": "frontend_port_registry",
+      "source_sha256": "D6369EB14C1A3BA06046A87BC154FDA2C4AB3B680B41B74283D1D572B82CF05A"
+    },
+    {
+      "path": "src/windows.c",
+      "ordinal": 2,
+      "line": 110,
+      "condition": "#ifdef QT_GRAPHICS",
+      "route": "frontend_port_registry",
+      "source_sha256": "D6369EB14C1A3BA06046A87BC154FDA2C4AB3B680B41B74283D1D572B82CF05A"
+    },
+    {
+      "path": "sys/windows/windmain.c",
+      "ordinal": 1,
+      "line": 263,
+      "condition": "#ifndef QT_GRAPHICS",
+      "route": "frontend_entry_no_console_tty",
+      "source_sha256": "F5F865B33F004929B8D52355FB8057115C21D86CB1454CB99272D788A6CE8E6E"
+    },
+    {
+      "path": "sys/windows/windsys.c",
+      "ordinal": 1,
+      "line": 769,
+      "condition": "#ifdef QT_GRAPHICS",
+      "route": "shared_storage_and_test_seed_runtime",
+      "source_sha256": "D171CA98DD49D21598F22542122C873A29C5254195B83AC6719915DD81AB8958"
+    },
+    {
+      "path": "sys/windows/windsys.c",
+      "ordinal": 2,
+      "line": 1064,
+      "condition": "#if defined(QT_GRAPHICS) && !defined(SFCTOOL)",
+      "route": "shared_storage_and_test_seed_runtime",
+      "source_sha256": "D171CA98DD49D21598F22542122C873A29C5254195B83AC6719915DD81AB8958"
+    }
+  ]
+}

@@ -1,0 +1,1050 @@
+{
+  "schema": "darkdungeon-comparison-contract-v1",
+  "internal_audit_only": true,
+  "input_sha256": {
+    "rendering-production-ledger.json": "3e31cb33e513f858e6733a0190de1631cd58ab83fb0e60bac69c8ef420a5b575",
+    "rendering-quality-plan.json": "9a0535e44ceb061038e5d38909fa4b8081e275f102cb3945f5f1a98d4a32ee5f",
+    "rendering-item-briefs.json": "e37bcb9e04549c63f3684c7bb26345fbd23560b0201a60fcf3a9808d8aaffc70",
+    "rendering-fixture-plan.json": "6bf384402408a83551e04ce266e26097ee547ffc43e8d82327105adef73a10b8",
+    "rendering-invariant-contract.json": "889d7012db953ec805755bc90b08425c0fe52418ea4311d516d93d3d507bf593"
+  },
+  "roles": {
+    "history": {
+      "purpose": "advisory-only",
+      "production_eligible": false,
+      "same_build_verified": false,
+      "measured_motion_verified": false,
+      "can_be_golden": false
+    },
+    "phase0": {
+      "purpose": "current-renderer-baseline",
+      "new_game_art": false,
+      "production_eligible": false,
+      "use_fresh_post_improvement_fixtures": true,
+      "requires": [
+        "isolated-native-EN-JA-playable-build",
+        "actual-source-transform-build-process-binding",
+        "R5-reproduction-and-R6-observers",
+        "retired-legacy-hooks-and-paint-RNG-fixes",
+        "label-current-art-and-known-failures",
+        "native-benchmark-viewport-lock"
+      ]
+    },
+    "geometry": {
+      "purpose": "diagnostic-measurement-only",
+      "production_eligible": false,
+      "frame_is_not_body_bbox": true,
+      "targets_are_not_baseline_actual_sizes": true
+    },
+    "phase2": {
+      "purpose": "new-art-production-candidates",
+      "producer": "Antigravity",
+      "request_sent": false,
+      "production_eligible": "only after recorded R1-R4 per-target acceptance; full phase5 gates still required"
+    }
+  },
+  "historical_references": [
+    {
+      "id": "legacy-source",
+      "path": "artifacts/stone-dungeon-tested-sources/en/win/Qt/qt_druaga.cpp",
+      "sha256": "bd0e9cc3e566eb20e23172a9cb5a6b29a47792d4f83548082e8936d8bcfcada1",
+      "image_px": null,
+      "availability": "local-artifacts-only; optional advisory reference",
+      "inspection_scope": "source definitions inspected, image/build relation unverified"
+    },
+    {
+      "id": "legacy-image",
+      "path": "artifacts/smoke-en-windows-20261008-200152/realtime.png",
+      "sha256": "ec1c0c60ece08ca0ac2746cc58a993b2faf11b7c9bd5a1b61e795b1eca8a27b5",
+      "image_px": [
+        1100,
+        760
+      ],
+      "availability": "local-artifacts-only; optional advisory reference",
+      "inspection_scope": "visually inspected; hash/dimensions checked"
+    },
+    {
+      "id": "normal-en-image",
+      "path": "artifacts/smoke-en-windows-20261010-205645/nethack-qt.png",
+      "sha256": "f34775448dc2318b5b18a4acedf4565900c6479db5e15a4f84ace4e240ae9517",
+      "image_px": [
+        1400,
+        900
+      ],
+      "availability": "local-artifacts-only; optional advisory reference",
+      "inspection_scope": "visually inspected; hash/dimensions checked"
+    },
+    {
+      "id": "normal-ja-image",
+      "path": "artifacts/smoke-ja-windows-20261010-205702/nethack-qt.png",
+      "sha256": "08e7649f2ed12e3947340c7021d8e88eb708620dc68ac33ad55edbc34aa9d8b2",
+      "image_px": [
+        1400,
+        900
+      ],
+      "availability": "local-artifacts-only; optional advisory reference",
+      "inspection_scope": "hash/dimensions only; not visually reviewed in R7"
+    }
+  ],
+  "geometry_suites": {
+    "G36": {
+      "map_logical_px": [
+        864,
+        432
+      ],
+      "tile_logical_px": [
+        36,
+        36
+      ],
+      "target_actor_frame_logical_px": [
+        54,
+        54
+      ],
+      "complete_cells": [
+        24,
+        12
+      ],
+      "source_to_frame_scale": [
+        9,
+        8
+      ],
+      "terrain_source_to_tile_scale": [
+        3,
+        4
+      ],
+      "quality_judgement_allowed": false,
+      "purpose": "ratio/composition diagnostic only"
+    },
+    "G48": {
+      "map_logical_px": [
+        864,
+        432
+      ],
+      "tile_logical_px": [
+        48,
+        48
+      ],
+      "target_actor_frame_logical_px": [
+        72,
+        72
+      ],
+      "complete_cells": [
+        18,
+        9
+      ],
+      "source_to_frame_scale": [
+        3,
+        2
+      ],
+      "terrain_source_to_tile_scale": [
+        1,
+        1
+      ],
+      "quality_judgement_allowed": true,
+      "purpose": "native display readability; source pixel quality checked separately at 1:1"
+    }
+  },
+  "capture_contract": {
+    "required_fields": [
+      "capture_id",
+      "phase/build/session/case/input/checkpoint",
+      "language",
+      "case_kind/assistance",
+      "actual_engine/frontend_files_and_sha256",
+      "source_generation_and_dirty_diff",
+      "data/asset_manifest/settings_sha256",
+      "R5_fixture_and_R6_sampling/field_map/normalization_ids",
+      "public_display_generation_and_appearance_keys",
+      "capture_backend",
+      "window_client_and_map_rect_logical",
+      "capture_rect_pixels",
+      "actual_dpr_and_OS_scale",
+      "tile/draw_frame/zoom",
+      "foreground_bbox_and_body_annotation_method",
+      "event_and_frame_monotonic_timestamps",
+      "input/publication/presentation_timing",
+      "raw_media_paths_sha256",
+      "known_failures_and_verdicts",
+      "comparison_class",
+      "conformance",
+      "role",
+      "approval_record(author,date,style_guide_version,style_guide_sha256,scope,status)"
+    ],
+    "raw_capture_immutable": true,
+    "native_and_matched_viewport_separate": true,
+    "comparison_class": [
+      "paired-controlled-public-scene",
+      "layout-only",
+      "advisory-unpaired",
+      "renderer-support"
+    ],
+    "resampled_image_is_native_evidence": false,
+    "renderer_support_proves_gameplay": false
+  },
+  "coverage": {
+    "languages": [
+      "en",
+      "ja"
+    ],
+    "windows_logical_px": [
+      [
+        960,
+        640
+      ],
+      [
+        1395,
+        850
+      ],
+      [
+        1920,
+        1080
+      ]
+    ],
+    "maximized": true,
+    "OS_scale_percent": [
+      100,
+      150,
+      200
+    ],
+    "scenes": [
+      "bright-floor",
+      "dark-floor",
+      "wall-corner",
+      "stairs",
+      "adjacent-overlap",
+      "inventory-equipment-selection",
+      "tiny-marks",
+      "Rogue-graphical",
+      "explicit-ASCII-roundtrip"
+    ],
+    "motion": [
+      "direction-and-idle",
+      "straight-turn-continuous-input",
+      "camera-zoom-scroll",
+      "attack-hit-miss-damage",
+      "projectile-beam-explosion",
+      "visibility-form-mount-transition",
+      "save-restore-level-transition",
+      "dense-effects-and-focus-return"
+    ]
+  },
+  "layout_case_matrix": [
+    {
+      "id": "layout-en-960x640-100",
+      "language": "en",
+      "window_profile": "960x640",
+      "requested_client_logical_px": [
+        960,
+        640
+      ],
+      "OS_scale_percent": 100,
+      "required_by": [
+        "phase5-A09",
+        "phase6"
+      ],
+      "phase0_1_selection": "required if this is the measured current OS scale and profile is 960x640 or maximized; otherwise additional",
+      "scene_contract": "same authorized layout scene plus inventory/equipment/messages/toolbar states",
+      "status": "planned",
+      "environment_disposition": "not-probed",
+      "reason": null
+    },
+    {
+      "id": "layout-en-960x640-150",
+      "language": "en",
+      "window_profile": "960x640",
+      "requested_client_logical_px": [
+        960,
+        640
+      ],
+      "OS_scale_percent": 150,
+      "required_by": [
+        "phase5-A09",
+        "phase6"
+      ],
+      "phase0_1_selection": "required if this is the measured current OS scale and profile is 960x640 or maximized; otherwise additional",
+      "scene_contract": "same authorized layout scene plus inventory/equipment/messages/toolbar states",
+      "status": "planned",
+      "environment_disposition": "not-probed",
+      "reason": null
+    },
+    {
+      "id": "layout-en-960x640-200",
+      "language": "en",
+      "window_profile": "960x640",
+      "requested_client_logical_px": [
+        960,
+        640
+      ],
+      "OS_scale_percent": 200,
+      "required_by": [
+        "phase5-A09",
+        "phase6"
+      ],
+      "phase0_1_selection": "required if this is the measured current OS scale and profile is 960x640 or maximized; otherwise additional",
+      "scene_contract": "same authorized layout scene plus inventory/equipment/messages/toolbar states",
+      "status": "planned",
+      "environment_disposition": "not-probed",
+      "reason": null
+    },
+    {
+      "id": "layout-en-1395x850-100",
+      "language": "en",
+      "window_profile": "1395x850",
+      "requested_client_logical_px": [
+        1395,
+        850
+      ],
+      "OS_scale_percent": 100,
+      "required_by": [
+        "phase5-A09",
+        "phase6"
+      ],
+      "phase0_1_selection": "required if this is the measured current OS scale and profile is 960x640 or maximized; otherwise additional",
+      "scene_contract": "same authorized layout scene plus inventory/equipment/messages/toolbar states",
+      "status": "planned",
+      "environment_disposition": "not-probed",
+      "reason": null
+    },
+    {
+      "id": "layout-en-1395x850-150",
+      "language": "en",
+      "window_profile": "1395x850",
+      "requested_client_logical_px": [
+        1395,
+        850
+      ],
+      "OS_scale_percent": 150,
+      "required_by": [
+        "phase5-A09",
+        "phase6"
+      ],
+      "phase0_1_selection": "required if this is the measured current OS scale and profile is 960x640 or maximized; otherwise additional",
+      "scene_contract": "same authorized layout scene plus inventory/equipment/messages/toolbar states",
+      "status": "planned",
+      "environment_disposition": "not-probed",
+      "reason": null
+    },
+    {
+      "id": "layout-en-1395x850-200",
+      "language": "en",
+      "window_profile": "1395x850",
+      "requested_client_logical_px": [
+        1395,
+        850
+      ],
+      "OS_scale_percent": 200,
+      "required_by": [
+        "phase5-A09",
+        "phase6"
+      ],
+      "phase0_1_selection": "required if this is the measured current OS scale and profile is 960x640 or maximized; otherwise additional",
+      "scene_contract": "same authorized layout scene plus inventory/equipment/messages/toolbar states",
+      "status": "planned",
+      "environment_disposition": "not-probed",
+      "reason": null
+    },
+    {
+      "id": "layout-en-1920x1080-100",
+      "language": "en",
+      "window_profile": "1920x1080",
+      "requested_client_logical_px": [
+        1920,
+        1080
+      ],
+      "OS_scale_percent": 100,
+      "required_by": [
+        "phase5-A09",
+        "phase6"
+      ],
+      "phase0_1_selection": "required if this is the measured current OS scale and profile is 960x640 or maximized; otherwise additional",
+      "scene_contract": "same authorized layout scene plus inventory/equipment/messages/toolbar states",
+      "status": "planned",
+      "environment_disposition": "not-probed",
+      "reason": null
+    },
+    {
+      "id": "layout-en-1920x1080-150",
+      "language": "en",
+      "window_profile": "1920x1080",
+      "requested_client_logical_px": [
+        1920,
+        1080
+      ],
+      "OS_scale_percent": 150,
+      "required_by": [
+        "phase5-A09",
+        "phase6"
+      ],
+      "phase0_1_selection": "required if this is the measured current OS scale and profile is 960x640 or maximized; otherwise additional",
+      "scene_contract": "same authorized layout scene plus inventory/equipment/messages/toolbar states",
+      "status": "planned",
+      "environment_disposition": "not-probed",
+      "reason": null
+    },
+    {
+      "id": "layout-en-1920x1080-200",
+      "language": "en",
+      "window_profile": "1920x1080",
+      "requested_client_logical_px": [
+        1920,
+        1080
+      ],
+      "OS_scale_percent": 200,
+      "required_by": [
+        "phase5-A09",
+        "phase6"
+      ],
+      "phase0_1_selection": "required if this is the measured current OS scale and profile is 960x640 or maximized; otherwise additional",
+      "scene_contract": "same authorized layout scene plus inventory/equipment/messages/toolbar states",
+      "status": "planned",
+      "environment_disposition": "not-probed",
+      "reason": null
+    },
+    {
+      "id": "layout-en-maximized-100",
+      "language": "en",
+      "window_profile": "maximized",
+      "requested_client_logical_px": null,
+      "OS_scale_percent": 100,
+      "required_by": [
+        "phase5-A09",
+        "phase6"
+      ],
+      "phase0_1_selection": "required if this is the measured current OS scale and profile is 960x640 or maximized; otherwise additional",
+      "scene_contract": "same authorized layout scene plus inventory/equipment/messages/toolbar states",
+      "status": "planned",
+      "environment_disposition": "not-probed",
+      "reason": null
+    },
+    {
+      "id": "layout-en-maximized-150",
+      "language": "en",
+      "window_profile": "maximized",
+      "requested_client_logical_px": null,
+      "OS_scale_percent": 150,
+      "required_by": [
+        "phase5-A09",
+        "phase6"
+      ],
+      "phase0_1_selection": "required if this is the measured current OS scale and profile is 960x640 or maximized; otherwise additional",
+      "scene_contract": "same authorized layout scene plus inventory/equipment/messages/toolbar states",
+      "status": "planned",
+      "environment_disposition": "not-probed",
+      "reason": null
+    },
+    {
+      "id": "layout-en-maximized-200",
+      "language": "en",
+      "window_profile": "maximized",
+      "requested_client_logical_px": null,
+      "OS_scale_percent": 200,
+      "required_by": [
+        "phase5-A09",
+        "phase6"
+      ],
+      "phase0_1_selection": "required if this is the measured current OS scale and profile is 960x640 or maximized; otherwise additional",
+      "scene_contract": "same authorized layout scene plus inventory/equipment/messages/toolbar states",
+      "status": "planned",
+      "environment_disposition": "not-probed",
+      "reason": null
+    },
+    {
+      "id": "layout-ja-960x640-100",
+      "language": "ja",
+      "window_profile": "960x640",
+      "requested_client_logical_px": [
+        960,
+        640
+      ],
+      "OS_scale_percent": 100,
+      "required_by": [
+        "phase5-A09",
+        "phase6"
+      ],
+      "phase0_1_selection": "required if this is the measured current OS scale and profile is 960x640 or maximized; otherwise additional",
+      "scene_contract": "same authorized layout scene plus inventory/equipment/messages/toolbar states",
+      "status": "planned",
+      "environment_disposition": "not-probed",
+      "reason": null
+    },
+    {
+      "id": "layout-ja-960x640-150",
+      "language": "ja",
+      "window_profile": "960x640",
+      "requested_client_logical_px": [
+        960,
+        640
+      ],
+      "OS_scale_percent": 150,
+      "required_by": [
+        "phase5-A09",
+        "phase6"
+      ],
+      "phase0_1_selection": "required if this is the measured current OS scale and profile is 960x640 or maximized; otherwise additional",
+      "scene_contract": "same authorized layout scene plus inventory/equipment/messages/toolbar states",
+      "status": "planned",
+      "environment_disposition": "not-probed",
+      "reason": null
+    },
+    {
+      "id": "layout-ja-960x640-200",
+      "language": "ja",
+      "window_profile": "960x640",
+      "requested_client_logical_px": [
+        960,
+        640
+      ],
+      "OS_scale_percent": 200,
+      "required_by": [
+        "phase5-A09",
+        "phase6"
+      ],
+      "phase0_1_selection": "required if this is the measured current OS scale and profile is 960x640 or maximized; otherwise additional",
+      "scene_contract": "same authorized layout scene plus inventory/equipment/messages/toolbar states",
+      "status": "planned",
+      "environment_disposition": "not-probed",
+      "reason": null
+    },
+    {
+      "id": "layout-ja-1395x850-100",
+      "language": "ja",
+      "window_profile": "1395x850",
+      "requested_client_logical_px": [
+        1395,
+        850
+      ],
+      "OS_scale_percent": 100,
+      "required_by": [
+        "phase5-A09",
+        "phase6"
+      ],
+      "phase0_1_selection": "required if this is the measured current OS scale and profile is 960x640 or maximized; otherwise additional",
+      "scene_contract": "same authorized layout scene plus inventory/equipment/messages/toolbar states",
+      "status": "planned",
+      "environment_disposition": "not-probed",
+      "reason": null
+    },
+    {
+      "id": "layout-ja-1395x850-150",
+      "language": "ja",
+      "window_profile": "1395x850",
+      "requested_client_logical_px": [
+        1395,
+        850
+      ],
+      "OS_scale_percent": 150,
+      "required_by": [
+        "phase5-A09",
+        "phase6"
+      ],
+      "phase0_1_selection": "required if this is the measured current OS scale and profile is 960x640 or maximized; otherwise additional",
+      "scene_contract": "same authorized layout scene plus inventory/equipment/messages/toolbar states",
+      "status": "planned",
+      "environment_disposition": "not-probed",
+      "reason": null
+    },
+    {
+      "id": "layout-ja-1395x850-200",
+      "language": "ja",
+      "window_profile": "1395x850",
+      "requested_client_logical_px": [
+        1395,
+        850
+      ],
+      "OS_scale_percent": 200,
+      "required_by": [
+        "phase5-A09",
+        "phase6"
+      ],
+      "phase0_1_selection": "required if this is the measured current OS scale and profile is 960x640 or maximized; otherwise additional",
+      "scene_contract": "same authorized layout scene plus inventory/equipment/messages/toolbar states",
+      "status": "planned",
+      "environment_disposition": "not-probed",
+      "reason": null
+    },
+    {
+      "id": "layout-ja-1920x1080-100",
+      "language": "ja",
+      "window_profile": "1920x1080",
+      "requested_client_logical_px": [
+        1920,
+        1080
+      ],
+      "OS_scale_percent": 100,
+      "required_by": [
+        "phase5-A09",
+        "phase6"
+      ],
+      "phase0_1_selection": "required if this is the measured current OS scale and profile is 960x640 or maximized; otherwise additional",
+      "scene_contract": "same authorized layout scene plus inventory/equipment/messages/toolbar states",
+      "status": "planned",
+      "environment_disposition": "not-probed",
+      "reason": null
+    },
+    {
+      "id": "layout-ja-1920x1080-150",
+      "language": "ja",
+      "window_profile": "1920x1080",
+      "requested_client_logical_px": [
+        1920,
+        1080
+      ],
+      "OS_scale_percent": 150,
+      "required_by": [
+        "phase5-A09",
+        "phase6"
+      ],
+      "phase0_1_selection": "required if this is the measured current OS scale and profile is 960x640 or maximized; otherwise additional",
+      "scene_contract": "same authorized layout scene plus inventory/equipment/messages/toolbar states",
+      "status": "planned",
+      "environment_disposition": "not-probed",
+      "reason": null
+    },
+    {
+      "id": "layout-ja-1920x1080-200",
+      "language": "ja",
+      "window_profile": "1920x1080",
+      "requested_client_logical_px": [
+        1920,
+        1080
+      ],
+      "OS_scale_percent": 200,
+      "required_by": [
+        "phase5-A09",
+        "phase6"
+      ],
+      "phase0_1_selection": "required if this is the measured current OS scale and profile is 960x640 or maximized; otherwise additional",
+      "scene_contract": "same authorized layout scene plus inventory/equipment/messages/toolbar states",
+      "status": "planned",
+      "environment_disposition": "not-probed",
+      "reason": null
+    },
+    {
+      "id": "layout-ja-maximized-100",
+      "language": "ja",
+      "window_profile": "maximized",
+      "requested_client_logical_px": null,
+      "OS_scale_percent": 100,
+      "required_by": [
+        "phase5-A09",
+        "phase6"
+      ],
+      "phase0_1_selection": "required if this is the measured current OS scale and profile is 960x640 or maximized; otherwise additional",
+      "scene_contract": "same authorized layout scene plus inventory/equipment/messages/toolbar states",
+      "status": "planned",
+      "environment_disposition": "not-probed",
+      "reason": null
+    },
+    {
+      "id": "layout-ja-maximized-150",
+      "language": "ja",
+      "window_profile": "maximized",
+      "requested_client_logical_px": null,
+      "OS_scale_percent": 150,
+      "required_by": [
+        "phase5-A09",
+        "phase6"
+      ],
+      "phase0_1_selection": "required if this is the measured current OS scale and profile is 960x640 or maximized; otherwise additional",
+      "scene_contract": "same authorized layout scene plus inventory/equipment/messages/toolbar states",
+      "status": "planned",
+      "environment_disposition": "not-probed",
+      "reason": null
+    },
+    {
+      "id": "layout-ja-maximized-200",
+      "language": "ja",
+      "window_profile": "maximized",
+      "requested_client_logical_px": null,
+      "OS_scale_percent": 200,
+      "required_by": [
+        "phase5-A09",
+        "phase6"
+      ],
+      "phase0_1_selection": "required if this is the measured current OS scale and profile is 960x640 or maximized; otherwise additional",
+      "scene_contract": "same authorized layout scene plus inventory/equipment/messages/toolbar states",
+      "status": "planned",
+      "environment_disposition": "not-probed",
+      "reason": null
+    }
+  ],
+  "matrix_policy": {
+    "platform": "Windows native first; Linux/macOS separate native checks, never inferred from Windows",
+    "phase0_required": "EN and JA at current measured OS scale: 960x640 and maximized; exact G36/G48 viewport lock in a fitting native window",
+    "layout_full_matrix": "EN/JA x [960x640,1395x850,1920x1080,maximized] x [100,150,200] = 24; full A09 gates in phase5 and phase6 require all rows; phase0/1 record current-scale 960x640 and maximized baseline plus feasible extra rows without claiming blocked rows passed",
+    "art_required": "all 26 selected keys and applicable directions/frames on four backgrounds at native G48; source originals separately at 1:1; tiny marks at exact native sizes",
+    "motion_representative": "each declared motion family in EN/JA at recorded fixed hardware, OS scale and G48; calibration representatives never waive per-key R4 motion checks; extra G36 is diagnostic, not source-art acceptance",
+    "scene_product": "do not blindly multiply all scenes by all axes; bind each required scene/Q to actual cases before its phase gate",
+    "unavailable": "record planned/not-run/blocked-environment with actual desktop/workarea/DPR and reason; never N/A or pass merely because window does not fit; required incomplete rows block their gate"
+  },
+  "style_bootstrap": {
+    "stage": "unapproved-text-direction-before-first-prototype",
+    "style_guide_version": null,
+    "style_guide_sha256": null,
+    "direction": "Original readable top-down pixel art harmonizing with retained stone terrain; propose viewpoint/light/palette, do not copy legacy characters.",
+    "terrain_input": "only separately authorized retained-terrain reference; no historic character screenshots",
+    "metadata_before_images": true
+  },
+  "gate_requirements": {
+    "name": "R7-comparison-artifacts-ready",
+    "ready": false,
+    "requires": [
+      "phase0-source-bound-runnable-baseline-and-raw-media",
+      "required-case-matrix-with-provenance-and-measurements",
+      "phase2-new-art-style-guide-with-Lemon-approval",
+      "phase3-4-motion-videos-and-calibrated-timing",
+      "R4-per-target-quality-links-and-reviewed-known-gaps"
+    ]
+  },
+  "prototype_targets": [
+    {
+      "key": "hero.layer.body_human_female",
+      "category": "hero-layer",
+      "visible_brief": "Human body base with a female appearance",
+      "public_class": "hero-part",
+      "method": "create-new",
+      "source_asset": null,
+      "native_display_px": null,
+      "production_owner_phase": "5-1",
+      "status": "planned-not-requested"
+    },
+    {
+      "key": "hero.layer.body_human_male",
+      "category": "hero-layer",
+      "visible_brief": "Human body base with a male appearance",
+      "public_class": "hero-part",
+      "method": "create-new",
+      "source_asset": null,
+      "native_display_px": null,
+      "production_owner_phase": "5-1",
+      "status": "planned-not-requested"
+    },
+    {
+      "key": "hero.layer.cape",
+      "category": "hero-layer",
+      "visible_brief": "Neutral cloak base suitable for runtime recoloring",
+      "public_class": "hero-part",
+      "method": "create-new",
+      "source_asset": null,
+      "native_display_px": null,
+      "production_owner_phase": "5-1",
+      "status": "planned-not-requested"
+    },
+    {
+      "key": "hero.layer.hair_female",
+      "category": "hero-layer",
+      "visible_brief": "Hair layer for the female hero appearance",
+      "public_class": "hero-part",
+      "method": "create-new",
+      "source_asset": null,
+      "native_display_px": null,
+      "production_owner_phase": "5-1",
+      "status": "planned-not-requested"
+    },
+    {
+      "key": "hero.layer.hair_male",
+      "category": "hero-layer",
+      "visible_brief": "Hair layer for the male hero appearance",
+      "public_class": "hero-part",
+      "method": "create-new",
+      "source_asset": null,
+      "native_display_px": null,
+      "production_owner_phase": "5-1",
+      "status": "planned-not-requested"
+    },
+    {
+      "key": "hero.layer.outfit_knight",
+      "category": "hero-layer",
+      "visible_brief": "Knight clothing and armor layer",
+      "public_class": "hero-part",
+      "method": "create-new",
+      "source_asset": null,
+      "native_display_px": null,
+      "production_owner_phase": "5-1",
+      "status": "planned-not-requested"
+    },
+    {
+      "key": "hero.layer.weapon_knight",
+      "category": "hero-layer",
+      "visible_brief": "Knight sword layer",
+      "public_class": "hero-part",
+      "method": "create-new",
+      "source_asset": null,
+      "native_display_px": null,
+      "production_owner_phase": "5-1",
+      "status": "planned-not-requested"
+    },
+    {
+      "key": "hero.layer.shield_knight",
+      "category": "hero-layer",
+      "visible_brief": "Knight shield layer",
+      "public_class": "hero-part",
+      "method": "create-new",
+      "source_asset": null,
+      "native_display_px": null,
+      "production_owner_phase": "5-1",
+      "status": "planned-not-requested"
+    },
+    {
+      "key": "actor.soldier.male",
+      "category": "actor",
+      "visible_brief": "male soldier",
+      "public_class": "character",
+      "method": "create-new",
+      "source_asset": null,
+      "native_display_px": null,
+      "production_owner_phase": "5-2",
+      "status": "planned-not-requested"
+    },
+    {
+      "key": "actor.soldier.female",
+      "category": "actor",
+      "visible_brief": "female soldier",
+      "public_class": "character",
+      "method": "create-new",
+      "source_asset": null,
+      "native_display_px": null,
+      "production_owner_phase": "5-2",
+      "status": "planned-not-requested"
+    },
+    {
+      "key": "actor.pony.male",
+      "category": "actor",
+      "visible_brief": "male pony",
+      "public_class": "character",
+      "method": "create-new",
+      "source_asset": null,
+      "native_display_px": null,
+      "production_owner_phase": "5-2",
+      "status": "planned-not-requested"
+    },
+    {
+      "key": "actor.pony.female",
+      "category": "actor",
+      "visible_brief": "female pony",
+      "public_class": "character",
+      "method": "create-new",
+      "source_asset": null,
+      "native_display_px": null,
+      "production_owner_phase": "5-2",
+      "status": "planned-not-requested"
+    },
+    {
+      "key": "actor.green_slime.male",
+      "category": "actor",
+      "visible_brief": "male green slime",
+      "public_class": "character",
+      "method": "create-new",
+      "source_asset": null,
+      "native_display_px": null,
+      "production_owner_phase": "5-2",
+      "status": "planned-not-requested"
+    },
+    {
+      "key": "actor.green_slime.female",
+      "category": "actor",
+      "visible_brief": "female green slime",
+      "public_class": "character",
+      "method": "create-new",
+      "source_asset": null,
+      "native_display_px": null,
+      "production_owner_phase": "5-2",
+      "status": "planned-not-requested"
+    },
+    {
+      "key": "actor.red_dragon.male",
+      "category": "actor",
+      "visible_brief": "male red dragon",
+      "public_class": "character",
+      "method": "create-new",
+      "source_asset": null,
+      "native_display_px": null,
+      "production_owner_phase": "5-2",
+      "status": "planned-not-requested"
+    },
+    {
+      "key": "actor.red_dragon.female",
+      "category": "actor",
+      "visible_brief": "female red dragon",
+      "public_class": "character",
+      "method": "create-new",
+      "source_asset": null,
+      "native_display_px": null,
+      "production_owner_phase": "5-2",
+      "status": "planned-not-requested"
+    },
+    {
+      "key": "item.appearance.weapon.7314421d2e7547a3cc12f5713c670957730a04fa06596e8eb1ef0450e8d859b4",
+      "category": "item",
+      "visible_brief": "long sword",
+      "public_class": "weapon",
+      "method": "create-new",
+      "source_asset": null,
+      "native_display_px": null,
+      "production_owner_phase": "5-3",
+      "status": "planned-not-requested"
+    },
+    {
+      "key": "item.appearance.armor.b82f32f156e6311e02498c57352bf1a9acf95a2a5902ad0b20222504e2a290c1",
+      "category": "item",
+      "visible_brief": "plate mail",
+      "public_class": "armor",
+      "method": "create-new",
+      "source_asset": null,
+      "native_display_px": null,
+      "production_owner_phase": "5-3",
+      "status": "planned-not-requested"
+    },
+    {
+      "key": "item.appearance.potion.d1b9a26fb60ef48839f97b4193808735284f99332eef87f8ad6f3ce3146efe8f",
+      "category": "item",
+      "visible_brief": "Ruby-coloured potion bottle",
+      "public_class": "potion",
+      "method": "create-new",
+      "source_asset": null,
+      "native_display_px": null,
+      "production_owner_phase": "5-3",
+      "status": "planned-not-requested"
+    },
+    {
+      "key": "item.appearance.tool.9f38a78003607400017a4a0f8ca973122e7fd1ae6fb532f0a8228a8f4bf323e5",
+      "category": "item",
+      "visible_brief": "chest",
+      "public_class": "tool",
+      "method": "create-new",
+      "source_asset": null,
+      "native_display_px": null,
+      "production_owner_phase": "5-3",
+      "status": "planned-not-requested"
+    },
+    {
+      "key": "item.appearance.tool.db7a78646fe6cdba9b7d98a8802cb5e42c129ae354cb42ab6c94ad4a4c1947dc",
+      "category": "item",
+      "visible_brief": "bag",
+      "public_class": "tool",
+      "method": "create-new",
+      "source_asset": null,
+      "native_display_px": null,
+      "production_owner_phase": "5-3",
+      "status": "planned-not-requested"
+    },
+    {
+      "key": "item.appearance.tool.c9c762724293be0b90689e1d775503dc8c4ec9081d112bc5281a6b06b892478b",
+      "category": "item",
+      "visible_brief": "lamp",
+      "public_class": "tool",
+      "method": "create-new",
+      "source_asset": null,
+      "native_display_px": null,
+      "production_owner_phase": "5-3",
+      "status": "planned-not-requested"
+    },
+    {
+      "key": "item.appearance.gem.89fb070a9e51386daecc1d0cd1751a2136569b5b08c6f1b3a38dea374bae1df0",
+      "category": "item",
+      "visible_brief": "Gray stone",
+      "public_class": "gem",
+      "method": "create-new",
+      "source_asset": null,
+      "native_display_px": null,
+      "production_owner_phase": "5-3",
+      "status": "planned-not-requested"
+    },
+    {
+      "key": "mark.petmark",
+      "category": "mark",
+      "visible_brief": "Friendly companion indicator",
+      "public_class": "UI indicator",
+      "method": "create-new",
+      "source_asset": null,
+      "native_display_px": [
+        8,
+        7
+      ],
+      "production_owner_phase": "5-4",
+      "status": "planned-not-requested"
+    },
+    {
+      "key": "mark.petmark-small",
+      "category": "mark",
+      "visible_brief": "Small derivative of the friendly companion indicator",
+      "public_class": "UI indicator",
+      "method": "derive-from-new-mark",
+      "source_asset": "mark.petmark",
+      "native_display_px": [
+        5,
+        5
+      ],
+      "production_owner_phase": "5-4",
+      "status": "planned-not-requested"
+    },
+    {
+      "key": "mark.pilemark",
+      "category": "mark",
+      "visible_brief": "Indicator for multiple ground items",
+      "public_class": "UI indicator",
+      "method": "create-new",
+      "source_asset": null,
+      "native_display_px": [
+        5,
+        5
+      ],
+      "production_owner_phase": "5-4",
+      "status": "planned-not-requested"
+    }
+  ],
+  "hero_preview_recipes": [
+    {
+      "role": "Kni",
+      "sex": "male",
+      "actor_key": "actor.knight.male",
+      "recipe": {
+        "role": "Kni",
+        "race": "Hum",
+        "gender": "Mal",
+        "alignment": "Law",
+        "facing": "down",
+        "frame": "idle"
+      }
+    },
+    {
+      "role": "Kni",
+      "sex": "female",
+      "actor_key": "actor.knight.female",
+      "recipe": {
+        "role": "Kni",
+        "race": "Hum",
+        "gender": "Fem",
+        "alignment": "Law",
+        "facing": "down",
+        "frame": "idle"
+      }
+    }
+  ],
+  "all_quality_target_count": 2287,
+  "promotion_policy": {
+    "new_phase2_art_may_be_reused_in_phase5": true,
+    "requires": [
+      "Antigravity-origin-and-editable-source-record",
+      "R1-format-and-resolver-validation",
+      "R2-public-appearance-binding",
+      "R3-existing-key-no-extra-count",
+      "R4-applicable-quality-evidence",
+      "unchanged-hash-and-approved-style-version"
+    ],
+    "prototype_pass_is_full_coverage": false,
+    "phase0_reference_can_be_promoted": false
+  },
+  "freezes": {
+    "phase0": "verified current-renderer evidence, current assets and failures; no final style approval",
+    "phase2": "bootstrap unapproved direction and terrain -> metadata proposal -> validated grid/anchors/layer order -> Antigravity prototypes -> Lemon visual approval -> versioned style-guide",
+    "phase3-4": "Lemon-approved motion/camera/attack timings and measured video; freeze before bulk phase5"
+  },
+  "readiness": {
+    "runtime_ready": false,
+    "actual_baseline_captures_created": 0,
+    "new_images_created": 0,
+    "image_requests_sent": 0,
+    "quality_approvals_recorded": 0
+  }
+}

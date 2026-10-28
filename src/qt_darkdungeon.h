@@ -26,5 +26,6 @@ class QImage;
 QString darkdungeon_text(const char* english, const char* japanese);
 QImage darkdungeon_hero_image();
 void darkdungeon_show_inventory();
+void darkdungeon_refresh_inventory_view();
 bool darkdungeon_inventory_smoke(const QString& output);
 #endif

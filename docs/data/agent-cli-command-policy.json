@@ -1,0 +1,1560 @@
+{
+  "schema_version": 1,
+  "status": "C0 design; not an implemented command dispatcher",
+  "license": "NetHack General Public License; see LICENSE",
+  "source_notice": [
+    "/* Modified for DarkDungeon on 2026-10-08. See dat/license. */",
+    "/* NetHack 5.0\tcmd.c\t$NHDT-Date: 1781973043 2026/06/20 16:30:43 $  $NHDT-Branch: NetHack-5.0 $:$NHDT-Revision: 1.772 $ */",
+    "/* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */",
+    "/*-Copyright (c) Robert Patrick Rankin, 2013. */",
+    "/* NetHack may be freely redistributed.  See license for details. */",
+    "",
+    "#include \"hack.h\""
+  ],
+  "reference_platform": "Windows x64 Qt Release",
+  "rules": {
+    "unknown_command": "reject_build",
+    "excluded_commands": "never_dispatch_in_normal_api",
+    "count_max": "compiled LARGEST_INT",
+    "prefix_only": "params.prefixes",
+    "option_name": "exact settable boolean name",
+    "wire_encoding": "UTF-8"
+  },
+  "commands": [
+    {
+      "id": "#",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [
+        "reqmenu"
+      ],
+      "reference_function": "doextcmd",
+      "reference_flags": 137
+    },
+    {
+      "id": "?",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [
+        "reqmenu"
+      ],
+      "reference_function": "doextlist",
+      "reference_flags": 139
+    },
+    {
+      "id": "adjust",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "doorganize",
+      "reference_flags": 11
+    },
+    {
+      "id": "annotate",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [
+        "reqmenu"
+      ],
+      "reference_function": "donamelevel",
+      "reference_flags": 139
+    },
+    {
+      "id": "apply",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [
+        "reqmenu"
+      ],
+      "reference_function": "doapply",
+      "reference_flags": 128
+    },
+    {
+      "id": "attributes",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "doattributes",
+      "reference_flags": 9
+    },
+    {
+      "id": "autopickup",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "dotogglepickup",
+      "reference_flags": 9
+    },
+    {
+      "id": "bugreport",
+      "route": "excluded_environment",
+      "public_in_normal_mode": false,
+      "allowed_prefixes": [],
+      "reference_function": "dobugreport",
+      "reference_flags": 40
+    },
+    {
+      "id": "call",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "docallcmd",
+      "reference_flags": 9
+    },
+    {
+      "id": "cast",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "docast",
+      "reference_flags": 1
+    },
+    {
+      "id": "chat",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "dotalk",
+      "reference_flags": 3
+    },
+    {
+      "id": "chronicle",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "do_gamelog",
+      "reference_flags": 11
+    },
+    {
+      "id": "close",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "doclose",
+      "reference_flags": 0
+    },
+    {
+      "id": "conduct",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "doconduct",
+      "reference_flags": 11
+    },
+    {
+      "id": "contextaction",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "darkdungeon_basic_action",
+      "reference_flags": 3
+    },
+    {
+      "id": "debugfuzzer",
+      "route": "excluded_privileged",
+      "public_in_normal_mode": false,
+      "allowed_prefixes": [],
+      "reference_function": "wiz_fuzzer",
+      "reference_flags": 37
+    },
+    {
+      "id": "dip",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [
+        "reqmenu"
+      ],
+      "reference_function": "dodip",
+      "reference_flags": 130
+    },
+    {
+      "id": "down",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [
+        "reqmenu"
+      ],
+      "reference_function": "dodown",
+      "reference_flags": 128
+    },
+    {
+      "id": "drop",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "dodrop",
+      "reference_flags": 0
+    },
+    {
+      "id": "droptype",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "doddrop",
+      "reference_flags": 0
+    },
+    {
+      "id": "eat",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [
+        "reqmenu"
+      ],
+      "reference_function": "doeat",
+      "reference_flags": 128
+    },
+    {
+      "id": "engrave",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "doengrave",
+      "reference_flags": 0
+    },
+    {
+      "id": "enhance",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "enhance_weapon_skill",
+      "reference_flags": 11
+    },
+    {
+      "id": "exploremode",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "enter_explore_mode",
+      "reference_flags": 41
+    },
+    {
+      "id": "fight",
+      "route": "prefix_modifier",
+      "public_in_normal_mode": false,
+      "allowed_prefixes": [],
+      "reference_function": "do_fight",
+      "reference_flags": 512
+    },
+    {
+      "id": "fire",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "dofire",
+      "reference_flags": 0
+    },
+    {
+      "id": "force",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "doforce",
+      "reference_flags": 2
+    },
+    {
+      "id": "genocided",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [
+        "reqmenu"
+      ],
+      "reference_function": "dogenocided",
+      "reference_flags": 139
+    },
+    {
+      "id": "glance",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "doquickwhatis",
+      "reference_flags": 9
+    },
+    {
+      "id": "help",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "dohelp",
+      "reference_flags": 9
+    },
+    {
+      "id": "herecmdmenu",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "doherecmdmenu",
+      "reference_flags": 11
+    },
+    {
+      "id": "history",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "dohistory",
+      "reference_flags": 11
+    },
+    {
+      "id": "inventory",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "ddoinv",
+      "reference_flags": 9
+    },
+    {
+      "id": "inventtype",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "dotypeinv",
+      "reference_flags": 9
+    },
+    {
+      "id": "invoke",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "doinvoke",
+      "reference_flags": 3
+    },
+    {
+      "id": "jump",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "dojump",
+      "reference_flags": 2
+    },
+    {
+      "id": "kick",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "dokick",
+      "reference_flags": 0
+    },
+    {
+      "id": "known",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [
+        "reqmenu"
+      ],
+      "reference_function": "dodiscovered",
+      "reference_flags": 137
+    },
+    {
+      "id": "knownclass",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [
+        "reqmenu"
+      ],
+      "reference_function": "doclassdisco",
+      "reference_flags": 137
+    },
+    {
+      "id": "levelchange",
+      "route": "excluded_privileged",
+      "public_in_normal_mode": false,
+      "allowed_prefixes": [],
+      "reference_function": "wiz_level_change",
+      "reference_flags": 7
+    },
+    {
+      "id": "lightsources",
+      "route": "excluded_privileged",
+      "public_in_normal_mode": false,
+      "allowed_prefixes": [],
+      "reference_function": "wiz_light_sources",
+      "reference_flags": 7
+    },
+    {
+      "id": "look",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "dolook",
+      "reference_flags": 1
+    },
+    {
+      "id": "lookaround",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "dolookaround",
+      "reference_flags": 9
+    },
+    {
+      "id": "lookcontainer",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "darkdungeon_look_here",
+      "reference_flags": 2
+    },
+    {
+      "id": "containermove",
+      "route": "excluded_internal",
+      "public_in_normal_mode": false,
+      "allowed_prefixes": [],
+      "reference_function": "darkdungeon_container_move",
+      "reference_flags": 64
+    },
+    {
+      "id": "loot",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [
+        "reqmenu"
+      ],
+      "reference_function": "doloot",
+      "reference_flags": 130
+    },
+    {
+      "id": "migratemons",
+      "route": "excluded_privileged",
+      "public_in_normal_mode": false,
+      "allowed_prefixes": [],
+      "reference_function": "wiz_migrate_mons",
+      "reference_flags": 7
+    },
+    {
+      "id": "monster",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "domonability",
+      "reference_flags": 3
+    },
+    {
+      "id": "name",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "docallcmd",
+      "reference_flags": 11
+    },
+    {
+      "id": "offer",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [
+        "reqmenu"
+      ],
+      "reference_function": "dosacrifice",
+      "reference_flags": 130
+    },
+    {
+      "id": "open",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "doopen",
+      "reference_flags": 0
+    },
+    {
+      "id": "options",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [
+        "reqmenu"
+      ],
+      "reference_function": "doset_simple",
+      "reference_flags": 137
+    },
+    {
+      "id": "optionsfull",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [
+        "reqmenu"
+      ],
+      "reference_function": "doset",
+      "reference_flags": 137
+    },
+    {
+      "id": "overview",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [
+        "reqmenu"
+      ],
+      "reference_function": "dooverview",
+      "reference_flags": 139
+    },
+    {
+      "id": "panic",
+      "route": "excluded_privileged",
+      "public_in_normal_mode": false,
+      "allowed_prefixes": [],
+      "reference_function": "wiz_panic",
+      "reference_flags": 7
+    },
+    {
+      "id": "pay",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [
+        "reqmenu"
+      ],
+      "reference_function": "dopay",
+      "reference_flags": 128
+    },
+    {
+      "id": "perminv",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "doperminv",
+      "reference_flags": 41
+    },
+    {
+      "id": "pickup",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [
+        "reqmenu"
+      ],
+      "reference_function": "dopickup",
+      "reference_flags": 128
+    },
+    {
+      "id": "polyself",
+      "route": "excluded_privileged",
+      "public_in_normal_mode": false,
+      "allowed_prefixes": [],
+      "reference_function": "wiz_polyself",
+      "reference_flags": 7
+    },
+    {
+      "id": "pray",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "dopray",
+      "reference_flags": 3
+    },
+    {
+      "id": "prevmsg",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "doprev_message",
+      "reference_flags": 4105
+    },
+    {
+      "id": "puton",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "doputon",
+      "reference_flags": 0
+    },
+    {
+      "id": "quaff",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [
+        "reqmenu"
+      ],
+      "reference_function": "dodrink",
+      "reference_flags": 128
+    },
+    {
+      "id": "quit",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "done2",
+      "reference_flags": 43
+    },
+    {
+      "id": "quiver",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "dowieldquiver",
+      "reference_flags": 0
+    },
+    {
+      "id": "read",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "doread",
+      "reference_flags": 0
+    },
+    {
+      "id": "redraw",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "doredraw",
+      "reference_flags": 4105
+    },
+    {
+      "id": "remove",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "doremring",
+      "reference_flags": 0
+    },
+    {
+      "id": "repeat",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "do_repeat",
+      "reference_flags": 9
+    },
+    {
+      "id": "reqmenu",
+      "route": "prefix_modifier",
+      "public_in_normal_mode": false,
+      "allowed_prefixes": [],
+      "reference_function": "do_reqmenu",
+      "reference_flags": 512
+    },
+    {
+      "id": "retravel",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "dotravel_target",
+      "reference_flags": 0
+    },
+    {
+      "id": "ride",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "doride",
+      "reference_flags": 2
+    },
+    {
+      "id": "rub",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "dorub",
+      "reference_flags": 2
+    },
+    {
+      "id": "run",
+      "route": "prefix_modifier",
+      "public_in_normal_mode": false,
+      "allowed_prefixes": [],
+      "reference_function": "do_run",
+      "reference_flags": 512
+    },
+    {
+      "id": "rush",
+      "route": "prefix_modifier",
+      "public_in_normal_mode": false,
+      "allowed_prefixes": [],
+      "reference_function": "do_rush",
+      "reference_flags": 512
+    },
+    {
+      "id": "save",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "dosave",
+      "reference_flags": 41
+    },
+    {
+      "id": "saveoptions",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "do_write_config_file",
+      "reference_flags": 41
+    },
+    {
+      "id": "search",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [
+        "reqmenu"
+      ],
+      "reference_function": "dosearch",
+      "reference_flags": 129
+    },
+    {
+      "id": "seeall",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [
+        "reqmenu"
+      ],
+      "reference_function": "doprinuse",
+      "reference_flags": 137
+    },
+    {
+      "id": "seeamulet",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [
+        "reqmenu"
+      ],
+      "reference_function": "dopramulet",
+      "reference_flags": 137
+    },
+    {
+      "id": "seearmor",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [
+        "reqmenu"
+      ],
+      "reference_function": "doprarm",
+      "reference_flags": 137
+    },
+    {
+      "id": "seerings",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [
+        "reqmenu"
+      ],
+      "reference_function": "doprring",
+      "reference_flags": 137
+    },
+    {
+      "id": "seetools",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [
+        "reqmenu"
+      ],
+      "reference_function": "doprtool",
+      "reference_flags": 137
+    },
+    {
+      "id": "seeweapon",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [
+        "reqmenu"
+      ],
+      "reference_function": "doprwep",
+      "reference_flags": 137
+    },
+    {
+      "id": "shell",
+      "route": "excluded_environment",
+      "public_in_normal_mode": false,
+      "allowed_prefixes": [],
+      "reference_function": "dosh_core",
+      "reference_flags": 57
+    },
+    {
+      "id": "showgold",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [
+        "reqmenu"
+      ],
+      "reference_function": "doprgold",
+      "reference_flags": 137
+    },
+    {
+      "id": "showspells",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "dovspell",
+      "reference_flags": 9
+    },
+    {
+      "id": "showtrap",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "doidtrap",
+      "reference_flags": 9
+    },
+    {
+      "id": "sit",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "dosit",
+      "reference_flags": 2
+    },
+    {
+      "id": "stats",
+      "route": "excluded_privileged",
+      "public_in_normal_mode": false,
+      "allowed_prefixes": [],
+      "reference_function": "wiz_show_stats",
+      "reference_flags": 7
+    },
+    {
+      "id": "suspend",
+      "route": "excluded_environment",
+      "public_in_normal_mode": false,
+      "allowed_prefixes": [],
+      "reference_function": "dosuspend_core",
+      "reference_flags": 57
+    },
+    {
+      "id": "swap",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "doswapweapon",
+      "reference_flags": 0
+    },
+    {
+      "id": "takeoff",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "dotakeoff",
+      "reference_flags": 0
+    },
+    {
+      "id": "takeoffall",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "doddoremarm",
+      "reference_flags": 0
+    },
+    {
+      "id": "teleport",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [
+        "reqmenu"
+      ],
+      "reference_function": "dotelecmd",
+      "reference_flags": 129
+    },
+    {
+      "id": "terrain",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "doterrain",
+      "reference_flags": 11
+    },
+    {
+      "id": "therecmdmenu",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "dotherecmdmenu",
+      "reference_flags": 2058
+    },
+    {
+      "id": "throw",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "dothrow",
+      "reference_flags": 0
+    },
+    {
+      "id": "timeout",
+      "route": "excluded_privileged",
+      "public_in_normal_mode": false,
+      "allowed_prefixes": [],
+      "reference_function": "wiz_timeout_queue",
+      "reference_flags": 7
+    },
+    {
+      "id": "tip",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [
+        "reqmenu"
+      ],
+      "reference_function": "dotip",
+      "reference_flags": 130
+    },
+    {
+      "id": "toggle",
+      "route": "bound_boolean_option",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "dotoggleoption",
+      "reference_flags": 16393
+    },
+    {
+      "id": "travel",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [
+        "reqmenu"
+      ],
+      "reference_function": "dotravel",
+      "reference_flags": 128
+    },
+    {
+      "id": "turn",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "doturn",
+      "reference_flags": 3
+    },
+    {
+      "id": "twoweapon",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "dotwoweapon",
+      "reference_flags": 0
+    },
+    {
+      "id": "untrap",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "dountrap",
+      "reference_flags": 2
+    },
+    {
+      "id": "up",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [
+        "reqmenu"
+      ],
+      "reference_function": "doup",
+      "reference_flags": 128
+    },
+    {
+      "id": "vanquished",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [
+        "reqmenu"
+      ],
+      "reference_function": "dovanquished",
+      "reference_flags": 139
+    },
+    {
+      "id": "version",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "doextversion",
+      "reference_flags": 11
+    },
+    {
+      "id": "versionshort",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [
+        "reqmenu"
+      ],
+      "reference_function": "doversion",
+      "reference_flags": 137
+    },
+    {
+      "id": "vision",
+      "route": "excluded_privileged",
+      "public_in_normal_mode": false,
+      "allowed_prefixes": [],
+      "reference_function": "wiz_show_vision",
+      "reference_flags": 7
+    },
+    {
+      "id": "wait",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [
+        "reqmenu"
+      ],
+      "reference_function": "donull",
+      "reference_flags": 129
+    },
+    {
+      "id": "wear",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "dowear",
+      "reference_flags": 0
+    },
+    {
+      "id": "whatdoes",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "dowhatdoes",
+      "reference_flags": 9
+    },
+    {
+      "id": "whatis",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "dowhatis",
+      "reference_flags": 9
+    },
+    {
+      "id": "wield",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "dowield",
+      "reference_flags": 0
+    },
+    {
+      "id": "wipe",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "dowipe",
+      "reference_flags": 2
+    },
+    {
+      "id": "wizborn",
+      "route": "excluded_privileged",
+      "public_in_normal_mode": false,
+      "allowed_prefixes": [],
+      "reference_function": "doborn",
+      "reference_flags": 5
+    },
+    {
+      "id": "wizbury",
+      "route": "excluded_privileged",
+      "public_in_normal_mode": false,
+      "allowed_prefixes": [],
+      "reference_function": "wiz_debug_cmd_bury",
+      "reference_flags": 7
+    },
+    {
+      "id": "wizcast",
+      "route": "excluded_privileged",
+      "public_in_normal_mode": false,
+      "allowed_prefixes": [],
+      "reference_function": "dowizcast",
+      "reference_flags": 5
+    },
+    {
+      "id": "wizcustom",
+      "route": "excluded_privileged",
+      "public_in_normal_mode": false,
+      "allowed_prefixes": [],
+      "reference_function": "wiz_custom",
+      "reference_flags": 37
+    },
+    {
+      "id": "wizdetect",
+      "route": "excluded_privileged",
+      "public_in_normal_mode": false,
+      "allowed_prefixes": [],
+      "reference_function": "wiz_detect",
+      "reference_flags": 5
+    },
+    {
+      "id": "wizdispmacros",
+      "route": "excluded_privileged",
+      "public_in_normal_mode": false,
+      "allowed_prefixes": [],
+      "reference_function": "wiz_display_macros",
+      "reference_flags": 7
+    },
+    {
+      "id": "wizfliplevel",
+      "route": "excluded_privileged",
+      "public_in_normal_mode": false,
+      "allowed_prefixes": [],
+      "reference_function": "wiz_flip_level",
+      "reference_flags": 5
+    },
+    {
+      "id": "wizgenesis",
+      "route": "excluded_privileged",
+      "public_in_normal_mode": false,
+      "allowed_prefixes": [],
+      "reference_function": "wiz_genesis",
+      "reference_flags": 5
+    },
+    {
+      "id": "wizidentify",
+      "route": "excluded_privileged",
+      "public_in_normal_mode": false,
+      "allowed_prefixes": [],
+      "reference_function": "wiz_identify",
+      "reference_flags": 5
+    },
+    {
+      "id": "wizintrinsic",
+      "route": "excluded_privileged",
+      "public_in_normal_mode": false,
+      "allowed_prefixes": [],
+      "reference_function": "wiz_intrinsic",
+      "reference_flags": 7
+    },
+    {
+      "id": "wizkill",
+      "route": "excluded_privileged",
+      "public_in_normal_mode": false,
+      "allowed_prefixes": [],
+      "reference_function": "wiz_kill",
+      "reference_flags": 167
+    },
+    {
+      "id": "wizlevelport",
+      "route": "excluded_privileged",
+      "public_in_normal_mode": false,
+      "allowed_prefixes": [],
+      "reference_function": "wiz_level_tele",
+      "reference_flags": 133
+    },
+    {
+      "id": "wizloaddes",
+      "route": "excluded_privileged",
+      "public_in_normal_mode": false,
+      "allowed_prefixes": [],
+      "reference_function": "wiz_load_splua",
+      "reference_flags": 37
+    },
+    {
+      "id": "wizloadlua",
+      "route": "excluded_privileged",
+      "public_in_normal_mode": false,
+      "allowed_prefixes": [],
+      "reference_function": "wiz_load_lua",
+      "reference_flags": 37
+    },
+    {
+      "id": "wizobjprobs",
+      "route": "excluded_privileged",
+      "public_in_normal_mode": false,
+      "allowed_prefixes": [],
+      "reference_function": "wiz_objprobs",
+      "reference_flags": 5
+    },
+    {
+      "id": "wizmakemap",
+      "route": "excluded_privileged",
+      "public_in_normal_mode": false,
+      "allowed_prefixes": [],
+      "reference_function": "wiz_makemap",
+      "reference_flags": 5
+    },
+    {
+      "id": "wizmap",
+      "route": "excluded_privileged",
+      "public_in_normal_mode": false,
+      "allowed_prefixes": [],
+      "reference_function": "wiz_map",
+      "reference_flags": 5
+    },
+    {
+      "id": "wizmondiff",
+      "route": "excluded_privileged",
+      "public_in_normal_mode": false,
+      "allowed_prefixes": [],
+      "reference_function": "wiz_mon_diff",
+      "reference_flags": 7
+    },
+    {
+      "id": "wizrumorcheck",
+      "route": "excluded_privileged",
+      "public_in_normal_mode": false,
+      "allowed_prefixes": [],
+      "reference_function": "wiz_rumor_check",
+      "reference_flags": 7
+    },
+    {
+      "id": "wizseenv",
+      "route": "excluded_privileged",
+      "public_in_normal_mode": false,
+      "allowed_prefixes": [],
+      "reference_function": "wiz_show_seenv",
+      "reference_flags": 7
+    },
+    {
+      "id": "wizshownhuuid",
+      "route": "excluded_privileged",
+      "public_in_normal_mode": false,
+      "allowed_prefixes": [],
+      "reference_function": "wiz_show_nhuuid",
+      "reference_flags": 6
+    },
+    {
+      "id": "wizsmell",
+      "route": "excluded_privileged",
+      "public_in_normal_mode": false,
+      "allowed_prefixes": [],
+      "reference_function": "wiz_smell",
+      "reference_flags": 7
+    },
+    {
+      "id": "wiztelekinesis",
+      "route": "excluded_privileged",
+      "public_in_normal_mode": false,
+      "allowed_prefixes": [],
+      "reference_function": "wiz_telekinesis",
+      "reference_flags": 7
+    },
+    {
+      "id": "wizwhere",
+      "route": "excluded_privileged",
+      "public_in_normal_mode": false,
+      "allowed_prefixes": [],
+      "reference_function": "wiz_where",
+      "reference_flags": 7
+    },
+    {
+      "id": "wizwish",
+      "route": "excluded_privileged",
+      "public_in_normal_mode": false,
+      "allowed_prefixes": [],
+      "reference_function": "wiz_wish",
+      "reference_flags": 133
+    },
+    {
+      "id": "wmode",
+      "route": "excluded_privileged",
+      "public_in_normal_mode": false,
+      "allowed_prefixes": [],
+      "reference_function": "wiz_show_wmodes",
+      "reference_flags": 7
+    },
+    {
+      "id": "zap",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [],
+      "reference_function": "dozap",
+      "reference_flags": 0
+    },
+    {
+      "id": "movewest",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [
+        "reqmenu",
+        "fight",
+        "run",
+        "rush"
+      ],
+      "reference_function": "do_move_west",
+      "reference_flags": 1408
+    },
+    {
+      "id": "movenorthwest",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [
+        "reqmenu",
+        "fight",
+        "run",
+        "rush"
+      ],
+      "reference_function": "do_move_northwest",
+      "reference_flags": 1408
+    },
+    {
+      "id": "movenorth",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [
+        "reqmenu",
+        "fight",
+        "run",
+        "rush"
+      ],
+      "reference_function": "do_move_north",
+      "reference_flags": 1408
+    },
+    {
+      "id": "movenortheast",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [
+        "reqmenu",
+        "fight",
+        "run",
+        "rush"
+      ],
+      "reference_function": "do_move_northeast",
+      "reference_flags": 1408
+    },
+    {
+      "id": "moveeast",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [
+        "reqmenu",
+        "fight",
+        "run",
+        "rush"
+      ],
+      "reference_function": "do_move_east",
+      "reference_flags": 1408
+    },
+    {
+      "id": "movesoutheast",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [
+        "reqmenu",
+        "fight",
+        "run",
+        "rush"
+      ],
+      "reference_function": "do_move_southeast",
+      "reference_flags": 1408
+    },
+    {
+      "id": "movesouth",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [
+        "reqmenu",
+        "fight",
+        "run",
+        "rush"
+      ],
+      "reference_function": "do_move_south",
+      "reference_flags": 1408
+    },
+    {
+      "id": "movesouthwest",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [
+        "reqmenu",
+        "fight",
+        "run",
+        "rush"
+      ],
+      "reference_function": "do_move_southwest",
+      "reference_flags": 1408
+    },
+    {
+      "id": "rushwest",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [
+        "reqmenu"
+      ],
+      "reference_function": "do_rush_west",
+      "reference_flags": 1152
+    },
+    {
+      "id": "rushnorthwest",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [
+        "reqmenu"
+      ],
+      "reference_function": "do_rush_northwest",
+      "reference_flags": 1152
+    },
+    {
+      "id": "rushnorth",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [
+        "reqmenu"
+      ],
+      "reference_function": "do_rush_north",
+      "reference_flags": 1152
+    },
+    {
+      "id": "rushnortheast",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [
+        "reqmenu"
+      ],
+      "reference_function": "do_rush_northeast",
+      "reference_flags": 1152
+    },
+    {
+      "id": "rusheast",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [
+        "reqmenu"
+      ],
+      "reference_function": "do_rush_east",
+      "reference_flags": 1152
+    },
+    {
+      "id": "rushsoutheast",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [
+        "reqmenu"
+      ],
+      "reference_function": "do_rush_southeast",
+      "reference_flags": 1152
+    },
+    {
+      "id": "rushsouth",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [
+        "reqmenu"
+      ],
+      "reference_function": "do_rush_south",
+      "reference_flags": 1152
+    },
+    {
+      "id": "rushsouthwest",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [
+        "reqmenu"
+      ],
+      "reference_function": "do_rush_southwest",
+      "reference_flags": 1152
+    },
+    {
+      "id": "runwest",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [
+        "reqmenu"
+      ],
+      "reference_function": "do_run_west",
+      "reference_flags": 1152
+    },
+    {
+      "id": "runnorthwest",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [
+        "reqmenu"
+      ],
+      "reference_function": "do_run_northwest",
+      "reference_flags": 1152
+    },
+    {
+      "id": "runnorth",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [
+        "reqmenu"
+      ],
+      "reference_function": "do_run_north",
+      "reference_flags": 1152
+    },
+    {
+      "id": "runnortheast",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [
+        "reqmenu"
+      ],
+      "reference_function": "do_run_northeast",
+      "reference_flags": 1152
+    },
+    {
+      "id": "runeast",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [
+        "reqmenu"
+      ],
+      "reference_function": "do_run_east",
+      "reference_flags": 1152
+    },
+    {
+      "id": "runsoutheast",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [
+        "reqmenu"
+      ],
+      "reference_function": "do_run_southeast",
+      "reference_flags": 1152
+    },
+    {
+      "id": "runsouth",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [
+        "reqmenu"
+      ],
+      "reference_function": "do_run_south",
+      "reference_flags": 1152
+    },
+    {
+      "id": "runsouthwest",
+      "route": "core_command",
+      "public_in_normal_mode": true,
+      "allowed_prefixes": [
+        "reqmenu"
+      ],
+      "reference_function": "do_run_southwest",
+      "reference_flags": 1152
+    },
+    {
+      "id": "clicklook",
+      "route": "excluded_internal",
+      "public_in_normal_mode": false,
+      "allowed_prefixes": [],
+      "reference_function": "doclicklook",
+      "reference_flags": 2112
+    },
+    {
+      "id": "mouseaction",
+      "route": "excluded_internal",
+      "public_in_normal_mode": false,
+      "allowed_prefixes": [],
+      "reference_function": "domouseaction",
+      "reference_flags": 2112
+    },
+    {
+      "id": "altadjust",
+      "route": "excluded_internal",
+      "public_in_normal_mode": false,
+      "allowed_prefixes": [],
+      "reference_function": "adjust_split",
+      "reference_flags": 64
+    },
+    {
+      "id": "altdip",
+      "route": "excluded_internal",
+      "public_in_normal_mode": false,
+      "allowed_prefixes": [],
+      "reference_function": "dip_into",
+      "reference_flags": 64
+    },
+    {
+      "id": "alttakeoff",
+      "route": "excluded_internal",
+      "public_in_normal_mode": false,
+      "allowed_prefixes": [],
+      "reference_function": "ia_dotakeoff",
+      "reference_flags": 64
+    },
+    {
+      "id": "altunwield",
+      "route": "excluded_internal",
+      "public_in_normal_mode": false,
+      "allowed_prefixes": [],
+      "reference_function": "remarm_swapwep",
+      "reference_flags": 64
+    }
+  ],
+  "reference_catalogues": {
+    "en": "6B4F776F3CE75D4376F0BD5EA247E3F96DEBDE42451C4B8875ECF37F2988BF9D",
+    "ja": "28710DB971F0362BDD791D886FFAD116EBA3971AF818A92CE9B6E06BF5F20CD3"
+  },
+  "reference_variants": {
+    "shared_core": {
+      "platform": "Windows x64 shared core Release (DARKDUNGEON_APP, NOTTYGRAPHICS)",
+      "catalogues": {
+        "en": "B2D7B6595E19B2BCBC9623B1AFE573A65ACFBB8CC46453D368A2B74376B0605A",
+        "ja": "6F253A5FF0E13D0369748E72946B980FEDF73AD1DE88871FA376FEC3E0C4E76E"
+      }
+    }
+  }
+}

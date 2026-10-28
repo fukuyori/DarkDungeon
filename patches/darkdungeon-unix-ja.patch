@@ -1788,7 +1788,7 @@ index 3aa5de7..0906062 100644
  // Qt4 conversion copyright (c) Ray Chason, 2012-2014.
  // NetHack may be freely redistributed.  See license for details.
 diff --git a/win/Qt/qt_map.cpp b/win/Qt/qt_map.cpp
-index 85817da..9c1e427 100644
+index 85817da..25b5f88 100644
 --- a/win/Qt/qt_map.cpp
 +++ b/win/Qt/qt_map.cpp
 @@ -1,3 +1,6 @@
@@ -1824,7 +1824,17 @@ index 85817da..9c1e427 100644
  
                  if ((special & MG_PET) != 0 && ::iflags.hilite_pet) {
                      painter.drawPixmap(QPoint(i * gW, j * gH),
-@@ -487,6 +491,7 @@ void NetHackQtMapViewport::Clear()
+@@ -224,7 +228,8 @@ void NetHackQtMapViewport::paintEvent(QPaintEvent* event)
+ 	}
+     }
+ 
+-    if (garea.contains(cursor)) {
++    darkdungeon_paint_actor_overlay(painter);
++    if (garea.contains(cursor) && !darkdungeon_hero_walking()) {
+ 	if (Is_rogue_level(&u.uz)) {
+ 	    painter.setPen( Qt::white );
+ 	} else {
+@@ -487,6 +492,7 @@ void NetHackQtMapViewport::Clear()
          // FIXME:  map column 0 should be suppressed from being displayed
          //
          Glyph(0, j) = GLYPH_NOTHING;
@@ -1832,7 +1842,7 @@ index 85817da..9c1e427 100644
          Glyphttychar(0, j) = ' ';
          Glyphcolor(0, j) = NO_COLOR;
          GlyphFramecolor(0, j) = NO_COLOR;
-@@ -495,6 +500,7 @@ void NetHackQtMapViewport::Clear()
+@@ -495,6 +501,7 @@ void NetHackQtMapViewport::Clear()
  
          for (int i = 1; i < COLNO; ++i) {
              Glyph(i, j) = GLYPH_UNEXPLORED;
@@ -1840,7 +1850,7 @@ index 85817da..9c1e427 100644
              Glyphttychar(i, j) = ' ';
              Glyphcolor(i, j) = NO_COLOR;
              GlyphFramecolor(i, j) = NO_COLOR;
-@@ -520,7 +526,7 @@ void NetHackQtMapViewport::Display(bool block)
+@@ -520,7 +527,7 @@ void NetHackQtMapViewport::Display(bool block)
      change.clear();
  
      if (block) {
@@ -1849,7 +1859,7 @@ index 85817da..9c1e427 100644
      }
  }
  
-@@ -537,6 +543,8 @@ void NetHackQtMapViewport::PrintGlyph(int x, int y,
+@@ -537,6 +544,8 @@ void NetHackQtMapViewport::PrintGlyph(int x, int y,
                                        const glyph_info *bkglyphinfo)
  {
      Glyph(x, y) = (unsigned short) glyphinfo->glyph;
@@ -1858,7 +1868,7 @@ index 85817da..9c1e427 100644
      Glyphttychar(x, y) = (char32_t) glyphinfo->ttychar;
      Glyphcolor(x, y) = (uint32) glyphinfo->gm.sym.color;
      GlyphFramecolor(x, y) = (uint32) bkglyphinfo->framecolor;
-@@ -787,6 +795,7 @@ void NetHackQtMapWindow::Clear()
+@@ -787,6 +796,7 @@ void NetHackQtMapWindow::Clear()
  {
      for (int j = 0; j < ROWNO; ++j) {
          Glyph(0, j) = GLYPH_NOTHING;
@@ -1866,7 +1876,7 @@ index 85817da..9c1e427 100644
          Glyphcolor(0, j) = NO_COLOR;
          GlyphFramecolor(0, j) = NO_COLOR;
          Glyphttychar(0, j) = ' ';
-@@ -795,6 +804,7 @@ void NetHackQtMapWindow::Clear()
+@@ -795,6 +805,7 @@ void NetHackQtMapWindow::Clear()
  
          for (int i = 1; i < COLNO; ++i) {
              Glyph(i, j) = GLYPH_UNEXPLORED;
@@ -1874,7 +1884,7 @@ index 85817da..9c1e427 100644
              Glyphcolor(i, j) = NO_COLOR;
              GlyphFramecolor(i, j) = NO_COLOR;
              Glyphttychar(i, j) = ' ';
-@@ -1004,7 +1014,7 @@ void NetHackQtMapWindow::Display(bool block)
+@@ -1004,7 +1015,7 @@ void NetHackQtMapWindow::Display(bool block)
      change.clear();
  
      if (block) {
@@ -1883,7 +1893,7 @@ index 85817da..9c1e427 100644
      }
  }
  
-@@ -1064,3 +1074,12 @@ void NetHackQtMapWindow::Changed(int x, int y)
+@@ -1064,3 +1075,12 @@ void NetHackQtMapWindow::Changed(int x, int y)
  #endif /* 0 //RLC */
  
  } // namespace nethack_qt_
