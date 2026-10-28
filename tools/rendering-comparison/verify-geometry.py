@@ -13,11 +13,48 @@ def read(path):
     return json.loads(path.read_text(encoding='utf-8-sig'), object_pairs_hook=unique_object)
 
 
+def verify_os_scale(geometry):
+    if geometry['schema'] == 'darkdungeon-geometry-capture-v1':
+        require(geometry['os_scale_percent'] is None
+                and isinstance(geometry['os_scale_reason'], str) and geometry['os_scale_reason'].strip(),
+                'legacy capture cannot claim measured OS scale')
+        return
+    observation = geometry['os_scale_observation']
+    require(isinstance(observation, dict) and set(observation) == {'before', 'after', 'stable'},
+            'OS scale observations missing or unknown')
+    for sample in (observation['before'], observation['after']):
+        require(isinstance(sample, dict) and set(sample) == {'status', 'percent', 'monitor', 'hresult', 'method', 'reason'},
+                'invalid OS scale sample fields')
+        require(sample['method'] == 'MonitorFromWindow/GetScaleFactorForMonitor', 'unknown OS scale method')
+        require(sample['monitor'] is None or (isinstance(sample['monitor'], str) and sample['monitor'].strip()),
+                'invalid monitor identity')
+        require(sample['hresult'] is None or (isinstance(sample['hresult'], str)
+                and re.fullmatch('0x[0-9a-f]{8}', sample['hresult'])), 'invalid scale HRESULT')
+        if sample['status'] == 'measured':
+            require(type(sample['percent']) is int and sample['percent'] > 0
+                    and sample['hresult'] == '0x00000000' and sample['monitor'] is not None
+                    and sample['reason'] is None, 'invalid measured scale')
+        else:
+            require(sample['status'] == 'unavailable' and sample['percent'] is None
+                    and isinstance(sample['reason'], str) and sample['reason'].strip(),
+                    'unavailable OS scale needs null value and reason')
+    before, after = observation['before'], observation['after']
+    stable = (before['status'] == after['status'] == 'measured'
+              and before['monitor'] == after['monitor'] and before['percent'] == after['percent'])
+    require(type(observation['stable']) is bool and observation['stable'] == stable, 'OS scale stability mismatch')
+    if stable:
+        require(type(geometry['os_scale_percent']) is int and geometry['os_scale_percent'] == after['percent']
+                and geometry['os_scale_reason'] is None, 'OS scale summary mismatch')
+    else:
+        require(geometry['os_scale_percent'] is None and isinstance(geometry['os_scale_reason'], str)
+                and geometry['os_scale_reason'].strip(), 'unstable OS scale must stay unmeasured')
+
+
 def verify(directory):
     geometry = read(directory / 'geometry.json')
     classification = read(directory / 'classification.json')
     validate(classification)
-    require(geometry['schema'] == 'darkdungeon-geometry-capture-v1', 'unknown geometry schema')
+    require(geometry['schema'] in ('darkdungeon-geometry-capture-v1', 'darkdungeon-geometry-capture-v2'), 'unknown geometry schema')
     require(geometry['capture_id'] == classification['capture_id'] == directory.name, 'capture ID mismatch')
     require(classification['role'] == 'geometry'
             and classification['comparison_class'] == 'layout-only'
@@ -54,7 +91,7 @@ def verify(directory):
             and client[:2] == [0, 0] and client[2] > 0 and client[3] > 0, 'invalid client rectangle')
     left, top, width, height = geometry['map_rect_in_client_logical']
     require(left >= 0 and top >= 0 and left+width <= client[2] and top+height <= client[3], 'viewport outside client')
-    require(geometry['os_scale_percent'] is None and bool(geometry['os_scale_reason']), 'OS scale must remain unmeasured')
+    verify_os_scale(geometry)
     require(geometry['capture_backend'] == 'QWidget::grab (rendered widget, not desktop presentation)',
             'backend must not claim desktop presentation')
     for filename, field in (('client.png', 'client_pixels'), ('map.png', 'map_pixels')):
@@ -78,6 +115,7 @@ def verify(directory):
             and all(isinstance(v, str) and v.strip() for v in geometry['unmeasured'].values()), 'missing unmeasured reasons')
     return {'capture_id': geometry['capture_id'], 'language': geometry['language'],
             'suite': geometry['suite'], 'geometry_and_media_valid': True,
+            'os_scale_percent': geometry['os_scale_percent'],
             'desktop_presentation_verified': False, 'runtime_ready': False}
 
 

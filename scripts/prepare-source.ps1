@@ -36,7 +36,7 @@ if ($LASTEXITCODE -gt 7) { throw "Source copy failed: $LASTEXITCODE" }
 $qtRootForward = $QtRoot.Replace('\','/')
 $qtSources = Get-ChildItem (Join-Path $NetHackSource 'win\Qt') -Filter '*.cpp'
 $qtObjects = ($qtSources | ForEach-Object { '$(OTTY)' + $_.BaseName + '.o' }) -join ' '
-$qtObjects += ' $(OTTY)qt_darkdungeon.o $(OTTY)qt_inventory.o $(OTTY)tile.o'
+$qtObjects += ' $(OTTY)qt_darkdungeon.o $(OTTY)qt_inventory.o $(OTTY)qt_monitor_scale.o $(OTTY)tile.o'
 $makePath = Join-Path $snapshot 'src\Makefile'
 $make = Get-Content (Join-Path $NetHackSource 'sys\windows\Makefile.nmake') -Raw
 $make = "# Modified for DarkDungeon on 2026-10-08; Windows Qt build. See dat/license.`r`n" + $make
@@ -54,7 +54,7 @@ if ($start -lt 0 -or $end -lt 0) { throw 'Unsupported upstream Makefile layout.'
 $qtLink = $make.Substring($start, $end - $start).Replace('$(conlflags)', '$(guilflags) /ENTRY:mainCRTStartup')
 $make = $make.Substring(0,$start) + $qtLink + $make.Substring($end)
 $make += "`r`n# DarkDungeon Qt rules (explicit outputs and Unicode-safe Qt headers).`r`n"
-foreach ($qtSource in @($qtSources) + @([pscustomobject]@{BaseName='qt_darkdungeon'},[pscustomobject]@{BaseName='qt_inventory'})) {
+foreach ($qtSource in @($qtSources) + @([pscustomobject]@{BaseName='qt_darkdungeon'},[pscustomobject]@{BaseName='qt_inventory'},[pscustomobject]@{BaseName='qt_monitor_scale'})) {
     $base = $qtSource.BaseName
     $make += "`r`n`$(OTTY)$base.o: ..\win\Qt\$base.cpp ..\win\Qt\qt_darkdungeon.h `$(HACK_H)`r`n`t`$(Q)`$(CC) `$(CPPFLAGS) `$(TTYDEF) -Fo`$@ ..\win\Qt\$base.cpp`r`n"
 }
@@ -698,7 +698,7 @@ foreach($level in @('Tou-strt.lua','Tou-loca.lua')) {
     $fixed=$text.Replace('montype="wumpus" x=', 'montype="wumpus", x=').Replace("end=`n", "end`n").Replace("end=`r`n", "end`r`n")
     if($fixed -ne $text) {[IO.File]::WriteAllText($path,"-- Syntax correction for DarkDungeon 2026-10-08. See dat/license.`n"+$fixed,[Text.UTF8Encoding]::new($false))}
 }
-Copy-Item (Join-Path $projectRoot 'src\qt_darkdungeon.*'),(Join-Path $projectRoot 'src\qt_inventory.cpp') (Join-Path $snapshot 'win\Qt') -Force
+Copy-Item (Join-Path $projectRoot 'src\qt_darkdungeon.*'),(Join-Path $projectRoot 'src\qt_inventory.cpp'),(Join-Path $projectRoot 'src\qt_monitor_scale.cpp') (Join-Path $snapshot 'win\Qt') -Force
 foreach ($header in Get-ChildItem (Join-Path $snapshot 'win\Qt') -Filter '*.h') {
     if ((Get-Content $header.FullName -Raw) -match 'Q_OBJECT') {
         & (Join-Path $QtRoot 'bin\moc.exe') '-DQT_VERSION=0x060B02' ('-I'+(Join-Path $QtRoot 'include')) $header.FullName -o (Join-Path $snapshot ('src\'+$header.BaseName+'.moc'))

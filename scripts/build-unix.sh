@@ -73,14 +73,14 @@ build_language() {
     fi
     GIT_CEILING_DIRECTORIES="$ROOT/build" git -C "$src" apply --whitespace=nowarn "$ROOT/patches/darkdungeon-unix-$lang.patch"
     cp "$ROOT/src/context_action.h" "$src/include/"
-    cp "$ROOT/src/qt_darkdungeon.cpp" "$ROOT/src/qt_darkdungeon.h" "$ROOT/src/qt_inventory.cpp" "$src/win/Qt/"
+    cp "$ROOT/src/qt_darkdungeon.cpp" "$ROOT/src/qt_darkdungeon.h" "$ROOT/src/qt_inventory.cpp" "$ROOT/src/qt_monitor_scale.cpp" "$src/win/Qt/"
 
     # Add DarkDungeon's Qt source (and the Japanese library) to the Unix makefile.
     local makefile="$src/sys/unix/Makefile.src"
-    local extra_objects='$(TARGETPFX)qt_darkdungeon.o $(TARGETPFX)qt_inventory.o '
+    local extra_objects='$(TARGETPFX)qt_darkdungeon.o $(TARGETPFX)qt_inventory.o $(TARGETPFX)qt_monitor_scale.o '
     [ "$lang" = ja ] && extra_objects+='$(TARGETPFX)jlib.o $(TARGETPFX)jconj.o '
     EXTRA_OBJECTS="$extra_objects" perl -0pi -e '
-        s/^WINQTSRC \?= /WINQTSRC ?= ..\/win\/Qt\/qt_darkdungeon.cpp ..\/win\/Qt\/qt_inventory.cpp /m or die "WINQTSRC anchor missing\n";
+        s/^WINQTSRC \?= /WINQTSRC ?= ..\/win\/Qt\/qt_darkdungeon.cpp ..\/win\/Qt\/qt_inventory.cpp ..\/win\/Qt\/qt_monitor_scale.cpp /m or die "WINQTSRC anchor missing\n";
         s/^WINQTOBJ \?= /WINQTOBJ ?= $ENV{EXTRA_OBJECTS}/m or die "WINQTOBJ anchor missing\n";
     ' "$makefile"
     {
@@ -89,6 +89,8 @@ build_language() {
         printf '\t$(TARGET_CXX) $(TARGET_CXXFLAGS) -c -o $@ ../win/Qt/qt_darkdungeon.cpp\n'
         printf '$(TARGETPFX)qt_inventory.o: ../win/Qt/qt_inventory.cpp ../win/Qt/qt_darkdungeon.h $(HACK_H) $(QTn_H)\n'
         printf '\t$(TARGET_CXX) $(TARGET_CXXFLAGS) -c -o $@ ../win/Qt/qt_inventory.cpp\n'
+        printf '$(TARGETPFX)qt_monitor_scale.o: ../win/Qt/qt_monitor_scale.cpp $(QTn_H)\n'
+        printf '\t$(TARGET_CXX) $(TARGET_CXXFLAGS) -c -o $@ ../win/Qt/qt_monitor_scale.cpp\n'
         printf '$(TARGETPFX)cmd.o $(TARGETPFX)pickup.o $(TARGETPFX)qt_main.o: ../include/context_action.h\n'
         if [ "$lang" = ja ]; then
             printf 'CFLAGS += -DICUTF8 -DDARKDUNGEON_JAPANESE\n'

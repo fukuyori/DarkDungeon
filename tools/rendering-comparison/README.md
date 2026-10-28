@@ -49,4 +49,19 @@ pendingはauthor/date/画風版/SHAをnullとし、未確認の理由を必須�
 python -X utf8 -B tools/rendering-comparison/verify-geometry.py path/to/capture-directory
 ```
 
-検査器は分類とのID一致、内側寸法、タイル寸法、マス数、PNG寸法とSHA、DPRとの関係を照合する。OS拡大率は未測定としてnullと理由を保存する。全24条件、デスクトップ提示、画面内のクリップ、身体の実寸、生成元の完全な結合、R5/R6適合・乱数不変性はこの記録の合格対象ではない。SMOKEによる記録はゲーム状態を準備する支援実行であり、通常手動プレイの証拠にはしない。
+検査器は分類とのID一致、内側寸法、タイル寸法、マス数、PNG寸法とSHA、DPRとの関係を照合する。v1記録ではOS拡大率を未測定としてnullと理由を保存する。v2の計測方法は次節を参照。全24条件、デスクトップ提示、画面内のクリップ、身体の実寸、生成元の完全な結合、R5/R6適合・乱数不変性はこの記録の合格対象ではない。SMOKEによる記録はゲーム状態を準備する支援実行であり、通常手動プレイの証拠にはしない。
+
+### WindowsのOS拡大率（v2記録）
+
+v1の記録はOS拡大率が未測定。v2ではQt専用の`qt_monitor_scale.cpp`で、ネイティブウィンドウに交差するモニターを`MonitorFromWindow`で取得し、`GetScaleFactorForMonitor`の値を記録する。Qt DPRとは独立したAPI値であり、Windowsの表示設定を変更しない。
+
+描画記録の直前・直後に問い合わせ、両方S_OKでモニター名と値が一致した場合だけos_scale_percentを採用する。API失敗時の代替値は採用しない。変化・非ネイティブ環境・取得失敗はnullと理由を残す。モニター名はこの短い記録区間の識別に使い、物理モニターの永続IDとは扱わない。カスタム拡大率の設定画面との一致は別途未確認。
+
+```powershell
+python -X utf8 -B tools/rendering-comparison/verify-os-scale.py
+python -X utf8 -B tools/rendering-comparison/layout-progress.py --bundle path/to/bundle --output artifacts/new-layout-progress.json
+```
+
+前者は合成値による27項目の検査で、実モニターを計測しない。後者は実バンドルを検査し、英日×通常3サイズ/最大化×100/150/200%の24行に参考観測を関連付ける。寸法と拡大率が合っても、UI場面やR5/R6等の証拠が揃っていないため行の状態はnot-run、passed_countは0のままにする。表外の寸法や未測定の記録もreference_observationsへ残し、必須行を置き換えない。過去の出力ファイルは上書きしない。
+
+API根拠：[GetScaleFactorForMonitor](https://learn.microsoft.com/en-us/windows/win32/api/shellscalingapi/nf-shellscalingapi-getscalefactorformonitor)、[MonitorFromWindow](https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-monitorfromwindow)。OS拡大率が取得できても、画面提示や全条件の合格にはならない。

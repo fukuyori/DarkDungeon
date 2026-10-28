@@ -23,6 +23,8 @@ void darkdungeon_finish_smoke();
 extern "C" void darkdungeon_trace(const char*);
 class QString;
 class QImage;
+class QJsonObject;
+QJsonObject darkdungeon_monitor_scale(unsigned long long nativeWindow);
 QString darkdungeon_text(const char* english, const char* japanese);
 QImage darkdungeon_hero_image();
 void darkdungeon_show_inventory();

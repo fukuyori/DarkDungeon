@@ -86,8 +86,18 @@ bool comparisonCapture(QMainWindow* main,const QString& directory,QString* error
     QDir dir(directory);
     // UUID directory is new; never overwrite a previous capture.
     if(dir.exists() || !QDir().mkpath(directory)){*error="Cannot create new capture directory";return false;}
+    const auto measureScale=[main] {
+        if(QGuiApplication::platformName()=="windows")return darkdungeon_monitor_scale(static_cast<unsigned long long>(main->winId()));
+        return QJsonObject{{"status","unavailable"},{"percent",QJsonValue::Null},{"monitor",QJsonValue::Null},
+                          {"hresult",QJsonValue::Null},{"method","MonitorFromWindow/GetScaleFactorForMonitor"},
+                          {"reason","Not a native Windows platform"}};
+    };
+    const auto scaleBefore=measureScale();
     const auto client=main->grab();
     const auto viewport=map->viewport()->grab();
+    const auto scaleAfter=measureScale();
+    const bool scaleStable=scaleBefore["status"]=="measured" && scaleAfter["status"]=="measured"
+        && scaleBefore["monitor"]==scaleAfter["monitor"] && scaleBefore["percent"]==scaleAfter["percent"];
     const auto writePng=[&](const QString& name,const QPixmap& image) {
         return !image.isNull() && image.save(dir.filePath(name),"PNG");
     };
@@ -106,7 +116,7 @@ bool comparisonCapture(QMainWindow* main,const QString& directory,QString* error
     const int scrollX=map->horizontalScrollBar()->value(),scrollY=map->verticalScrollBar()->value();
     const auto complete=[tile](int start,int length){return (start+length)/tile-(start+tile-1)/tile;};
     QJsonObject record{
-        {"schema","darkdungeon-geometry-capture-v1"},{"capture_id",id},
+        {"schema","darkdungeon-geometry-capture-v2"},{"capture_id",id},
         {"created_utc",QDateTime::currentDateTimeUtc().toString(Qt::ISODateWithMs)},
         {"case_kind",darkdungeon_runtime.manual_data?"manual-profile":"assisted-smoke"},
         {"language",languageText("en","ja")},{"suite",QString("G%1").arg(tile)},
@@ -119,7 +129,9 @@ bool comparisonCapture(QMainWindow* main,const QString& directory,QString* error
         {"map_rect_logical",comparisonRect(map->viewport()->rect())},
         {"client_pixels",pixelRect(client)},{"map_pixels",pixelRect(viewport)},
         {"qt_dpr",main->devicePixelRatioF()},{"map_pixmap_dpr",viewport.devicePixelRatio()},
-        {"os_scale_percent",QJsonValue::Null},{"os_scale_reason","Not measured; Qt DPR is not OS scale evidence"},
+        {"os_scale_percent",scaleStable?scaleAfter["percent"]:QJsonValue(QJsonValue::Null)},
+        {"os_scale_reason",scaleStable?QJsonValue(QJsonValue::Null):QJsonValue("Scale query unavailable or monitor/scale changed during capture")},
+        {"os_scale_observation",QJsonObject{{"before",scaleBefore},{"after",scaleAfter},{"stable",scaleStable}}},
         {"screen_available_logical",screen?comparisonRect(screen->availableGeometry()):QJsonArray()},
         {"maximized",main->isMaximized()},{"tile_logical",QJsonArray{tile,tile}},
         {"aligned_cell_capacity",QJsonArray{864/tile,432/tile}},

@@ -231,10 +231,10 @@ def makefile(s):
     s = replace(s, 'INCLUSIONS= /I.', f'DD_QT_INCLUSIONS = {qt_inclusions}\nDD_RUNTIME_INCLUSIONS = /I"{qt_root}/include" /I"{qt_root}/include/QtCore" /I"{qt_root}/include/QtNetwork"\nINCLUSIONS= /I.', 1)
     # No Qt feature macro can enter a common C/C++ object, including cppregex.
     s = replace(s, '$(CPPFLAGS) $(TTYDEF) -Fo$@ ..\\win\\Qt\\',
-                '$(CPPFLAGS) $(TTYDEF) -DQT_GRAPHICS $(DD_QT_INCLUSIONS) -Fo$@ ..\\win\\Qt\\', len(qt_names) + 2)
+                '$(CPPFLAGS) $(TTYDEF) -DQT_GRAPHICS $(DD_QT_INCLUSIONS) -Fo$@ ..\\win\\Qt\\', len(qt_names) + 3)
     s = replace(s, '$(TARGET_CXX) $(TARGET_CXXFLAGS) -Fo$@ ..\\win\\Qt\\',
                 '$(TARGET_CXX) $(TARGET_CXXFLAGS) -DQT_GRAPHICS $(DD_QT_INCLUSIONS) -Fo$@ ..\\win\\Qt\\', len(qt_names) * 2)
-    s = replace(s, "$(OTTY)qt_inventory.o $(OTTY)tile.o", "$(OTTY)qt_inventory.o", 1)
+    s = replace(s, "$(OTTY)qt_monitor_scale.o $(OTTY)tile.o", "$(OTTY)qt_monitor_scale.o", 1)
     # windows.c stays in the core; only app_registry.c owns the frontend table.
     s = replace(s, "ALLOBJTTY  = $(QT_OBJS) $(SOBJTTY) $(DLBOBJTTY) $(OBJSTTY) $(VVOBJTTY) $(LUAOBJTTY)",
                 """DD_CORELIB = $(OTTY)darkdungeon-core.lib
