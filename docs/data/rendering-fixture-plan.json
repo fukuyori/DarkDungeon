@@ -45574,6 +45574,7 @@
       "case_id",
       "language",
       "origin_envelope_sha256",
+      "boundary_ports_sha256",
       "producer",
       "reader",
       "control",

@@ -10,6 +10,8 @@ import stat
 SHA = re.compile(r'[0-9a-f]{64}\Z')
 WORD = re.compile(r'[0-9a-f]{16}\Z')
 IDENT = re.compile(r'[A-Za-z0-9][A-Za-z0-9_.-]{0,127}\Z')
+# #166: an envelope checkpoint is a command-ready stop point of the R6 allow table.
+BOUNDARY_PORTS = Path(__file__).resolve().parents[2] / 'docs/data/rendering-boundary-ports.json'
 
 
 def require(ok, reason):
@@ -73,13 +75,32 @@ def validate_rng(snapshot, binding):
         require(all(isinstance(value[f], str) and WORD.fullmatch(value[f]) for f in ('a','b','c')), 'Invalid RNG accumulator')
 
 
-def validate_core(observation, binding):
+def command_ready_ports(table=None):
+    if table is None:
+        require(BOUNDARY_PORTS.is_file(), 'Boundary allow table missing')
+        try:
+            table = json.loads(BOUNDARY_PORTS.read_text(encoding='utf-8-sig'))
+        except ValueError:
+            raise ValueError('Boundary allow table is not valid JSON') from None
+    require(isinstance(table, dict) and table.get('schema') == 'darkdungeon-boundary-ports-v1' and isinstance(table.get('ports'), list), 'Unknown boundary allow table schema')
+    return {p['id'] for p in table['ports'] if isinstance(p, dict) and isinstance(p.get('id'), str) and p.get('boundary_kind') == 'command-ready'}
+
+
+def read_once(path):
+    """Hash the bytes that are parsed, so a file replaced in between cannot pass."""
+    raw = path.read_bytes()
+    return hashlib.sha256(raw).hexdigest(), raw
+
+
+def validate_core(observation, binding, ports=None):
     require(isinstance(observation, dict) and observation.get('schema') == 'darkdungeon-core-observation-v1', 'Unknown core projection schema')
+    require(observation.get('boundary_kind') == 'command-ready' and isinstance(observation.get('port_function'), str)
+            and observation['port_function'] in (ports if ports is not None else command_ready_ports()), 'Core observation is not at a command-ready stop point')
     require(all(observation.get(k) == binding[k] for k in ('case_id','language','build_id','producer_engine_sha256','save_file_sha256','checkpoint_id','checkpoint_phase')), 'Core observation metadata belongs to a different checkpoint')
     require(observation.get('barrier') == {'input_ready': True, 'core_dispatch_pending': False, 'display_preparation_pending': False, 'modal': False}, 'Observation is not at a stable input/display boundary')
 
 
-def validate_envelope(envelope, root, families):
+def validate_envelope(envelope, root, families, ports=None):
     require(isinstance(envelope, dict), 'Fixture envelope must be an object')
     require(envelope.get('schema') == 'darkdungeon-fixture-envelope-v1', 'Unknown fixture envelope schema')
     require(isinstance(envelope.get('case_id'), str) and IDENT.fullmatch(envelope['case_id']), 'Invalid case ID')
@@ -113,8 +134,9 @@ def validate_envelope(envelope, root, families):
         require(relative not in paths and path not in resolved_files, 'Duplicate file path/alias')
         paths.add(relative)
         resolved_files.add(path)
-        require(file_sha(path) == entry['sha256'], 'Fixture file hash mismatch')
-        by_role.setdefault(entry['role'], []).append((entry, path))
+        digest, raw = read_once(path)
+        require(digest == entry['sha256'], 'Fixture file hash mismatch')
+        by_role.setdefault(entry['role'], []).append((entry, raw))
     if envelope['case_kind'] == 'renderer-support':
         require(envelope['origin'] == 'renderer-input' and set(selected) == {'F22'}, 'Renderer support cannot stand in for gameplay/replay/save cases')
         require('renderer-input' in by_role, 'Renderer-support input missing')
@@ -123,6 +145,9 @@ def validate_envelope(envelope, root, families):
         require('script' in by_role and 'settings-record' in by_role, 'Replay script/settings missing')
     if envelope['origin'] == 'saved-state':
         require(len(by_role.get('save', [])) == 1, 'Saved-state case needs one bound source save')
+    if envelope['checkpoint_phase'] in ('preflight-rejection','renderer-input'):
+        # #166: these do not represent a game stop point, so they carry no core/RNG observation.
+        require(not ({'core-observation','rng-observation'} & set(by_role)), 'Preflight rejection and renderer input carry no core or RNG observation')
     if {'F18','F19'} & set(selected):
         require(envelope['checkpoint_phase'] in ('post-setup-ready','post-restore-ready'), 'Replay/repaint requires a stable core checkpoint')
         require(len(by_role.get('core-observation', [])) == 1 and len(by_role.get('rng-observation', [])) == 1, 'RNG invariance/replay needs core and both-stream observations')
@@ -135,11 +160,11 @@ def validate_envelope(envelope, root, families):
             'core_file_sha256': by_role['core-observation'][0][0]['sha256'],
             'save_file_sha256': by_role['save'][0][0]['sha256'] if 'save' in by_role else None,
         }
-        observation = json.loads(by_role['core-observation'][0][1].read_text(encoding='utf-8-sig'))
-        validate_core(observation, binding)
+        observation = json.loads(by_role['core-observation'][0][1].decode('utf-8-sig'))
+        validate_core(observation, binding, ports)
     if 'rng-observation' in by_role:
         require(len(by_role['rng-observation']) == 1 and len(by_role.get('core-observation', [])) == 1, 'Ambiguous RNG/core observation')
-        rng = json.loads(by_role['rng-observation'][0][1].read_text(encoding='utf-8-sig'))
+        rng = json.loads(by_role['rng-observation'][0][1].decode('utf-8-sig'))
         validate_rng(rng, binding)
         if {'F18','F19'} & set(selected):
             require(rng['seed_context']['provider'] in ('controlled-strong','controlled-weak'), 'Automated repaint/replay needs process-lifetime seed/clock control, not os-native')

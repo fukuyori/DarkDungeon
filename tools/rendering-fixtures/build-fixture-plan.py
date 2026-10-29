@@ -51,7 +51,7 @@ I_FAMILIES = {
     'I-11': ['F15','F21'], 'I-12': ['F14'], 'I-13': ['F14','F15'],
 }
 RUN_REPORT_CONTRACT = {
-    'required': ['schema=darkdungeon-fixture-run-v1','run_id','case_id','language','origin_envelope_sha256','producer','reader','control','observations[]','inputs[]','seed_requests[]','reseed_attempts[]','clock_reads[]','save_result','verdict','evidence_files[]'],
+    'required': ['schema=darkdungeon-fixture-run-v1','run_id','case_id','language','origin_envelope_sha256','boundary_ports_sha256','producer','reader','control','observations[]','inputs[]','seed_requests[]','reseed_attempts[]','clock_reads[]','save_result','verdict','evidence_files[]'],
     'observation': ['ordinal','checkpoint_id','checkpoint_phase','boundary_kind','port_function','input_ordinal','core_file(path,sha256)','rng_file(path,sha256)','field_map_sha256','normalization_registry_sha256','seed_request_cursor','clock_read_cursor'],
     'seed_request': ['ordinal','site','stream(core/display)','reason(init/reseed)','provider','seed_hex(seed_api_bytes*2)','has_strong_rngseed'],
     'reseed_attempt': ['ordinal','site','stream(core/display)','has_strong_rngseed','outcome(requested/skipped)','seed_request_ordinal-or-null'],

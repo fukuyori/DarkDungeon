@@ -50,18 +50,18 @@ prompt-answerとsuspended-acknowledgeは値が同じで、種類（prompt-paused
 
 ## 起点とrun観測
 
-`validate_run_origin(envelope_path, run, root, families)`は次を検査する。
+`validate_run_origin(envelope_path, run, root, families, value=None)`は次を検査する。`value`（許可表）を渡す場合は、ディスク上の許可表と同じでなければ拒否する（#166）。
 
 - envelopeはファイルとして読み、SHAを自分で計算し、R5の`validate_envelope`を通す。起点にできるのは、checkpoint_phaseがpost-setup-readyかpost-restore-readyのenvelopeだけである（preflight-rejectionやrenderer-inputは不可）。runの`origin_envelope_sha256`はそのSHAと一致し、ケース・言語も同じである。
-- runの最上位の項目は、R5のrun_report_contractの16項目と完全に一致する（`runtime_ready`や`pass`等の追加を拒否）。この検査器が中身を検査するのは起点と観測だけである。
-- ファイルは1回読んだバイト列からSHAの計算と解析の両方を行う（R5の`validate_envelope`の内部は従来どおり）。
+- runの最上位の項目は、R5のrun_report_contractの項目と完全に一致する（`runtime_ready`や`pass`等の追加を拒否）。#106の時点では16項目、#166で`boundary_ports_sha256`を加えて17項目になった。項目の一覧はR5計画から作る。この検査器が中身を検査するのは起点と観測だけである。
+- ファイルは1回読んだバイト列からSHAの計算と解析の両方を行う（#166でR5の`validate_envelope`も1回の読み取りにした）。
 - 観測は0番から整数の連番である。入力・seed・clockの各cursorは戻らない。0番より後の観測は入力1以上である。
 - 各観測のcoreファイルは、barrierを必ず持ち、runと同じ停止点、その停止点のbarrier、envelopeと同じケース・言語・build・実行ファイル・元セーブ、観測と同じcheckpointを記録する。0番以外にR5 envelopeのbarrierを流用しない。
 - 各観測のRNGファイルはR5の`validate_rng`を通り、そのcoreファイルのSHAに結びつき、seed cursorが観測と一致する。
 - 0番はcommand-ready、入力0、envelopeと同じcheckpoint_id・checkpoint_phase、同じcore-observationとrng-observationのファイル（SHA）である。
 - ファイルはfixture_protocolと同じ規則で、パスの安全性とSHAを照合する。
 
-このため、runで使うcore-observation-v1は`boundary_kind`と`port_function`を持つ必要がある。R5の`validate_core`はこの2項目を要求しないため、envelopeは合格するがrunでは拒否される場合がある。R5側の扱いは別タスクとした。
+このため、runで使うcore-observation-v1は`boundary_kind`と`port_function`を持つ必要がある。#106の時点ではR5の`validate_core`がこの2項目を要求しなかったため、envelopeは合格するがrunでは拒否される場合があった。#166でR5でも必須にした（[記録](phase0-run-format.md)）。
 
 0番のclock cursorは、envelopeに照合する相手がないため検査していない。`input_ordinal`の0（入力前）と`inputs[]`の番号の付け方の関係も未定義である。
 
@@ -123,8 +123,8 @@ prompt-answerとsuspended-acknowledgeは値が同じで、種類（prompt-paused
 | N1 0番以外でbarrierのないcoreが合格 | runではbarrierを必須にした（最終確認でnullの値も拒否するよう修正） |
 | N2 回数入力の経路の漏れ（num_pad有効時、getobj・山を分ける処理） | command-readyと`.count`の条件を改めた |
 | N3 起点にできるenvelopeの種類 | post-setup-ready/post-restore-readyに限定 |
-| N4 runの最上位の項目 | 16項目に固定 |
-| N5 SHAの計算と解析で別の読み取り | 本検査器は1回の読み取りに統一。R5の`validate_envelope`は残件 |
+| N4 runの最上位の項目 | 16項目に固定（#166で17項目、R5計画から作る） |
+| N5 SHAの計算と解析で別の読み取り | 本検査器は1回の読み取りに統一。R5の`validate_envelope`は残件（#166で対応） |
 | N6 ヘルプの警告の箱 | `qt_display_file.file`の条件に含めた |
 | N7 query_menu有効時のyn | 文書に記載 |
 | N8 doagain・altmetaの条件の文言 | 実装に合わせて修正 |
@@ -135,7 +135,7 @@ prompt-answerとsuspended-acknowledgeは値が同じで、種類（prompt-paused
 
 - C観測器での停止点の帰属（どの窓口・呼出元か、待ちに入ったか、`commandInp`の条件、回数を入力中か）の実装と、実ゲームでの記録。
 - `delay_output`の呼出元の走査は字句だけである。新しい呼出元が増えたら`--check`が失敗するので、許可表を作り直してレビューする。
-- 別タスク（tque #165〜#167）：R5計画の凍結SHAの扱い（#165、作り直して解消）、R5の`validate_core`に停止点の2項目を加えるかどうか（#166）、許可表のSHAをR6定義・projectionへ結ぶこと（#167、対応済み）。R5の`validate_envelope`でSHAの計算と解析を1回の読み取りにすることも#166で扱う。
+- 別タスク（tque #165〜#167）：R5計画の凍結SHAの扱い（#165、作り直して解消）、R5の`validate_core`に停止点の2項目を加えるかどうか（#166、必須にした。[記録](phase0-run-format.md)）、許可表のSHAをR6定義・projectionへ結ぶこと（#167、対応済み）。R5の`validate_envelope`でSHAの計算と解析を1回の読み取りにすることも#166で扱う。
 
 ## 許可表のSHAの結合（#167）
 
@@ -144,6 +144,6 @@ prompt-answerとsuspended-acknowledgeは値が同じで、種類（prompt-paused
 - R6定義（`rendering-invariant-contract.json`）に`boundary_ports_sha256`を追加した。`contract.py --check`は許可表の現在のSHAで定義を作り直して比べるため、許可表を変えると失敗する。実際のファイルで許可表を一時的に書き換え、`--check`が失敗し、戻すと成功することを確認した（`artifacts/r6-boundary-binding-20261029/detect-table-change.json`）。
 - projection（`darkdungeon-protected-projection-v1`）に`boundary_ports_sha256`を必須の項目として追加した。`validate_projection`は、projectionの値と呼出元が渡したR6定義の値（`validate_definition`で照合済みのもの）が一致すること、ディスク上の許可表のSHAがその値と一致することを検査してから、停止点を許可表で照合する。許可表は1回の読み取りからSHAの計算と解析を行う。保存済みの定義と許可表の一致は`contract.py --check`が検査する。`compare_paint`は許可表のSHAを引数に取る。
 - 手順（[再監査の記録](phase0-source-reaudit.md)）のとおり、許可表→R6定義→R7定義の順に作り直した。許可表は変わっていない（4b076f…）。R6定義は6d0f134c…、R7定義は8c06b1d1…になった。
-- run観測（R5のrun_report_contract）には許可表のSHAを入れていない。runの検査器は、その時点の許可表で照合する。runの形式の変更は#166で扱う。
+- run観測（R5のrun_report_contract）には許可表のSHAを入れていない。runの検査器は、その時点の許可表で照合する。runの形式の変更は#166で扱う。（#166で、runの報告に`boundary_ports_sha256`を記録するよう変更した。）
 
 再実行した検査はすべて成功した（`artifacts/r6-boundary-binding-20261029`）。R5の計画照合と形式検査55項目、R6調査表の照合、R6定義の照合と合成検査66項目（定義の許可表SHAの誤り・欠落、projectionの許可表SHAの誤り・欠落、ディスク上の許可表と定義の不一致の5項目を追加）、停止点の合成検査50項目、R7定義の照合と合成検査62項目、撮影記録・geometry・OS拡大率の検査。

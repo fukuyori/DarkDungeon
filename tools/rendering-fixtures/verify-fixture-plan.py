@@ -10,6 +10,7 @@ from pathlib import Path
 import subprocess
 import sys
 import tempfile
+import fixture_protocol as protocol
 from fixture_protocol import file_sha, validate_envelope, validate_rng
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -106,6 +107,7 @@ def main():
                 'producer_engine_sha256': 'a' * 64,
                 'checkpoint_id': 'restored-input-0', 'checkpoint_phase': 'post-restore-ready',
                 'barrier': {'input_ready': True, 'core_dispatch_pending': False, 'display_preparation_pending': False, 'modal': False},
+                'boundary_kind': 'command-ready', 'port_function': 'qt_nh_poskey.command',
                 'synthetic_only': True}),
         ):
             files.append({'role': role, **write(relative, data)})
@@ -203,13 +205,36 @@ def main():
             ('checkpoint_phase','post-setup-ready','Core observation metadata belongs to a different checkpoint'),
             ('save_file_sha256','b' * 64,'Core observation metadata belongs to a different checkpoint'),
             ('barrier',{},'Observation is not at a stable input/display boundary'),
+            ('boundary_kind','prompt-paused','Core observation is not at a command-ready stop point'),
+            ('port_function','qt_yn_function.yn','Core observation is not at a command-ready stop point'),
+            ('port_function',None,'Core observation is not at a command-ready stop point'),
+            ('port_function',['qt_nh_poskey.command'],'Core observation is not at a command-ready stop point'),
         ):
             core = module.load(root / roles['core-observation']['path'])
             core[field] = other
             core_entry = write('private/mismatched-core-only.json', core)
             bad = copy.deepcopy(core_only)
             bad['files'][3] = {'role': 'core-observation', **core_entry}
-            rejected(lambda: validate_envelope(bad, root, plan['scenario_families']), 'core without RNG: ' + field, reason)
+            rejected(lambda: validate_envelope(bad, root, plan['scenario_families']), 'core without RNG: ' + field + '=' + repr(other), reason)
+        core_missing = module.load(root / roles['core-observation']['path']); core_missing.pop('boundary_kind')
+        bad = copy.deepcopy(core_only); bad['files'][3] = {'role': 'core-observation', **write('private/core-without-kind.json', core_missing)}
+        rejected(lambda: validate_envelope(bad, root, plan['scenario_families']), 'core without a boundary kind', 'Core observation is not at a command-ready stop point')
+        preflight = copy.deepcopy(core_only); preflight.update(case_kind='negative-core', checkpoint_phase='preflight-rejection', families=['F00'])
+        rejected(lambda: validate_envelope(preflight, root, plan['scenario_families']), 'preflight rejection with a core observation', 'Preflight rejection and renderer input carry no core or RNG observation')
+        renderer = copy.deepcopy(core_only); renderer.update(case_kind='renderer-support', origin='renderer-input', checkpoint_phase='renderer-input', families=['F22'])
+        renderer['files'].append({'role': 'renderer-input', **write('meta/renderer-input.json', {'synthetic': True})})
+        rejected(lambda: validate_envelope(renderer, root, plan['scenario_families']), 'renderer input with a core observation', 'Preflight rejection and renderer input carry no core or RNG observation')
+        rejected(lambda: protocol.command_ready_ports({'schema': 'unknown', 'ports': []}), 'unknown boundary allow table', 'Unknown boundary allow table schema')
+        rejected(lambda: protocol.command_ready_ports({'schema': 'darkdungeon-boundary-ports-v1'}), 'boundary allow table without ports', 'Unknown boundary allow table schema')
+        saved_ports = protocol.BOUNDARY_PORTS
+        try:
+            protocol.BOUNDARY_PORTS = root / 'missing-boundary-ports.json'
+            rejected(lambda: protocol.command_ready_ports(), 'missing boundary allow table', 'Boundary allow table missing')
+            broken = root / 'broken-boundary-ports.json'; broken.write_text('{not json', encoding='utf-8')
+            protocol.BOUNDARY_PORTS = broken
+            rejected(lambda: protocol.command_ready_ports(), 'broken boundary allow table', 'Boundary allow table is not valid JSON')
+        finally:
+            protocol.BOUNDARY_PORTS = saved_ports
         linked = root / 'linked.save'
         os.link(root / 'data/検証用.save', linked)
         rejected(lambda: validate_envelope(envelope, root, plan['scenario_families']), 'hard-linked mutable save source', 'Hard-linked fixture file forbidden')
@@ -242,7 +267,7 @@ def main():
                 rejected(lambda: validate_envelope(bad, root, plan['scenario_families']), 'real symbolic link inside fixture root', 'Linked/reparse path forbidden')
             finally:
                 symlink.unlink()
-    print(json.dumps({'mode': 'static-protocol-verification', 'created_utc': datetime.now(timezone.utc).isoformat(), 'plan_sha256': file_sha(DATA / 'rendering-fixture-plan.json'),
+    print(json.dumps({'mode': 'static-protocol-verification', 'created_utc': datetime.now(timezone.utc).isoformat(), 'plan_sha256': file_sha(DATA / 'rendering-fixture-plan.json'), 'boundary_ports_sha256': file_sha(DATA / 'rendering-boundary-ports.json'),
                       'tool_sha256': {p.name: file_sha(p) for p in (Path(__file__), Path(__file__).with_name('fixture_protocol.py'), Path(__file__).with_name('build-fixture-plan.py'), Path(__file__).with_name('Export-Layout.ps1'), Path(__file__).with_name('audit-layout.c'))},
                       'checks_passed': len(checks), 'checks': checks, 'synthetic_envelopes_only': True,
                       'checks_skipped': skipped,

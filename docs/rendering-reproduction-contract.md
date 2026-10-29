@@ -125,11 +125,11 @@ R5の仕様完了と、R4のentryにあるR5-scenarios-readyは別に管理す�
 
 原本のenvelopeはケース/言語/生成元/準備方法、起点、意味上の入力列、全ファイルの相対パスとSHA-256、観測の結合情報を持つ。元セーブ・コア観測・RNG観測を別ケースへ取り違えない。結合はコア記録→RNG記録→envelopeの順に作り、コア記録へRNGファイルのハッシュを逆参照する循環を作らない。絶対パス、上位参照、重複、リンクやハッシュ不一致を拒否する。
 
-envelopeは起点の1停止点だけを表す。checkpoint_id/phase、言語、build_idと実行ファイルハッシュを持ち、コア記録とRNG bindingも同じ情報で結びつける。複数の観測を1件のenvelopeに押し込まない。
+envelopeは起点の1停止点だけを表す。起点のコア記録は、R6の停止点の許可表でcommand-readyとして許された停止点（`boundary_kind=command-ready`と`port_function`、#166）を持つ。checkpoint_id/phase、言語、build_idと実行ファイルハッシュを持ち、コア記録とRNG bindingも同じ情報で結びつける。複数の観測を1件のenvelopeに押し込まない。
 
-fresh-recipeの起点はpost-setup-ready、saved-stateはpost-restore-ready、renderer-inputはrenderer-inputと対応づける。preflight-rejectionはnegative-coreだけに使い、成功した停止点にしない。
+fresh-recipeの起点はpost-setup-ready、saved-stateはpost-restore-ready、renderer-inputはrenderer-inputと対応づける。preflight-rejectionはnegative-coreだけに使い、成功した停止点にしない。preflight-rejectionとrenderer-inputのenvelopeは、コア観測とRNG観測を持たない（#166）。
 
-実行報告darkdungeon-fixture-run-v1の最低形式は、再現要件表のrun_report_contractで定義する。run_id/case_id/言語、起点envelopeのSHA、producerとreader（build_id/実行ファイル・serializer・データ・設定の識別）、control、順序付きobservations/inputs/seed_requests/reseed_attempts/clock_reads、save_result、verdict、evidence_filesを必須とする。controlはprovider、時計制御方式、TZ/DST、表示標本化契約版と正規化版、全期間の制御対応/未対応を持つ。
+実行報告darkdungeon-fixture-run-v1の最低形式は、再現要件表のrun_report_contractで定義する。run_id/case_id/言語、起点envelopeのSHA、照合に使った停止点の許可表のSHA（`boundary_ports_sha256`、#166）、producerとreader（build_id/実行ファイル・serializer・データ・設定の識別）、control、順序付きobservations/inputs/seed_requests/reseed_attempts/clock_reads、save_result、verdict、evidence_filesを必須とする。controlはprovider、時計制御方式、TZ/DST、表示標本化契約版と正規化版、全期間の制御対応/未対応を持つ。
 
 - observationsはordinal、checkpoint_id/phase、boundary_kind/port_function、直前inputのordinal、コア/RNGファイルのpath/SHA、対応表/正規化登録簿のSHA、シード要求と時計読取のcursorを持つ。F18は同一境界・同一入力ordinalの前後とし、command-readyに加えてメニュー/方向/ynのprompt-paused、delay_output/--More--/tmp_at/dobuzz/explodeのcore-suspended、停止中の表示タイマー/ドラッグ/幻覚の持ち物も必須。F19は起点と各入力後の安定点を列にする。各RNGのbindingはその停止点を参照し、R5 envelopeの起点とrun途中の停止点を混同しない。
 - seed_requestsはordinal、site、CORE/DISP、init/reseed、provider、シード幅に応じた固定桁hex、要求後のhas_strong_rngseedを持つ。reseed_attemptsはordinal、site、系列、試行時のhas_strong_rngseed、requested/skipped、対応した要求ordinalまたはnullを持ち、初期化/試行カウンタと要求cursorに照合する。

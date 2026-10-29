@@ -102,6 +102,7 @@ def main():
         # The other run-report fields must exist; this checker does not validate them.
         run.update({k: None for k in ('run_id', 'producer', 'reader', 'control', 'inputs', 'seed_requests', 'reseed_attempts',
                                       'clock_reads', 'save_result', 'verdict', 'evidence_files')})
+        run['boundary_ports_sha256'] = file_sha(OUTPUT)
         def verify(candidate, envelope_path='envelope.json'):
             return validate_run_origin(envelope_path, candidate, root, families, value)
         result = verify(run)
@@ -175,11 +176,17 @@ def main():
         rejected(lambda: verify(mutated(lambda r: r['observations'][3].update(core_file=null_core, rng_file=null_rng))),
                  'Run core observation has no barrier', 'run core observation with a null barrier')
         rejected(lambda: verify(mutated(lambda r: r.update(runtime_ready=True))), 'Run report keys differ from darkdungeon-fixture-run-v1', 'run report claims runtime readiness')
+        rejected(lambda: verify(mutated(lambda r: r.update(boundary_ports_sha256='b'*64))), 'Run was checked against another boundary allow table', 'run names another allow table')
+        other_value = copy.deepcopy(value); other_value['ports'] = other_value['ports'][:-1]
+        rejected(lambda: validate_run_origin('envelope.json', run, root, families, other_value), 'Boundary allow table argument differs from the file', 'allow table argument differs from the file')
+        rejected(lambda: verify(mutated(lambda r: r.pop('boundary_ports_sha256'))), 'Run report keys differ from darkdungeon-fixture-run-v1', 'run without its allow table')
         rejected_core, rejected_rng = observation_files('preflight', 'command-ready', 'qt_nh_poskey.command', 'fresh-input-0', 'preflight-rejection')
         preflight = dict(copy.deepcopy(envelope), case_kind='negative-core', checkpoint_phase='preflight-rejection', families=['F00'])
-        preflight['files'] = files[:2]+[{'role': 'core-observation', **rejected_core}, {'role': 'rng-observation', **rejected_rng}]
+        observed = dict(copy.deepcopy(preflight), files=files[:2]+[{'role': 'core-observation', **rejected_core}, {'role': 'rng-observation', **rejected_rng}])
+        rejected(lambda: validate_envelope(observed, root, families), 'Preflight rejection and renderer input carry no core or RNG observation', 'preflight-rejection envelope with a core observation')
+        preflight['files'] = files[:2]
         write('envelope-preflight.json', preflight)
-        check(validate_envelope(preflight, root, families)['envelope_integrity_valid'], 'a preflight-rejection envelope is valid for R5')
+        check(validate_envelope(preflight, root, families)['envelope_integrity_valid'], 'a preflight-rejection envelope without observations is valid for R5')
         rejected(lambda: verify(mutated(lambda r: r.update(origin_envelope_sha256=file_sha(root/'envelope-preflight.json'))), 'envelope-preflight.json'),
                  'Run origin must be a fresh-recipe or restored command-ready checkpoint', 'run started from a preflight-rejection envelope')
 

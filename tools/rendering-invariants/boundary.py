@@ -16,7 +16,7 @@ DATA = ROOT/'docs/data'
 OUTPUT = DATA/'rendering-boundary-ports.json'
 TREES = {'en': ROOT/'build/nethack', 'ja': ROOT/'build/nethack-ja'}
 sys.path.insert(0, str(ROOT/'tools/rendering-fixtures'))
-from fixture_protocol import checked_file, file_sha, validate_envelope, validate_rng  # noqa: E402
+from fixture_protocol import checked_file, command_ready_ports, file_sha, validate_envelope, validate_rng  # noqa: E402
 
 IDENT = re.compile(r'[A-Za-z0-9][A-Za-z0-9_.-]{0,127}\Z')
 HEX = re.compile(r'[0-9a-f]{64}\Z')
@@ -75,10 +75,15 @@ NOT_BOUNDARIES = [
     {'function': 'qt_timer_fire (idlecheckpoint)', 'reason': 'explicit core operation (F16/INV14); never a pure-paint boundary'},
     {'function': 'Qt event processing without a core wait', 'reason': 'Qt being busy is not a core boundary'},
 ]
-# darkdungeon-fixture-run-v1 (run_report_contract of rendering-fixture-plan.json). Only the
-# origin and the observations are checked here; the other fields must exist but are not validated.
-RUN_KEYS = {'schema', 'run_id', 'case_id', 'language', 'origin_envelope_sha256', 'producer', 'reader', 'control', 'observations',
-            'inputs', 'seed_requests', 'reseed_attempts', 'clock_reads', 'save_result', 'verdict', 'evidence_files'}
+def run_keys():
+    """Top-level keys of darkdungeon-fixture-run-v1, from the R5 run_report_contract.
+    Only the origin, the allow table and the observations are checked here; the
+    other fields must exist but are not validated."""
+    raw = (DATA/'rendering-fixture-plan.json').read_bytes()
+    bound = json.loads((DATA/'rendering-invariant-contract.json').read_text(encoding='utf-8-sig'))['fixture_plan_sha256']
+    require(hashlib.sha256(raw).hexdigest() == bound, 'R5 plan differs from the one the R6 definition binds')
+    plan = json.loads(raw.decode('utf-8-sig'))
+    return {name.split('=')[0].removesuffix('[]') for name in plan['run_report_contract']['required']}
 FUNCTION = re.compile(r'^([a-z_][a-z0-9_]*)\(', re.M)
 
 
@@ -176,12 +181,18 @@ def validate_run_origin(envelope_path, run, root, families, value=None):
     """The run starts where the envelope's checkpoint is, then keeps each stop
     point legal and bound to its case/build. Run points other than 0 are not R5
     envelope checkpoints and are not checked with the R5 envelope barrier."""
-    value = value or load_definition()
+    raw_table = OUTPUT.read_bytes()
+    table = json.loads(raw_table.decode('utf-8-sig'))
+    require(value is None or value == table, 'Boundary allow table argument differs from the file')
+    value = table
     envelope_sha, envelope = read_once(root, envelope_path)
-    validate_envelope(envelope, root, families)
+    validate_envelope(envelope, root, families, command_ready_ports(table))
     require(envelope['checkpoint_phase'] in ('post-setup-ready', 'post-restore-ready'), 'Run origin must be a fresh-recipe or restored command-ready checkpoint')
     require(isinstance(run, dict) and run.get('schema') == 'darkdungeon-fixture-run-v1', 'Unknown fixture run schema')
-    require(set(run) == RUN_KEYS, 'Run report keys differ from darkdungeon-fixture-run-v1')
+    require(set(run) == run_keys(), 'Run report keys differ from darkdungeon-fixture-run-v1')
+    # #166: the run names the allow table its stop points were checked against.
+    # An older run is verified with the table of its creation commit.
+    require(run['boundary_ports_sha256'] == hashlib.sha256(raw_table).hexdigest(), 'Run was checked against another boundary allow table')
     require(run.get('origin_envelope_sha256') == envelope_sha, 'Run belongs to a different envelope')
     require(run.get('case_id') == envelope['case_id'] and run.get('language') == envelope['language'], 'Run case/language differs from its envelope')
     by_role = {}
