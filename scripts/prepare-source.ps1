@@ -2,19 +2,29 @@
 param(
     [string]$NetHackSource = (Join-Path $PSScriptRoot '..\..\NetHack'),
     [string]$QtRoot = 'C:\Qt\6.11.2\msvc2022_64',
-    [ValidateSet('en','ja')][string]$Language='en'
+    [ValidateSet('en','ja')][string]$Language='en',
+    # #110: prepare into a new directory under artifacts to reproduce a build tree.
+    [string]$SnapshotRoot
 )
 $ErrorActionPreference = 'Stop'
 $projectRoot = Split-Path $PSScriptRoot -Parent
 $version = (Get-Content (Join-Path $projectRoot 'VERSION') -Raw).Trim()
 if ($version -notmatch '^\d+\.\d+\.\d+$') { throw 'Invalid VERSION.' }
+if($SnapshotRoot) {
+    $SnapshotRoot=[IO.Path]::GetFullPath($ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($SnapshotRoot)).TrimEnd('\','/')
+    $artifactRoot=[IO.Path]::GetFullPath((Join-Path $projectRoot 'artifacts'))+[IO.Path]::DirectorySeparatorChar
+    if(!$SnapshotRoot.StartsWith($artifactRoot,[StringComparison]::OrdinalIgnoreCase)){throw 'SnapshotRoot must be a child directory of this project artifacts.'}
+    foreach($path in @($SnapshotRoot,($SnapshotRoot+'.japanese-source'),($SnapshotRoot+".core-port-$Language.json"))) {
+        if(Test-Path -LiteralPath $path){throw "SnapshotRoot and its side paths must be new: $path"}
+    }
+}
 $originalSource=$NetHackSource
 if($Language -eq 'ja') {
     $commit=& git -C $NetHackSource rev-parse HEAD
     if($commit -ne 'cb453720b1cdff0134f0872d8706fb20a764b0de') { throw 'Japanese port requires the documented NetHack 5.0.1 source commit.' }
-    $NetHackSource=Join-Path $projectRoot 'build\japanese-source'
+    $NetHackSource=if($SnapshotRoot){$SnapshotRoot+'.japanese-source'}else{Join-Path $projectRoot 'build\japanese-source'}
     $resolved=[IO.Path]::GetFullPath($NetHackSource)
-    $allowed=[IO.Path]::GetFullPath((Join-Path $projectRoot 'build'))+[IO.Path]::DirectorySeparatorChar
+    $allowed=[IO.Path]::GetFullPath((Join-Path $projectRoot $(if($SnapshotRoot){'artifacts'}else{'build'})))+[IO.Path]::DirectorySeparatorChar
     if(!$resolved.StartsWith($allowed,[StringComparison]::OrdinalIgnoreCase)){throw 'Japanese source target escaped workspace.'}
     if(Test-Path -LiteralPath $resolved){Remove-Item -LiteralPath $resolved -Recurse -Force}
     New-Item -ItemType Directory -Force $NetHackSource | Out-Null
@@ -28,7 +38,7 @@ if($Language -eq 'ja') {
     } finally { $env:GIT_CEILING_DIRECTORIES=$previousCeiling }
     if(!(Test-Path (Join-Path $NetHackSource 'japanese\jlib.c'))) {throw 'Japanese patch was not applied.'}
 }
-$snapshot = Join-Path $projectRoot $(if($Language -eq 'ja'){'build\nethack-ja'}else{'build\nethack'})
+$snapshot = if($SnapshotRoot){$SnapshotRoot}else{Join-Path $projectRoot $(if($Language -eq 'ja'){'build\nethack-ja'}else{'build\nethack'})}
 if (!(Test-Path (Join-Path $NetHackSource 'src\allmain.c'))) { throw 'NetHack source is missing.' }
 New-Item -ItemType Directory -Force -Path $snapshot | Out-Null
 & robocopy $NetHackSource $snapshot /E /XD .git submodules /NFL /NDL /NJH /NJS /NP
@@ -775,7 +785,7 @@ foreach ($header in Get-ChildItem (Join-Path $snapshot 'win\Qt') -Filter '*.h') 
 New-Item -ItemType Directory -Force -Path (Join-Path $projectRoot 'docs') | Out-Null
 $sourceCommit = & git -C $originalSource rev-parse HEAD
 [IO.File]::WriteAllText((Join-Path $snapshot 'upstream-commit.txt'), "$sourceCommit`n",[Text.UTF8Encoding]::new($false))
-& python (Join-Path $projectRoot 'tools\agent-cli\prepare-core.py') $snapshot --upstream $NetHackSource
+& python (Join-Path $projectRoot 'tools\agent-cli\prepare-core.py') $snapshot --upstream $NetHackSource --language $Language
 if ($LASTEXITCODE) { throw 'Common core/frontend preparation failed.' }
-& (Join-Path $projectRoot 'tools\agent-cli\Export-CorePortBranches.ps1') -Language $Language -OutputPath (Join-Path $projectRoot "build\core-port-$Language.json") -ReferencePath (Join-Path $projectRoot "docs\data\agent-core-port-branches.c1-$Language.json")
+& (Join-Path $projectRoot 'tools\agent-cli\Export-CorePortBranches.ps1') -Language $Language -SourceRoot $snapshot -OutputPath $(if($SnapshotRoot){$SnapshotRoot+".core-port-$Language.json"}else{Join-Path $projectRoot "build\core-port-$Language.json"}) -ReferencePath (Join-Path $projectRoot "docs\data\agent-core-port-branches.c1-$Language.json")
 Write-Host "Prepared common core and Qt source snapshot: $snapshot"

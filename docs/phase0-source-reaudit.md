@@ -28,7 +28,7 @@
   - 新しいファイル`manual_profile.h`の`struct Session`（4メンバー：`lock`、`data`、`reportPath`、`report`）。Qtフロントエンドの専用プロフィールの記録で、コアの状態ではない。
   - `app_runtime.h`の`struct darkdungeon_runtime_config`に`const char *manual_data`が増えた（0-1、#13）。専用プロフィールの保存・設定先を指す値で、ゲームのルールには関わらない。ただし、コアが保存する場所に影響する外部入力であり、`darkdungeon_core_abi`のoffsetにも含まれる。R6の保護13領域ではauxiliary（外部入力の実効状態）またはclock以外の制御設定に当たるため、field-map（#107）で明示的に分類する。未分類のまま完全合格にしない。
 - **監視ファイル**：`qt_monitor_scale.cpp`と`manual_profile.h`（独自srcと生成先）の4件が増えた。
-- **変更された監視ファイル**：英29件、日34件。参照・経路・宣言の増減は上記のとおりで、それ以外の変更は件数に表れない。`rnd.c`は#132で検査用の`darkdungeon_copy_rng`（RNGを進めずに状態を写す関数）を追加したもので、RNGの形式は変わらない。日本語版だけで`qt_druaga.cpp/.h`、`qt_streq.cpp`、`realtime_model.cpp/.h`の5件が変わっている理由は未確認である。`qt_druaga`はQT_OBJSに含まれない非リンクのファイルである。
+- **変更された監視ファイル**：英29件、日34件。参照・経路・宣言の増減は上記のとおりで、それ以外の変更は件数に表れない。`rnd.c`は#132で検査用の`darkdungeon_copy_rng`（RNGを進めずに状態を写す関数）を追加したもので、RNGの形式は変わらない。日本語版だけで`qt_druaga.cpp/.h`、`qt_streq.cpp`、`realtime_model.cpp/.h`の5件が変わっている理由は未確認である。このうち`qt_druaga`と`realtime_model`の4件は、#110で原因を特定した。日本語化の処理が`win\Qt`の全ファイルの先頭に注記を加えるため、生成処理で上書きされない旧リアルタイムモードの残りファイルには、ビルドのたびに注記が1行ずつ増えていた。残りファイルは#110で削除した（[来歴の記録](phase0-provenance.md)）。`qt_streq.cpp`は上流のファイルで毎回上書きされ、日本語版では`prepare-source.ps1`の変換の対象になる。変化の理由は未確認である。`qt_druaga`はQT_OBJSに含まれない非リンクのファイルである。
 
 件数は英日とも、ファイル318→322、参照685→676（日686→677）、宣言群366→368（日367→369）、メンバー宣言2,951→2,961（日2,959→2,969）、経路群12のまま。
 

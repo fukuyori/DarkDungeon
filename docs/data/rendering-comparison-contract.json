@@ -5,8 +5,8 @@
     "rendering-production-ledger.json": "3e31cb33e513f858e6733a0190de1631cd58ab83fb0e60bac69c8ef420a5b575",
     "rendering-quality-plan.json": "9a0535e44ceb061038e5d38909fa4b8081e275f102cb3945f5f1a98d4a32ee5f",
     "rendering-item-briefs.json": "e37bcb9e04549c63f3684c7bb26345fbd23560b0201a60fcf3a9808d8aaffc70",
-    "rendering-fixture-plan.json": "b5ed0fd9dd5e7cfeeaf5434252bd546b245ab7e0d74714a99b50d8231914f311",
-    "rendering-invariant-contract.json": "f92235504e063459f85c75a76bfefc508cfc3e784ec968c41115c2a76d69f40b"
+    "rendering-fixture-plan.json": "b29a88bc3f4fc4edef0221701ed4b5cc83dc5350e18b90aeae0c617ebc1b5833",
+    "rendering-invariant-contract.json": "b60647e0bfd5e3067dd92cf450b912098242f98b827e8902005c1c53277b05ed"
   },
   "roles": {
     "history": {

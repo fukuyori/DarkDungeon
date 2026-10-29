@@ -21,7 +21,7 @@ python tools/rendering-invariants/verify-legacy-retirement.py `
 
 英日の生成ソースで旧識別子0件、リンクMAPで旧シンボル0件を確認した。生成完了時のcore-port台帳のSHA、現在のsrc→C1の既知変換との一致、MAPと配置exeのSHA結合を検査する。未結合の旧manifestは失敗になることも確認した（`provenance-negative.json`）。これはビルドの完全な再現性や全ソース→全オブジェクトの対応の証明ではない。
 
-リンク対象のQtコードではfmon/canspotmonを禁止し、m_atはSMOKE出力ガード以降の支援用処理だけを許す。生成木に残る非リンクのqt_druaga.cppはMakefileとMAPで非リンクを確認する。共通コアのUnix移行は未実施で、旧Unix patchを現在の適用済みソースとは扱わない。
+リンク対象のQtコードではfmon/canspotmonを禁止し、m_atはSMOKE出力ガード以降の支援用処理だけを許す。生成木に残る非リンクのqt_druaga.cppはMakefileとMAPで非リンクを確認する（#110で生成木から削除した）。共通コアのUnix移行は未実施で、旧Unix patchを現在の適用済みソースとは扱わない。
 
 ## 実行確認
 

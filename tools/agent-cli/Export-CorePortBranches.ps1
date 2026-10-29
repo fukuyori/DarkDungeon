@@ -3,11 +3,14 @@
 param(
     [ValidateSet('en','ja')][string]$Language = 'en',
     [Parameter(Mandatory)][string]$OutputPath,
-    [string]$ReferencePath
+    [string]$ReferencePath,
+    [string]$SourceRoot
 )
 $ErrorActionPreference = 'Stop'
 $projectRoot = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..\..'))
-$sourceRoot = Join-Path $projectRoot $(if ($Language -eq 'ja') { 'build\nethack-ja' } else { 'build\nethack' })
+# #110: a reproduction under artifacts can be inventoried instead of the build tree.
+$sourceRoot = if ($SourceRoot) { [IO.Path]::GetFullPath($SourceRoot) } else { Join-Path $projectRoot $(if ($Language -eq 'ja') { 'build\nethack-ja' } else { 'build\nethack' }) }
+if (!$sourceRoot.StartsWith($projectRoot+[IO.Path]::DirectorySeparatorChar,[StringComparison]::OrdinalIgnoreCase)) { throw 'SourceRoot must stay in this repository.' }
 $resolvedOutput = [IO.Path]::GetFullPath($ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($OutputPath))
 if (!$resolvedOutput.StartsWith($projectRoot+[IO.Path]::DirectorySeparatorChar,[StringComparison]::OrdinalIgnoreCase)) { throw 'OutputPath must stay in this repository.' }
 $routes = @{

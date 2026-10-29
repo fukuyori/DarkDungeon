@@ -31,12 +31,16 @@ $snapshot = Join-Path $projectRoot $(if($Language -eq 'ja'){'build\nethack-ja'}e
 $fingerprintPath=Join-Path $projectRoot "build\toolchain-$Language-fingerprint.txt"
 $fingerprint=$QtRoot+'|'+$vsPath+'|'+(Get-FileHash (Join-Path $snapshot 'src\Makefile')).Hash
 $previous=if(Test-Path $fingerprintPath){(Get-Content $fingerprintPath -Raw).Trim()}else{''}
+$cleanBuild=$false
 if($Clean -or $previous -ne $fingerprint) {
+    $cleanBuild=$true
     $resolvedSnapshot=[IO.Path]::GetFullPath($snapshot)
     $allowedBuildRoot=[IO.Path]::GetFullPath((Join-Path $projectRoot 'build'))+[IO.Path]::DirectorySeparatorChar
     if(!$resolvedSnapshot.StartsWith($allowedBuildRoot,[StringComparison]::OrdinalIgnoreCase)) { throw 'Build cleanup target escaped workspace.' }
     # Only compiler outputs; input sources and user runtime data are retained.
-    Get-ChildItem -LiteralPath $resolvedSnapshot -File -Recurse | Where-Object {$_.Extension -in @('.o','.obj','.lib')} | ForEach-Object {Remove-Item -LiteralPath $_.FullName -Force}
+    # #110: an upstream source that only has such an extension (sys/share/Makefile.lib) is not an output.
+    $upstreamRoot=[IO.Path]::GetFullPath($NetHackSource)
+    Get-ChildItem -LiteralPath $resolvedSnapshot -File -Recurse | Where-Object {$_.Extension -in @('.o','.obj','.lib') -and !(Test-Path -LiteralPath (Join-Path $upstreamRoot ([IO.Path]::GetRelativePath($resolvedSnapshot,$_.FullName))))} | ForEach-Object {Remove-Item -LiteralPath $_.FullName -Force}
 }
 $batch = Join-Path $projectRoot "build\compile-qt-$Language.cmd"
 $batchContents = @"
@@ -121,4 +125,10 @@ $enginePath=Join-Path $appDirectory "DarkDungeon-$Language.exe"
 $linkedMap=Join-Path $snapshot 'src\objtty\x64\NetHack.MAP'
 if(!(Test-Path -LiteralPath $linkedMap -PathType Leaf)){throw 'The linked executable map is missing.'}
 [ordered]@{schema='darkdungeon-deployment-capabilities-v1';frontend='qt-engine';language=$Language;manual_profile=1;executable_sha256=(Get-FileHash -LiteralPath $enginePath).Hash.ToLowerInvariant();linked_map_sha256=(Get-FileHash -LiteralPath $linkedMap).Hash.ToLowerInvariant()} | ConvertTo-Json | Set-Content -LiteralPath ($enginePath+'.capabilities.json') -Encoding utf8
+# #110: bind this executable to the generation inputs and the generated tree it was built from.
+$recordArguments=@('record','--language',$Language,'--app',$appDirectory,'--nethack',$NetHackSource,'--qt-root',$QtRoot)
+if($cleanBuild){$recordArguments+='--clean-build'}
+if($SkipPrepare){$recordArguments+='--skip-prepare'}
+& python -X utf8 -B (Join-Path $projectRoot 'tools\rendering-invariants\provenance.py') @recordArguments
+if ($LASTEXITCODE) { throw 'Build input record failed.' }
 Write-Host "Release engine: $enginePath"

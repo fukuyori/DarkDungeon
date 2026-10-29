@@ -13,14 +13,19 @@ import shutil
 parser = argparse.ArgumentParser()
 parser.add_argument("snapshot", type=Path)
 parser.add_argument("--upstream", type=Path, required=True)
+parser.add_argument("--language", choices=("en", "ja"))
 args = parser.parse_args()
 root = Path(__file__).resolve().parents[2]
 snapshot = args.snapshot.resolve()
-if snapshot not in (root / "build/nethack", root / "build/nethack-ja"):
+# #110: a reproduction may be prepared under artifacts when its language is explicit.
+reproduction = args.language is not None and snapshot.is_relative_to(root / "artifacts") and snapshot != root / "artifacts"
+if snapshot not in (root / "build/nethack", root / "build/nethack-ja") and not reproduction:
     raise SystemExit("snapshot must be one of the prepared project trees")
 
 # Check the reviewed pre-migration inputs before changing any of their files.
-language = "ja" if snapshot.name.endswith("-ja") else "en"
+language = args.language or ("ja" if snapshot.name.endswith("-ja") else "en")
+if not reproduction and language != ("ja" if snapshot.name.endswith("-ja") else "en"):
+    raise SystemExit("language does not match the prepared project tree")
 reference = json.loads((root / f"docs/data/agent-core-port-branches.{language}.json").read_text(encoding="utf-8-sig"))
 for relative, expected in {entry["path"]: entry["source_sha256"] for entry in reference["branches"]}.items():
     actual = hashlib.sha256((snapshot / relative).read_bytes()).hexdigest().upper()

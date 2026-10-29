@@ -12,7 +12,7 @@ python -X utf8 -B tools/rendering-invariants/contract.py --check
 python -X utf8 -B tools/rendering-invariants/verify-contract.py
 ```
 
-UTF-8の生成済み英日ソースとPythonが必要。記録を保存する場合はSet-Content -Encoding utf8を使う。ソースはsrc/include/sys/windows/win/Qtの直下と独自srcを走査し、参照トークン、12群の関数位置、名前付きstruct/unionの宣言群とSHAをdocs/dataへ保存する。prepare-sourceとMakefileはハッシュ監視だけとする。QT_OBJSにないqt_druagaは非リンクとして区分し、他の実効コンパイル範囲は未確定と記録する。コメント・文字列を除く字句調査で、宣言・未使用/無効な条件分岐も含む。呼出グラフ、プリプロセス後のCレイアウト、全ルール経路や全Cフィールドの実装網羅性を証明するものではない。参照がないことだけで非該当としない。
+UTF-8の生成済み英日ソースとPythonが必要。記録を保存する場合はSet-Content -Encoding utf8を使う。ソースはsrc/include/sys/windows/win/Qtの直下と独自srcを走査し、参照トークン、12群の関数位置、名前付きstruct/unionの宣言群とSHAをdocs/dataへ保存する。prepare-sourceとMakefileはハッシュ監視だけとする。QT_OBJSにないqt_druagaは非リンクとして区分し（#110で生成木から削除済み）、他の実効コンパイル範囲は未確定と記録する。コメント・文字列を除く字句調査で、宣言・未使用/無効な条件分岐も含む。呼出グラフ、プリプロセス後のCレイアウト、全ルール経路や全Cフィールドの実装網羅性を証明するものではない。参照がないことだけで非該当としない。
 
 contract.pyは14不変条件と保護対象13領域を定義する。compare_paintは渡されたJSONの値と両ISAAC64状態を厳密比較し、差のJSON Pointerを内部用に返す。command-ready/prompt-paused/core-suspendedの境界種別・窓口も結合する。対応表/正規化登録簿のSHA、停止点の許可表のSHA（R6定義の`boundary_ports_sha256`と一致し、ディスク上の許可表とも一致すること、#167）、表示標本化契約、領域別coverageを必須にし、不足があれば同じ値でもunconfirmedとする。正規化登録簿の形式を検査するが、paintでは保護状態の正規化や例外適用をしない。実ゲームの観測器もフィールドの完全性検証器もないため、合成値のequalは実描画・C状態の不変を証明しない。実装前に、Cメンバー・私有static・別階のデータを型付き観測へ結ぶ表を作成し、未接続・未分類を残して完全合格にしない。
 
@@ -27,6 +27,15 @@ python -X utf8 -B tools/rendering-invariants/verify-boundary.py
 ```
 
 boundary.pyはcommand-ready / prompt-paused / core-suspendedと窓口関数の合法な組、停止点ごとのbarrierを`docs/data/rendering-boundary-ports.json`に出力する。`delay_output`の呼出元は英日の生成済みソースから字句で走査する。`validate_run_origin`はR5 envelopeとrun観測0番の一致、各観測の停止点・barrier・ファイルSHAを検査する。verify-boundary.pyは合成データだけで検査する。詳細は[記録](../../docs/phase0-boundary-ports.md)。C観測器はなく、実ゲームの停止点を認定しない。
+
+## 生成元から実行ファイルまでの来歴（#110）
+
+```powershell
+python -X utf8 -B tools/rendering-invariants/provenance.py self-test
+python -X utf8 -B tools/rendering-invariants/provenance.py verify --language en --app artifacts/<build>/en --reproduction artifacts/<new>/reproduction-en --output artifacts/<new>/provenance-en.json
+```
+
+`record`は`build-release.ps1`が呼び、各言語の配置先へ`build-inputs.json`（生成の入力、生成済みソースの木、実行ファイル・リンクマップ・配置したファイルのSHA、クリーンビルドかどうか）を書く。`verify`は、現在の入力から`prepare-source.ps1 -SnapshotRoot`で生成し直し、記録した木と比べる。`--reproduction`と`--output`は、artifacts内の新しいパスでなければ拒否する。ビルドにだけあるファイルは宣言したビルド出力に限る。実行ファイルはビルドし直さず、`-Clean`のビルドだけを`executable_bound_to_tree=true`とする。詳細は[記録](../../docs/phase0-provenance.md)。ゲームは起動しない。
 
 ## 旧アニメーション経路の撤去検査
 

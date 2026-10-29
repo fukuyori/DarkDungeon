@@ -21,7 +21,7 @@
         "build/nethack/include/context_action.h": "44026bc010aa940eef8ea63a7166dab22c14631c046e7e4198f3ef471af0c69d",
         "build/nethack/include/coord.h": "978bd02e160b745b48cb5616a0daf2da824ad8ca03388320a9dface07fb367ca",
         "build/nethack/include/cstd.h": "6ebcfad20bf26be89b81d0cf51c26ad83cd574e4d2f33e57d70ca7672e94e6bb",
-        "build/nethack/include/date.h": "dce308dced32ca8cdce87c9b1296862e1c398725ceb3ebe7f8cc71f139e5a882",
+        "build/nethack/include/date.h": "0c1757b80d562d54653338b9d8b4bb571be0dc6e30c9a89f921150d810f8ab2f",
         "build/nethack/include/decl.h": "a8fbe3d68e352b110dc650d659ce21be3f6254f507caccc6b889936d50c33ed8",
         "build/nethack/include/defsym.h": "30e5e6d2105906a7f6d68268ef6003c22a554a81ae32c0002245003accf397aa",
         "build/nethack/include/dgn_file.h": "40e14662ed592f715b8a0dacf780e68cdded4f11a1f8ca77ae31b1bbe4d8e3f3",
@@ -263,8 +263,6 @@
         "build/nethack/win/Qt/qt_darkdungeon.h": "508589ea58d6cd985661580db009acf9d74120d9c68a201d4c3d309e27b2949d",
         "build/nethack/win/Qt/qt_delay.cpp": "93f1192dc0c31e4b46b2eeba7159cfea57a395cc6324d7821cbdfd00654a82ef",
         "build/nethack/win/Qt/qt_delay.h": "149004aa466aec9fd3260a993cc5a454e4241e493c5e0b9c02e239b72d71b431",
-        "build/nethack/win/Qt/qt_druaga.cpp": "1ee37b8edf4138d345873cf1dd928ca6a29784209a51768cd9468a7128284b93",
-        "build/nethack/win/Qt/qt_druaga.h": "e5eb8cd0b83ee141b301d98d0215de81d2613d790295c1c893e6d3ea6e23e59c",
         "build/nethack/win/Qt/qt_glyph.cpp": "8200bb7803feeec2d70fb33218be163db8fc8df0ca9f649e923790632bfe1f16",
         "build/nethack/win/Qt/qt_glyph.h": "dc539b958e96128b94c6ebd586afeff04a34edd99fb81ed1e75c17ae579aff36",
         "build/nethack/win/Qt/qt_icon.cpp": "82dc4f637945e612583e966d934b2c5f0e15f7d496d22f3f8752d28552c63f11",
@@ -309,9 +307,7 @@
         "build/nethack/win/Qt/qt_xpms.h": "f3f6ebb9ef65d59cf889c48041d42eda4e1bda36812277b0d97171b33ce42cd5",
         "build/nethack/win/Qt/qt_yndlg.cpp": "5e113129dfab07b3ada202f9ef686011b4b173c73b0752c932d6ec26473fc58a",
         "build/nethack/win/Qt/qt_yndlg.h": "419f6478aa2fb5ff46319091a786a2eebe9baef786119c94480aa5163b33be0e",
-        "build/nethack/win/Qt/realtime_model.cpp": "fd12ebce6f125ecb89b34a23fbb685b0bf569c7063e7b5c87546192722644b76",
-        "build/nethack/win/Qt/realtime_model.h": "71187c942b8fa9d16789e6d4dc071a87a0afc4845528dac9231535d217200f5b",
-        "scripts/prepare-source.ps1": "253fdb03ec76dbf79d6a4e28307787b1f21b6049cb519b3751f760accb9c1e75",
+        "scripts/prepare-source.ps1": "c7918954675ce4430a60cc5aae50d1dadf20e4751dd4bb572cafa3085fd336b9",
         "src/agent_port.c": "a50dbe9fc2621afa2e774b1da81e1e5fd9837f159ff002c46a384c51e071ecb4",
         "src/app_registry.c": "cafe4678afa35a8a6bdea429b34b313f78eedd29f80c3370cfd952070fd93dde",
         "src/app_runtime.c": "9d99bc310b6ed14fd751dd692aa8ef04456c987d01d132f854991b754dd97f19",
@@ -587,8 +583,6 @@
         "build/nethack/win/Qt/qt_darkdungeon.h": "lexical-census; effective compilation not established",
         "build/nethack/win/Qt/qt_delay.cpp": "lexical-census; effective compilation not established",
         "build/nethack/win/Qt/qt_delay.h": "lexical-census; effective compilation not established",
-        "build/nethack/win/Qt/qt_druaga.cpp": "not-linked-in-current-QT_OBJS",
-        "build/nethack/win/Qt/qt_druaga.h": "not-linked-in-current-QT_OBJS",
         "build/nethack/win/Qt/qt_glyph.cpp": "lexical-census; effective compilation not established",
         "build/nethack/win/Qt/qt_glyph.h": "lexical-census; effective compilation not established",
         "build/nethack/win/Qt/qt_icon.cpp": "lexical-census; effective compilation not established",
@@ -633,8 +627,6 @@
         "build/nethack/win/Qt/qt_xpms.h": "lexical-census; effective compilation not established",
         "build/nethack/win/Qt/qt_yndlg.cpp": "lexical-census; effective compilation not established",
         "build/nethack/win/Qt/qt_yndlg.h": "lexical-census; effective compilation not established",
-        "build/nethack/win/Qt/realtime_model.cpp": "lexical-census; effective compilation not established",
-        "build/nethack/win/Qt/realtime_model.h": "lexical-census; effective compilation not established",
         "scripts/prepare-source.ps1": "hash-only-generation-input",
         "src/agent_port.c": "lexical-census; effective compilation not established",
         "src/app_registry.c": "lexical-census; effective compilation not established",
@@ -4369,54 +4361,6 @@
           "token": "flush_screen"
         },
         {
-          "group": "clock",
-          "path": "build/nethack/win/Qt/qt_druaga.cpp",
-          "line": 257,
-          "token": "time"
-        },
-        {
-          "group": "clock",
-          "path": "build/nethack/win/Qt/qt_druaga.cpp",
-          "line": 258,
-          "token": "time"
-        },
-        {
-          "group": "clock",
-          "path": "build/nethack/win/Qt/qt_druaga.cpp",
-          "line": 309,
-          "token": "time"
-        },
-        {
-          "group": "clock",
-          "path": "build/nethack/win/Qt/qt_druaga.cpp",
-          "line": 311,
-          "token": "time"
-        },
-        {
-          "group": "clock",
-          "path": "build/nethack/win/Qt/qt_druaga.cpp",
-          "line": 328,
-          "token": "time"
-        },
-        {
-          "group": "publication",
-          "path": "build/nethack/win/Qt/qt_druaga.cpp",
-          "line": 887,
-          "token": "flush_screen"
-        },
-        {
-          "group": "publication",
-          "path": "build/nethack/win/Qt/qt_druaga.cpp",
-          "line": 891,
-          "token": "flush_screen"
-        },
-        {
-          "group": "publication",
-          "path": "build/nethack/win/Qt/qt_druaga.cpp",
-          "line": 895,
-          "token": "flush_screen"
-        },
-        {
           "group": "sampling",
           "path": "build/nethack/win/Qt/qt_inventory.cpp",
           "line": 304,
@@ -4613,24 +4557,6 @@
           "path": "build/nethack/win/Qt/qt_win.h",
           "line": 45,
           "token": "PrintGlyph"
-        },
-        {
-          "group": "clock",
-          "path": "build/nethack/win/Qt/realtime_model.cpp",
-          "line": 51,
-          "token": "time"
-        },
-        {
-          "group": "clock",
-          "path": "build/nethack/win/Qt/realtime_model.cpp",
-          "line": 92,
-          "token": "time"
-        },
-        {
-          "group": "clock",
-          "path": "build/nethack/win/Qt/realtime_model.h",
-          "line": 32,
-          "token": "time"
         },
         {
           "group": "publication",
@@ -11317,52 +11243,6 @@
           "runtime_binding": "not-implemented"
         },
         {
-          "path": "build/nethack/win/Qt/realtime_model.h",
-          "kind": "struct",
-          "name": "Position",
-          "line": 9,
-          "declarations": [
-            "double x=0, y=0"
-          ],
-          "runtime_binding": "not-implemented"
-        },
-        {
-          "path": "build/nethack/win/Qt/realtime_model.h",
-          "kind": "struct",
-          "name": "Input",
-          "line": 11,
-          "declarations": [
-            "int direction=-1",
-            "bool sword=false"
-          ],
-          "runtime_binding": "not-implemented"
-        },
-        {
-          "path": "build/nethack/win/Qt/realtime_model.h",
-          "kind": "struct",
-          "name": "Enemy",
-          "line": 12,
-          "declarations": [
-            "EnemyKind kind=EnemyKind::Slime",
-            "Position position, target",
-            "int direction=2, hp=24",
-            "double wait=0, attack=0",
-            "bool moving=false"
-          ],
-          "runtime_binding": "not-implemented"
-        },
-        {
-          "path": "build/nethack/win/Qt/realtime_model.h",
-          "kind": "struct",
-          "name": "Projectile",
-          "line": 19,
-          "declarations": [
-            "Position position, velocity",
-            "double life=3"
-          ],
-          "runtime_binding": "not-implemented"
-        },
-        {
           "path": "src/app_runtime.h",
           "kind": "struct",
           "name": "darkdungeon_view_config",
@@ -11421,11 +11301,11 @@
         }
       ],
       "counts": {
-        "files": 322,
-        "references": 676,
+        "files": 318,
+        "references": 665,
         "route_groups": 12,
-        "struct_union_groups": 368,
-        "member_declarations": 2961
+        "struct_union_groups": 364,
+        "member_declarations": 2951
       }
     },
     "ja": {
@@ -11445,7 +11325,7 @@
         "build/nethack-ja/include/context_action.h": "44026bc010aa940eef8ea63a7166dab22c14631c046e7e4198f3ef471af0c69d",
         "build/nethack-ja/include/coord.h": "978bd02e160b745b48cb5616a0daf2da824ad8ca03388320a9dface07fb367ca",
         "build/nethack-ja/include/cstd.h": "6ebcfad20bf26be89b81d0cf51c26ad83cd574e4d2f33e57d70ca7672e94e6bb",
-        "build/nethack-ja/include/date.h": "b5f035653428bad361cc24d253cfd4b74dc4b68b57905fea8bf5c628a19285ea",
+        "build/nethack-ja/include/date.h": "83d9c3e248bfa898ade6cbf8752324fadf28a647299482626846ab75296a0e28",
         "build/nethack-ja/include/decl.h": "b2c4bbe8528b2ecd4f111cf604800abaecc818c747b430a71f09386cf5f3b46c",
         "build/nethack-ja/include/defsym.h": "6585a7b0482e1a11e51f66841f079a3b4f2b843d40a8b84a44442dbecba57faf",
         "build/nethack-ja/include/dgn_file.h": "40e14662ed592f715b8a0dacf780e68cdded4f11a1f8ca77ae31b1bbe4d8e3f3",
@@ -11687,8 +11567,6 @@
         "build/nethack-ja/win/Qt/qt_darkdungeon.h": "508589ea58d6cd985661580db009acf9d74120d9c68a201d4c3d309e27b2949d",
         "build/nethack-ja/win/Qt/qt_delay.cpp": "adeb8f4a39ee2ab2f91eefdaab05a597dc7a83308758daf178554e97b21efd58",
         "build/nethack-ja/win/Qt/qt_delay.h": "54e61351f66a6453667b443fb28c41d389ea8249b4edb90b8dbcba3cfc0365b2",
-        "build/nethack-ja/win/Qt/qt_druaga.cpp": "8ff22ba9fcdd8cd42c92ea88e9b3bfbbe97e7919ea19a26ccf6b6ffb5f048deb",
-        "build/nethack-ja/win/Qt/qt_druaga.h": "ac8bfaf6f90ced1c97de109f55875156ddf3f58156f1181d6d4b38bfc43a1f03",
         "build/nethack-ja/win/Qt/qt_glyph.cpp": "b4e2c04f2db7fc6edc1d7e71c1218a873cc3c7103769bffe7031d0f093fd6a0e",
         "build/nethack-ja/win/Qt/qt_glyph.h": "ca430f915ff35dd4963986bb3fea31c9fba69915b7b021a6953188a550bb632e",
         "build/nethack-ja/win/Qt/qt_icon.cpp": "6106475731ac39d1b499b6011b81f1b7e5579fa857de201a2532a76e109492a1",
@@ -11733,9 +11611,7 @@
         "build/nethack-ja/win/Qt/qt_xpms.h": "64bec77e77509f504cce42b271eec09d3ed14636dfa3e2674d067a832c480b77",
         "build/nethack-ja/win/Qt/qt_yndlg.cpp": "91fd489a3f11c793a8e13d2bf2d86ad48c1f4d0bce8d283497736680e07b8cfb",
         "build/nethack-ja/win/Qt/qt_yndlg.h": "66d605eda69d4c3c344cfda4ecfcdf9a358384dad74868ec399f904551ee9bd8",
-        "build/nethack-ja/win/Qt/realtime_model.cpp": "74585a878821eee8cfdd82dad1f2b19fdcf584206f16de61e77899b6a086c20a",
-        "build/nethack-ja/win/Qt/realtime_model.h": "1454506e822902b688acc883b61f66011d32574ad366746800570b0766860c77",
-        "scripts/prepare-source.ps1": "253fdb03ec76dbf79d6a4e28307787b1f21b6049cb519b3751f760accb9c1e75",
+        "scripts/prepare-source.ps1": "c7918954675ce4430a60cc5aae50d1dadf20e4751dd4bb572cafa3085fd336b9",
         "src/agent_port.c": "a50dbe9fc2621afa2e774b1da81e1e5fd9837f159ff002c46a384c51e071ecb4",
         "src/app_registry.c": "cafe4678afa35a8a6bdea429b34b313f78eedd29f80c3370cfd952070fd93dde",
         "src/app_runtime.c": "9d99bc310b6ed14fd751dd692aa8ef04456c987d01d132f854991b754dd97f19",
@@ -12011,8 +11887,6 @@
         "build/nethack-ja/win/Qt/qt_darkdungeon.h": "lexical-census; effective compilation not established",
         "build/nethack-ja/win/Qt/qt_delay.cpp": "lexical-census; effective compilation not established",
         "build/nethack-ja/win/Qt/qt_delay.h": "lexical-census; effective compilation not established",
-        "build/nethack-ja/win/Qt/qt_druaga.cpp": "not-linked-in-current-QT_OBJS",
-        "build/nethack-ja/win/Qt/qt_druaga.h": "not-linked-in-current-QT_OBJS",
         "build/nethack-ja/win/Qt/qt_glyph.cpp": "lexical-census; effective compilation not established",
         "build/nethack-ja/win/Qt/qt_glyph.h": "lexical-census; effective compilation not established",
         "build/nethack-ja/win/Qt/qt_icon.cpp": "lexical-census; effective compilation not established",
@@ -12057,8 +11931,6 @@
         "build/nethack-ja/win/Qt/qt_xpms.h": "lexical-census; effective compilation not established",
         "build/nethack-ja/win/Qt/qt_yndlg.cpp": "lexical-census; effective compilation not established",
         "build/nethack-ja/win/Qt/qt_yndlg.h": "lexical-census; effective compilation not established",
-        "build/nethack-ja/win/Qt/realtime_model.cpp": "lexical-census; effective compilation not established",
-        "build/nethack-ja/win/Qt/realtime_model.h": "lexical-census; effective compilation not established",
         "scripts/prepare-source.ps1": "hash-only-generation-input",
         "src/agent_port.c": "lexical-census; effective compilation not established",
         "src/app_registry.c": "lexical-census; effective compilation not established",
@@ -15799,54 +15671,6 @@
           "token": "flush_screen"
         },
         {
-          "group": "clock",
-          "path": "build/nethack-ja/win/Qt/qt_druaga.cpp",
-          "line": 302,
-          "token": "time"
-        },
-        {
-          "group": "clock",
-          "path": "build/nethack-ja/win/Qt/qt_druaga.cpp",
-          "line": 303,
-          "token": "time"
-        },
-        {
-          "group": "clock",
-          "path": "build/nethack-ja/win/Qt/qt_druaga.cpp",
-          "line": 354,
-          "token": "time"
-        },
-        {
-          "group": "clock",
-          "path": "build/nethack-ja/win/Qt/qt_druaga.cpp",
-          "line": 356,
-          "token": "time"
-        },
-        {
-          "group": "clock",
-          "path": "build/nethack-ja/win/Qt/qt_druaga.cpp",
-          "line": 373,
-          "token": "time"
-        },
-        {
-          "group": "publication",
-          "path": "build/nethack-ja/win/Qt/qt_druaga.cpp",
-          "line": 932,
-          "token": "flush_screen"
-        },
-        {
-          "group": "publication",
-          "path": "build/nethack-ja/win/Qt/qt_druaga.cpp",
-          "line": 936,
-          "token": "flush_screen"
-        },
-        {
-          "group": "publication",
-          "path": "build/nethack-ja/win/Qt/qt_druaga.cpp",
-          "line": 940,
-          "token": "flush_screen"
-        },
-        {
           "group": "sampling",
           "path": "build/nethack-ja/win/Qt/qt_inventory.cpp",
           "line": 304,
@@ -16043,24 +15867,6 @@
           "path": "build/nethack-ja/win/Qt/qt_win.h",
           "line": 46,
           "token": "PrintGlyph"
-        },
-        {
-          "group": "clock",
-          "path": "build/nethack-ja/win/Qt/realtime_model.cpp",
-          "line": 93,
-          "token": "time"
-        },
-        {
-          "group": "clock",
-          "path": "build/nethack-ja/win/Qt/realtime_model.cpp",
-          "line": 134,
-          "token": "time"
-        },
-        {
-          "group": "clock",
-          "path": "build/nethack-ja/win/Qt/realtime_model.h",
-          "line": 74,
-          "token": "time"
         },
         {
           "group": "publication",
@@ -22764,52 +22570,6 @@
           "runtime_binding": "not-implemented"
         },
         {
-          "path": "build/nethack-ja/win/Qt/realtime_model.h",
-          "kind": "struct",
-          "name": "Position",
-          "line": 51,
-          "declarations": [
-            "double x=0, y=0"
-          ],
-          "runtime_binding": "not-implemented"
-        },
-        {
-          "path": "build/nethack-ja/win/Qt/realtime_model.h",
-          "kind": "struct",
-          "name": "Input",
-          "line": 53,
-          "declarations": [
-            "int direction=-1",
-            "bool sword=false"
-          ],
-          "runtime_binding": "not-implemented"
-        },
-        {
-          "path": "build/nethack-ja/win/Qt/realtime_model.h",
-          "kind": "struct",
-          "name": "Enemy",
-          "line": 54,
-          "declarations": [
-            "EnemyKind kind=EnemyKind::Slime",
-            "Position position, target",
-            "int direction=2, hp=24",
-            "double wait=0, attack=0",
-            "bool moving=false"
-          ],
-          "runtime_binding": "not-implemented"
-        },
-        {
-          "path": "build/nethack-ja/win/Qt/realtime_model.h",
-          "kind": "struct",
-          "name": "Projectile",
-          "line": 61,
-          "declarations": [
-            "Position position, velocity",
-            "double life=3"
-          ],
-          "runtime_binding": "not-implemented"
-        },
-        {
           "path": "src/app_runtime.h",
           "kind": "struct",
           "name": "darkdungeon_view_config",
@@ -22868,11 +22628,11 @@
         }
       ],
       "counts": {
-        "files": 322,
-        "references": 677,
+        "files": 318,
+        "references": 666,
         "route_groups": 12,
-        "struct_union_groups": 369,
-        "member_declarations": 2969
+        "struct_union_groups": 365,
+        "member_declarations": 2959
       }
     }
   }
