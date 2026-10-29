@@ -541,6 +541,7 @@ void installToolbarCustomization(QMainWindow* main) {
 }
 
 QString darkdungeon_text(const char* english,const char* japanese) {return languageText(english,japanese);}
+// Reads the hero's role, race, gender and alignment: call only at a core point.
 QImage darkdungeon_hero_image() {
     if(Upolyd || heroSheet().isNull())return QImage();
     return heroSheet().copy(0,2*48,48,48); // facing down, idle frame

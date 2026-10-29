@@ -37,6 +37,6 @@ ENは歩数3で復元し、方向操作2回とSpace後に歩数6で保存した�
 
 [初回](../artifacts/claude-r6-retire-animation-review-20261028.txt)と[再レビュー](../artifacts/claude-r6-retire-animation-followup-20261028.txt)をClaude Codeへ読み取り専用で依頼した。再レビューは#128完了可と判定した。検査器の生成元確認・MAP結合・GUI探索範囲・not-run判定を補強し、旧監査表の時点とoffscreen失敗の記録を明確にした。
 
-`docs/data/rendering-invariant-audit.json` はR6仕様策定時の撤去前の凍結記録で、現在のソースとは一致しない。旧hook件数を現在の残存数として読まない。契約/台帳の参照SHAを無断で更新せず、現工程の補足は `static-retirement-reviewed.json` に分離した。全体の再監査と基準化は#129以降に行う。
+（2026-10-29追記：調査表は#165で現行ソースへ再監査して作り直した。[再監査の記録](phase0-source-reaudit.md)を参照。この段落の残りは#128の時点の記述である。）`docs/data/rendering-invariant-audit.json` はR6仕様策定時の撤去前の凍結記録で、現在のソースとは一致しない。旧hook件数を現在の残存数として読まない。契約/台帳の参照SHAを無断で更新せず、現工程の補足は `static-retirement-reviewed.json` に分離した。全体の再監査と基準化は#129以降に行う。
 
 持ち物の250ms timerと乱数を使う差分判定は[#131](phase0-inventory-refresh.md)で撤去・検証した。描画/dragに残るobj_to_glyph、名前生成、portraitのlive状態参照は#129/#132で継続する。公開データの所有者、入力境界、完全な状態観測、R7のviewport/DPI比較は別の未完了タスクである。主人公に似たタイルが別マスにある場面も記録したが、正体や原因を推測で確定しない。新素材の制作はフェーズ2からAntigravityへ依頼する。

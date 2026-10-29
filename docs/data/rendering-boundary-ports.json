@@ -1,0 +1,506 @@
+{
+  "schema": "darkdungeon-boundary-ports-v1",
+  "boundary_kinds": [
+    "command-ready",
+    "prompt-paused",
+    "core-suspended"
+  ],
+  "barrier_keys": [
+    "input_ready",
+    "core_dispatch_pending",
+    "display_preparation_pending",
+    "modal"
+  ],
+  "barrier_meaning": {
+    "input_ready": "the core is waiting for the player inside a window-port wait",
+    "core_dispatch_pending": "a command or core operation is still in progress and continues after the wait",
+    "display_preparation_pending": "the core has published part of a display sequence (tmp_at, delay) and continues it after the wait",
+    "modal": "the wait answers a specific core request (prompt, --More--), not the top-level command wait; it is not Qt window modality"
+  },
+  "barriers": {
+    "command-ready": {
+      "input_ready": true,
+      "core_dispatch_pending": false,
+      "display_preparation_pending": false,
+      "modal": false
+    },
+    "prompt-answer": {
+      "input_ready": true,
+      "core_dispatch_pending": true,
+      "display_preparation_pending": false,
+      "modal": true
+    },
+    "suspended-acknowledge": {
+      "input_ready": true,
+      "core_dispatch_pending": true,
+      "display_preparation_pending": false,
+      "modal": true
+    },
+    "suspended-timer": {
+      "input_ready": false,
+      "core_dispatch_pending": true,
+      "display_preparation_pending": true,
+      "modal": false
+    }
+  },
+  "recording_rule": "record a point only when the outermost window procedure the core called enters its wait; nested waits are not points",
+  "ports": [
+    {
+      "id": "qt_nh_poskey.command",
+      "boundary_kind": "command-ready",
+      "window_proc": "win_nh_poskey",
+      "core_condition": "parse() reading the first key of a top-level command (readchar_core -> nh_poskey): with num_pad off the first read of get_count() before any digit, with num_pad on the readchar() before get_count(); input_state=commandInp, iflags.in_parse, multi=0, no occupation, Qt keybuffer and clickbuffer empty, no requested toolbar command, *readchar_queue empty, command queues CQ_CANNED and CQ_REPEAT empty, not gi.in_doagain, in_moveloop and not gameover",
+      "barrier": "command-ready",
+      "f18_branch": null
+    },
+    {
+      "id": "qt_nh_poskey.count",
+      "boundary_kind": "prompt-paused",
+      "window_proc": "win_nh_poskey",
+      "core_condition": "a read inside get_count() after one or more count digits (also after backspace back to zero), or with num_pad on after NHKF_COUNT; any caller (parse, the getobj count, splitting a stack) and any input_state",
+      "barrier": "prompt-answer",
+      "f18_branch": null
+    },
+    {
+      "id": "qt_nhgetch.altmeta",
+      "boundary_kind": "prompt-paused",
+      "window_proc": "win_nhgetch",
+      "core_condition": "pgetchar() for the key after ESC when altmeta is on and input_state is not otherInp (commandInp, getposInp, getdirInp; readchar_core)",
+      "barrier": "prompt-answer",
+      "f18_branch": null
+    },
+    {
+      "id": "qt_nhgetch.doagain",
+      "boundary_kind": "prompt-paused",
+      "window_proc": "win_nhgetch",
+      "core_condition": "pgetchar() while gi.in_doagain and *readchar_queue is empty (readchar_core)",
+      "barrier": "prompt-answer",
+      "f18_branch": null
+    },
+    {
+      "id": "qt_yn_function.getdir",
+      "boundary_kind": "prompt-paused",
+      "window_proc": "win_yn_function",
+      "core_condition": "getdir() direction prompt (input_state=getdirInp)",
+      "barrier": "prompt-answer",
+      "f18_branch": "direction"
+    },
+    {
+      "id": "qt_yn_function.yn",
+      "boundary_kind": "prompt-paused",
+      "window_proc": "win_yn_function",
+      "core_condition": "yn_function() outside getdir, including object letters (input_state=otherInp); with query_menu on the same question is a qt_select_menu.menu point",
+      "barrier": "prompt-answer",
+      "f18_branch": "yn"
+    },
+    {
+      "id": "qt_nh_poskey.getpos",
+      "boundary_kind": "prompt-paused",
+      "window_proc": "win_nh_poskey",
+      "core_condition": "getpos() position prompt (input_state=getposInp)",
+      "barrier": "prompt-answer",
+      "f18_branch": null
+    },
+    {
+      "id": "qt_nh_poskey.other",
+      "boundary_kind": "prompt-paused",
+      "window_proc": "win_nh_poskey",
+      "core_condition": "readchar()/readchar_poskey() outside parse, get_count and getpos (input_state=otherInp)",
+      "barrier": "prompt-answer",
+      "f18_branch": null
+    },
+    {
+      "id": "qt_select_menu.menu",
+      "boundary_kind": "prompt-paused",
+      "window_proc": "win_select_menu",
+      "core_condition": "select_menu() waiting for a selection",
+      "barrier": "prompt-answer",
+      "f18_branch": "menu"
+    },
+    {
+      "id": "qt_getlin.text",
+      "boundary_kind": "prompt-paused",
+      "window_proc": "win_getlin",
+      "core_condition": "getlin() text entry",
+      "barrier": "prompt-answer",
+      "f18_branch": null
+    },
+    {
+      "id": "qt_get_ext_cmd.extended",
+      "boundary_kind": "prompt-paused",
+      "window_proc": "win_get_ext_cmd",
+      "core_condition": "get_ext_cmd() extended command entry",
+      "barrier": "prompt-answer",
+      "f18_branch": null
+    },
+    {
+      "id": "qt_display_nhwindow.text",
+      "boundary_kind": "prompt-paused",
+      "window_proc": "win_display_nhwindow",
+      "core_condition": "display_nhwindow() of a text window (NHW_TEXT, or NHW_MENU shown as text); waits whether or not block is set",
+      "barrier": "prompt-answer",
+      "f18_branch": null
+    },
+    {
+      "id": "qt_display_nhwindow.map",
+      "boundary_kind": "prompt-paused",
+      "window_proc": "win_display_nhwindow",
+      "core_condition": "display_nhwindow(WIN_MAP, TRUE): the map viewport calls the core yn_function(\"Press a key when done viewing\"); the inner qt_yn_function is not a separate point",
+      "barrier": "prompt-answer",
+      "f18_branch": null
+    },
+    {
+      "id": "qt_display_file.file",
+      "boundary_kind": "prompt-paused",
+      "window_proc": "win_display_file",
+      "core_condition": "display_file() help text, or the warning box when a required file is missing",
+      "barrier": "prompt-answer",
+      "f18_branch": null
+    },
+    {
+      "id": "qt_display_nhwindow.more",
+      "boundary_kind": "core-suspended",
+      "window_proc": "win_display_nhwindow",
+      "core_condition": "display_nhwindow(WIN_MESSAGE, TRUE): --More-- in qt_more()",
+      "barrier": "suspended-acknowledge",
+      "f18_branch": "--More--"
+    },
+    {
+      "id": "qt_delay_output.bhit",
+      "boundary_kind": "core-suspended",
+      "window_proc": "win_delay_output",
+      "core_condition": "bhit() waiting in nh_delay_output()",
+      "barrier": "suspended-timer",
+      "f18_branch": "delay_output"
+    },
+    {
+      "id": "qt_delay_output.boomhit",
+      "boundary_kind": "core-suspended",
+      "window_proc": "win_delay_output",
+      "core_condition": "boomhit() waiting in nh_delay_output()",
+      "barrier": "suspended-timer",
+      "f18_branch": "delay_output"
+    },
+    {
+      "id": "qt_delay_output.cast_chain_lightning",
+      "boundary_kind": "core-suspended",
+      "window_proc": "win_delay_output",
+      "core_condition": "cast_chain_lightning() waiting in nh_delay_output()",
+      "barrier": "suspended-timer",
+      "f18_branch": "delay_output"
+    },
+    {
+      "id": "qt_delay_output.dobuzz",
+      "boundary_kind": "core-suspended",
+      "window_proc": "win_delay_output",
+      "core_condition": "dobuzz() waiting in nh_delay_output()",
+      "barrier": "suspended-timer",
+      "f18_branch": "dobuzz"
+    },
+    {
+      "id": "qt_delay_output.explode",
+      "boundary_kind": "core-suspended",
+      "window_proc": "win_delay_output",
+      "core_condition": "explode() waiting in nh_delay_output()",
+      "barrier": "suspended-timer",
+      "f18_branch": "explode"
+    },
+    {
+      "id": "qt_delay_output.findtravelpath",
+      "boundary_kind": "core-suspended",
+      "window_proc": "win_delay_output",
+      "core_condition": "findtravelpath() waiting in nh_delay_output()",
+      "barrier": "suspended-timer",
+      "f18_branch": "delay_output"
+    },
+    {
+      "id": "qt_delay_output.flash_glyph_at",
+      "boundary_kind": "core-suspended",
+      "window_proc": "win_delay_output",
+      "core_condition": "flash_glyph_at() waiting in nh_delay_output()",
+      "barrier": "suspended-timer",
+      "f18_branch": "delay_output"
+    },
+    {
+      "id": "qt_delay_output.hurtle_step",
+      "boundary_kind": "core-suspended",
+      "window_proc": "win_delay_output",
+      "core_condition": "hurtle_step() waiting in nh_delay_output()",
+      "barrier": "suspended-timer",
+      "f18_branch": "delay_output"
+    },
+    {
+      "id": "qt_delay_output.launch_obj",
+      "boundary_kind": "core-suspended",
+      "window_proc": "win_delay_output",
+      "core_condition": "launch_obj() waiting in nh_delay_output()",
+      "barrier": "suspended-timer",
+      "f18_branch": "delay_output"
+    },
+    {
+      "id": "qt_delay_output.m_throw",
+      "boundary_kind": "core-suspended",
+      "window_proc": "win_delay_output",
+      "core_condition": "m_throw() waiting in nh_delay_output()",
+      "barrier": "suspended-timer",
+      "f18_branch": "delay_output"
+    },
+    {
+      "id": "qt_delay_output.md_rush",
+      "boundary_kind": "core-suspended",
+      "window_proc": "win_delay_output",
+      "core_condition": "md_rush() waiting in nh_delay_output()",
+      "barrier": "suspended-timer",
+      "f18_branch": "delay_output"
+    },
+    {
+      "id": "qt_delay_output.mhurtle_step",
+      "boundary_kind": "core-suspended",
+      "window_proc": "win_delay_output",
+      "core_condition": "mhurtle_step() waiting in nh_delay_output()",
+      "barrier": "suspended-timer",
+      "f18_branch": "delay_output"
+    },
+    {
+      "id": "qt_delay_output.mkcavearea",
+      "boundary_kind": "core-suspended",
+      "window_proc": "win_delay_output",
+      "core_condition": "mkcavearea() waiting in nh_delay_output()",
+      "barrier": "suspended-timer",
+      "f18_branch": "delay_output"
+    },
+    {
+      "id": "qt_delay_output.mkinvokearea",
+      "boundary_kind": "core-suspended",
+      "window_proc": "win_delay_output",
+      "core_condition": "mkinvokearea() waiting in nh_delay_output()",
+      "barrier": "suspended-timer",
+      "f18_branch": "delay_output"
+    },
+    {
+      "id": "qt_delay_output.return_from_mtoss",
+      "boundary_kind": "core-suspended",
+      "window_proc": "win_delay_output",
+      "core_condition": "return_from_mtoss() waiting in nh_delay_output()",
+      "barrier": "suspended-timer",
+      "f18_branch": "delay_output"
+    },
+    {
+      "id": "qt_delay_output.runmode_delay_output",
+      "boundary_kind": "core-suspended",
+      "window_proc": "win_delay_output",
+      "core_condition": "runmode_delay_output() waiting in nh_delay_output()",
+      "barrier": "suspended-timer",
+      "f18_branch": "delay_output"
+    },
+    {
+      "id": "qt_delay_output.shieldeff",
+      "boundary_kind": "core-suspended",
+      "window_proc": "win_delay_output",
+      "core_condition": "shieldeff() waiting in nh_delay_output()",
+      "barrier": "suspended-timer",
+      "f18_branch": "delay_output"
+    },
+    {
+      "id": "qt_delay_output.shkcatch",
+      "boundary_kind": "core-suspended",
+      "window_proc": "win_delay_output",
+      "core_condition": "shkcatch() waiting in nh_delay_output()",
+      "barrier": "suspended-timer",
+      "f18_branch": "delay_output"
+    },
+    {
+      "id": "qt_delay_output.sho_obj_return_to_u",
+      "boundary_kind": "core-suspended",
+      "window_proc": "win_delay_output",
+      "core_condition": "sho_obj_return_to_u() waiting in nh_delay_output()",
+      "barrier": "suspended-timer",
+      "f18_branch": "delay_output"
+    },
+    {
+      "id": "qt_delay_output.show_transient_light",
+      "boundary_kind": "core-suspended",
+      "window_proc": "win_delay_output",
+      "core_condition": "show_transient_light() waiting in nh_delay_output()",
+      "barrier": "suspended-timer",
+      "f18_branch": "delay_output"
+    },
+    {
+      "id": "qt_delay_output.start_engulf",
+      "boundary_kind": "core-suspended",
+      "window_proc": "win_delay_output",
+      "core_condition": "start_engulf() waiting in nh_delay_output()",
+      "barrier": "suspended-timer",
+      "f18_branch": "delay_output"
+    },
+    {
+      "id": "qt_delay_output.throwit",
+      "boundary_kind": "core-suspended",
+      "window_proc": "win_delay_output",
+      "core_condition": "throwit() waiting in nh_delay_output()",
+      "barrier": "suspended-timer",
+      "f18_branch": "delay_output"
+    },
+    {
+      "id": "qt_delay_output.tmp_at",
+      "boundary_kind": "core-suspended",
+      "window_proc": "win_delay_output",
+      "core_condition": "tmp_at() waiting in nh_delay_output()",
+      "barrier": "suspended-timer",
+      "f18_branch": "tmp_at"
+    },
+    {
+      "id": "qt_delay_output.zap_dig",
+      "boundary_kind": "core-suspended",
+      "window_proc": "win_delay_output",
+      "core_condition": "zap_dig() waiting in nh_delay_output()",
+      "barrier": "suspended-timer",
+      "f18_branch": "delay_output"
+    }
+  ],
+  "not_boundaries": [
+    {
+      "function": "qt_askname",
+      "reason": "before moveloop; not a play boundary"
+    },
+    {
+      "function": "qt_player_selection",
+      "reason": "before moveloop; not a play boundary"
+    },
+    {
+      "function": "qt_outrip",
+      "reason": "game over; not a play boundary"
+    },
+    {
+      "function": "any window procedure after program_state.gameover (for example the identify and inventory prompts at death)",
+      "reason": "end of play; run comparisons stop at game over"
+    },
+    {
+      "function": "qt_doprev_message",
+      "reason": "returns at once; the Qt message window scrolls instead of waiting"
+    },
+    {
+      "function": "qt_nhgetch inside qt_yn_function, qt_more or qt_get_ext_cmd; qt_yn_function inside qt_display_nhwindow(WIN_MAP)",
+      "reason": "nested wait: the outermost window procedure is the boundary"
+    },
+    {
+      "function": "a window procedure that returns queued keys, clicks or a toolbar command without entering its wait",
+      "reason": "entering an input function is not a boundary"
+    },
+    {
+      "function": "qt_timer_fire (idlecheckpoint)",
+      "reason": "explicit core operation (F16/INV14); never a pure-paint boundary"
+    },
+    {
+      "function": "Qt event processing without a core wait",
+      "reason": "Qt being busy is not a core boundary"
+    }
+  ],
+  "languages": {
+    "en": {
+      "delay_sites": [
+        "bhit",
+        "boomhit",
+        "cast_chain_lightning",
+        "dobuzz",
+        "explode",
+        "findtravelpath",
+        "flash_glyph_at",
+        "hurtle_step",
+        "launch_obj",
+        "m_throw",
+        "md_rush",
+        "mhurtle_step",
+        "mkcavearea",
+        "mkinvokearea",
+        "return_from_mtoss",
+        "runmode_delay_output",
+        "shieldeff",
+        "shkcatch",
+        "sho_obj_return_to_u",
+        "show_transient_light",
+        "start_engulf",
+        "throwit",
+        "tmp_at",
+        "zap_dig"
+      ],
+      "source_sha256": {
+        "dig.c": "e8606252503ac999b83140e04e546856d2ad40cb960188ff9e1ea91b7ccfcd44",
+        "display.c": "17400f59ed5be24f10ee8e10ea352b6c7d8c073e5c2bec71dfc6a2920a3a9e07",
+        "dothrow.c": "f7cd065f862959fbfb9ce27e6a5cb8c4d46b45ff39b65ed25c2488920bc7b68b",
+        "explode.c": "aa67de353e4eb4b3a1a1d4c9cffe4e8d18a474ab9f4971f7de32598651959001",
+        "hack.c": "e256ef60a8b15a05456ad3bc1f057b9b732a2052def977d5acdef5d182fff94a",
+        "light.c": "e5095461319e91d3d3a2af71a9a4d75afab88c3147f4fd69365a0a44ec16ba8d",
+        "mail.c": "9ff187a53cdfd3eb76325b60e41a58d9933f886e544bc3e4064e1e783176bf06",
+        "mklev.c": "fde937228318eefad3f4bcc85ac02a0b7cec2f46cb5e2837b09586e555e27614",
+        "mthrowu.c": "b3f11c30abe48d1d6e25c6909d6610d8c86d4b9463667d501930c09f63e30cd3",
+        "shk.c": "58514022b0326c1de319661239b4a154ff7ef6a7d39561a05824e1721c78922b",
+        "spell.c": "31a8e5a03b1fd466f64e39be225ed0422f5592f9ec905c1fc4136e5cfcc5f6e2",
+        "trap.c": "7a68bebc038c8b72f0daa6eddd72b4e41c216929f6c56232f9a57608c759fd78",
+        "uhitm.c": "39d4102f612aecca194aac0223dd46612d5b6c99fca008552e277d215c7b919c",
+        "zap.c": "9695072a30c7cbfb2f70b024c5c60860e60178caa178ec90b6d8caee5b10cb68"
+      }
+    },
+    "ja": {
+      "delay_sites": [
+        "bhit",
+        "boomhit",
+        "cast_chain_lightning",
+        "dobuzz",
+        "explode",
+        "findtravelpath",
+        "flash_glyph_at",
+        "hurtle_step",
+        "launch_obj",
+        "m_throw",
+        "md_rush",
+        "mhurtle_step",
+        "mkcavearea",
+        "mkinvokearea",
+        "return_from_mtoss",
+        "runmode_delay_output",
+        "shieldeff",
+        "shkcatch",
+        "sho_obj_return_to_u",
+        "show_transient_light",
+        "start_engulf",
+        "throwit",
+        "tmp_at",
+        "zap_dig"
+      ],
+      "source_sha256": {
+        "dig.c": "90a527f18e8c7d920444d8a605fe49da3d02d48975d8167d52db7a1e9ae8b08d",
+        "display.c": "661e799b367d67e8ac8b8f7bac6e70b2e9c8e3d5b8e42f59fa55240ecea4d641",
+        "dothrow.c": "fee3fc7784cd5a92fcb846a6391a63f0976382c97ea54116752459f144b82144",
+        "explode.c": "544e2101637283771f810088d1bb180ac19c1fa6d8f03da5dba8c263db14f165",
+        "hack.c": "402492e49309c96c1294ded6e374754767629a9d9c16cf47381ce364b154e8d8",
+        "light.c": "4101c13744d71f26e08fb5a9281d004f16e0f075479d6023a98e4216ee321469",
+        "mail.c": "a2073dea717aa34a76a71abf618d02fcc1c7115fa497effd17c7fce4cdebc8a2",
+        "mklev.c": "49d76090e7fed204b66fa7b710b9876cc72bc8af234766beac6b0ddf57a49a20",
+        "mthrowu.c": "934ee044e29c8a0844a0e989a21e8fb70e6874aef61eaf7402a00214b46d1a95",
+        "shk.c": "2e3289f99e7d790fb4c235fba7e9257d7b8f5f099aa4c90289a8810eff5b2afd",
+        "spell.c": "c4148295567ce9bb4672056fac09a883441cce0b1ce23565b2ebd918bb266533",
+        "trap.c": "d2cde8d523764f2f07e6992bb1084b6ab99ebbbe5608671299a6f481d1be18ff",
+        "uhitm.c": "f9093329b09b1ec0a7e74f77789b237e1f105912069c5f1ba889459f164978ae",
+        "zap.c": "6b358ae31e7fe1159fbbf1a7ddcf5243d921e7c6823ff1996e378c677ba3a8b0"
+      }
+    }
+  },
+  "origin_rule": {
+    "run_observation": 0,
+    "boundary_kind": "command-ready",
+    "input_ordinal": 0,
+    "same_as_envelope": [
+      "checkpoint_id",
+      "checkpoint_phase",
+      "core-observation sha256",
+      "rng-observation sha256"
+    ],
+    "seed_request_cursor": "equals the envelope rng seed_context.seed_request_index"
+  },
+  "readiness": {
+    "runtime_ready": false,
+    "c_observer_implemented": false,
+    "site_attribution_implemented": false
+  }
+}

@@ -97,6 +97,9 @@ def validate_projection(value, audit_sha, registry):
     require(type(value['input_ordinal']) is int and value['input_ordinal'] >= 0, 'Invalid input ordinal')
     require(value['source_audit_sha256'] == audit_sha, 'Projection source audit mismatch')
     require(value['boundary_kind'] in BOUNDARY_KINDS, 'Invalid suspended/ready boundary kind')
+    # #106: the window-port stop point must be allowed for this boundary kind.
+    from boundary import validate_point
+    validate_point(value['boundary_kind'], value['port_function'], None)
     require(isinstance(value['field_map_sha256'],str) and re.fullmatch(r'[0-9a-f]{64}',value['field_map_sha256']), 'Projection field map missing')
     require(value['normalization_registry_sha256'] == registry_sha(registry), 'Normalization registry hash mismatch')
     require(isinstance(value['coverage'],dict) and set(value['coverage']) == set(DOMAINS), 'Coverage domain missing')

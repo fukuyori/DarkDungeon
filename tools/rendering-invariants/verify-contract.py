@@ -33,7 +33,7 @@ def main():
     registry = {'schema':'darkdungeon-normalization-registry-v1','entries':[]}
     before = {'schema':'darkdungeon-protected-projection-v1','case_id':'synthetic','language':'ja','build_id':'synthetic-build',
         'engine_sha256':'a'*64,'boundary_id':'ready-1','input_ordinal':1,'source_audit_sha256':plan['source_audit_sha256'],
-        'boundary_kind':'command-ready','port_function':'qt_nh_poskey','field_map_sha256':'f'*64,
+        'boundary_kind':'command-ready','port_function':'qt_nh_poskey.command','field_map_sha256':'f'*64,
         'normalization_registry_sha256':registry_sha(registry),'sampling_contract_id':'synthetic-sampling-v1',
         'coverage':{name:{'status':'complete','unbound_paths':[],'reason':'synthetic JSON only, not a real C-field map'} for name in DOMAINS},
         'protected':{name:{'synthetic_only':True,'value':0} for name in DOMAINS}}
@@ -63,7 +63,7 @@ def main():
     missing_rng['protected']['rng']=None
     check(compare(missing_rng,copy.deepcopy(missing_rng))['verdict'] == 'unconfirmed','unavailable RNG can be represented without fabricated zero state')
     check(compare(missing_rng,before)['verdict'] == 'unconfirmed','availability change is not falsely reported as a rule-state difference')
-    for kind,port in (('prompt-paused','qt_nhgetch'),('core-suspended','qt_delay_output')):
+    for kind,port in (('prompt-paused','qt_yn_function.getdir'),('core-suspended','qt_delay_output.tmp_at'),('core-suspended','qt_display_nhwindow.more')):
         point=copy.deepcopy(before); point.update(boundary_kind=kind,port_function=port)
         check(compare(point,copy.deepcopy(point))['verdict'] == 'equal', 'same suspended boundary supported: '+kind)
     ordered=copy.deepcopy(before); ordered['protected']['objects']['ordered_ids']=[1,2]
@@ -96,14 +96,16 @@ def main():
     subtree=copy.deepcopy(leaves); subtree['/memory/cells/L1-2-3/glyph']['is_leaf']=False
     rejected(lambda:validate_registry(sampled,subtree),'Normalization disagrees with field-map leaf classification','subtree declared as a normalization leaf')
     for name,change,expected in (
+        ('unknown stop point',lambda p:p.update(port_function='qt_nhgetch'),'Unknown window-port stop point'),
+        ('prompt stop point claimed as command-ready',lambda p:p.update(port_function='qt_yn_function.yn'),'Window-port stop point is not allowed for this boundary kind'),
+        ('delay stop point claimed as prompt',lambda p:p.update(boundary_kind='prompt-paused',port_function='qt_delay_output.dobuzz'),'Window-port stop point is not allowed for this boundary kind'),
         ('different input',lambda p:p.update(input_ordinal=2),'Paint comparison crosses case/build/input boundary'),
         ('different language',lambda p:p.update(language='en'),'Paint comparison crosses case/build/input boundary'),
         ('different case',lambda p:p.update(case_id='other'),'Paint comparison crosses case/build/input boundary'),
         ('different build',lambda p:p.update(build_id='other'),'Paint comparison crosses case/build/input boundary'),
         ('different engine',lambda p:p.update(engine_sha256='b'*64),'Paint comparison crosses case/build/input boundary'),
         ('different boundary',lambda p:p.update(boundary_id='other'),'Paint comparison crosses case/build/input boundary'),
-        ('different boundary kind',lambda p:p.update(boundary_kind='core-suspended'),'Paint comparison crosses case/build/input boundary'),
-        ('different suspended function',lambda p:p.update(port_function='qt_delay_output'),'Paint comparison crosses case/build/input boundary'),
+        ('different boundary kind',lambda p:p.update(boundary_kind='core-suspended',port_function='qt_delay_output.explode'),'Paint comparison crosses case/build/input boundary'),
         ('different field map',lambda p:p.update(field_map_sha256='b'*64),'Paint comparison crosses case/build/input boundary'),
         ('different registry',lambda p:p.update(normalization_registry_sha256='b'*64),'Normalization registry hash mismatch'),
         ('stale source audit',lambda p:p.update(source_audit_sha256='b'*64),'Projection source audit mismatch'),
@@ -114,6 +116,9 @@ def main():
     ):
         after=copy.deepcopy(before); change(after)
         rejected(lambda:compare(before,after),expected,name)
+    delayed=copy.deepcopy(before); delayed.update(boundary_kind='core-suspended',port_function='qt_delay_output.tmp_at')
+    other_delay=copy.deepcopy(delayed); other_delay.update(port_function='qt_delay_output.explode')
+    rejected(lambda:compare(delayed,other_delay),'Paint comparison crosses case/build/input boundary','different stop point of the same kind')
     print(json.dumps({'mode':'synthetic-definition-verification','created_utc':datetime.now(timezone.utc).isoformat(),
         'checks_passed':len(checks),'checks':checks,'contract_sha256':sha(DATA/'rendering-invariant-contract.json'),
         'tool_sha256':{p.name:sha(p) for p in (Path(__file__),Path(__file__).with_name('contract.py'),Path(__file__).with_name('audit-source.py'))},

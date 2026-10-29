@@ -1,7 +1,7 @@
 {
   "schema": "darkdungeon-invariant-contract-v1",
-  "source_audit_sha256": "e9de4de75ccf6716a7a900844958c34ae3c62d1724c10c9853f9b8e5d070a602",
-  "fixture_plan_sha256": "6bf384402408a83551e04ce266e26097ee547ffc43e8d82327105adef73a10b8",
+  "source_audit_sha256": "49f78585d65dc21c1ca9d58a0c5a9824c26d284ba6f6db786b5e939f364cfe5d",
+  "fixture_plan_sha256": "c5d120eece12ef9f7c7f569296bd642bd86bb447a3f6660844303f122967e7dd",
   "invariants": {
     "INV01": "paint reads an immutable published generation; no core calls or live entity pointers",
     "INV02": "only core-authorized appearances, positions, layers and effects enter presentation",
@@ -35,18 +35,18 @@
   ],
   "source_counts": {
     "en": {
-      "files": 318,
-      "references": 685,
+      "files": 322,
+      "references": 676,
       "route_groups": 12,
-      "struct_union_groups": 366,
-      "member_declarations": 2951
+      "struct_union_groups": 368,
+      "member_declarations": 2961
     },
     "ja": {
-      "files": 318,
-      "references": 686,
+      "files": 322,
+      "references": 677,
       "route_groups": 12,
-      "struct_union_groups": 367,
-      "member_declarations": 2959
+      "struct_union_groups": 369,
+      "member_declarations": 2969
     }
   },
   "boundary_kinds": [

@@ -12,7 +12,7 @@
 
 ## 2. ソースから確認した現状
 
-下表と `rendering-invariant-audit.json` は、R6仕様策定時の撤去前の凍結記録である。2026-10-28に#128の旧攻撃hook・位置推測・actor実体探索を撤去した（[実装・検証結果](phase0-legacy-retirement.md)）。旧台帳のlegacy_hook件数を現在の残存数として扱わない。現在の補足検査は `artifacts/r6-retire-animation-20261028/static-retirement-reviewed.json`、持ち物/装備等の残件は#129で管理する。
+下表は、R6仕様策定時（撤去前）のソースで確認した内容である。2026-10-28に#128の旧攻撃hook・位置推測・actor実体探索を撤去し（[実装・検証結果](phase0-legacy-retirement.md)）、2026-10-29に#132で持ち物/装備の描画を公開スナップショットへ移した（[記録](phase0-display-snapshot.md)）。`rendering-invariant-audit.json` は2026-10-29の#165で現行ソースへ再監査して作り直した（[再監査の記録](phase0-source-reaudit.md)）。撤去前の凍結版はGitの履歴（38fa7e4）に残る。表の旧hookとqt_inventory.cpp/qt_inv.cppの行は、現在の残存を表さない。
 
 | 経路 | 確認内容 |
 |---|---|
@@ -26,7 +26,7 @@
 | qt_bind.cpp:qt_timer_fire | IDLECHECKPOINTのタイマーから保存処理へ進む。これは描画専用処理ではない。F16とINV14で明示したコア操作として分離する |
 | calendar.c、u_init.c、allmain.c、cmd.c、save.c、restore.c、end.c、files.c、insight.c、rnd.c、windsys.c、nhlua.c/nhlib.lua、win/Qt/qt_menu.cpp:outrip | getnow外のtime直呼び、日付/TZ/DST、保存復元・中断再開、全seed要求とLuaのRNG経路をR5から引き継ぐ。outripのyyyymmdd(when)による年の変換も含め、view側に残るコア暦関数を監査する。時計読取の観測で追加のtime/getnowを呼ばない |
 
-調査のハッシュ監視は英日各318ファイル。C系ソースの参照は英685/日686、名前付きstruct/unionの宣言群は英366/日367、メンバー宣言群は英2,951/日2,959。日本語側にはtrans_verb等の差があるため、同じ件数へ無理に揃えない。詳細はSHA付き調査表を使う。
+仕様策定時の調査のハッシュ監視は英日各318ファイル。C系ソースの参照は英685/日686、名前付きstruct/unionの宣言群は英366/日367、メンバー宣言群は英2,951/日2,959だった。2026-10-29の再監査では、英日各322ファイル、参照は英676/日677、宣言群は英368/日369、メンバー宣言群は英2,961/日2,969である。日本語側にはtrans_verb等の差があるため、同じ件数へ無理に揃えない。詳細はSHA付き調査表を使う。
 
 この数はコメント・文字列を除いた静的な参照/宣言の数で、プロトタイプ・未使用/無効な分岐も含む。Cプリプロセス後の全フィールド、匿名の型、私有static、全ルール経路、実際の通知の接続完了を証明しない。呼出グラフとも扱わない。
 
@@ -173,7 +173,7 @@ F18はcommand-readyだけでは閉じない。prompt-pausedのメニュー/方�
 
 初稿の[ソース再照合](../artifacts/r6-source-check-20261028.json)・[定義照合](../artifacts/r6-contract-check-20261028.json)、[29項目の合成比較検査](../artifacts/r6-contract-acceptance-20261028.json)、[48項目の形式検査](../artifacts/r6-fixture-acceptance-20261028.json)は成功した。すべてgame_executed=falseで、画像や通常のゲーム操作を検証した結果ではない。
 
-初回レビューのhigh1件・medium5件とlow8件を反映した。[対応記録](rendering-invariant-review-response.md)に指摘と反映内容、再生成照合と修正後48合成検査/52形式検査を保存した。現行は通知12群・監視318ファイルであり、初稿の通知11群・317ファイルと混同しない。
+初回レビューのhigh1件・medium5件とlow8件を反映した。[対応記録](rendering-invariant-review-response.md)に指摘と反映内容、再生成照合と修正後48合成検査/52形式検査を保存した。R6仕様完了時点は通知12群・監視318ファイルであり、初稿の通知11群・317ファイルと混同しない（#165の再監査後は322ファイル、§2参照）。
 
 再レビューで初回の指摘の解消を確認し、追加medium2件（正規化の葉の検査、停止中paintの必須ケース）も反映した。最終確認へ提出した57合成検査/55形式検査は成功。窓口の許可表/barrier・生成元と変換後の対応・具体的な領域schemaの強化は、対応記録に実装前の申し送りとして残す。
 

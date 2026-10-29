@@ -29,5 +29,8 @@ QString darkdungeon_text(const char* english, const char* japanese);
 QImage darkdungeon_hero_image();
 void darkdungeon_show_inventory();
 void darkdungeon_refresh_inventory_view();
+void darkdungeon_inventory_notified();
+void darkdungeon_paint_doll_cell(QPainter&, int x, int y);
+const char* darkdungeon_doll_tip(int x, int y);
 bool darkdungeon_inventory_smoke(const QString& output);
 #endif

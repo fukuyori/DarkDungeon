@@ -8,7 +8,7 @@
       "source_hashes": {
         "build/nethack/include/align.h": "6f106990bad18ba7a88cb5728acebe88188639da0d9633789aea848d0fc8fb75",
         "build/nethack/include/amiconf.h": "734f9a48a96e3cc4a2d605b72b933a6ccf2cc639f92582a1bd6aef93eedd8591",
-        "build/nethack/include/app_runtime.h": "60e6103d21f41e31d76e59bd03f3decc448841d7f3d398f6dd7c21a4d13bd202",
+        "build/nethack/include/app_runtime.h": "41b1eec765b200e40f94b08bc09188f01f61730ab1937589d2e430b344678e4a",
         "build/nethack/include/app_windows.h": "f0ad373d345e4486c082fe8a67e2b67f20b33d50286b24042ae20881ba146563",
         "build/nethack/include/artifact.h": "65ab6c0f63704d11681e768703d62aadc76b65c4c54ba3d10a93e5acd4d5beab",
         "build/nethack/include/artilist.h": "ae40c88baca2be9f86aa85c20ea18c6c74de02ff3dbe7cec8dd94d5bcd57f96c",
@@ -21,7 +21,7 @@
         "build/nethack/include/context_action.h": "44026bc010aa940eef8ea63a7166dab22c14631c046e7e4198f3ef471af0c69d",
         "build/nethack/include/coord.h": "978bd02e160b745b48cb5616a0daf2da824ad8ca03388320a9dface07fb367ca",
         "build/nethack/include/cstd.h": "6ebcfad20bf26be89b81d0cf51c26ad83cd574e4d2f33e57d70ca7672e94e6bb",
-        "build/nethack/include/date.h": "983af653fbdb0c7fa44f96ea713d43a623207d959a8f1c3f234c9096890dd2e3",
+        "build/nethack/include/date.h": "dce308dced32ca8cdce87c9b1296862e1c398725ceb3ebe7f8cc71f139e5a882",
         "build/nethack/include/decl.h": "a8fbe3d68e352b110dc650d659ce21be3f6254f507caccc6b889936d50c33ed8",
         "build/nethack/include/defsym.h": "30e5e6d2105906a7f6d68268ef6003c22a554a81ae32c0002245003accf397aa",
         "build/nethack/include/dgn_file.h": "40e14662ed592f715b8a0dacf780e68cdded4f11a1f8ca77ae31b1bbe4d8e3f3",
@@ -43,6 +43,7 @@
         "build/nethack/include/mactty.h": "47520dbfae61e8bd5cb2343355fb364b850fb40b0211734a7fc5852ad921dc0e",
         "build/nethack/include/macwin.h": "3d8069f2867a7da940dc4ff61a097949fa6e8357d12a814a81476819de56389b",
         "build/nethack/include/mail.h": "9d9aaaf78fd830d496e97a80846310232b3401c87c9200ba5a6eb2c83a8f95d3",
+        "build/nethack/include/manual_profile.h": "8c2dc32b8473e59437019b54c256621dfe24144cf621d605ee4bcba645e4c944",
         "build/nethack/include/mcastu.h": "8238b3923b95a5f1291ebb81229d7c8b333a4d242216233be468fc21547a782d",
         "build/nethack/include/mextra.h": "be523f228737690a6af1bcee56b4fd8f8b64936e0ee46a2e2d4a0032c9e0e276",
         "build/nethack/include/mfndpos.h": "a325d64a2d3f54938180828cfe256461cbca558d69f3f8d6a7e05ac58410f735",
@@ -106,11 +107,11 @@
         "build/nethack/include/you.h": "5f83e657fb1af8a42954564234aabdebee1113836e0c072e01097f084dbad221",
         "build/nethack/include/youprop.h": "acb43e2289c327e662a16c2467024b797f0001dbf8fd2d5d9d5211560e5655e5",
         "build/nethack/src/abi-mismatch.c": "15bb10d6fc559b4473a0bbebd10296bb8951f669f0afe8c8bbf108b00856aa6c",
-        "build/nethack/src/agent_port.c": "2e11022be7e8be18b9e03c9df5f07ba90b4c33c222b9b32338bc2259448373e4",
+        "build/nethack/src/agent_port.c": "a50dbe9fc2621afa2e774b1da81e1e5fd9837f159ff002c46a384c51e071ecb4",
         "build/nethack/src/allmain.c": "51d32f09f78355b95b02ad84254d0f080363e51f004c0b8feed41b175a9fb36c",
         "build/nethack/src/alloc.c": "b8326ce8ce5be4783c2f30f24c08ee3aedc393187e814a7570e472b665086165",
         "build/nethack/src/app_registry.c": "cafe4678afa35a8a6bdea429b34b313f78eedd29f80c3370cfd952070fd93dde",
-        "build/nethack/src/app_runtime.c": "3024b8d2c3bd02dca3e177c229e34713922a964ff0cf14d8b30a546075a6c0aa",
+        "build/nethack/src/app_runtime.c": "9d99bc310b6ed14fd751dd692aa8ef04456c987d01d132f854991b754dd97f19",
         "build/nethack/src/apply.c": "8f8b517a1d70d93e806ed3cd7549f6c801b80cce77f12213f94205beb79a5e0b",
         "build/nethack/src/artifact.c": "3ed3cca9c2a457ee01559c70ea84b80c25a6f0c18bdb11a81f99dfc7f96517c3",
         "build/nethack/src/attrib.c": "7283e2b7a00b3453915e100fc4aa9762a2c91c768c2296869969c6c962aa76d4",
@@ -119,7 +120,7 @@
         "build/nethack/src/botl.c": "9d2bd21470667eefe526888a9c4f7b904e9aeca9ee09ec84a01be0f6c37201d5",
         "build/nethack/src/calendar.c": "5ac91599d4f57da50b462f47b768be27f37718bfdd682dd6a97b7799142b82f6",
         "build/nethack/src/cfgfiles.c": "ccffff314e743e386330b742e3e06496e93011ec775d8f4448dbc1644e36314c",
-        "build/nethack/src/cmd.c": "6acfcbbd3bb29218a7bad318d8978c180cbaec39f7208d856921bac03be7719e",
+        "build/nethack/src/cmd.c": "3adbb1a1497959ad0a78392773bc707b5888c0da6da9e16c6d77b428688465bb",
         "build/nethack/src/coloratt.c": "ca0ca8f586e920f55afaabac3baff63b1d8e98cff6a7040072da8ba33c0fa771",
         "build/nethack/src/core_check.c": "5d2bcfa0cfffe3dec6eb3d42bc504932c7585a5da90fb0de0792bca3fb57c49a",
         "build/nethack/src/date.c": "950735b2c1bce49f1bb3d2761ab65ce07046e3a389da33b98df27e16138ea3ac",
@@ -147,7 +148,7 @@
         "build/nethack/src/extralev.c": "2a7e8627242b08dd9cf1fe860d40fdd1c5b9efab4c5aecf76251472511bed924",
         "build/nethack/src/files.c": "f4c6cb1b8336d7872bde2926bde52fc66aface262dec5d11337132cebabc5ce5",
         "build/nethack/src/fountain.c": "a56579910147c8f201026b4bec6a5072423f1442b4666eb8b135a7012aecb557",
-        "build/nethack/src/frontend_main.cpp": "2400cab0d3323ae5f2e6e218577b98b8274641015ee5d5907cd178bf84fe5965",
+        "build/nethack/src/frontend_main.cpp": "b109c0ef26ee4bd4ba2b9a4ac948b7d2a31578041f9e750fbaabfa0bf624f3b7",
         "build/nethack/src/getpos.c": "8572130a9fb81d5a5d210984ea4b5bf30345ee15105e543c710484a06e7a699f",
         "build/nethack/src/glyphs.c": "a3dbd895e40ef193e6fa610ec711dc24454175a966a9d2cb1cbaf9b2b62ff295",
         "build/nethack/src/hack.c": "e256ef60a8b15a05456ad3bc1f057b9b732a2052def977d5acdef5d182fff94a",
@@ -159,12 +160,12 @@
         "build/nethack/src/light.c": "e5095461319e91d3d3a2af71a9a4d75afab88c3147f4fd69365a0a44ec16ba8d",
         "build/nethack/src/lock.c": "ca7332c306c83c019a5b80a853f55b8d57b0e318889fed2e1cff5a832d16310a",
         "build/nethack/src/mail.c": "9ff187a53cdfd3eb76325b60e41a58d9933f886e544bc3e4064e1e783176bf06",
-        "build/nethack/src/Makefile": "36e380f03ce772de468415e24e0c147b1fb60899d7b68c0b86d46d30a6edcb89",
+        "build/nethack/src/Makefile": "5d6029a64ffb8c8ece0ba60613751dc1840b652ed689cc06195c4a74e2f6817f",
         "build/nethack/src/makemon.c": "d297d524ebb08bf931f811ccce2297e76d15c703bb6605432462784199c7c152",
         "build/nethack/src/mcastu.c": "3791fc6ecec7b364bcaabb2083d9ba65a8b7e62724585d014a785005f07fcd9d",
         "build/nethack/src/mdlib.c": "4c57973cd434721390c9227cb6f8c70a777bc3ec35d29500536c754cfb58aaf7",
-        "build/nethack/src/mhitm.c": "69c0fd8d9972e9a706ef4c7abab78ccbafc59802f323697ded154b0752c2f3a6",
-        "build/nethack/src/mhitu.c": "2af7f5fd0c1e5f6dc00eac814bdd2f3a89d967490b3cb60b0bef3092e4b2c500",
+        "build/nethack/src/mhitm.c": "82a8e0b7500ff65c3def24b3274ee42211e4c43729173a3380a330e5151acbcc",
+        "build/nethack/src/mhitu.c": "06db7124ba66789af97dfb3eb32b43ef4262d7c6002b6b6ccd72bf49fdfea96c",
         "build/nethack/src/minion.c": "6fc00a3e2cab0ce6ddcbc2259611c966db42113487e95d49bf3dea01f8fdff17",
         "build/nethack/src/mklev.c": "fde937228318eefad3f4bcc85ac02a0b7cec2f46cb5e2837b09586e555e27614",
         "build/nethack/src/mkmap.c": "f863ddbc07acfd15395104f96ade2942e9d05cc9118a5f2416ad0ceb43e54549",
@@ -188,7 +189,7 @@
         "build/nethack/src/objnam.c": "9026070e07f7b215266e9649b715127ab55e2b9c83000dabfda78112d75b5ce1",
         "build/nethack/src/options.c": "4ba85cfe428b26d44e36a8ccac279b3cd9d1a8fe8c5beee8012ee2f33d913977",
         "build/nethack/src/pager.c": "cf50e316f8b4a2e5b306527e7a69084f2cfca825b45414ec46afb01ed1fe2291",
-        "build/nethack/src/pickup.c": "9ba54dfa8362b5d3f1a27d57da6fe43cec0937dfa39eadf2a98208fc7b5bd97c",
+        "build/nethack/src/pickup.c": "aff18139cb741df951c90995000204539eafac60454cc9e0df616d3986d1796d",
         "build/nethack/src/pline.c": "dec4d1bd74f04e0eb8401543beb6c114e90cb20a1d1d2524a7196c45baec8fea",
         "build/nethack/src/polyself.c": "cf1ca9381047647bb5d7c49abb86bd436fb7a107dab3a11216e843114fe8c0ee",
         "build/nethack/src/potion.c": "6ecc170551d9c604e2d863a782111d7d9d379036838db0d6d5993f1a90d72eb8",
@@ -203,7 +204,7 @@
         "build/nethack/src/restore.c": "5796abca864e26d6b861ee372e78983303a3261caac9a2d00563c6aca66a528a",
         "build/nethack/src/revision.c": "0d466f4f7d0ffb4114e2bb0a2b1d50e80301a5854f87d082d5da5f9b2bb74663",
         "build/nethack/src/rip.c": "9a667682f755c1ab31049ed15a22989d474af7fa1deb580947d740884781df95",
-        "build/nethack/src/rnd.c": "47b8f279a72224c06b135ff7af83fa14643848e46178b78a67ba6151bd4c41b8",
+        "build/nethack/src/rnd.c": "5940e8804e9b1b9322c69c481c81395c7737c830fdb019f72a2907b672027028",
         "build/nethack/src/role.c": "dfd9400a1202eded309e44444152ead48b0abc8b14fc39070e1c5e45f46e2d0e",
         "build/nethack/src/rumors.c": "80288ddd0c81090cb8dea3016e34b35554979c99b0f9492609bb4a0a81cf9752",
         "build/nethack/src/save.c": "b98ae42c4d4c1109ade52b1ffe69f6b2d345f63cac9defbb1b307e537646c630",
@@ -229,7 +230,7 @@
         "build/nethack/src/track.c": "330bedbf314041a4b0c7ec9d8df9fd5f247dbc2947ab3ae79344cb795d1e2ab6",
         "build/nethack/src/trap.c": "7a68bebc038c8b72f0daa6eddd72b4e41c216929f6c56232f9a57608c759fd78",
         "build/nethack/src/u_init.c": "6fd88939e701aad4584c33e41db62aa574c137b6bd98e986039d56c4ddf2268c",
-        "build/nethack/src/uhitm.c": "745464c27265a99e916d3bf6be0dff87a5a3229a6dfc31a6f77c1fd4bafc50e6",
+        "build/nethack/src/uhitm.c": "39d4102f612aecca194aac0223dd46612d5b6c99fca008552e277d215c7b919c",
         "build/nethack/src/utf8map.c": "52f96941481eb9bfc56b6c8b682d70b709e401b3a2536bc1e23d2aab253fb10b",
         "build/nethack/src/vault.c": "b272d7ef6369c9b7a0bd6a1fe694e46e650a566cf44129105d3026af7e912989",
         "build/nethack/src/version.c": "f5987b3a29de502ad3fbed943065179bbc91128adc6335b65c3d40b5157b9770",
@@ -250,27 +251,27 @@
         "build/nethack/sys/windows/win10.h": "391e7f12528b018ff69492bd92a7db7378e45dce8a2646e261f0bf33da18eba5",
         "build/nethack/sys/windows/win32api.h": "abc015beb4bca3eace7d1687db118b6cba0b87481d94cafff85860b55fec7e6b",
         "build/nethack/sys/windows/windmain.c": "b702706be14241020a064576b738b4e52ba4bdb87153c1b62e07a34e3b174859",
-        "build/nethack/sys/windows/windsys.c": "7cdbdbcd20240728a6569ab33a9cbdf3adfd6a43de63b7ef8e656324b8cc1049",
+        "build/nethack/sys/windows/windsys.c": "ee439b5304368009336962ff797f86cf3b5117359e9cbc4000e277d53a238fb8",
         "build/nethack/sys/windows/winos.h": "6b8bb98cb82343f9ddae404ec4a897e35cbd2ce30cc136ff80fd156d4dab72bd",
-        "build/nethack/win/Qt/qt_bind.cpp": "92dd7c91db22b7777634c8b63ff9b1f9eaae821e32a989e7a81c8ae24cfc7157",
+        "build/nethack/win/Qt/qt_bind.cpp": "873f447c048047bbeebe64d732129fb4d33e2d11abdf3093a9cb6cbf8cfdfba8",
         "build/nethack/win/Qt/qt_bind.h": "865b4535ea7eb38457487c9197830cdec973039ab3c07d297551111dbcc5bcae",
         "build/nethack/win/Qt/qt_click.cpp": "5c6a2691699c45f9738bb7a63263de5d906f3796b72a1378138c5983c08c1d96",
         "build/nethack/win/Qt/qt_click.h": "2fc31c0999debc2db80197353bd8600e6ca6fbd4b0f2684ef366997c9afd12d2",
         "build/nethack/win/Qt/qt_clust.cpp": "6b92ba155edd9961e7a56e620606b3a717c0895e92b1bdcff766fe75b53fa265",
         "build/nethack/win/Qt/qt_clust.h": "104b0a750d79a3c9fb6bcede8bdc475940f099707e406bc62ce01db9bc775ff0",
-        "build/nethack/win/Qt/qt_darkdungeon.cpp": "50c3c6169de850362d771dc6bc215019a8f10a2cdb23463b78f1d116706a16bb",
-        "build/nethack/win/Qt/qt_darkdungeon.h": "a93d72a4f453d4bc688cb4f05f31e612495ca14a79937f2b88243b76f224656e",
+        "build/nethack/win/Qt/qt_darkdungeon.cpp": "28559c2e1e91d0e7005e13af38cd4dcb0cd226beb10be75f7b76ae991c4e06d3",
+        "build/nethack/win/Qt/qt_darkdungeon.h": "508589ea58d6cd985661580db009acf9d74120d9c68a201d4c3d309e27b2949d",
         "build/nethack/win/Qt/qt_delay.cpp": "93f1192dc0c31e4b46b2eeba7159cfea57a395cc6324d7821cbdfd00654a82ef",
         "build/nethack/win/Qt/qt_delay.h": "149004aa466aec9fd3260a993cc5a454e4241e493c5e0b9c02e239b72d71b431",
         "build/nethack/win/Qt/qt_druaga.cpp": "1ee37b8edf4138d345873cf1dd928ca6a29784209a51768cd9468a7128284b93",
         "build/nethack/win/Qt/qt_druaga.h": "e5eb8cd0b83ee141b301d98d0215de81d2613d790295c1c893e6d3ea6e23e59c",
-        "build/nethack/win/Qt/qt_glyph.cpp": "14aa94139f8a87bb9c0244b14a86bf6cb4b8efc98c96fc91b72ece58037da01e",
+        "build/nethack/win/Qt/qt_glyph.cpp": "8200bb7803feeec2d70fb33218be163db8fc8df0ca9f649e923790632bfe1f16",
         "build/nethack/win/Qt/qt_glyph.h": "dc539b958e96128b94c6ebd586afeff04a34edd99fb81ed1e75c17ae579aff36",
         "build/nethack/win/Qt/qt_icon.cpp": "82dc4f637945e612583e966d934b2c5f0e15f7d496d22f3f8752d28552c63f11",
         "build/nethack/win/Qt/qt_icon.h": "07af3d56923f23420580c03c717d072ffa4c680ed99bfbd5911fadcabdc5e0a9",
-        "build/nethack/win/Qt/qt_inv.cpp": "32ec3d08d0b67725473ffacc22d18359e7e2427de175b050a72072c8450eb947",
+        "build/nethack/win/Qt/qt_inv.cpp": "fc872d94650e9007912fdb91bbb5c34480529ea484da421302d40fe389709d22",
         "build/nethack/win/Qt/qt_inv.h": "9782dd3adc88b5498e9221c4c10d644f436d07e8cd2b564ad493be0bfd131bc5",
-        "build/nethack/win/Qt/qt_inventory.cpp": "007cc3fe0e5d24eb7affd6cf8552f117863e13b869a9dc2d7d644bc1eaf8f7ec",
+        "build/nethack/win/Qt/qt_inventory.cpp": "93c6c89b5cf2671cf1e0ab7380aff93d686f7b02d42c1795473f8611ed90d478",
         "build/nethack/win/Qt/qt_kde0.h": "eb188b19dab28ca9fafc4990590aa8548c1a078fc1320f164fdeea92f245cafe",
         "build/nethack/win/Qt/qt_key.cpp": "d316b9ddfe291c7cd1afd376c767fdf233ac322f74ab895f3b0e006dced6e992",
         "build/nethack/win/Qt/qt_key.h": "e3ec0e11241722591861ff894d1ca4dd60717988eae94a15a7a81088698222a1",
@@ -278,10 +279,11 @@
         "build/nethack/win/Qt/qt_line.h": "395c16915b06baf671036a4004f04d3591d375ee3a5f3f7cc84cd9e033b077ba",
         "build/nethack/win/Qt/qt_main.cpp": "21bfacae72c10ef56b286bae6ce170f44668645cf128773ea0e8d638efcf7625",
         "build/nethack/win/Qt/qt_main.h": "4a300d0e8c36b7ead3b2a919e19ed3af739e0bc069993f0661ae28d3f0f603ac",
-        "build/nethack/win/Qt/qt_map.cpp": "6bf8d533192394823f9d36d3842f7ca9b680184e731f569a8b451bceba9b6da8",
+        "build/nethack/win/Qt/qt_map.cpp": "b1009894202cc0340511d7a26659872f0e8fce9b25ef992f7d6e03124825a7c2",
         "build/nethack/win/Qt/qt_map.h": "33655bf35d72013533cb978e6a628c82af87b1e3c6b78d44c31b138edb6594f4",
         "build/nethack/win/Qt/qt_menu.cpp": "77e0a8be45153ae1841ce586ab16515fd2319765ba17f0b2d6868aaf609e4893",
         "build/nethack/win/Qt/qt_menu.h": "ddd713a9ad40166ab66f4833d25ea4f585dea95c0aef0c9136285cfcf82bc309",
+        "build/nethack/win/Qt/qt_monitor_scale.cpp": "409189c7e3a9a02a0924290eed45b0c469185da24c3cce742900fa5f6825be3a",
         "build/nethack/win/Qt/qt_msg.cpp": "115ede22ef43f848f93b3c8e63902a192344b76db64d2874516b77abc8d8e605",
         "build/nethack/win/Qt/qt_msg.h": "7e787d52bf3b318ce8095c60510c59db9967e3067810012a863690d7521410fc",
         "build/nethack/win/Qt/qt_plsel.cpp": "b26fa6e2778740c7d157285768a7b17d9bf8a907a81c277f045d304339828f83",
@@ -309,21 +311,23 @@
         "build/nethack/win/Qt/qt_yndlg.h": "419f6478aa2fb5ff46319091a786a2eebe9baef786119c94480aa5163b33be0e",
         "build/nethack/win/Qt/realtime_model.cpp": "fd12ebce6f125ecb89b34a23fbb685b0bf569c7063e7b5c87546192722644b76",
         "build/nethack/win/Qt/realtime_model.h": "71187c942b8fa9d16789e6d4dc071a87a0afc4845528dac9231535d217200f5b",
-        "scripts/prepare-source.ps1": "9b7d6e7880913a5b9f6ed279eb6dcd6679175630fa2fd2e33bb511a47232029b",
-        "src/agent_port.c": "2e11022be7e8be18b9e03c9df5f07ba90b4c33c222b9b32338bc2259448373e4",
+        "scripts/prepare-source.ps1": "253fdb03ec76dbf79d6a4e28307787b1f21b6049cb519b3751f760accb9c1e75",
+        "src/agent_port.c": "a50dbe9fc2621afa2e774b1da81e1e5fd9837f159ff002c46a384c51e071ecb4",
         "src/app_registry.c": "cafe4678afa35a8a6bdea429b34b313f78eedd29f80c3370cfd952070fd93dde",
-        "src/app_runtime.c": "3024b8d2c3bd02dca3e177c229e34713922a964ff0cf14d8b30a546075a6c0aa",
-        "src/app_runtime.h": "60e6103d21f41e31d76e59bd03f3decc448841d7f3d398f6dd7c21a4d13bd202",
+        "src/app_runtime.c": "9d99bc310b6ed14fd751dd692aa8ef04456c987d01d132f854991b754dd97f19",
+        "src/app_runtime.h": "41b1eec765b200e40f94b08bc09188f01f61730ab1937589d2e430b344678e4a",
         "src/app_windows.h": "f0ad373d345e4486c082fe8a67e2b67f20b33d50286b24042ae20881ba146563",
         "src/context_action.h": "44026bc010aa940eef8ea63a7166dab22c14631c046e7e4198f3ef471af0c69d",
         "src/context_action.inc": "b7bbcf78fac47bcbba1a3cf6e738e5dd8888d3bd4089287ec3e3d890f18650fd",
         "src/core_check.c": "5d2bcfa0cfffe3dec6eb3d42bc504932c7585a5da90fb0de0792bca3fb57c49a",
-        "src/frontend_main.cpp": "2400cab0d3323ae5f2e6e218577b98b8274641015ee5d5907cd178bf84fe5965",
-        "src/launcher.cpp": "aee0199187ab334fb07f592f185176c0b27dcd53b6d3885953071c12b12b94b7",
+        "src/frontend_main.cpp": "b109c0ef26ee4bd4ba2b9a4ac948b7d2a31578041f9e750fbaabfa0bf624f3b7",
+        "src/launcher.cpp": "8f56543981cea44b5628c4ec26751184430b31db05d1118f8753eae04c73ac8c",
         "src/lua_validate.cpp": "1d85c79e46332f9eac6c4d3074a0bd26ec3388252f87336f13600cd3a7d4d22f",
-        "src/qt_darkdungeon.cpp": "cc05e685749e84f064f6f23ea1d0a8bd1deb567e0e2745e9bb5feb7f55a154aa",
-        "src/qt_darkdungeon.h": "a93d72a4f453d4bc688cb4f05f31e612495ca14a79937f2b88243b76f224656e",
-        "src/qt_inventory.cpp": "007cc3fe0e5d24eb7affd6cf8552f117863e13b869a9dc2d7d644bc1eaf8f7ec"
+        "src/manual_profile.h": "8c2dc32b8473e59437019b54c256621dfe24144cf621d605ee4bcba645e4c944",
+        "src/qt_darkdungeon.cpp": "173331f11bb8d3a87b7de65ac009f8bb69a26e1fb9402dcb82ff9940fbbb0253",
+        "src/qt_darkdungeon.h": "508589ea58d6cd985661580db009acf9d74120d9c68a201d4c3d309e27b2949d",
+        "src/qt_inventory.cpp": "93c6c89b5cf2671cf1e0ab7380aff93d686f7b02d42c1795473f8611ed90d478",
+        "src/qt_monitor_scale.cpp": "409189c7e3a9a02a0924290eed45b0c469185da24c3cce742900fa5f6825be3a"
       },
       "source_scopes": {
         "build/nethack/include/align.h": "lexical-census; effective compilation not established",
@@ -363,6 +367,7 @@
         "build/nethack/include/mactty.h": "lexical-census; effective compilation not established",
         "build/nethack/include/macwin.h": "lexical-census; effective compilation not established",
         "build/nethack/include/mail.h": "lexical-census; effective compilation not established",
+        "build/nethack/include/manual_profile.h": "lexical-census; effective compilation not established",
         "build/nethack/include/mcastu.h": "lexical-census; effective compilation not established",
         "build/nethack/include/mextra.h": "lexical-census; effective compilation not established",
         "build/nethack/include/mfndpos.h": "lexical-census; effective compilation not established",
@@ -602,6 +607,7 @@
         "build/nethack/win/Qt/qt_map.h": "lexical-census; effective compilation not established",
         "build/nethack/win/Qt/qt_menu.cpp": "lexical-census; effective compilation not established",
         "build/nethack/win/Qt/qt_menu.h": "lexical-census; effective compilation not established",
+        "build/nethack/win/Qt/qt_monitor_scale.cpp": "lexical-census; effective compilation not established",
         "build/nethack/win/Qt/qt_msg.cpp": "lexical-census; effective compilation not established",
         "build/nethack/win/Qt/qt_msg.h": "lexical-census; effective compilation not established",
         "build/nethack/win/Qt/qt_plsel.cpp": "lexical-census; effective compilation not established",
@@ -641,9 +647,11 @@
         "src/frontend_main.cpp": "lexical-census; effective compilation not established",
         "src/launcher.cpp": "lexical-census; effective compilation not established",
         "src/lua_validate.cpp": "lexical-census; effective compilation not established",
+        "src/manual_profile.h": "lexical-census; effective compilation not established",
         "src/qt_darkdungeon.cpp": "lexical-census; effective compilation not established",
         "src/qt_darkdungeon.h": "lexical-census; effective compilation not established",
-        "src/qt_inventory.cpp": "lexical-census; effective compilation not established"
+        "src/qt_inventory.cpp": "lexical-census; effective compilation not established",
+        "src/qt_monitor_scale.cpp": "lexical-census; effective compilation not established"
       },
       "references": [
         {
@@ -651,12 +659,6 @@
           "path": "build/nethack/include/amiconf.h",
           "line": 9,
           "token": "time"
-        },
-        {
-          "group": "legacy_hook",
-          "path": "build/nethack/include/app_runtime.h",
-          "line": 17,
-          "token": "darkdungeon_note_attack("
         },
         {
           "group": "clock",
@@ -873,12 +875,6 @@
           "path": "build/nethack/include/winprocs.h",
           "line": 154,
           "token": "print_glyph"
-        },
-        {
-          "group": "legacy_hook",
-          "path": "build/nethack/src/agent_port.c",
-          "line": 122,
-          "token": "darkdungeon_note_attack("
         },
         {
           "group": "clock",
@@ -2665,116 +2661,80 @@
         {
           "group": "publication",
           "path": "build/nethack/src/mhitm.c",
-          "line": 265,
+          "line": 264,
           "token": "flush_screen"
         },
         {
           "group": "publication",
           "path": "build/nethack/src/mhitm.c",
-          "line": 1131,
+          "line": 1129,
           "token": "shieldeff"
         },
         {
           "group": "publication",
           "path": "build/nethack/src/mhitm.c",
-          "line": 1235,
+          "line": 1233,
           "token": "shieldeff"
-        },
-        {
-          "group": "legacy_hook",
-          "path": "build/nethack/src/mhitm.c",
-          "line": 321,
-          "token": "darkdungeon_note_attack("
-        },
-        {
-          "group": "legacy_hook",
-          "path": "build/nethack/src/mhitm.c",
-          "line": 321,
-          "token": "darkdungeon_note_attack("
         },
         {
           "group": "clock",
           "path": "build/nethack/src/mhitu.c",
-          "line": 26,
+          "line": 25,
           "token": "yyyymmdd"
         },
         {
           "group": "publication",
           "path": "build/nethack/src/mhitu.c",
-          "line": 854,
+          "line": 851,
           "token": "flush_screen"
         },
         {
           "group": "publication",
           "path": "build/nethack/src/mhitu.c",
-          "line": 1083,
+          "line": 1080,
           "token": "update_inventory"
         },
         {
           "group": "publication",
           "path": "build/nethack/src/mhitu.c",
-          "line": 1494,
+          "line": 1491,
           "token": "shieldeff"
         },
         {
           "group": "publication",
           "path": "build/nethack/src/mhitu.c",
-          "line": 1508,
+          "line": 1505,
           "token": "shieldeff"
         },
         {
           "group": "publication",
           "path": "build/nethack/src/mhitu.c",
-          "line": 1523,
+          "line": 1520,
           "token": "shieldeff"
         },
         {
           "group": "publication",
           "path": "build/nethack/src/mhitu.c",
-          "line": 1838,
+          "line": 1835,
           "token": "shieldeff"
         },
         {
           "group": "publication",
           "path": "build/nethack/src/mhitu.c",
-          "line": 2566,
+          "line": 2563,
           "token": "shieldeff"
         },
         {
           "group": "publication",
           "path": "build/nethack/src/mhitu.c",
-          "line": 2589,
+          "line": 2586,
           "token": "shieldeff"
         },
         {
           "group": "publication",
           "path": "build/nethack/src/mhitu.c",
-          "line": 2599,
+          "line": 2596,
           "token": "shieldeff"
-        },
-        {
-          "group": "legacy_hook",
-          "path": "build/nethack/src/mhitu.c",
-          "line": 512,
-          "token": "darkdungeon_note_attack("
-        },
-        {
-          "group": "legacy_hook",
-          "path": "build/nethack/src/mhitu.c",
-          "line": 512,
-          "token": "darkdungeon_note_attack("
-        },
-        {
-          "group": "legacy_hook",
-          "path": "build/nethack/src/mhitu.c",
-          "line": 781,
-          "token": "darkdungeon_note_attack("
-        },
-        {
-          "group": "legacy_hook",
-          "path": "build/nethack/src/mhitu.c",
-          "line": 781,
-          "token": "darkdungeon_note_attack("
         },
         {
           "group": "clock",
@@ -3427,26 +3387,8 @@
         {
           "group": "clock",
           "path": "build/nethack/src/rnd.c",
-          "line": 275,
+          "line": 287,
           "token": "sys_random_seed"
-        },
-        {
-          "group": "clock",
-          "path": "build/nethack/src/rnd.c",
-          "line": 282,
-          "token": "init_random"
-        },
-        {
-          "group": "clock",
-          "path": "build/nethack/src/rnd.c",
-          "line": 284,
-          "token": "sys_random_seed"
-        },
-        {
-          "group": "clock",
-          "path": "build/nethack/src/rnd.c",
-          "line": 289,
-          "token": "reseed_random"
         },
         {
           "group": "clock",
@@ -3455,27 +3397,45 @@
           "token": "init_random"
         },
         {
+          "group": "clock",
+          "path": "build/nethack/src/rnd.c",
+          "line": 296,
+          "token": "sys_random_seed"
+        },
+        {
+          "group": "clock",
+          "path": "build/nethack/src/rnd.c",
+          "line": 301,
+          "token": "reseed_random"
+        },
+        {
+          "group": "clock",
+          "path": "build/nethack/src/rnd.c",
+          "line": 306,
+          "token": "init_random"
+        },
+        {
           "group": "sampling",
           "path": "build/nethack/src/rnd.c",
-          "line": 28,
+          "line": 29,
           "token": "rn2_on_display_rng"
         },
         {
           "group": "sampling",
           "path": "build/nethack/src/rnd.c",
-          "line": 70,
+          "line": 82,
           "token": "rn2_on_display_rng"
         },
         {
           "group": "sampling",
           "path": "build/nethack/src/rnd.c",
-          "line": 85,
+          "line": 97,
           "token": "rn2_on_display_rng"
         },
         {
           "group": "sampling",
           "path": "build/nethack/src/rnd.c",
-          "line": 170,
+          "line": 182,
           "token": "rn2_on_display_rng"
         },
         {
@@ -3847,122 +3807,110 @@
         {
           "group": "sampling",
           "path": "build/nethack/src/uhitm.c",
-          "line": 4940,
+          "line": 4938,
           "token": "mon_to_glyph"
         },
         {
           "group": "sampling",
           "path": "build/nethack/src/uhitm.c",
-          "line": 4940,
+          "line": 4938,
           "token": "rn2_on_display_rng"
         },
         {
           "group": "publication",
           "path": "build/nethack/src/uhitm.c",
-          "line": 2558,
+          "line": 2556,
           "token": "shieldeff"
         },
         {
           "group": "publication",
           "path": "build/nethack/src/uhitm.c",
-          "line": 2618,
+          "line": 2616,
           "token": "shieldeff"
         },
         {
           "group": "publication",
           "path": "build/nethack/src/uhitm.c",
-          "line": 2643,
+          "line": 2641,
           "token": "shieldeff"
         },
         {
           "group": "publication",
           "path": "build/nethack/src/uhitm.c",
-          "line": 2677,
+          "line": 2675,
           "token": "shieldeff"
         },
         {
           "group": "publication",
           "path": "build/nethack/src/uhitm.c",
-          "line": 2704,
+          "line": 2702,
           "token": "shieldeff"
         },
         {
           "group": "publication",
           "path": "build/nethack/src/uhitm.c",
-          "line": 2735,
+          "line": 2733,
           "token": "shieldeff"
         },
         {
           "group": "publication",
           "path": "build/nethack/src/uhitm.c",
-          "line": 3881,
+          "line": 3879,
           "token": "shieldeff"
         },
         {
           "group": "publication",
           "path": "build/nethack/src/uhitm.c",
-          "line": 4940,
+          "line": 4938,
           "token": "tmp_at"
         },
         {
           "group": "publication",
           "path": "build/nethack/src/uhitm.c",
-          "line": 4941,
+          "line": 4939,
           "token": "tmp_at"
         },
         {
           "group": "publication",
           "path": "build/nethack/src/uhitm.c",
-          "line": 4954,
+          "line": 4952,
           "token": "tmp_at"
         },
         {
           "group": "publication",
           "path": "build/nethack/src/uhitm.c",
-          "line": 5985,
+          "line": 5983,
           "token": "shieldeff"
         },
         {
           "group": "publication",
           "path": "build/nethack/src/uhitm.c",
-          "line": 6071,
+          "line": 6069,
           "token": "shieldeff"
         },
         {
           "group": "publication",
           "path": "build/nethack/src/uhitm.c",
-          "line": 6094,
+          "line": 6092,
           "token": "shieldeff"
         },
         {
           "group": "publication",
           "path": "build/nethack/src/uhitm.c",
-          "line": 6107,
+          "line": 6105,
           "token": "shieldeff"
         },
         {
           "group": "publication",
           "path": "build/nethack/src/uhitm.c",
-          "line": 6196,
+          "line": 6194,
           "token": "update_inventory"
         },
         {
           "group": "publication",
           "path": "build/nethack/src/uhitm.c",
-          "line": 6408,
+          "line": 6406,
           "token": "shieldeff"
-        },
-        {
-          "group": "legacy_hook",
-          "path": "build/nethack/src/uhitm.c",
-          "line": 566,
-          "token": "darkdungeon_note_attack("
-        },
-        {
-          "group": "legacy_hook",
-          "path": "build/nethack/src/uhitm.c",
-          "line": 566,
-          "token": "darkdungeon_note_attack("
         },
         {
           "group": "publication",
@@ -4399,44 +4347,26 @@
         {
           "group": "publication",
           "path": "build/nethack/win/Qt/qt_bind.cpp",
-          "line": 594,
+          "line": 597,
           "token": "PrintGlyph"
         },
         {
           "group": "publication",
           "path": "build/nethack/win/Qt/qt_darkdungeon.cpp",
-          "line": 1032,
+          "line": 1070,
           "token": "flush_screen"
         },
         {
           "group": "publication",
           "path": "build/nethack/win/Qt/qt_darkdungeon.cpp",
-          "line": 1036,
+          "line": 1074,
           "token": "flush_screen"
         },
         {
           "group": "publication",
           "path": "build/nethack/win/Qt/qt_darkdungeon.cpp",
-          "line": 1040,
+          "line": 1078,
           "token": "flush_screen"
-        },
-        {
-          "group": "publication",
-          "path": "build/nethack/win/Qt/qt_darkdungeon.cpp",
-          "line": 1065,
-          "token": "flush_screen"
-        },
-        {
-          "group": "publication",
-          "path": "build/nethack/win/Qt/qt_darkdungeon.cpp",
-          "line": 1093,
-          "token": "flush_screen"
-        },
-        {
-          "group": "legacy_hook",
-          "path": "build/nethack/win/Qt/qt_darkdungeon.cpp",
-          "line": 486,
-          "token": "darkdungeon_note_attack("
         },
         {
           "group": "clock",
@@ -4488,68 +4418,86 @@
         },
         {
           "group": "sampling",
-          "path": "build/nethack/win/Qt/qt_inv.cpp",
-          "line": 129,
+          "path": "build/nethack/win/Qt/qt_inventory.cpp",
+          "line": 304,
           "token": "obj_to_glyph"
         },
         {
           "group": "sampling",
-          "path": "build/nethack/win/Qt/qt_inv.cpp",
-          "line": 129,
+          "path": "build/nethack/win/Qt/qt_inventory.cpp",
+          "line": 304,
+          "token": "rn2_on_display_rng"
+        },
+        {
+          "group": "sampling",
+          "path": "build/nethack/win/Qt/qt_inventory.cpp",
+          "line": 329,
+          "token": "obj_to_glyph"
+        },
+        {
+          "group": "sampling",
+          "path": "build/nethack/win/Qt/qt_inventory.cpp",
+          "line": 329,
           "token": "rn2_on_display_rng"
         },
         {
           "group": "publication",
-          "path": "build/nethack/win/Qt/qt_inv.cpp",
-          "line": 151,
+          "path": "build/nethack/win/Qt/qt_inventory.cpp",
+          "line": 350,
           "token": "map_glyphinfo"
         },
         {
-          "group": "sampling",
+          "group": "publication",
           "path": "build/nethack/win/Qt/qt_inventory.cpp",
-          "line": 60,
-          "token": "obj_to_glyph"
+          "line": 819,
+          "token": "update_inventory"
         },
         {
-          "group": "sampling",
+          "group": "publication",
           "path": "build/nethack/win/Qt/qt_inventory.cpp",
-          "line": 60,
-          "token": "rn2_on_display_rng"
+          "line": 844,
+          "token": "update_inventory"
         },
         {
-          "group": "sampling",
+          "group": "publication",
           "path": "build/nethack/win/Qt/qt_inventory.cpp",
-          "line": 468,
-          "token": "obj_to_glyph"
+          "line": 890,
+          "token": "update_inventory"
         },
         {
-          "group": "sampling",
+          "group": "publication",
           "path": "build/nethack/win/Qt/qt_inventory.cpp",
-          "line": 468,
-          "token": "rn2_on_display_rng"
+          "line": 946,
+          "token": "update_inventory"
+        },
+        {
+          "group": "publication",
+          "path": "build/nethack/win/Qt/qt_inventory.cpp",
+          "line": 973,
+          "token": "update_inventory"
         },
         {
           "group": "publication",
           "path": "build/nethack/win/Qt/qt_map.cpp",
-          "line": 542,
+          "line": 541,
           "token": "PrintGlyph"
         },
         {
           "group": "publication",
           "path": "build/nethack/win/Qt/qt_map.cpp",
-          "line": 673,
+          "line": 672,
           "token": "PrintGlyph"
         },
         {
           "group": "publication",
           "path": "build/nethack/win/Qt/qt_map.cpp",
-          "line": 677,
+          "line": 676,
           "token": "PrintGlyph"
         },
         {
           "group": "publication",
           "path": "build/nethack/win/Qt/qt_map.cpp",
-          "line": 1045,
+          "line": 1044,
           "token": "PrintGlyph"
         },
         {
@@ -4685,76 +4633,82 @@
           "token": "time"
         },
         {
-          "group": "legacy_hook",
-          "path": "src/agent_port.c",
-          "line": 122,
-          "token": "darkdungeon_note_attack("
-        },
-        {
-          "group": "legacy_hook",
-          "path": "src/app_runtime.h",
-          "line": 17,
-          "token": "darkdungeon_note_attack("
-        },
-        {
           "group": "publication",
           "path": "src/qt_darkdungeon.cpp",
-          "line": 1037,
+          "line": 1075,
           "token": "flush_screen"
         },
         {
           "group": "publication",
           "path": "src/qt_darkdungeon.cpp",
-          "line": 1041,
+          "line": 1079,
           "token": "flush_screen"
         },
         {
           "group": "publication",
           "path": "src/qt_darkdungeon.cpp",
-          "line": 1045,
+          "line": 1083,
           "token": "flush_screen"
-        },
-        {
-          "group": "publication",
-          "path": "src/qt_darkdungeon.cpp",
-          "line": 1070,
-          "token": "flush_screen"
-        },
-        {
-          "group": "publication",
-          "path": "src/qt_darkdungeon.cpp",
-          "line": 1098,
-          "token": "flush_screen"
-        },
-        {
-          "group": "legacy_hook",
-          "path": "src/qt_darkdungeon.cpp",
-          "line": 491,
-          "token": "darkdungeon_note_attack("
         },
         {
           "group": "sampling",
           "path": "src/qt_inventory.cpp",
-          "line": 60,
+          "line": 304,
           "token": "obj_to_glyph"
         },
         {
           "group": "sampling",
           "path": "src/qt_inventory.cpp",
-          "line": 60,
+          "line": 304,
           "token": "rn2_on_display_rng"
         },
         {
           "group": "sampling",
           "path": "src/qt_inventory.cpp",
-          "line": 468,
+          "line": 329,
           "token": "obj_to_glyph"
         },
         {
           "group": "sampling",
           "path": "src/qt_inventory.cpp",
-          "line": 468,
+          "line": 329,
           "token": "rn2_on_display_rng"
+        },
+        {
+          "group": "publication",
+          "path": "src/qt_inventory.cpp",
+          "line": 350,
+          "token": "map_glyphinfo"
+        },
+        {
+          "group": "publication",
+          "path": "src/qt_inventory.cpp",
+          "line": 819,
+          "token": "update_inventory"
+        },
+        {
+          "group": "publication",
+          "path": "src/qt_inventory.cpp",
+          "line": 844,
+          "token": "update_inventory"
+        },
+        {
+          "group": "publication",
+          "path": "src/qt_inventory.cpp",
+          "line": 890,
+          "token": "update_inventory"
+        },
+        {
+          "group": "publication",
+          "path": "src/qt_inventory.cpp",
+          "line": 946,
+          "token": "update_inventory"
+        },
+        {
+          "group": "publication",
+          "path": "src/qt_inventory.cpp",
+          "line": 973,
+          "token": "update_inventory"
         }
       ],
       "routes": {
@@ -4788,19 +4742,19 @@
           {
             "path": "build/nethack/src/uhitm.c",
             "function": "do_attack",
-            "line": 449,
+            "line": 448,
             "notification_implementation": "planned; existing legacy hooks are not accepted coverage"
           },
           {
             "path": "build/nethack/src/uhitm.c",
             "function": "hitum",
-            "line": 760,
+            "line": 758,
             "notification_implementation": "planned; existing legacy hooks are not accepted coverage"
           },
           {
             "path": "build/nethack/src/uhitm.c",
             "function": "hmonas",
-            "line": 5426,
+            "line": 5424,
             "notification_implementation": "planned; existing legacy hooks are not accepted coverage"
           },
           {
@@ -4862,19 +4816,19 @@
           {
             "path": "build/nethack/src/mhitu.c",
             "function": "mattacku",
-            "line": 492,
+            "line": 491,
             "notification_implementation": "planned; existing legacy hooks are not accepted coverage"
           },
           {
             "path": "build/nethack/src/mhitm.c",
             "function": "mattackm",
-            "line": 294,
+            "line": 293,
             "notification_implementation": "planned; existing legacy hooks are not accepted coverage"
           },
           {
             "path": "build/nethack/src/mhitu.c",
             "function": "getmattk",
-            "line": 311,
+            "line": 310,
             "notification_implementation": "planned; existing legacy hooks are not accepted coverage"
           }
         ],
@@ -4944,13 +4898,13 @@
           {
             "path": "build/nethack/src/mhitu.c",
             "function": "gazemu",
-            "line": 1671,
+            "line": 1668,
             "notification_implementation": "planned; existing legacy hooks are not accepted coverage"
           },
           {
             "path": "build/nethack/src/mhitm.c",
             "function": "gazemm",
-            "line": 738,
+            "line": 736,
             "notification_implementation": "planned; existing legacy hooks are not accepted coverage"
           }
         ],
@@ -4984,31 +4938,31 @@
           {
             "path": "build/nethack/src/uhitm.c",
             "function": "passive",
-            "line": 5867,
+            "line": 5865,
             "notification_implementation": "planned; existing legacy hooks are not accepted coverage"
           },
           {
             "path": "build/nethack/src/mhitm.c",
             "function": "passivemm",
-            "line": 1306,
+            "line": 1304,
             "notification_implementation": "planned; existing legacy hooks are not accepted coverage"
           },
           {
             "path": "build/nethack/src/mhitu.c",
             "function": "passiveum",
-            "line": 2438,
+            "line": 2435,
             "notification_implementation": "planned; existing legacy hooks are not accepted coverage"
           },
           {
             "path": "build/nethack/src/mhitu.c",
             "function": "mdamageu",
-            "line": 1905,
+            "line": 1902,
             "notification_implementation": "planned; existing legacy hooks are not accepted coverage"
           },
           {
             "path": "build/nethack/src/mhitm.c",
             "function": "mdamagem",
-            "line": 1018,
+            "line": 1016,
             "notification_implementation": "planned; existing legacy hooks are not accepted coverage"
           },
           {
@@ -5168,13 +5122,13 @@
           {
             "path": "build/nethack/src/mhitu.c",
             "function": "gulpmu",
-            "line": 1292,
+            "line": 1289,
             "notification_implementation": "planned; existing legacy hooks are not accepted coverage"
           },
           {
             "path": "build/nethack/src/mhitu.c",
             "function": "expels",
-            "line": 265,
+            "line": 264,
             "notification_implementation": "planned; existing legacy hooks are not accepted coverage"
           },
           {
@@ -5237,7 +5191,8 @@
           "name": "darkdungeon_runtime_config",
           "line": 14,
           "declarations": [
-            "int smoke_enabled"
+            "int smoke_enabled",
+            "const char *manual_data"
           ],
           "runtime_binding": "not-implemented"
         },
@@ -5245,7 +5200,7 @@
           "path": "build/nethack/include/app_runtime.h",
           "kind": "struct",
           "name": "darkdungeon_core_abi",
-          "line": 45,
+          "line": 51,
           "declarations": [
             "size_t values[dd_abi_count]"
           ],
@@ -7898,6 +7853,19 @@
             "const char *display_txt",
             "const char *object_nam",
             "const char *response_cmd"
+          ],
+          "runtime_binding": "not-implemented"
+        },
+        {
+          "path": "build/nethack/include/manual_profile.h",
+          "kind": "struct",
+          "name": "Session",
+          "line": 205,
+          "declarations": [
+            "std::unique_ptr<QLockFile> lock",
+            "QByteArray data",
+            "QString reportPath",
+            "QJsonObject report"
           ],
           "runtime_binding": "not-implemented"
         },
@@ -10931,7 +10899,7 @@
           "path": "build/nethack/src/rnd.c",
           "kind": "struct",
           "name": "rnglist_t",
-          "line": 18,
+          "line": 19,
           "declarations": [
             "int (*fn)(int)",
             "boolean init",
@@ -11289,7 +11257,7 @@
           "path": "build/nethack/sys/windows/windsys.c",
           "kind": "struct",
           "name": "CRctxt",
-          "line": 1155,
+          "line": 1161,
           "declarations": [
             "BCRYPT_ALG_HANDLE bah",
             "BCRYPT_HASH_HANDLE bhh",
@@ -11306,7 +11274,7 @@
           "path": "build/nethack/sys/windows/windsys.c",
           "kind": "struct",
           "name": "userstate",
-          "line": 1296,
+          "line": 1302,
           "declarations": [
             "int error_count",
             "int good_count",
@@ -11411,7 +11379,8 @@
           "name": "darkdungeon_runtime_config",
           "line": 14,
           "declarations": [
-            "int smoke_enabled"
+            "int smoke_enabled",
+            "const char *manual_data"
           ],
           "runtime_binding": "not-implemented"
         },
@@ -11419,7 +11388,7 @@
           "path": "src/app_runtime.h",
           "kind": "struct",
           "name": "darkdungeon_core_abi",
-          "line": 45,
+          "line": 51,
           "declarations": [
             "size_t values[dd_abi_count]"
           ],
@@ -11436,21 +11405,34 @@
             "void *(*chain_routine)(int, int, void *, void *, void *)"
           ],
           "runtime_binding": "not-implemented"
+        },
+        {
+          "path": "src/manual_profile.h",
+          "kind": "struct",
+          "name": "Session",
+          "line": 205,
+          "declarations": [
+            "std::unique_ptr<QLockFile> lock",
+            "QByteArray data",
+            "QString reportPath",
+            "QJsonObject report"
+          ],
+          "runtime_binding": "not-implemented"
         }
       ],
       "counts": {
-        "files": 318,
-        "references": 685,
+        "files": 322,
+        "references": 676,
         "route_groups": 12,
-        "struct_union_groups": 366,
-        "member_declarations": 2951
+        "struct_union_groups": 368,
+        "member_declarations": 2961
       }
     },
     "ja": {
       "source_hashes": {
         "build/nethack-ja/include/align.h": "6f106990bad18ba7a88cb5728acebe88188639da0d9633789aea848d0fc8fb75",
         "build/nethack-ja/include/amiconf.h": "734f9a48a96e3cc4a2d605b72b933a6ccf2cc639f92582a1bd6aef93eedd8591",
-        "build/nethack-ja/include/app_runtime.h": "60e6103d21f41e31d76e59bd03f3decc448841d7f3d398f6dd7c21a4d13bd202",
+        "build/nethack-ja/include/app_runtime.h": "41b1eec765b200e40f94b08bc09188f01f61730ab1937589d2e430b344678e4a",
         "build/nethack-ja/include/app_windows.h": "f0ad373d345e4486c082fe8a67e2b67f20b33d50286b24042ae20881ba146563",
         "build/nethack-ja/include/artifact.h": "65ab6c0f63704d11681e768703d62aadc76b65c4c54ba3d10a93e5acd4d5beab",
         "build/nethack-ja/include/artilist.h": "457600b025f9f16bb0de93e26f0313b5f377fd4660d89a3733de52b6a2ddc3f0",
@@ -11463,7 +11445,7 @@
         "build/nethack-ja/include/context_action.h": "44026bc010aa940eef8ea63a7166dab22c14631c046e7e4198f3ef471af0c69d",
         "build/nethack-ja/include/coord.h": "978bd02e160b745b48cb5616a0daf2da824ad8ca03388320a9dface07fb367ca",
         "build/nethack-ja/include/cstd.h": "6ebcfad20bf26be89b81d0cf51c26ad83cd574e4d2f33e57d70ca7672e94e6bb",
-        "build/nethack-ja/include/date.h": "31b07998a26b417fb45090dd9b0ca9a5a5582620f666a102f16ac1576e754907",
+        "build/nethack-ja/include/date.h": "b5f035653428bad361cc24d253cfd4b74dc4b68b57905fea8bf5c628a19285ea",
         "build/nethack-ja/include/decl.h": "b2c4bbe8528b2ecd4f111cf604800abaecc818c747b430a71f09386cf5f3b46c",
         "build/nethack-ja/include/defsym.h": "6585a7b0482e1a11e51f66841f079a3b4f2b843d40a8b84a44442dbecba57faf",
         "build/nethack-ja/include/dgn_file.h": "40e14662ed592f715b8a0dacf780e68cdded4f11a1f8ca77ae31b1bbe4d8e3f3",
@@ -11485,6 +11467,7 @@
         "build/nethack-ja/include/mactty.h": "47520dbfae61e8bd5cb2343355fb364b850fb40b0211734a7fc5852ad921dc0e",
         "build/nethack-ja/include/macwin.h": "3d8069f2867a7da940dc4ff61a097949fa6e8357d12a814a81476819de56389b",
         "build/nethack-ja/include/mail.h": "9d9aaaf78fd830d496e97a80846310232b3401c87c9200ba5a6eb2c83a8f95d3",
+        "build/nethack-ja/include/manual_profile.h": "8c2dc32b8473e59437019b54c256621dfe24144cf621d605ee4bcba645e4c944",
         "build/nethack-ja/include/mcastu.h": "8238b3923b95a5f1291ebb81229d7c8b333a4d242216233be468fc21547a782d",
         "build/nethack-ja/include/mextra.h": "be523f228737690a6af1bcee56b4fd8f8b64936e0ee46a2e2d4a0032c9e0e276",
         "build/nethack-ja/include/mfndpos.h": "a325d64a2d3f54938180828cfe256461cbca558d69f3f8d6a7e05ac58410f735",
@@ -11548,11 +11531,11 @@
         "build/nethack-ja/include/you.h": "ffde40eb713ecb5bf8480e9547b87d078a0bfc9cf47ab800903e4a2bf20d8957",
         "build/nethack-ja/include/youprop.h": "acb43e2289c327e662a16c2467024b797f0001dbf8fd2d5d9d5211560e5655e5",
         "build/nethack-ja/src/abi-mismatch.c": "15bb10d6fc559b4473a0bbebd10296bb8951f669f0afe8c8bbf108b00856aa6c",
-        "build/nethack-ja/src/agent_port.c": "2e11022be7e8be18b9e03c9df5f07ba90b4c33c222b9b32338bc2259448373e4",
+        "build/nethack-ja/src/agent_port.c": "a50dbe9fc2621afa2e774b1da81e1e5fd9837f159ff002c46a384c51e071ecb4",
         "build/nethack-ja/src/allmain.c": "6249f7b455f378d1ac31a9cb514d2e97a935e82b4b33416cac5abbe9883b4949",
         "build/nethack-ja/src/alloc.c": "b8326ce8ce5be4783c2f30f24c08ee3aedc393187e814a7570e472b665086165",
         "build/nethack-ja/src/app_registry.c": "cafe4678afa35a8a6bdea429b34b313f78eedd29f80c3370cfd952070fd93dde",
-        "build/nethack-ja/src/app_runtime.c": "3024b8d2c3bd02dca3e177c229e34713922a964ff0cf14d8b30a546075a6c0aa",
+        "build/nethack-ja/src/app_runtime.c": "9d99bc310b6ed14fd751dd692aa8ef04456c987d01d132f854991b754dd97f19",
         "build/nethack-ja/src/apply.c": "0698e13c7019e7d522349afd154b787904f1e7d043a6d38e556d40c17f781237",
         "build/nethack-ja/src/artifact.c": "470b88da0b31cf4e65bedc097c8a8e529f56d438a56a9210c7b658dd2651b4cf",
         "build/nethack-ja/src/attrib.c": "cf25bc9efbde37847481d913ce31e36384134859b927162aaffd4ca58cb44b94",
@@ -11561,7 +11544,7 @@
         "build/nethack-ja/src/botl.c": "88f304fa512b4caf742de08b0e716331ce33655b3b16c353e717f445e96f7a56",
         "build/nethack-ja/src/calendar.c": "5ac91599d4f57da50b462f47b768be27f37718bfdd682dd6a97b7799142b82f6",
         "build/nethack-ja/src/cfgfiles.c": "a1e922d37f0a6f6fa4e9fdb2439bbdf5c46b3a75cb51333b30314f62825ddd0c",
-        "build/nethack-ja/src/cmd.c": "3922a68720212924143f09ce0c5d81f984cd87605953b5bc355e86b14dc9f53e",
+        "build/nethack-ja/src/cmd.c": "aa088af39e0fc315e485eb0bdfa20c0d77e63dce6674a98d35078c0f851b3867",
         "build/nethack-ja/src/coloratt.c": "a99e896eb8c47cd65d4705c5c12146031ae8ac5572102b2bbc47dff0450d6839",
         "build/nethack-ja/src/core_check.c": "5d2bcfa0cfffe3dec6eb3d42bc504932c7585a5da90fb0de0792bca3fb57c49a",
         "build/nethack-ja/src/date.c": "950735b2c1bce49f1bb3d2761ab65ce07046e3a389da33b98df27e16138ea3ac",
@@ -11589,7 +11572,7 @@
         "build/nethack-ja/src/extralev.c": "2a7e8627242b08dd9cf1fe860d40fdd1c5b9efab4c5aecf76251472511bed924",
         "build/nethack-ja/src/files.c": "f34af68c3a706620802bf4ba6725d00d65d24e91869d2898bccd4bb35beab9e2",
         "build/nethack-ja/src/fountain.c": "25e86704a1e3c934908b82d06be90c273fd259d7c6710d2bf0a2d01115c5b659",
-        "build/nethack-ja/src/frontend_main.cpp": "2400cab0d3323ae5f2e6e218577b98b8274641015ee5d5907cd178bf84fe5965",
+        "build/nethack-ja/src/frontend_main.cpp": "b109c0ef26ee4bd4ba2b9a4ac948b7d2a31578041f9e750fbaabfa0bf624f3b7",
         "build/nethack-ja/src/getpos.c": "c25006897c3fca8529db1e8b4ebe34b0ac95e8244f4e7f24b09e5cb22d14969e",
         "build/nethack-ja/src/glyphs.c": "a3dbd895e40ef193e6fa610ec711dc24454175a966a9d2cb1cbaf9b2b62ff295",
         "build/nethack-ja/src/hack.c": "402492e49309c96c1294ded6e374754767629a9d9c16cf47381ce364b154e8d8",
@@ -11601,12 +11584,12 @@
         "build/nethack-ja/src/light.c": "4101c13744d71f26e08fb5a9281d004f16e0f075479d6023a98e4216ee321469",
         "build/nethack-ja/src/lock.c": "5982df4c4d9c21d5c4bea78a85fd9a87244fffae7d94026cb7cc9e6f4804f490",
         "build/nethack-ja/src/mail.c": "a2073dea717aa34a76a71abf618d02fcc1c7115fa497effd17c7fce4cdebc8a2",
-        "build/nethack-ja/src/Makefile": "831f07a556b5b269ea1b05ce4a6c5a3997eba9f55c89c7d788daeadabdae9e1c",
+        "build/nethack-ja/src/Makefile": "6ab633d82f708c537711ba90699a753b4b3f71e07b16d7601c4c18d87741386f",
         "build/nethack-ja/src/makemon.c": "294ed418f13de664dd9b4b7fbc13aeaef29fabc877e8fda5ac24f82e0e0a11bb",
         "build/nethack-ja/src/mcastu.c": "90d5030edd8a8100467221cff4164d136126c58ecbf3870e51704454bfbc27b7",
         "build/nethack-ja/src/mdlib.c": "c3fdc0591c2592d544bd28179933285b7948b3d5e3c1f6c8d71ead26f9455171",
-        "build/nethack-ja/src/mhitm.c": "4da7ca1762ec0fc9a4fbe2ffe3a63e9d9770f48fd77dc8fbd112d61730a1fca6",
-        "build/nethack-ja/src/mhitu.c": "2a47d7c0d80fb6351701b62a12d9272e572b938159f43514e78a54e539a2125e",
+        "build/nethack-ja/src/mhitm.c": "d03f6784b31f0311be9aadb4d4f7241dbb7dbe6746e44a5240cc7267a952734f",
+        "build/nethack-ja/src/mhitu.c": "386eff70849c62576142825a90d018a23f2a56465bae7fa73aa83bba6bb6b160",
         "build/nethack-ja/src/minion.c": "0ba5c71dfa79a30b5b63a47d61634c06d80dc6863e3f5e2118290689f2929bb4",
         "build/nethack-ja/src/mklev.c": "49d76090e7fed204b66fa7b710b9876cc72bc8af234766beac6b0ddf57a49a20",
         "build/nethack-ja/src/mkmap.c": "f863ddbc07acfd15395104f96ade2942e9d05cc9118a5f2416ad0ceb43e54549",
@@ -11630,7 +11613,7 @@
         "build/nethack-ja/src/objnam.c": "c279d48ad2c34f2a217b35130e68f01e379921c08b0b0a06447909c6a637cb4b",
         "build/nethack-ja/src/options.c": "439a1ca648ab352a7aa7bf87eeb6c8c73b538f452c5ca97d19e9d7cb6b5730ea",
         "build/nethack-ja/src/pager.c": "6794eda41e791ae3837665f56bb038ec5b30c2747b37b4f36464a7ed4907fc4a",
-        "build/nethack-ja/src/pickup.c": "ddc344f04930cfabf5dd03aee1972cc6277f487ea141030485fbf4a8484ebe36",
+        "build/nethack-ja/src/pickup.c": "d157570a52f3ab9fd214faf48f05498b9a53ec11a7e94cf959e9f562f8c04013",
         "build/nethack-ja/src/pline.c": "39a4e1d09851d5d0a221929537acba6874c7c53931c815820f0a2d39e1b608c7",
         "build/nethack-ja/src/polyself.c": "71f838d0f2bdc207fe2fd1ceafa0c875b1d0c147861b05e6b2a29f10a22ef356",
         "build/nethack-ja/src/potion.c": "27f2c572999609ea0356db466d07b2a90bcaafced1e6ae6d922a9daede15071f",
@@ -11645,7 +11628,7 @@
         "build/nethack-ja/src/restore.c": "66dd2201cac02a355cab5667965c477b58f5b291c4a22b19ec97c53b9d4440a0",
         "build/nethack-ja/src/revision.c": "0d466f4f7d0ffb4114e2bb0a2b1d50e80301a5854f87d082d5da5f9b2bb74663",
         "build/nethack-ja/src/rip.c": "38215d4bb9686d76ea6cd5a284ba95a66bdeb60db55014b3500ba7b9aab6338f",
-        "build/nethack-ja/src/rnd.c": "47b8f279a72224c06b135ff7af83fa14643848e46178b78a67ba6151bd4c41b8",
+        "build/nethack-ja/src/rnd.c": "5940e8804e9b1b9322c69c481c81395c7737c830fdb019f72a2907b672027028",
         "build/nethack-ja/src/role.c": "3cacea21ce67f498cc5eef719d36028d210bec2cb8fd203c1dc1441b47bede6b",
         "build/nethack-ja/src/rumors.c": "6c1df6db748147401d25e0d5664340e41550d31a33c03d8ef4fb21fd4c1c8158",
         "build/nethack-ja/src/save.c": "83e91365ed0dc52cc6507b443121a8de4fb0c3856f5c227c0a6bab677462308f",
@@ -11671,7 +11654,7 @@
         "build/nethack-ja/src/track.c": "330bedbf314041a4b0c7ec9d8df9fd5f247dbc2947ab3ae79344cb795d1e2ab6",
         "build/nethack-ja/src/trap.c": "d2cde8d523764f2f07e6992bb1084b6ab99ebbbe5608671299a6f481d1be18ff",
         "build/nethack-ja/src/u_init.c": "6fd88939e701aad4584c33e41db62aa574c137b6bd98e986039d56c4ddf2268c",
-        "build/nethack-ja/src/uhitm.c": "d469bde93cad9cb002df4a3b581c993af6417608a4a44110c99935da186ae344",
+        "build/nethack-ja/src/uhitm.c": "f9093329b09b1ec0a7e74f77789b237e1f105912069c5f1ba889459f164978ae",
         "build/nethack-ja/src/utf8map.c": "52f96941481eb9bfc56b6c8b682d70b709e401b3a2536bc1e23d2aab253fb10b",
         "build/nethack-ja/src/vault.c": "fe5083a8bbaaeae08f4f3ed09e79a10a5727b69e960a62abf11aaf5725ff2ee9",
         "build/nethack-ja/src/version.c": "1211125fb2ffc86dcbb1d82126929bb4c45ebec570befd2129d593964e6513bc",
@@ -11692,27 +11675,27 @@
         "build/nethack-ja/sys/windows/win10.h": "391e7f12528b018ff69492bd92a7db7378e45dce8a2646e261f0bf33da18eba5",
         "build/nethack-ja/sys/windows/win32api.h": "abc015beb4bca3eace7d1687db118b6cba0b87481d94cafff85860b55fec7e6b",
         "build/nethack-ja/sys/windows/windmain.c": "417071deaf929d136fd186095fc558dd8a84f617f36ef0e75d8494a9defb90cf",
-        "build/nethack-ja/sys/windows/windsys.c": "1322df0eb1a731b1280e36fb404b579be25edf48df98a74edcda4b5492d0f303",
+        "build/nethack-ja/sys/windows/windsys.c": "0d96e8fb63e1eda4e0abda5cabce2e6b28b792f9b17451ec34afe8bda8e24dbc",
         "build/nethack-ja/sys/windows/winos.h": "6b8bb98cb82343f9ddae404ec4a897e35cbd2ce30cc136ff80fd156d4dab72bd",
-        "build/nethack-ja/win/Qt/qt_bind.cpp": "66b5cbbee402f8e001ae128aff7f64d9fcc2cd529ca298fbad00ca4d542174c4",
+        "build/nethack-ja/win/Qt/qt_bind.cpp": "9fc845312c1174a89b030d847d1b6635ed896d8a1379066393a8338748b22f59",
         "build/nethack-ja/win/Qt/qt_bind.h": "bb9a4b865d2c3e3b03343785a6a7240b74e539c0f293b0bfdcdf2abe436a07aa",
         "build/nethack-ja/win/Qt/qt_click.cpp": "b413a3002f4dd7bebbad30fbc3d135e9f327f75902d3dccb5a693bd688995289",
         "build/nethack-ja/win/Qt/qt_click.h": "cf16c299ed725ccc01c85f703fddce2478c2b3ce36f0dd5822afecc5b8c32916",
         "build/nethack-ja/win/Qt/qt_clust.cpp": "a5bffb6b1a03e3fe4d65b8b9eb619b60ba54af75a82324013385fffc06a3e952",
         "build/nethack-ja/win/Qt/qt_clust.h": "faccbb81074d8907fdbb4d6ee8b6ba52adbf079e2272eeb60fff149ad7a3d049",
-        "build/nethack-ja/win/Qt/qt_darkdungeon.cpp": "50c3c6169de850362d771dc6bc215019a8f10a2cdb23463b78f1d116706a16bb",
-        "build/nethack-ja/win/Qt/qt_darkdungeon.h": "a93d72a4f453d4bc688cb4f05f31e612495ca14a79937f2b88243b76f224656e",
+        "build/nethack-ja/win/Qt/qt_darkdungeon.cpp": "28559c2e1e91d0e7005e13af38cd4dcb0cd226beb10be75f7b76ae991c4e06d3",
+        "build/nethack-ja/win/Qt/qt_darkdungeon.h": "508589ea58d6cd985661580db009acf9d74120d9c68a201d4c3d309e27b2949d",
         "build/nethack-ja/win/Qt/qt_delay.cpp": "adeb8f4a39ee2ab2f91eefdaab05a597dc7a83308758daf178554e97b21efd58",
         "build/nethack-ja/win/Qt/qt_delay.h": "54e61351f66a6453667b443fb28c41d389ea8249b4edb90b8dbcba3cfc0365b2",
-        "build/nethack-ja/win/Qt/qt_druaga.cpp": "e5ced6f721eb3119aadce057953dfc6b37aae76a1b151753cec9695ab6b63f0c",
-        "build/nethack-ja/win/Qt/qt_druaga.h": "fe2c54130939b4f25855bd0b9a39fe5be9ddc6032e2b2f3ca7984ef3163835dd",
-        "build/nethack-ja/win/Qt/qt_glyph.cpp": "0f770f37b86c8ab0f67cf97a477b969c7b699b1d1bc1bd6a7260d48cd40befe1",
+        "build/nethack-ja/win/Qt/qt_druaga.cpp": "8ff22ba9fcdd8cd42c92ea88e9b3bfbbe97e7919ea19a26ccf6b6ffb5f048deb",
+        "build/nethack-ja/win/Qt/qt_druaga.h": "ac8bfaf6f90ced1c97de109f55875156ddf3f58156f1181d6d4b38bfc43a1f03",
+        "build/nethack-ja/win/Qt/qt_glyph.cpp": "b4e2c04f2db7fc6edc1d7e71c1218a873cc3c7103769bffe7031d0f093fd6a0e",
         "build/nethack-ja/win/Qt/qt_glyph.h": "ca430f915ff35dd4963986bb3fea31c9fba69915b7b021a6953188a550bb632e",
         "build/nethack-ja/win/Qt/qt_icon.cpp": "6106475731ac39d1b499b6011b81f1b7e5579fa857de201a2532a76e109492a1",
         "build/nethack-ja/win/Qt/qt_icon.h": "49781e3a8b71e7eed7c3387a3eb840955bd6e397a587dfb45a814d7d3ca3ed51",
-        "build/nethack-ja/win/Qt/qt_inv.cpp": "c3f41332a41778d7324d614b5af5d965a7b131d58585a4f5136c92614ffdf3ce",
+        "build/nethack-ja/win/Qt/qt_inv.cpp": "f461fe176ea60545988111f5362ea8b20a9740ba2fe1af9e6661f603edc59013",
         "build/nethack-ja/win/Qt/qt_inv.h": "ec6d9a5a829c7e86add4c8f44a5833d641f0ce4d308b1c52655a1edd883140b5",
-        "build/nethack-ja/win/Qt/qt_inventory.cpp": "007cc3fe0e5d24eb7affd6cf8552f117863e13b869a9dc2d7d644bc1eaf8f7ec",
+        "build/nethack-ja/win/Qt/qt_inventory.cpp": "93c6c89b5cf2671cf1e0ab7380aff93d686f7b02d42c1795473f8611ed90d478",
         "build/nethack-ja/win/Qt/qt_kde0.h": "49ca8e0c198662cf2962348c023b2a527d1fdaaaf7daadabe3cce32f0f169a14",
         "build/nethack-ja/win/Qt/qt_key.cpp": "248a0b5daca78b528faa082671b1b0589ec8e6df0062dbf92c3b54379e19604b",
         "build/nethack-ja/win/Qt/qt_key.h": "ae7afb2431ed05a9d6a9be7c1fd4b6d8c8e37a3e4fa3ab540c02a2e3a9afd1b9",
@@ -11720,10 +11703,11 @@
         "build/nethack-ja/win/Qt/qt_line.h": "29bab93481624ef204bb936120ca3a917a1f3ee487fa147b472205f1ec041e19",
         "build/nethack-ja/win/Qt/qt_main.cpp": "6e56ddbe85520594312f69f0f0e441c7230576de6fb12f3f6e107eccd3041aca",
         "build/nethack-ja/win/Qt/qt_main.h": "bc4d2cb7c738e160dd639dd5a37e9c86b2fcab2f69ef55fdf8f83c1ab500d414",
-        "build/nethack-ja/win/Qt/qt_map.cpp": "095cad4b3b2dc4872b50ff0e006af37ecd4a613cebd15baaf62e2587a66fc102",
+        "build/nethack-ja/win/Qt/qt_map.cpp": "e32ee78afb979011153cbae61cdb8f2b3212f05ba953ee3712cf2e4f7b35e189",
         "build/nethack-ja/win/Qt/qt_map.h": "895661597704f228ca27ac89f4331e18bd4f7ec4338bf64529b529b0ec89d402",
         "build/nethack-ja/win/Qt/qt_menu.cpp": "93c085a5c7d25a863ee68319f54e955dd9365778f6131bacc583e615e5749c5c",
         "build/nethack-ja/win/Qt/qt_menu.h": "3b93a49d140d6455339ec052f1b80c9bd93002b4daed213f032f0b5fd38b4a8c",
+        "build/nethack-ja/win/Qt/qt_monitor_scale.cpp": "409189c7e3a9a02a0924290eed45b0c469185da24c3cce742900fa5f6825be3a",
         "build/nethack-ja/win/Qt/qt_msg.cpp": "70b779c15eeacc0d38045b3dc582608d4eea86d6f8d55a4c8cdece76cfa08f2d",
         "build/nethack-ja/win/Qt/qt_msg.h": "9d333f01c273b158568c653e98abf4357fc7ecba67a5dbc379049833a1570e47",
         "build/nethack-ja/win/Qt/qt_plsel.cpp": "7e0ff67e1c8e15cbcb30f2725ba6fabbdd93e22066f599cce4bc130caa7ff75f",
@@ -11738,7 +11722,7 @@
         "build/nethack-ja/win/Qt/qt_stat.h": "21be5407ee2a4bdbd6355d20907171a559f0e69cb160647542659fbbb4d6a793",
         "build/nethack-ja/win/Qt/qt_str.cpp": "b90c1c26c49d35fac0b5e412847c8eaac14cd4b1bbb62ce5caa2e9254c9c89fd",
         "build/nethack-ja/win/Qt/qt_str.h": "810d33bce06ad192c9eb1bde24df7228ba3fc9eaa7ec78d0190ddd094e4afab9",
-        "build/nethack-ja/win/Qt/qt_streq.cpp": "a6313c0d77b9534c35bfeb03473984756e009c07fff2151e7dcf9c285e84581c",
+        "build/nethack-ja/win/Qt/qt_streq.cpp": "158415de89c8d84122c5d03f92e673b52397092fd54722cf599ea786a63fe8e1",
         "build/nethack-ja/win/Qt/qt_streq.h": "3c69b0cc76767c0a712c07dde4c01a3da51996cd4d440e6c7007c25f160d15b4",
         "build/nethack-ja/win/Qt/qt_svsel.cpp": "cb26e4cb0342a109d7cf99ce6137e571c6f78b6a14408d19815b4e73b25245fa",
         "build/nethack-ja/win/Qt/qt_svsel.h": "847a1e51ed713cfb52ef786c7cacbd7fb11fcc41bac2529a0de015b5666f4820",
@@ -11749,23 +11733,25 @@
         "build/nethack-ja/win/Qt/qt_xpms.h": "64bec77e77509f504cce42b271eec09d3ed14636dfa3e2674d067a832c480b77",
         "build/nethack-ja/win/Qt/qt_yndlg.cpp": "91fd489a3f11c793a8e13d2bf2d86ad48c1f4d0bce8d283497736680e07b8cfb",
         "build/nethack-ja/win/Qt/qt_yndlg.h": "66d605eda69d4c3c344cfda4ecfcdf9a358384dad74868ec399f904551ee9bd8",
-        "build/nethack-ja/win/Qt/realtime_model.cpp": "7f576a188a8fa17f898915b466fea428ba4a774504c3a9b346717fbf223d3cd9",
-        "build/nethack-ja/win/Qt/realtime_model.h": "69c9c86fed2de768203995962871294ce0c18f3058ee998ee1ac00c042d604e6",
-        "scripts/prepare-source.ps1": "9b7d6e7880913a5b9f6ed279eb6dcd6679175630fa2fd2e33bb511a47232029b",
-        "src/agent_port.c": "2e11022be7e8be18b9e03c9df5f07ba90b4c33c222b9b32338bc2259448373e4",
+        "build/nethack-ja/win/Qt/realtime_model.cpp": "74585a878821eee8cfdd82dad1f2b19fdcf584206f16de61e77899b6a086c20a",
+        "build/nethack-ja/win/Qt/realtime_model.h": "1454506e822902b688acc883b61f66011d32574ad366746800570b0766860c77",
+        "scripts/prepare-source.ps1": "253fdb03ec76dbf79d6a4e28307787b1f21b6049cb519b3751f760accb9c1e75",
+        "src/agent_port.c": "a50dbe9fc2621afa2e774b1da81e1e5fd9837f159ff002c46a384c51e071ecb4",
         "src/app_registry.c": "cafe4678afa35a8a6bdea429b34b313f78eedd29f80c3370cfd952070fd93dde",
-        "src/app_runtime.c": "3024b8d2c3bd02dca3e177c229e34713922a964ff0cf14d8b30a546075a6c0aa",
-        "src/app_runtime.h": "60e6103d21f41e31d76e59bd03f3decc448841d7f3d398f6dd7c21a4d13bd202",
+        "src/app_runtime.c": "9d99bc310b6ed14fd751dd692aa8ef04456c987d01d132f854991b754dd97f19",
+        "src/app_runtime.h": "41b1eec765b200e40f94b08bc09188f01f61730ab1937589d2e430b344678e4a",
         "src/app_windows.h": "f0ad373d345e4486c082fe8a67e2b67f20b33d50286b24042ae20881ba146563",
         "src/context_action.h": "44026bc010aa940eef8ea63a7166dab22c14631c046e7e4198f3ef471af0c69d",
         "src/context_action.inc": "b7bbcf78fac47bcbba1a3cf6e738e5dd8888d3bd4089287ec3e3d890f18650fd",
         "src/core_check.c": "5d2bcfa0cfffe3dec6eb3d42bc504932c7585a5da90fb0de0792bca3fb57c49a",
-        "src/frontend_main.cpp": "2400cab0d3323ae5f2e6e218577b98b8274641015ee5d5907cd178bf84fe5965",
-        "src/launcher.cpp": "aee0199187ab334fb07f592f185176c0b27dcd53b6d3885953071c12b12b94b7",
+        "src/frontend_main.cpp": "b109c0ef26ee4bd4ba2b9a4ac948b7d2a31578041f9e750fbaabfa0bf624f3b7",
+        "src/launcher.cpp": "8f56543981cea44b5628c4ec26751184430b31db05d1118f8753eae04c73ac8c",
         "src/lua_validate.cpp": "1d85c79e46332f9eac6c4d3074a0bd26ec3388252f87336f13600cd3a7d4d22f",
-        "src/qt_darkdungeon.cpp": "cc05e685749e84f064f6f23ea1d0a8bd1deb567e0e2745e9bb5feb7f55a154aa",
-        "src/qt_darkdungeon.h": "a93d72a4f453d4bc688cb4f05f31e612495ca14a79937f2b88243b76f224656e",
-        "src/qt_inventory.cpp": "007cc3fe0e5d24eb7affd6cf8552f117863e13b869a9dc2d7d644bc1eaf8f7ec"
+        "src/manual_profile.h": "8c2dc32b8473e59437019b54c256621dfe24144cf621d605ee4bcba645e4c944",
+        "src/qt_darkdungeon.cpp": "173331f11bb8d3a87b7de65ac009f8bb69a26e1fb9402dcb82ff9940fbbb0253",
+        "src/qt_darkdungeon.h": "508589ea58d6cd985661580db009acf9d74120d9c68a201d4c3d309e27b2949d",
+        "src/qt_inventory.cpp": "93c6c89b5cf2671cf1e0ab7380aff93d686f7b02d42c1795473f8611ed90d478",
+        "src/qt_monitor_scale.cpp": "409189c7e3a9a02a0924290eed45b0c469185da24c3cce742900fa5f6825be3a"
       },
       "source_scopes": {
         "build/nethack-ja/include/align.h": "lexical-census; effective compilation not established",
@@ -11805,6 +11791,7 @@
         "build/nethack-ja/include/mactty.h": "lexical-census; effective compilation not established",
         "build/nethack-ja/include/macwin.h": "lexical-census; effective compilation not established",
         "build/nethack-ja/include/mail.h": "lexical-census; effective compilation not established",
+        "build/nethack-ja/include/manual_profile.h": "lexical-census; effective compilation not established",
         "build/nethack-ja/include/mcastu.h": "lexical-census; effective compilation not established",
         "build/nethack-ja/include/mextra.h": "lexical-census; effective compilation not established",
         "build/nethack-ja/include/mfndpos.h": "lexical-census; effective compilation not established",
@@ -12044,6 +12031,7 @@
         "build/nethack-ja/win/Qt/qt_map.h": "lexical-census; effective compilation not established",
         "build/nethack-ja/win/Qt/qt_menu.cpp": "lexical-census; effective compilation not established",
         "build/nethack-ja/win/Qt/qt_menu.h": "lexical-census; effective compilation not established",
+        "build/nethack-ja/win/Qt/qt_monitor_scale.cpp": "lexical-census; effective compilation not established",
         "build/nethack-ja/win/Qt/qt_msg.cpp": "lexical-census; effective compilation not established",
         "build/nethack-ja/win/Qt/qt_msg.h": "lexical-census; effective compilation not established",
         "build/nethack-ja/win/Qt/qt_plsel.cpp": "lexical-census; effective compilation not established",
@@ -12083,9 +12071,11 @@
         "src/frontend_main.cpp": "lexical-census; effective compilation not established",
         "src/launcher.cpp": "lexical-census; effective compilation not established",
         "src/lua_validate.cpp": "lexical-census; effective compilation not established",
+        "src/manual_profile.h": "lexical-census; effective compilation not established",
         "src/qt_darkdungeon.cpp": "lexical-census; effective compilation not established",
         "src/qt_darkdungeon.h": "lexical-census; effective compilation not established",
-        "src/qt_inventory.cpp": "lexical-census; effective compilation not established"
+        "src/qt_inventory.cpp": "lexical-census; effective compilation not established",
+        "src/qt_monitor_scale.cpp": "lexical-census; effective compilation not established"
       },
       "references": [
         {
@@ -12093,12 +12083,6 @@
           "path": "build/nethack-ja/include/amiconf.h",
           "line": 9,
           "token": "time"
-        },
-        {
-          "group": "legacy_hook",
-          "path": "build/nethack-ja/include/app_runtime.h",
-          "line": 17,
-          "token": "darkdungeon_note_attack("
         },
         {
           "group": "clock",
@@ -12315,12 +12299,6 @@
           "path": "build/nethack-ja/include/winprocs.h",
           "line": 154,
           "token": "print_glyph"
-        },
-        {
-          "group": "legacy_hook",
-          "path": "build/nethack-ja/src/agent_port.c",
-          "line": 122,
-          "token": "darkdungeon_note_attack("
         },
         {
           "group": "clock",
@@ -14113,116 +14091,80 @@
         {
           "group": "publication",
           "path": "build/nethack-ja/src/mhitm.c",
-          "line": 301,
+          "line": 300,
           "token": "flush_screen"
         },
         {
           "group": "publication",
           "path": "build/nethack-ja/src/mhitm.c",
-          "line": 1296,
+          "line": 1294,
           "token": "shieldeff"
         },
         {
           "group": "publication",
           "path": "build/nethack-ja/src/mhitm.c",
-          "line": 1400,
+          "line": 1398,
           "token": "shieldeff"
-        },
-        {
-          "group": "legacy_hook",
-          "path": "build/nethack-ja/src/mhitm.c",
-          "line": 357,
-          "token": "darkdungeon_note_attack("
-        },
-        {
-          "group": "legacy_hook",
-          "path": "build/nethack-ja/src/mhitm.c",
-          "line": 357,
-          "token": "darkdungeon_note_attack("
         },
         {
           "group": "clock",
           "path": "build/nethack-ja/src/mhitu.c",
-          "line": 32,
+          "line": 31,
           "token": "yyyymmdd"
         },
         {
           "group": "publication",
           "path": "build/nethack-ja/src/mhitu.c",
-          "line": 1091,
+          "line": 1088,
           "token": "flush_screen"
         },
         {
           "group": "publication",
           "path": "build/nethack-ja/src/mhitu.c",
-          "line": 1385,
+          "line": 1382,
           "token": "update_inventory"
         },
         {
           "group": "publication",
           "path": "build/nethack-ja/src/mhitu.c",
-          "line": 1867,
+          "line": 1864,
           "token": "shieldeff"
         },
         {
           "group": "publication",
           "path": "build/nethack-ja/src/mhitu.c",
-          "line": 1884,
+          "line": 1881,
           "token": "shieldeff"
         },
         {
           "group": "publication",
           "path": "build/nethack-ja/src/mhitu.c",
-          "line": 1905,
+          "line": 1902,
           "token": "shieldeff"
         },
         {
           "group": "publication",
           "path": "build/nethack-ja/src/mhitu.c",
-          "line": 2320,
+          "line": 2317,
           "token": "shieldeff"
         },
         {
           "group": "publication",
           "path": "build/nethack-ja/src/mhitu.c",
-          "line": 3294,
+          "line": 3291,
           "token": "shieldeff"
         },
         {
           "group": "publication",
           "path": "build/nethack-ja/src/mhitu.c",
-          "line": 3328,
+          "line": 3325,
           "token": "shieldeff"
         },
         {
           "group": "publication",
           "path": "build/nethack-ja/src/mhitu.c",
-          "line": 3346,
+          "line": 3343,
           "token": "shieldeff"
-        },
-        {
-          "group": "legacy_hook",
-          "path": "build/nethack-ja/src/mhitu.c",
-          "line": 675,
-          "token": "darkdungeon_note_attack("
-        },
-        {
-          "group": "legacy_hook",
-          "path": "build/nethack-ja/src/mhitu.c",
-          "line": 675,
-          "token": "darkdungeon_note_attack("
-        },
-        {
-          "group": "legacy_hook",
-          "path": "build/nethack-ja/src/mhitu.c",
-          "line": 1018,
-          "token": "darkdungeon_note_attack("
-        },
-        {
-          "group": "legacy_hook",
-          "path": "build/nethack-ja/src/mhitu.c",
-          "line": 1018,
-          "token": "darkdungeon_note_attack("
         },
         {
           "group": "clock",
@@ -14875,26 +14817,8 @@
         {
           "group": "clock",
           "path": "build/nethack-ja/src/rnd.c",
-          "line": 275,
+          "line": 287,
           "token": "sys_random_seed"
-        },
-        {
-          "group": "clock",
-          "path": "build/nethack-ja/src/rnd.c",
-          "line": 282,
-          "token": "init_random"
-        },
-        {
-          "group": "clock",
-          "path": "build/nethack-ja/src/rnd.c",
-          "line": 284,
-          "token": "sys_random_seed"
-        },
-        {
-          "group": "clock",
-          "path": "build/nethack-ja/src/rnd.c",
-          "line": 289,
-          "token": "reseed_random"
         },
         {
           "group": "clock",
@@ -14903,27 +14827,45 @@
           "token": "init_random"
         },
         {
+          "group": "clock",
+          "path": "build/nethack-ja/src/rnd.c",
+          "line": 296,
+          "token": "sys_random_seed"
+        },
+        {
+          "group": "clock",
+          "path": "build/nethack-ja/src/rnd.c",
+          "line": 301,
+          "token": "reseed_random"
+        },
+        {
+          "group": "clock",
+          "path": "build/nethack-ja/src/rnd.c",
+          "line": 306,
+          "token": "init_random"
+        },
+        {
           "group": "sampling",
           "path": "build/nethack-ja/src/rnd.c",
-          "line": 28,
+          "line": 29,
           "token": "rn2_on_display_rng"
         },
         {
           "group": "sampling",
           "path": "build/nethack-ja/src/rnd.c",
-          "line": 70,
+          "line": 82,
           "token": "rn2_on_display_rng"
         },
         {
           "group": "sampling",
           "path": "build/nethack-ja/src/rnd.c",
-          "line": 85,
+          "line": 97,
           "token": "rn2_on_display_rng"
         },
         {
           "group": "sampling",
           "path": "build/nethack-ja/src/rnd.c",
-          "line": 170,
+          "line": 182,
           "token": "rn2_on_display_rng"
         },
         {
@@ -15295,122 +15237,110 @@
         {
           "group": "sampling",
           "path": "build/nethack-ja/src/uhitm.c",
-          "line": 5757,
+          "line": 5755,
           "token": "mon_to_glyph"
         },
         {
           "group": "sampling",
           "path": "build/nethack-ja/src/uhitm.c",
-          "line": 5757,
+          "line": 5755,
           "token": "rn2_on_display_rng"
         },
         {
           "group": "publication",
           "path": "build/nethack-ja/src/uhitm.c",
-          "line": 2903,
+          "line": 2901,
           "token": "shieldeff"
         },
         {
           "group": "publication",
           "path": "build/nethack-ja/src/uhitm.c",
-          "line": 2984,
+          "line": 2982,
           "token": "shieldeff"
         },
         {
           "group": "publication",
           "path": "build/nethack-ja/src/uhitm.c",
-          "line": 3012,
+          "line": 3010,
           "token": "shieldeff"
         },
         {
           "group": "publication",
           "path": "build/nethack-ja/src/uhitm.c",
-          "line": 3061,
+          "line": 3059,
           "token": "shieldeff"
         },
         {
           "group": "publication",
           "path": "build/nethack-ja/src/uhitm.c",
-          "line": 3094,
+          "line": 3092,
           "token": "shieldeff"
         },
         {
           "group": "publication",
           "path": "build/nethack-ja/src/uhitm.c",
-          "line": 3137,
+          "line": 3135,
           "token": "shieldeff"
         },
         {
           "group": "publication",
           "path": "build/nethack-ja/src/uhitm.c",
-          "line": 4544,
+          "line": 4542,
           "token": "shieldeff"
         },
         {
           "group": "publication",
           "path": "build/nethack-ja/src/uhitm.c",
-          "line": 5757,
+          "line": 5755,
           "token": "tmp_at"
         },
         {
           "group": "publication",
           "path": "build/nethack-ja/src/uhitm.c",
-          "line": 5758,
+          "line": 5756,
           "token": "tmp_at"
         },
         {
           "group": "publication",
           "path": "build/nethack-ja/src/uhitm.c",
-          "line": 5777,
+          "line": 5775,
           "token": "tmp_at"
         },
         {
           "group": "publication",
           "path": "build/nethack-ja/src/uhitm.c",
-          "line": 7001,
+          "line": 6999,
           "token": "shieldeff"
         },
         {
           "group": "publication",
           "path": "build/nethack-ja/src/uhitm.c",
-          "line": 7128,
+          "line": 7126,
           "token": "shieldeff"
         },
         {
           "group": "publication",
           "path": "build/nethack-ja/src/uhitm.c",
-          "line": 7157,
+          "line": 7155,
           "token": "shieldeff"
         },
         {
           "group": "publication",
           "path": "build/nethack-ja/src/uhitm.c",
-          "line": 7176,
+          "line": 7174,
           "token": "shieldeff"
         },
         {
           "group": "publication",
           "path": "build/nethack-ja/src/uhitm.c",
-          "line": 7274,
+          "line": 7272,
           "token": "update_inventory"
         },
         {
           "group": "publication",
           "path": "build/nethack-ja/src/uhitm.c",
-          "line": 7512,
+          "line": 7510,
           "token": "shieldeff"
-        },
-        {
-          "group": "legacy_hook",
-          "path": "build/nethack-ja/src/uhitm.c",
-          "line": 629,
-          "token": "darkdungeon_note_attack("
-        },
-        {
-          "group": "legacy_hook",
-          "path": "build/nethack-ja/src/uhitm.c",
-          "line": 629,
-          "token": "darkdungeon_note_attack("
         },
         {
           "group": "publication",
@@ -15847,157 +15777,157 @@
         {
           "group": "publication",
           "path": "build/nethack-ja/win/Qt/qt_bind.cpp",
-          "line": 596,
+          "line": 599,
           "token": "PrintGlyph"
         },
         {
           "group": "publication",
           "path": "build/nethack-ja/win/Qt/qt_darkdungeon.cpp",
-          "line": 1032,
+          "line": 1070,
           "token": "flush_screen"
         },
         {
           "group": "publication",
           "path": "build/nethack-ja/win/Qt/qt_darkdungeon.cpp",
-          "line": 1036,
+          "line": 1074,
           "token": "flush_screen"
         },
         {
           "group": "publication",
           "path": "build/nethack-ja/win/Qt/qt_darkdungeon.cpp",
-          "line": 1040,
+          "line": 1078,
           "token": "flush_screen"
-        },
-        {
-          "group": "publication",
-          "path": "build/nethack-ja/win/Qt/qt_darkdungeon.cpp",
-          "line": 1065,
-          "token": "flush_screen"
-        },
-        {
-          "group": "publication",
-          "path": "build/nethack-ja/win/Qt/qt_darkdungeon.cpp",
-          "line": 1093,
-          "token": "flush_screen"
-        },
-        {
-          "group": "legacy_hook",
-          "path": "build/nethack-ja/win/Qt/qt_darkdungeon.cpp",
-          "line": 486,
-          "token": "darkdungeon_note_attack("
         },
         {
           "group": "clock",
           "path": "build/nethack-ja/win/Qt/qt_druaga.cpp",
-          "line": 290,
+          "line": 302,
           "token": "time"
         },
         {
           "group": "clock",
           "path": "build/nethack-ja/win/Qt/qt_druaga.cpp",
-          "line": 291,
+          "line": 303,
           "token": "time"
         },
         {
           "group": "clock",
           "path": "build/nethack-ja/win/Qt/qt_druaga.cpp",
-          "line": 342,
+          "line": 354,
           "token": "time"
         },
         {
           "group": "clock",
           "path": "build/nethack-ja/win/Qt/qt_druaga.cpp",
-          "line": 344,
+          "line": 356,
           "token": "time"
         },
         {
           "group": "clock",
           "path": "build/nethack-ja/win/Qt/qt_druaga.cpp",
-          "line": 361,
+          "line": 373,
           "token": "time"
         },
         {
           "group": "publication",
           "path": "build/nethack-ja/win/Qt/qt_druaga.cpp",
-          "line": 920,
+          "line": 932,
           "token": "flush_screen"
         },
         {
           "group": "publication",
           "path": "build/nethack-ja/win/Qt/qt_druaga.cpp",
-          "line": 924,
+          "line": 936,
           "token": "flush_screen"
         },
         {
           "group": "publication",
           "path": "build/nethack-ja/win/Qt/qt_druaga.cpp",
-          "line": 928,
+          "line": 940,
           "token": "flush_screen"
         },
         {
           "group": "sampling",
-          "path": "build/nethack-ja/win/Qt/qt_inv.cpp",
-          "line": 130,
+          "path": "build/nethack-ja/win/Qt/qt_inventory.cpp",
+          "line": 304,
           "token": "obj_to_glyph"
         },
         {
           "group": "sampling",
-          "path": "build/nethack-ja/win/Qt/qt_inv.cpp",
-          "line": 130,
+          "path": "build/nethack-ja/win/Qt/qt_inventory.cpp",
+          "line": 304,
+          "token": "rn2_on_display_rng"
+        },
+        {
+          "group": "sampling",
+          "path": "build/nethack-ja/win/Qt/qt_inventory.cpp",
+          "line": 329,
+          "token": "obj_to_glyph"
+        },
+        {
+          "group": "sampling",
+          "path": "build/nethack-ja/win/Qt/qt_inventory.cpp",
+          "line": 329,
           "token": "rn2_on_display_rng"
         },
         {
           "group": "publication",
-          "path": "build/nethack-ja/win/Qt/qt_inv.cpp",
-          "line": 152,
+          "path": "build/nethack-ja/win/Qt/qt_inventory.cpp",
+          "line": 350,
           "token": "map_glyphinfo"
         },
         {
-          "group": "sampling",
+          "group": "publication",
           "path": "build/nethack-ja/win/Qt/qt_inventory.cpp",
-          "line": 60,
-          "token": "obj_to_glyph"
+          "line": 819,
+          "token": "update_inventory"
         },
         {
-          "group": "sampling",
+          "group": "publication",
           "path": "build/nethack-ja/win/Qt/qt_inventory.cpp",
-          "line": 60,
-          "token": "rn2_on_display_rng"
+          "line": 844,
+          "token": "update_inventory"
         },
         {
-          "group": "sampling",
+          "group": "publication",
           "path": "build/nethack-ja/win/Qt/qt_inventory.cpp",
-          "line": 468,
-          "token": "obj_to_glyph"
+          "line": 890,
+          "token": "update_inventory"
         },
         {
-          "group": "sampling",
+          "group": "publication",
           "path": "build/nethack-ja/win/Qt/qt_inventory.cpp",
-          "line": 468,
-          "token": "rn2_on_display_rng"
+          "line": 946,
+          "token": "update_inventory"
+        },
+        {
+          "group": "publication",
+          "path": "build/nethack-ja/win/Qt/qt_inventory.cpp",
+          "line": 973,
+          "token": "update_inventory"
         },
         {
           "group": "publication",
           "path": "build/nethack-ja/win/Qt/qt_map.cpp",
-          "line": 543,
+          "line": 542,
           "token": "PrintGlyph"
         },
         {
           "group": "publication",
           "path": "build/nethack-ja/win/Qt/qt_map.cpp",
-          "line": 674,
+          "line": 673,
           "token": "PrintGlyph"
         },
         {
           "group": "publication",
           "path": "build/nethack-ja/win/Qt/qt_map.cpp",
-          "line": 678,
+          "line": 677,
           "token": "PrintGlyph"
         },
         {
           "group": "publication",
           "path": "build/nethack-ja/win/Qt/qt_map.cpp",
-          "line": 1046,
+          "line": 1045,
           "token": "PrintGlyph"
         },
         {
@@ -16117,92 +16047,98 @@
         {
           "group": "clock",
           "path": "build/nethack-ja/win/Qt/realtime_model.cpp",
-          "line": 81,
+          "line": 93,
           "token": "time"
         },
         {
           "group": "clock",
           "path": "build/nethack-ja/win/Qt/realtime_model.cpp",
-          "line": 122,
+          "line": 134,
           "token": "time"
         },
         {
           "group": "clock",
           "path": "build/nethack-ja/win/Qt/realtime_model.h",
-          "line": 62,
+          "line": 74,
           "token": "time"
         },
         {
-          "group": "legacy_hook",
-          "path": "src/agent_port.c",
-          "line": 122,
-          "token": "darkdungeon_note_attack("
-        },
-        {
-          "group": "legacy_hook",
-          "path": "src/app_runtime.h",
-          "line": 17,
-          "token": "darkdungeon_note_attack("
-        },
-        {
           "group": "publication",
           "path": "src/qt_darkdungeon.cpp",
-          "line": 1037,
+          "line": 1075,
           "token": "flush_screen"
         },
         {
           "group": "publication",
           "path": "src/qt_darkdungeon.cpp",
-          "line": 1041,
+          "line": 1079,
           "token": "flush_screen"
         },
         {
           "group": "publication",
           "path": "src/qt_darkdungeon.cpp",
-          "line": 1045,
+          "line": 1083,
           "token": "flush_screen"
-        },
-        {
-          "group": "publication",
-          "path": "src/qt_darkdungeon.cpp",
-          "line": 1070,
-          "token": "flush_screen"
-        },
-        {
-          "group": "publication",
-          "path": "src/qt_darkdungeon.cpp",
-          "line": 1098,
-          "token": "flush_screen"
-        },
-        {
-          "group": "legacy_hook",
-          "path": "src/qt_darkdungeon.cpp",
-          "line": 491,
-          "token": "darkdungeon_note_attack("
         },
         {
           "group": "sampling",
           "path": "src/qt_inventory.cpp",
-          "line": 60,
+          "line": 304,
           "token": "obj_to_glyph"
         },
         {
           "group": "sampling",
           "path": "src/qt_inventory.cpp",
-          "line": 60,
+          "line": 304,
           "token": "rn2_on_display_rng"
         },
         {
           "group": "sampling",
           "path": "src/qt_inventory.cpp",
-          "line": 468,
+          "line": 329,
           "token": "obj_to_glyph"
         },
         {
           "group": "sampling",
           "path": "src/qt_inventory.cpp",
-          "line": 468,
+          "line": 329,
           "token": "rn2_on_display_rng"
+        },
+        {
+          "group": "publication",
+          "path": "src/qt_inventory.cpp",
+          "line": 350,
+          "token": "map_glyphinfo"
+        },
+        {
+          "group": "publication",
+          "path": "src/qt_inventory.cpp",
+          "line": 819,
+          "token": "update_inventory"
+        },
+        {
+          "group": "publication",
+          "path": "src/qt_inventory.cpp",
+          "line": 844,
+          "token": "update_inventory"
+        },
+        {
+          "group": "publication",
+          "path": "src/qt_inventory.cpp",
+          "line": 890,
+          "token": "update_inventory"
+        },
+        {
+          "group": "publication",
+          "path": "src/qt_inventory.cpp",
+          "line": 946,
+          "token": "update_inventory"
+        },
+        {
+          "group": "publication",
+          "path": "src/qt_inventory.cpp",
+          "line": 973,
+          "token": "update_inventory"
         }
       ],
       "routes": {
@@ -16236,19 +16172,19 @@
           {
             "path": "build/nethack-ja/src/uhitm.c",
             "function": "do_attack",
-            "line": 487,
+            "line": 486,
             "notification_implementation": "planned; existing legacy hooks are not accepted coverage"
           },
           {
             "path": "build/nethack-ja/src/uhitm.c",
             "function": "hitum",
-            "line": 826,
+            "line": 824,
             "notification_implementation": "planned; existing legacy hooks are not accepted coverage"
           },
           {
             "path": "build/nethack-ja/src/uhitm.c",
             "function": "hmonas",
-            "line": 6364,
+            "line": 6362,
             "notification_implementation": "planned; existing legacy hooks are not accepted coverage"
           },
           {
@@ -16310,19 +16246,19 @@
           {
             "path": "build/nethack-ja/src/mhitu.c",
             "function": "mattacku",
-            "line": 655,
+            "line": 654,
             "notification_implementation": "planned; existing legacy hooks are not accepted coverage"
           },
           {
             "path": "build/nethack-ja/src/mhitm.c",
             "function": "mattackm",
-            "line": 330,
+            "line": 329,
             "notification_implementation": "planned; existing legacy hooks are not accepted coverage"
           },
           {
             "path": "build/nethack-ja/src/mhitu.c",
             "function": "getmattk",
-            "line": 474,
+            "line": 473,
             "notification_implementation": "planned; existing legacy hooks are not accepted coverage"
           }
         ],
@@ -16392,13 +16328,13 @@
           {
             "path": "build/nethack-ja/src/mhitu.c",
             "function": "gazemu",
-            "line": 2096,
+            "line": 2093,
             "notification_implementation": "planned; existing legacy hooks are not accepted coverage"
           },
           {
             "path": "build/nethack-ja/src/mhitm.c",
             "function": "gazemm",
-            "line": 841,
+            "line": 839,
             "notification_implementation": "planned; existing legacy hooks are not accepted coverage"
           }
         ],
@@ -16432,31 +16368,31 @@
           {
             "path": "build/nethack-ja/src/uhitm.c",
             "function": "passive",
-            "line": 6875,
+            "line": 6873,
             "notification_implementation": "planned; existing legacy hooks are not accepted coverage"
           },
           {
             "path": "build/nethack-ja/src/mhitm.c",
             "function": "passivemm",
-            "line": 1481,
+            "line": 1479,
             "notification_implementation": "planned; existing legacy hooks are not accepted coverage"
           },
           {
             "path": "build/nethack-ja/src/mhitu.c",
             "function": "passiveum",
-            "line": 3135,
+            "line": 3132,
             "notification_implementation": "planned; existing legacy hooks are not accepted coverage"
           },
           {
             "path": "build/nethack-ja/src/mhitu.c",
             "function": "mdamageu",
-            "line": 2402,
+            "line": 2399,
             "notification_implementation": "planned; existing legacy hooks are not accepted coverage"
           },
           {
             "path": "build/nethack-ja/src/mhitm.c",
             "function": "mdamagem",
-            "line": 1180,
+            "line": 1178,
             "notification_implementation": "planned; existing legacy hooks are not accepted coverage"
           },
           {
@@ -16616,13 +16552,13 @@
           {
             "path": "build/nethack-ja/src/mhitu.c",
             "function": "gulpmu",
-            "line": 1605,
+            "line": 1602,
             "notification_implementation": "planned; existing legacy hooks are not accepted coverage"
           },
           {
             "path": "build/nethack-ja/src/mhitu.c",
             "function": "expels",
-            "line": 405,
+            "line": 404,
             "notification_implementation": "planned; existing legacy hooks are not accepted coverage"
           },
           {
@@ -16685,7 +16621,8 @@
           "name": "darkdungeon_runtime_config",
           "line": 14,
           "declarations": [
-            "int smoke_enabled"
+            "int smoke_enabled",
+            "const char *manual_data"
           ],
           "runtime_binding": "not-implemented"
         },
@@ -16693,7 +16630,7 @@
           "path": "build/nethack-ja/include/app_runtime.h",
           "kind": "struct",
           "name": "darkdungeon_core_abi",
-          "line": 45,
+          "line": 51,
           "declarations": [
             "size_t values[dd_abi_count]"
           ],
@@ -19359,6 +19296,19 @@
             "const char *display_txt",
             "const char *object_nam",
             "const char *response_cmd"
+          ],
+          "runtime_binding": "not-implemented"
+        },
+        {
+          "path": "build/nethack-ja/include/manual_profile.h",
+          "kind": "struct",
+          "name": "Session",
+          "line": 205,
+          "declarations": [
+            "std::unique_ptr<QLockFile> lock",
+            "QByteArray data",
+            "QString reportPath",
+            "QJsonObject report"
           ],
           "runtime_binding": "not-implemented"
         },
@@ -22396,7 +22346,7 @@
           "path": "build/nethack-ja/src/rnd.c",
           "kind": "struct",
           "name": "rnglist_t",
-          "line": 18,
+          "line": 19,
           "declarations": [
             "int (*fn)(int)",
             "boolean init",
@@ -22754,7 +22704,7 @@
           "path": "build/nethack-ja/sys/windows/windsys.c",
           "kind": "struct",
           "name": "CRctxt",
-          "line": 1170,
+          "line": 1176,
           "declarations": [
             "BCRYPT_ALG_HANDLE bah",
             "BCRYPT_HASH_HANDLE bhh",
@@ -22771,7 +22721,7 @@
           "path": "build/nethack-ja/sys/windows/windsys.c",
           "kind": "struct",
           "name": "userstate",
-          "line": 1311,
+          "line": 1317,
           "declarations": [
             "int error_count",
             "int good_count",
@@ -22817,7 +22767,7 @@
           "path": "build/nethack-ja/win/Qt/realtime_model.h",
           "kind": "struct",
           "name": "Position",
-          "line": 39,
+          "line": 51,
           "declarations": [
             "double x=0, y=0"
           ],
@@ -22827,7 +22777,7 @@
           "path": "build/nethack-ja/win/Qt/realtime_model.h",
           "kind": "struct",
           "name": "Input",
-          "line": 41,
+          "line": 53,
           "declarations": [
             "int direction=-1",
             "bool sword=false"
@@ -22838,7 +22788,7 @@
           "path": "build/nethack-ja/win/Qt/realtime_model.h",
           "kind": "struct",
           "name": "Enemy",
-          "line": 42,
+          "line": 54,
           "declarations": [
             "EnemyKind kind=EnemyKind::Slime",
             "Position position, target",
@@ -22852,7 +22802,7 @@
           "path": "build/nethack-ja/win/Qt/realtime_model.h",
           "kind": "struct",
           "name": "Projectile",
-          "line": 49,
+          "line": 61,
           "declarations": [
             "Position position, velocity",
             "double life=3"
@@ -22876,7 +22826,8 @@
           "name": "darkdungeon_runtime_config",
           "line": 14,
           "declarations": [
-            "int smoke_enabled"
+            "int smoke_enabled",
+            "const char *manual_data"
           ],
           "runtime_binding": "not-implemented"
         },
@@ -22884,7 +22835,7 @@
           "path": "src/app_runtime.h",
           "kind": "struct",
           "name": "darkdungeon_core_abi",
-          "line": 45,
+          "line": 51,
           "declarations": [
             "size_t values[dd_abi_count]"
           ],
@@ -22901,14 +22852,27 @@
             "void *(*chain_routine)(int, int, void *, void *, void *)"
           ],
           "runtime_binding": "not-implemented"
+        },
+        {
+          "path": "src/manual_profile.h",
+          "kind": "struct",
+          "name": "Session",
+          "line": 205,
+          "declarations": [
+            "std::unique_ptr<QLockFile> lock",
+            "QByteArray data",
+            "QString reportPath",
+            "QJsonObject report"
+          ],
+          "runtime_binding": "not-implemented"
         }
       ],
       "counts": {
-        "files": 318,
-        "references": 686,
+        "files": 322,
+        "references": 677,
         "route_groups": 12,
-        "struct_union_groups": 367,
-        "member_declarations": 2959
+        "struct_union_groups": 369,
+        "member_declarations": 2969
       }
     }
   }

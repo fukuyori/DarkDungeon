@@ -196,7 +196,7 @@ Update-Source 'win\Qt\qt_bind.cpp' {
     }
     $inventoryPattern='(void NetHackQtBind::qt_update_inventory\(int arg UNUSED\)\s*\{)'
     if([regex]::Matches($s,$inventoryPattern).Count -ne 1){throw 'Inventory notification refresh anchor changed.'}
-    $s=[regex]::Replace($s,$inventoryPattern,'$1'+"`n    darkdungeon_refresh_inventory_view();")
+    $s=[regex]::Replace($s,$inventoryPattern,'$1'+"`n    darkdungeon_inventory_notified();")
     $anchor="int NetHackQtBind::qt_get_ext_cmd()`r`n{"
     if(!$s.Contains($anchor)){$anchor="int NetHackQtBind::qt_get_ext_cmd()`n{"}
     if(!$s.Contains($anchor)){throw 'Toolbar extended command dispatch anchor missing.'}
@@ -251,6 +251,73 @@ Update-Source 'win\Qt\qt_plsel.cpp' {
     # This field is a name; role/race are selected by separate controls.
     $s=$s.Replace('str_copy(svp.plname, name_str, PL_NSIZ);','str_copy(svp.plname, name_str, PL_NSIZ); gp.plnamelen = int(strlen(svp.plname));')
     $s.Replace('if (fully_specified_role)', 'if (fully_specified_role && qEnvironmentVariable("DARKDUNGEON_SMOKE_OUTPUT").isEmpty())')
+}
+# R6 #132: assisted checks compare both RNG states without advancing them.
+Update-Source 'src\rnd.c' {
+    param($s)
+    $pattern='(?s)(static struct rnglist_t rnglist\[\] = \{.*?\r?\n\};)'
+    if([regex]::Matches($s,$pattern).Count -ne 1){throw 'RNG list anchor changed.'}
+    [regex]::Replace($s,$pattern,'$1'+@'
+
+
+/* DarkDungeon R6: copy one RNG state (CORE=0, DISP=1) without advancing it.
+   Defined with rnglist, so only in USE_ISAAC64 builds. */
+void darkdungeon_copy_rng(int, isaac64_ctx *);
+void
+darkdungeon_copy_rng(int which, isaac64_ctx *out)
+{
+    if (which < 0 || which >= SIZE(rnglist))
+        return;
+    *out = rnglist[which].rng_state;
+}
+'@)
+}
+# R6 #132: the paper doll paints the public inventory snapshot. Painting no
+# longer calls obj_to_glyph/xprname, learn_unseen_invent() or reassign().
+Update-Source 'win\Qt\qt_inv.cpp' {
+    param($s)
+    if(!$s.Contains('#include "qt_set.h"')){throw 'Paper doll include anchor missing.'}
+    $s=$s.Replace('#include "qt_set.h"',"#include `"qt_set.h`"`r`n#include `"qt_darkdungeon.h`"")
+    # find_tool() moves to the snapshot code in qt_inventory.cpp.
+    $toolPattern='(?s)static struct obj \*\r?\nfind_tool\(int tooltyp\)\r?\n\{.*?\r?\n\}\r?\n\r?\n'
+    if([regex]::Matches($s,$toolPattern).Count -ne 1){throw 'Paper doll find_tool anchor changed.'}
+    $s=[regex]::Replace($s,$toolPattern,'')
+    $pattern='(?s)void NetHackQtInvUsageWindow::drawWorn\(.*?(?=QSize NetHackQtInvUsageWindow::sizeHint)'
+    if([regex]::Matches($s,$pattern).Count -ne 1){throw 'Paper doll paint anchor changed.'}
+    $s=[regex]::Replace($s,$pattern,@'
+// DarkDungeon R6: the paper doll draws the inventory snapshot prepared at core
+// points; glyphs, tips and invlets are not computed while painting.
+void NetHackQtInvUsageWindow::paintEvent(QPaintEvent*)
+{
+#ifdef ENHANCED_PAPERDOLL
+    if (qt_settings->doll_is_shown && ::iflags.wc_ascii_map
+        && qt_settings->glyphs().no_tiles)
+        qt_settings->doll_is_shown = false;
+    if (!qt_settings->doll_is_shown)
+        return;
+    // set glyphs() for the paper doll; might be different size than map's
+    qt_settings->glyphs().setSize(qt_settings->dollWidth,
+                                  qt_settings->dollHeight);
+#endif
+
+    QPainter painter;
+    painter.begin(this);
+    for (int x = 0; x <= 2; ++x)
+        for (int y = 0; y <= 5; ++y)
+            ::darkdungeon_paint_doll_cell(painter, x, y);
+    painter.end();
+
+#ifdef ENHANCED_PAPERDOLL
+    // reset glyphs() to the ones being used for the map
+    qt_settings->glyphs().setSize(qt_settings->tileWidth,
+                                  qt_settings->tileHeight);
+#endif
+}
+
+
+'@)
+    if(!$s.Contains('? tips[cellx][celly] : NULL;')){throw 'Paper doll tip anchor missing.'}
+    $s.Replace('? tips[cellx][celly] : NULL;','? ::darkdungeon_doll_tip(cellx, celly) : NULL;')
 }
 Update-Source 'src\files.c' {
     param($s)

@@ -73,6 +73,13 @@ if($retiredStatus) {
 } elseif($RequireRetiredMotion) {
     throw 'The retired animation status is missing from runtime evidence.'
 }
+# R6 #132: inventory paint/drag/tooltip must not draw CORE/DISP (assisted check).
+foreach($phase in @('save','restore')) {
+    $invariance=Join-Path $evidence "inventory-invariance-$phase.txt"
+    if(!(Test-Path -LiteralPath $invariance) -or !(Select-String -LiteralPath $invariance -SimpleMatch 'inventory paint/drag/tooltip RNG invariance under hallucination=pass' -Quiet)) {
+        throw "Inventory paint invariance evidence for $phase is missing or failed. Evidence: $evidence"
+    }
+}
 if($GeometryCapture) {
     $bundles=@(Get-ChildItem -LiteralPath $evidence -Directory -Filter 'geometry-g*')
     if($bundles.Count -ne 4){throw "Expected four geometry bundles (G36/G48, save/restore). Evidence: $evidence"}
