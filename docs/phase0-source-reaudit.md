@@ -79,7 +79,7 @@ R6定義の変更は、参照する2つのSHAと件数だけである。R7定義
 2. R5計画→R6調査表→停止点の許可表→R6定義→R7定義の順に作り直す。#167で許可表をR6定義へ結んだ後は、この順序が必須になる。
 3. 全検査を再実行し、旧版のblob IDと新旧SHAを記録する。
 
-既存の観測・比較基準・検査記録は、作成時の調査表・定義のSHAで照合する。`validate_projection`は現在の調査表のSHAと一致しないprojectionを拒否するため、過去のprojectionを検証するときは、作成時の調査表をGitのcommitから取り出して使う。作り直しのたびに古い基準を新しいSHAへ付け替えない。基準の凍結（#139）では、凍結に使った調査表・定義のSHAとcommitを基準の記録に含める。C観測器の実装（#107/#108等）や基準の凍結の前後でも、この手順が必要になる。
+既存の観測・比較基準・検査記録は、作成時の調査表・定義のSHAで照合する。`validate_projection`は現在の調査表のSHAと一致しないprojectionを拒否するため、過去のprojectionを検証するときは、作成時の調査表・R6定義・停止点の許可表を、作成時のGitのcommitから取り出して使う。許可表は`validate_projection`と`validate_point`が`docs/data/rendering-boundary-ports.json`から読むため、作業ツリーごと作成時のcommitへ戻して検証する（#167以降）。作り直しのたびに古い基準を新しいSHAへ付け替えない。基準の凍結（#139）では、凍結に使った調査表・定義のSHAとcommitを基準の記録に含める。C観測器の実装（#107/#108等）や基準の凍結の前後でも、この手順が必要になる。
 
 関連して文書を更新した：`docs/rendering-invariant-contract.md`（§2の注記と件数）、`docs/phase0-legacy-retirement.md`（追記）、`tools/rendering-invariants/README.md`。
 

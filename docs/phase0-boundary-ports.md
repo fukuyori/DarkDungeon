@@ -65,7 +65,7 @@ prompt-answerとsuspended-acknowledgeは値が同じで、種類（prompt-paused
 
 0番のclock cursorは、envelopeに照合する相手がないため検査していない。`input_ordinal`の0（入力前）と`inputs[]`の番号の付け方の関係も未定義である。
 
-`contract.py`の`validate_projection`も、`port_function`が`boundary_kind`に許された停止点であることを検査するようにした。従来は識別子の書式だけを検査していた。ただし、R6定義とprojectionは許可表のSHAを持たないため、許可表を変えても`contract.py --check`では検出しない（別タスク）。
+`contract.py`の`validate_projection`も、`port_function`が`boundary_kind`に許された停止点であることを検査するようにした。従来は識別子の書式だけを検査していた。#167で、R6定義（`boundary_ports_sha256`）とprojectionに許可表のSHAを持たせた。下記の「#167」を参照。
 
 ## 検証
 
@@ -111,7 +111,7 @@ prompt-answerとsuspended-acknowledgeは値が同じで、種類（prompt-paused
 | L1 doprev_message | 停止点から削除し、停止点にしないものへ |
 | L2 cursorの単調性 | 入力・seed・clockのcursorの後戻りを拒否。0番のclock cursorと`inputs[]`の番号の関係は未定義と記録 |
 | L3 真偽値の番号 | 整数の型を必須にした |
-| L4 許可表のSHA | 別タスク |
+| L4 許可表のSHA | #167で対応 |
 | L5 modalの意味 | 表に記載 |
 | L6 ゲーム終了後 | 停止点にしないと決めた |
 | L7 R5の検査未実行 | 上記に記録 |
@@ -135,4 +135,15 @@ prompt-answerとsuspended-acknowledgeは値が同じで、種類（prompt-paused
 
 - C観測器での停止点の帰属（どの窓口・呼出元か、待ちに入ったか、`commandInp`の条件、回数を入力中か）の実装と、実ゲームでの記録。
 - `delay_output`の呼出元の走査は字句だけである。新しい呼出元が増えたら`--check`が失敗するので、許可表を作り直してレビューする。
-- 別タスク（tque #165〜#167）：R5計画の凍結SHAの扱い（#165、作り直して解消）、R5の`validate_core`に停止点の2項目を加えるかどうか（#166）、許可表のSHAをR6定義・projectionへ結ぶこと（#167）。R5の`validate_envelope`でSHAの計算と解析を1回の読み取りにすることも#166で扱う。
+- 別タスク（tque #165〜#167）：R5計画の凍結SHAの扱い（#165、作り直して解消）、R5の`validate_core`に停止点の2項目を加えるかどうか（#166）、許可表のSHAをR6定義・projectionへ結ぶこと（#167、対応済み）。R5の`validate_envelope`でSHAの計算と解析を1回の読み取りにすることも#166で扱う。
+
+## 許可表のSHAの結合（#167）
+
+2026-10-29。許可表を変えたときに、R6定義の照合で検出できるようにした。
+
+- R6定義（`rendering-invariant-contract.json`）に`boundary_ports_sha256`を追加した。`contract.py --check`は許可表の現在のSHAで定義を作り直して比べるため、許可表を変えると失敗する。実際のファイルで許可表を一時的に書き換え、`--check`が失敗し、戻すと成功することを確認した（`artifacts/r6-boundary-binding-20261029/detect-table-change.json`）。
+- projection（`darkdungeon-protected-projection-v1`）に`boundary_ports_sha256`を必須の項目として追加した。`validate_projection`は、projectionの値と呼出元が渡したR6定義の値（`validate_definition`で照合済みのもの）が一致すること、ディスク上の許可表のSHAがその値と一致することを検査してから、停止点を許可表で照合する。許可表は1回の読み取りからSHAの計算と解析を行う。保存済みの定義と許可表の一致は`contract.py --check`が検査する。`compare_paint`は許可表のSHAを引数に取る。
+- 手順（[再監査の記録](phase0-source-reaudit.md)）のとおり、許可表→R6定義→R7定義の順に作り直した。許可表は変わっていない（4b076f…）。R6定義は6d0f134c…、R7定義は8c06b1d1…になった。
+- run観測（R5のrun_report_contract）には許可表のSHAを入れていない。runの検査器は、その時点の許可表で照合する。runの形式の変更は#166で扱う。
+
+再実行した検査はすべて成功した（`artifacts/r6-boundary-binding-20261029`）。R5の計画照合と形式検査55項目、R6調査表の照合、R6定義の照合と合成検査66項目（定義の許可表SHAの誤り・欠落、projectionの許可表SHAの誤り・欠落、ディスク上の許可表と定義の不一致の5項目を追加）、停止点の合成検査50項目、R7定義の照合と合成検査62項目、撮影記録・geometry・OS拡大率の検査。

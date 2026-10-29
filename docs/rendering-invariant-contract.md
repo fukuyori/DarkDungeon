@@ -109,7 +109,7 @@ runのcore_fileはcore-observation-v1のメタデータと、その点の実効b
 
 ## 7. 私有の保護対象と正規化
 
-私有のdarkdungeon-protected-projection-v1は、ケース/言語/build/実行ファイルSHAの宣言値、boundary_id/kind/port_function・入力番号・ソース監査SHA、field_map_sha256、normalization_registry_sha256、sampling_contract_id、領域別coverageと、次の13領域を持つ。通常CLIの公開観測と別に管理する。
+私有のdarkdungeon-protected-projection-v1は、ケース/言語/build/実行ファイルSHAの宣言値、boundary_id/kind/port_function・入力番号・ソース監査SHA、停止点の許可表のSHA（boundary_ports_sha256、#167）、field_map_sha256、normalization_registry_sha256、sampling_contract_id、領域別coverageと、次の13領域を持つ。通常CLIの公開観測と別に管理する。
 
 | 領域 | C側の根と含める意味 |
 |---|---|

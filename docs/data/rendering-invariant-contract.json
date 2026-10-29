@@ -2,6 +2,7 @@
   "schema": "darkdungeon-invariant-contract-v1",
   "source_audit_sha256": "49f78585d65dc21c1ca9d58a0c5a9824c26d284ba6f6db786b5e939f364cfe5d",
   "fixture_plan_sha256": "c5d120eece12ef9f7c7f569296bd642bd86bb447a3f6660844303f122967e7dd",
+  "boundary_ports_sha256": "4b076f1027337f2a326e9aae99ddbd13c74f4c9f74a1468f0862e6e8f100149d",
   "invariants": {
     "INV01": "paint reads an immutable published generation; no core calls or live entity pointers",
     "INV02": "only core-authorized appearances, positions, layers and effects enter presentation",

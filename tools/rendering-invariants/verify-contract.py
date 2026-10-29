@@ -26,19 +26,21 @@ def main():
         ('missing domain',lambda p:p['protected_domains'].remove('knowledge')),
         ('false runtime completion',lambda p:p['readiness'].update(runtime_ready=True)),
         ('legacy migration restored',lambda p:p.update(legacy_save_policy='migrate-existing-saves')),
+        ('stale boundary allow table',lambda p:p.update(boundary_ports_sha256='b'*64)),
+        ('boundary allow table unbound',lambda p:p.pop('boundary_ports_sha256')),
     ):
         bad = copy.deepcopy(plan); mutate(bad)
         rejected(lambda:validate_definition(bad),'Invariant definition differs from audited sources or required policy',label)
     rng = {'n':256,'r':['0'*16]*256,'m':['0'*16]*256,'a':'0'*16,'b':'0'*16,'c':'0'*16}
     registry = {'schema':'darkdungeon-normalization-registry-v1','entries':[]}
     before = {'schema':'darkdungeon-protected-projection-v1','case_id':'synthetic','language':'ja','build_id':'synthetic-build',
-        'engine_sha256':'a'*64,'boundary_id':'ready-1','input_ordinal':1,'source_audit_sha256':plan['source_audit_sha256'],
+        'engine_sha256':'a'*64,'boundary_id':'ready-1','input_ordinal':1,'source_audit_sha256':plan['source_audit_sha256'],'boundary_ports_sha256':plan['boundary_ports_sha256'],
         'boundary_kind':'command-ready','port_function':'qt_nh_poskey.command','field_map_sha256':'f'*64,
         'normalization_registry_sha256':registry_sha(registry),'sampling_contract_id':'synthetic-sampling-v1',
         'coverage':{name:{'status':'complete','unbound_paths':[],'reason':'synthetic JSON only, not a real C-field map'} for name in DOMAINS},
         'protected':{name:{'synthetic_only':True,'value':0} for name in DOMAINS}}
     before['protected']['rng'] = {'core':copy.deepcopy(rng),'display':copy.deepcopy(rng)}
-    def compare(left,right): return compare_paint(left,right,plan['source_audit_sha256'],registry)
+    def compare(left,right,boundary=plan['boundary_ports_sha256']): return compare_paint(left,right,plan['source_audit_sha256'],boundary,registry)
     result = compare(before,copy.deepcopy(before))
     check(result['protected_values_equal'] and not result['runtime_validated'], 'equal synthetic values do not certify actual game or paint')
     for domain in DOMAINS:
@@ -109,6 +111,8 @@ def main():
         ('different field map',lambda p:p.update(field_map_sha256='b'*64),'Paint comparison crosses case/build/input boundary'),
         ('different registry',lambda p:p.update(normalization_registry_sha256='b'*64),'Normalization registry hash mismatch'),
         ('stale source audit',lambda p:p.update(source_audit_sha256='b'*64),'Projection source audit mismatch'),
+        ('projection names another allow table',lambda p:p.update(boundary_ports_sha256='b'*64),'Projection boundary allow table mismatch'),
+        ('projection without an allow table',lambda p:p.pop('boundary_ports_sha256'),'Invalid protected projection header'),
         ('missing knowledge',lambda p:p['protected'].pop('knowledge'),'Protected domain missing or unknown'),
         ('floating state',lambda p:p['protected']['hero'].update(value=0.5),'Floating/unsupported value in exact projection'),
         ('unsafe large integer',lambda p:p['protected']['hero'].update(value=2**64-1),'Use typed exact strings for larger integers'),
@@ -119,6 +123,8 @@ def main():
     delayed=copy.deepcopy(before); delayed.update(boundary_kind='core-suspended',port_function='qt_delay_output.tmp_at')
     other_delay=copy.deepcopy(delayed); other_delay.update(port_function='qt_delay_output.explode')
     rejected(lambda:compare(delayed,other_delay),'Paint comparison crosses case/build/input boundary','different stop point of the same kind')
+    other_table=copy.deepcopy(before); other_table['boundary_ports_sha256']='c'*64
+    rejected(lambda:compare(other_table,copy.deepcopy(other_table),'c'*64),'Boundary allow table differs from the R6 definition','allow table on disk differs from the one the definition binds')
     print(json.dumps({'mode':'synthetic-definition-verification','created_utc':datetime.now(timezone.utc).isoformat(),
         'checks_passed':len(checks),'checks':checks,'contract_sha256':sha(DATA/'rendering-invariant-contract.json'),
         'tool_sha256':{p.name:sha(p) for p in (Path(__file__),Path(__file__).with_name('contract.py'),Path(__file__).with_name('audit-source.py'))},

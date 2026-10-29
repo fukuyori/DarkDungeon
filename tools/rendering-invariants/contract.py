@@ -42,7 +42,8 @@ def require(condition, message):
 def definition():
     audit = json.loads((DATA/'rendering-invariant-audit.json').read_text(encoding='utf-8-sig'))
     return {'schema':'darkdungeon-invariant-contract-v1','source_audit_sha256':sha(DATA/'rendering-invariant-audit.json'),
-        'fixture_plan_sha256':sha(DATA/'rendering-fixture-plan.json'), 'invariants':INVARIANTS,
+        'fixture_plan_sha256':sha(DATA/'rendering-fixture-plan.json'), 'boundary_ports_sha256':sha(DATA/'rendering-boundary-ports.json'),
+        'invariants':INVARIANTS,
         'protected_domains':DOMAINS, 'source_counts':{k:v['counts'] for k,v in audit['languages'].items()},
         'boundary_kinds':BOUNDARY_KINDS,
         'projection_coverage':{'statuses':['complete','partial','unsupported'],'per_domain':['status','unbound_paths','reason'],
@@ -88,8 +89,8 @@ def validate_registry(value, leaf_bindings=None):
             require(set(entry['guards']) == {'sampling-contracts-differ','both-recorded-hallucinated-disp-samples','same-level-position-and-update-order','terrain-and-non-glyph-memory-equal','CORE-and-rule-results-equal'}, 'Sampled memory exception guards incomplete')
 
 
-def validate_projection(value, audit_sha, registry):
-    keys = {'schema','case_id','language','build_id','engine_sha256','boundary_id','boundary_kind','port_function','input_ordinal','source_audit_sha256','field_map_sha256','normalization_registry_sha256','sampling_contract_id','coverage','protected'}
+def validate_projection(value, audit_sha, boundary_sha, registry):
+    keys = {'schema','case_id','language','build_id','engine_sha256','boundary_id','boundary_kind','port_function','input_ordinal','source_audit_sha256','boundary_ports_sha256','field_map_sha256','normalization_registry_sha256','sampling_contract_id','coverage','protected'}
     require(isinstance(value, dict) and set(value) == keys and value['schema'] == 'darkdungeon-protected-projection-v1', 'Invalid protected projection header')
     for name in ('case_id','build_id','boundary_id','port_function','sampling_contract_id'):
         require(isinstance(value[name],str) and re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9_.-]{0,127}', value[name]), 'Invalid projection identity')
@@ -97,9 +98,15 @@ def validate_projection(value, audit_sha, registry):
     require(type(value['input_ordinal']) is int and value['input_ordinal'] >= 0, 'Invalid input ordinal')
     require(value['source_audit_sha256'] == audit_sha, 'Projection source audit mismatch')
     require(value['boundary_kind'] in BOUNDARY_KINDS, 'Invalid suspended/ready boundary kind')
-    # #106: the window-port stop point must be allowed for this boundary kind.
+    # #106/#167: the stop point must be allowed by the allow table that the R6
+    # definition binds, and the projection must name that same table. The caller
+    # passes boundary_sha from a definition already checked by validate_definition.
+    # The table is hashed and parsed from one read.
+    require(value['boundary_ports_sha256'] == boundary_sha, 'Projection boundary allow table mismatch')
+    raw = (DATA/'rendering-boundary-ports.json').read_bytes()
+    require(hashlib.sha256(raw).hexdigest() == boundary_sha, 'Boundary allow table differs from the R6 definition')
     from boundary import validate_point
-    validate_point(value['boundary_kind'], value['port_function'], None)
+    validate_point(value['boundary_kind'], value['port_function'], None, json.loads(raw.decode('utf-8-sig')))
     require(isinstance(value['field_map_sha256'],str) and re.fullmatch(r'[0-9a-f]{64}',value['field_map_sha256']), 'Projection field map missing')
     require(value['normalization_registry_sha256'] == registry_sha(registry), 'Normalization registry hash mismatch')
     require(isinstance(value['coverage'],dict) and set(value['coverage']) == set(DOMAINS), 'Coverage domain missing')
@@ -148,10 +155,10 @@ def differences(left, right, path=''):
     return [] if left == right else [path]
 
 
-def compare_paint(before, after, audit_sha, registry, leaf_bindings=None):
+def compare_paint(before, after, audit_sha, boundary_sha, registry, leaf_bindings=None):
     validate_registry(registry,leaf_bindings)
-    validate_projection(before,audit_sha,registry)
-    validate_projection(after,audit_sha,registry)
+    validate_projection(before,audit_sha,boundary_sha,registry)
+    validate_projection(after,audit_sha,boundary_sha,registry)
     require(all(before[k] == after[k] for k in ('case_id','language','build_id','engine_sha256','boundary_id','boundary_kind','port_function','input_ordinal','field_map_sha256','sampling_contract_id')), 'Paint comparison crosses case/build/input boundary')
     incomplete = sorted({d for point in (before,after) for d,item in point['coverage'].items() if item['status'] != 'complete'})
     observed_delta = differences(before['protected'],after['protected'])
